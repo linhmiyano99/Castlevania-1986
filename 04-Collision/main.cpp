@@ -1,64 +1,68 @@
-/* =============================================================
+﻿/* =============================================================
 	INTRODUCTION TO GAME PROGRAMMING SE102
-	
-	SAMPLE 04 - COLLISION
+
+	SAMPLE 03 - KEYBOARD AND OBJECT STATE
 
 	This sample illustrates how to:
 
-		1/ Implement SweptAABB algorithm between moving objects
-		2/ Implement a simple (yet effective) collision frame work
-
-	Key functions: 
-		CGame::SweptAABB
-		CGameObject::SweptAABBEx
-		CGameObject::CalcPotentialCollisions
-		CGameObject::FilterCollision
-
-		CGameObject::GetBoundingBox
-		
+		1/ Process keyboard input
+		2/ Control object state with keyboard events
 ================================================================ */
 
 #include <windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+#include "fstream"
 
 #include "debug.h"
 #include "Game.h"
 #include "GameObject.h"
 #include "Textures.h"
+#include "MagagementTexture.h"
 
-#include "Mario.h"
+#include "Camera.h"
+
+#include "Simon.h"
+#include "Map.h"
+#include "Torch.h"
+#include "WhipUpgrade.h"
+#include "ItemDagger.h"
 #include "Brick.h"
-#include "Goomba.h"
+#include "Dagger.h"
+
+
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
-#define MAIN_WINDOW_TITLE L"04 - Collision"
+#define MAIN_WINDOW_TITLE L"02 - Sprite animation"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
+#define SCREEN_WIDTH 560
+#define SCREEN_HEIGHT 460
 
 #define MAX_FRAME_RATE 120
 
-#define ID_TEX_MARIO 0
-#define ID_TEX_ENEMY 10
-#define ID_TEX_MISC 20
 
-CGame *game;
 
-CMario *mario;
-CGoomba *goomba;
 
-vector<LPGAMEOBJECT> objects;
+CGame * game;
+CSimon* simon;
+CMap* map;
+CDagger* dagger;
+CManagementTexture* manage;
 
-class CSampleKeyHander: public CKeyEventHandler
+vector<CGameObject*> objects;
+
+
+using namespace std;
+
+class CSampleKeyHander : public CKeyEventHandler
 {
-	virtual void KeyState(BYTE *states);
+	virtual void KeyState(BYTE* states);
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
 };
 
-CSampleKeyHander * keyHandler; 
+CSampleKeyHander* keyHandler;
 
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
@@ -66,13 +70,21 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		mario->SetState(MARIO_STATE_JUMP);
+		simon->SetState(SIMON_STATE_JUMP);
 		break;
-	case DIK_A: // reset
-		mario->SetState(MARIO_STATE_IDLE);
-		mario->SetLevel(MARIO_LEVEL_BIG);
-		mario->SetPosition(50.0f,0.0f);
-		mario->SetSpeed(0, 0);
+	case DIK_Z:
+		if (game->IsKeyDown(DIK_DOWN))
+			simon->SetState(SIMON_STATE_SIT_ATTACK);
+		else if (game->IsKeyDown(DIK_UP))
+		{
+			simon->SetState(SIMON_STATE_ATTACK_DAGGER);
+		}
+		else
+			simon->SetState(SIMON_STATE_STAND_ATTACK);
+		break;
+	case DIK_X:
+		break;
+	case DIK_DOWN:
 		break;
 	}
 }
@@ -80,18 +92,42 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 void CSampleKeyHander::OnKeyUp(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
+	switch (KeyCode)
+	{
+	case DIK_DOWN:
+		simon->SetState(SIMON_STATE_UP);
+		break;
+	case DIK_LEFT:
+		simon->SetState(SIMON_STATE_IDLE);
+		break;
+	case DIK_RIGHT:
+		simon->SetState(SIMON_STATE_IDLE);
+		break;
+	}
 }
 
-void CSampleKeyHander::KeyState(BYTE *states)
+void CSampleKeyHander::KeyState(BYTE* states)
 {
-	// disable control key when Mario die 
-	if (mario->GetState() == MARIO_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_RIGHT))
-		mario->SetState(MARIO_STATE_WALKING_RIGHT);
+	if (game->IsKeyDown(DIK_DOWN))
+		simon->SetState(SIMON_STATE_SIT);
+	else if (game->IsKeyDown(DIK_Z))
+	{
+	}
+	else if (game->IsKeyDown(DIK_RIGHT))
+		simon->SetState(SIMON_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
-		mario->SetState(MARIO_STATE_WALKING_LEFT);
+		simon->SetState(SIMON_STATE_WALKING_LEFT);		
+	else if (game->IsKeyDown(DIK_SPACE))
+	{
+		
+	}
+	
+	else if (game->IsKeyDown(DIK_X))
+	{
+		//simon->SetState(SIMON_STATE_ATTACK_DAGGER);
+	}
 	else
-		mario->SetState(MARIO_STATE_IDLE);
+		simon->SetState(SIMON_STATE_IDLE);
 }
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -108,174 +144,46 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 /*
-	Load all game resources 
-	In this example: load textures, sprites, animations and mario object
-
-	TO-DO: Improve this function by loading texture,sprite,animation,object from file
+	Load all game resources
+	In this example: load textures, sprites, animations and simon object
 */
 void LoadResources()
 {
-	CTextures * textures = CTextures::GetInstance();
+	manage = new CManagementTexture();
 
-	textures->Add(ID_TEX_MARIO, L"textures\\mario.png",D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(ID_TEX_MISC, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
-	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
+	map = new CMap();
+	map->LoadMap();
+
+	dagger = CDagger::GetInstance();
+	objects.push_back(dagger);
+
+	simon = CSimon::GetInstance();
+	simon->SetPosition(0.0f, 20.0f);
+	objects.push_back(simon);
 
 
-	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-
-
-	CSprites * sprites = CSprites::GetInstance();
-	CAnimations * animations = CAnimations::GetInstance();
+	CTorch* torch0 = new CTorch(3);
+	torch0->SetPosition(190, 300);
+	objects.push_back(torch0);
 	
-	LPDIRECT3DTEXTURE9 texMario = textures->Get(ID_TEX_MARIO);
+	CTorch* torch1 = new CTorch(1);
+	torch1->SetPosition(416, 300);
+	objects.push_back(torch1);
 
-	// big
-	sprites->Add(10001, 246, 154, 260, 181, texMario);		// idle right
+	CTorch* torch2 = new CTorch(1);
+	torch2->SetPosition(640, 300);
+	objects.push_back(torch2);
 
-	sprites->Add(10002, 275, 154, 290, 181, texMario);		// walk
-	sprites->Add(10003, 304, 154, 321, 181, texMario);
-
-	sprites->Add(10011, 186, 154, 200, 181, texMario);		// idle left
-	sprites->Add(10012, 155, 154, 170, 181, texMario);		// walk
-	sprites->Add(10013, 125, 154, 140, 181, texMario);
-
-	sprites->Add(10099, 215, 120, 231, 135, texMario);		// die 
-
-	// small
-	sprites->Add(10021, 247, 0, 259, 15, texMario);			// idle small right
-	sprites->Add(10022, 275, 0, 291, 15, texMario);			// walk 
-	sprites->Add(10023, 306, 0, 320, 15, texMario);			// 
-
-	sprites->Add(10031, 187, 0, 198, 15, texMario);			// idle small left
-
-	sprites->Add(10032, 155, 0, 170, 15, texMario);			// walk
-	sprites->Add(10033, 125, 0, 139, 15, texMario);			// 
-
-
-	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
-	sprites->Add(20001, 408, 225, 424, 241, texMisc);
-
-	LPDIRECT3DTEXTURE9 texEnemy = textures->Get(ID_TEX_ENEMY);
-	sprites->Add(30001, 5, 14, 21, 29, texEnemy);
-	sprites->Add(30002, 25, 14, 41, 29, texEnemy);
-
-	sprites->Add(30003, 45, 21, 61, 29, texEnemy); // die sprite
-
-	LPANIMATION ani;
-
-	ani = new CAnimation(100);	// idle big right
-	ani->Add(10001);
-	animations->Add(400, ani);
-
-	ani = new CAnimation(100);	// idle big left
-	ani->Add(10011);
-	animations->Add(401, ani);
-
-	ani = new CAnimation(100);	// idle small right
-	ani->Add(10021);
-	animations->Add(402, ani);
-
-	ani = new CAnimation(100);	// idle small left
-	ani->Add(10031);
-	animations->Add(403, ani);
-
-	ani = new CAnimation(100);	// walk right big
-	ani->Add(10001);
-	ani->Add(10002);
-	ani->Add(10003);
-	animations->Add(500, ani);
-
-	ani = new CAnimation(100);	// // walk left big
-	ani->Add(10011);
-	ani->Add(10012);
-	ani->Add(10013);
-	animations->Add(501, ani);
-
-	ani = new CAnimation(100);	// walk right small
-	ani->Add(10021);
-	ani->Add(10022);
-	ani->Add(10023);
-	animations->Add(502, ani);
-
-	ani = new CAnimation(100);	// walk left small
-	ani->Add(10031);
-	ani->Add(10032);
-	ani->Add(10033);
-	animations->Add(503, ani);
-
-
-	ani = new CAnimation(100);		// Mario die
-	ani->Add(10099);
-	animations->Add(599, ani);
-
+	CTorch* torch3 = new CTorch(2);
+	torch3->SetPosition(864, 300);
+	objects.push_back(torch3);
 	
-
-	ani = new CAnimation(100);		// brick
-	ani->Add(20001);
-	animations->Add(601, ani);
-
-	ani = new CAnimation(300);		// Goomba walk
-	ani->Add(30001);
-	ani->Add(30002);
-	animations->Add(701, ani);
-
-	ani = new CAnimation(1000);		// Goomba dead
-	ani->Add(30003);
-	animations->Add(702, ani);
-
-	mario = new CMario();
-	mario->AddAnimation(400);		// idle right big
-	mario->AddAnimation(401);		// idle left big
-	mario->AddAnimation(402);		// idle right small
-	mario->AddAnimation(403);		// idle left small
-
-	mario->AddAnimation(500);		// walk right big
-	mario->AddAnimation(501);		// walk left big
-	mario->AddAnimation(502);		// walk right small
-	mario->AddAnimation(503);		// walk left big
-
-	mario->AddAnimation(599);		// die
-
-	mario->SetPosition(50.0f, 0);
-	objects.push_back(mario);
-
-	for (int i = 0; i < 5; i++)
+	
+	for (int i = 0; i < 96; i++)
 	{
-		CBrick *brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(100.0f + i*60.0f, 74.0f);
+		CBrick* brick = new CBrick();
+		brick->SetPosition(i * 32, 360);
 		objects.push_back(brick);
-
-		brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(100.0f + i*60.0f, 90.0f);
-		objects.push_back(brick);
-
-		brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(84.0f + i*60.0f, 90.0f);
-		objects.push_back(brick);
-	}
-
-
-	for (int i = 0; i < 30; i++)
-	{
-		CBrick *brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(0 + i*16.0f, 150);
-		objects.push_back(brick);
-	}
-
-	// and Goombas 
-	for (int i = 0; i < 4; i++)
-	{
-		goomba = new CGoomba();
-		goomba->AddAnimation(701);
-		goomba->AddAnimation(702);
-		goomba->SetPosition(200 + i*60, 135);
-		goomba->SetState(GOOMBA_STATE_WALKING);
-		objects.push_back(goomba);
 	}
 
 }
@@ -289,6 +197,10 @@ void Update(DWORD dt)
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 
+	float cx, cy;
+	simon->GetPosition(cx, cy);
+
+
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 1; i < objects.size(); i++)
 	{
@@ -297,22 +209,25 @@ void Update(DWORD dt)
 
 	for (int i = 0; i < objects.size(); i++)
 	{
-		objects[i]->Update(dt,&coObjects);
+		objects[i]->Update(dt, &coObjects);
 	}
 
-
 	// Update camera to follow mario
-	float cx, cy;
-	mario->GetPosition(cx, cy);
+	
 
-	cx -= SCREEN_WIDTH / 2;
+
+	cx -= SCREEN_WIDTH / 2 - 40;
 	cy -= SCREEN_HEIGHT / 2;
+	if (cx < 0) cx = 0; if (cx > 966) cx = 966;
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	CGame* game = CGame::GetInstance();
+	game->SetCamPos(cx, 0);
+	
+
 }
 
 /*
-	Render a frame 
+	Render a frame
 */
 void Render()
 {
@@ -327,8 +242,12 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
+		map->DrawMap();		
+
 		for (int i = 0; i < objects.size(); i++)
+		{
 			objects[i]->Render();
+		}
 
 		spriteHandler->End();
 		d3ddv->EndScene();
@@ -372,7 +291,7 @@ HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int Sc
 			hInstance,
 			NULL);
 
-	if (!hWnd) 
+	if (!hWnd)
 	{
 		OutputDebugString(L"[ERROR] CreateWindow failed");
 		DWORD ErrCode = GetLastError();
@@ -413,12 +332,12 @@ int Run()
 			frameStart = now;
 
 			game->ProcessKeyboard();
-			
+
 			Update(dt);
 			Render();
 		}
 		else
-			Sleep(tickPerFrame - dt);	
+			Sleep(tickPerFrame - dt);
 	}
 
 	return 1;
@@ -436,9 +355,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 	LoadResources();
-
-	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
-
 	Run();
 
 	return 0;

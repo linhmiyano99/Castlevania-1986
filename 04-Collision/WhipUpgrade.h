@@ -1,0 +1,27 @@
+#ifndef __WHIPUPGRADE_H_
+#define __WHIPUPGRADE_H_
+
+
+
+#include "GameObject.h"
+#include "Simon.h"
+#include "Textures.h"
+#include "Item.h"
+
+#define WHIPUPGRADE_WIDTH 32
+#define WHIPUPGRADE_HEIGHT 32
+
+#define WHIPUPGRADE_ANI_FIRE 7
+
+class CWhipUpgrade : public CItem
+{
+public:
+	CWhipUpgrade() : CItem()
+	{
+		AddAnimation(700);
+		_type = TYPE_ITEM_WHIPUPGRADE;
+	}
+	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+
+};
+#endif // !__WHIPUPGRADE_H_

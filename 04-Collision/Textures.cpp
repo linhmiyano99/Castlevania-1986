@@ -7,14 +7,14 @@
 #include "Game.h"
 #include "textures.h"
 
-CTextures * CTextures::__instance = NULL;
+CTextures* CTextures::__instance = NULL;
 
 CTextures::CTextures()
 {
 
 }
 
-CTextures *CTextures::GetInstance()
+CTextures* CTextures::GetInstance()
 {
 	if (__instance == NULL) __instance = new CTextures();
 	return __instance;
@@ -44,7 +44,7 @@ void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		transparentColor,			
+		transparentColor,
 		&info,
 		NULL,
 		&texture);								// Created texture pointer
@@ -60,7 +60,7 @@ void CTextures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 	DebugOut(L"[INFO] Texture loaded Ok: id=%d, %s \n", id, filePath);
 }
 
-LPDIRECT3DTEXTURE9 CTextures::Get(unsigned int i) 
+LPDIRECT3DTEXTURE9 CTextures::Get(unsigned int i)
 {
 	return textures[i];
 }

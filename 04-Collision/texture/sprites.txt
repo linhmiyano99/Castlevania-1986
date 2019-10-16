@@ -1,0 +1,316 @@
+id= 10000
+left= 0
+top= 0
+right= 32
+bottom= 32
+idTexture= 20
+
+id= 10001
+left= 190
+top= 3
+right= 225
+bottom= 65
+idTexture= 0
+
+id= 10002
+left= 130
+top= 3
+right= 170
+bottom= 65
+idTexture= 0
+
+id= 10003
+left= 71
+top= 3
+right= 108
+bottom= 65
+idTexture= 0
+
+id= 10004
+left= 6
+top= 3
+right= 50
+bottom= 65
+idTexture= 0
+
+id= 10005
+left= 190
+top= 3
+right= 255
+bottom= 65
+idTexture= 0
+
+id= 10011
+left= 190
+top= 3
+right= 225
+bottom= 65
+idTexture= 0
+
+id= 10012
+left= 130
+top= 3
+right= 170
+bottom= 65
+idTexture= 0
+
+id= 10013
+left= 71
+top= 3
+right= 108
+bottom= 65
+idTexture= 0
+
+id= 10014
+left= 6
+top= 3
+right= 50
+bottom= 65
+idTexture= 0
+
+id= 10015
+left= 190
+top= 3
+right= 255
+bottom= 65
+idTexture= 0
+
+id= 10101
+left= 250
+top= 68
+right= 295
+bottom= 133
+idTexture= 0
+
+id= 10102
+left= 180
+top= 68
+right= 255
+bottom= 133
+idTexture= 0
+
+id= 10103
+left= 120
+top= 68
+right= 165
+bottom= 133
+idTexture= 0
+
+id= 10111
+left= 250
+top= 68
+right= 295
+bottom= 133
+idTexture= 0
+
+id= 10112
+left= 180
+top= 68
+right= 255
+bottom= 133
+idTexture= 0
+
+id= 10113
+left= 120
+top= 68
+right= 165
+bottom= 133
+idTexture= 0
+
+id= 10201
+left= 245
+top= 0
+right= 290
+bottom= 55
+idTexture= 0
+
+id= 10202
+left= 245
+top= 0
+right= 290
+bottom= 55
+idTexture= 0
+
+id= 10300
+left= 290
+top= 0
+right= 360
+bottom= 65
+idTexture= 0
+
+id= 10301
+left= 360
+top= 0
+right= 418
+bottom= 65
+idTexture= 0
+
+
+id= 10302
+left= 418
+top= 0
+right= 480
+bottom= 65
+idTexture= 0
+
+
+id= 10310
+left= 425
+top= 64
+right= 480
+bottom= 115
+idTexture= 0
+
+id= 10311
+left= 7
+top= 131
+right= 50
+bottom= 180
+idTexture= 0
+
+id= 10312
+left= 60
+top= 131
+right= 112
+bottom= 180
+idTexture= 0
+
+id= 10400
+left= 6
+top= 3
+right= 50
+bottom= 65
+idTexture= 70
+
+id= 12000
+left= 25
+top= 0
+right= 160
+bottom= 70
+idTexture= 40
+
+id= 12001
+left= 186
+top= 0
+right= 320
+bottom= 70
+idTexture= 40
+
+id= 12002
+left= 350
+top= 0
+right= 470
+bottom= 70
+idTexture= 40
+
+id= 12010
+left= 25
+top= 70
+right= 160
+bottom= 137
+idTexture= 40
+
+id= 12011
+left= 186
+top= 70
+right= 320
+bottom= 137
+idTexture= 40
+
+id= 12012
+left= 346
+top= 70
+right= 470
+bottom= 137
+idTexture= 40
+
+id= 12020
+left= 0
+top= 137
+right= 160
+bottom= 204
+idTexture= 40
+
+id= 12021
+left= 160
+top= 137
+right= 320
+bottom= 204
+idTexture= 40
+
+id= 12022
+left= 320
+top= 137
+right= 470
+bottom= 204
+idTexture= 40
+
+id= 11000
+left= 0
+top= 0
+right= 32
+bottom= 64
+idTexture= 30
+
+id= 11001
+left= 32
+top= 0
+right= 64
+bottom= 64
+idTexture= 30
+
+id= 13000
+left= 82
+top= 74
+right= 130
+bottom= 117
+idTexture= 50
+
+id= 13001
+left= 341
+top= 68
+right= 395
+bottom= 102
+idTexture= 50
+
+id= 13002
+left= 245
+top= 111
+right= 274
+bottom= 133
+idTexture= 50
+
+id= 13010
+left= 248
+top= 252
+right= 296
+bottom= 295
+idTexture= 50
+
+id= 13011
+left= 252
+top= 300
+right= 303
+bottom= 341
+idTexture= 50
+
+id= 14000
+left= 0
+top= 0
+right= 42
+bottom= 44
+idTexture= 60
+
+id= 14001
+left= 42
+top= 0
+right= 84
+bottom= 44
+idTexture= 60
+
+id= 14002
+left= 84
+top= 0
+right= 126
+bottom= 44
+idTexture= 60
