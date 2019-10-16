@@ -21,13 +21,7 @@ class CVampireKiller: public CWeapon
 public:
 
 	static CVampireKiller* GetInstance();
-	CVampireKiller() :CWeapon()
-	{
-		_level = 1;
-		AddAnimation(600);
-		AddAnimation(601);
-		AddAnimation(602);
-	}
+	CVampireKiller();
 	void SetPosition(float simon_x, float simon_y);
 	void Render();
 	void setDefaultLevel();

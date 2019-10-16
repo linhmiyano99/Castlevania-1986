@@ -1,6 +1,28 @@
 #include "Torch.h"
 
-
+CTorch::CTorch(int id) : CGameObject()
+{
+	dt_die = 0;
+	state = TORCH_STATE_EXSIST;
+	AddAnimation(501);
+	AddAnimation(800);
+	switch (id)
+	{
+	case ID_WHIPUPGRADE:
+		item = new CWhipUpgrade();
+		break;
+	case ID_DAGGER:
+		item = new CItemDagger();
+		break;
+	case ID_HEART:
+		item = new CItemHeart();
+		break;
+	case 0:
+		break;
+	default:
+		break;
+	}
+}
 
 void CTorch::Render()
 {

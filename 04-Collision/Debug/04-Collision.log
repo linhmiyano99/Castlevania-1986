@@ -1,10 +1,38 @@
-﻿  Item.cpp
-C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(23,1): warning C4005: 'SIMON_ANI_SITTING': macro redefinition
+﻿  Brick.cpp
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(24,1): warning C4005: 'SIMON_ANI_SITTING': macro redefinition
 C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(28): message : see previous definition of 'SIMON_ANI_SITTING'
-C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(24,1): warning C4005: 'SIMON_ANI_JUMPING': macro redefinition
-  ItemDagger.cpp
-  ItemHeart.cpp
-  WhipUpgrade.cpp
-  Generating Code...
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(25,1): warning C4005: 'SIMON_ANI_JUMPING': macro redefinition
+  Item.cpp
 C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(27): message : see previous definition of 'SIMON_ANI_JUMPING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(24,1): warning C4005: 'SIMON_ANI_SITTING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(28): message : see previous definition of 'SIMON_ANI_SITTING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(25,1): warning C4005: 'SIMON_ANI_JUMPING': macro redefinition
+  ManagementTexture.cpp
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(27): message : see previous definition of 'SIMON_ANI_JUMPING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(27,1): warning C4005: 'SIMON_ANI_JUMPING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(25): message : see previous definition of 'SIMON_ANI_JUMPING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(28,1): warning C4005: 'SIMON_ANI_SITTING': macro redefinition
+  Scene.cpp
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(24): message : see previous definition of 'SIMON_ANI_SITTING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(27,1): warning C4005: 'SIMON_ANI_JUMPING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(25): message : see previous definition of 'SIMON_ANI_JUMPING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(28,1): warning C4005: 'SIMON_ANI_SITTING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(24): message : see previous definition of 'SIMON_ANI_SITTING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(45,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(62,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(67,20): warning C4018: '<': signed/unsigned mismatch
+  Simon.cpp
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(85,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(24,1): warning C4005: 'SIMON_ANI_SITTING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(28): message : see previous definition of 'SIMON_ANI_SITTING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(25,1): warning C4005: 'SIMON_ANI_JUMPING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(27): message : see previous definition of 'SIMON_ANI_JUMPING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.cpp(59,21): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.cpp(333,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(27,1): warning C4005: 'SIMON_ANI_JUMPING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(25): message : see previous definition of 'SIMON_ANI_JUMPING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(28,1): warning C4005: 'SIMON_ANI_SITTING': macro redefinition
+  Generating Code...
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(24): message : see previous definition of 'SIMON_ANI_SITTING'
   04-Collision.vcxproj -> C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\Debug\04-Collision.exe

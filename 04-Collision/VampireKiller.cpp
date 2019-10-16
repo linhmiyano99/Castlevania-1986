@@ -9,6 +9,14 @@ CVampireKiller* CVampireKiller::GetInstance()
 	return __instance;
 }
 
+CVampireKiller::CVampireKiller() :CWeapon()
+{
+	_level = 1;
+	AddAnimation(600);
+	AddAnimation(601);
+	AddAnimation(602);
+}
+
 void CVampireKiller::SetPosition(float simon_x, float simon_y)
 {
 	if (_level == 1 || _level == 2)

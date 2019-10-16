@@ -10,6 +10,7 @@
 #define ID_TEX_BBOX -100		// special texture to draw object bounding box
 #define ID_TEX_SIMON			0
 #define ID_TEX_MAP				10
+#define ID_TEX_MAP2				11
 #define ID_TEX_GROUND			20
 #define ID_TEX_TORCH			30
 #define ID_TEX_VAMPIREKILLER	40

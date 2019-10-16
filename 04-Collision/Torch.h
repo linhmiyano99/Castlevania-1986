@@ -1,3 +1,9 @@
+#ifndef __TORCH_H_
+#define __TORCH_H_
+
+
+
+
 #include "GameObject.h"
 #include "Simon.h"
 #include "Textures.h"
@@ -27,36 +33,9 @@ class CTorch : public CGameObject
 	DWORD dt_die;
 	CItem* item;
 public:
-	CTorch() : CGameObject()
-	{
-		dt_die = 0;
-		state = TORCH_STATE_EXSIST;
-		AddAnimation(501);
-		AddAnimation(800);
-		item = new CItem();
-	}
 
-	CTorch(int id) : CGameObject()
-	{
-		dt_die = 0;
-		state = TORCH_STATE_EXSIST;
-		AddAnimation(501);
-		AddAnimation(800);
-		switch (id)
-		{
-		case ID_WHIPUPGRADE:
-			item = new CWhipUpgrade();
-			break;
-		case ID_DAGGER:
-			item = new CItemDagger();
-			break;
-		case ID_HEART:
-			item = new CItemHeart();
-			break;
-		default:
-			break;
-		}
-	}
+
+	CTorch(int id = 0);
 	~CTorch()
 	{
 		CGameObject::~CGameObject();
@@ -69,3 +48,4 @@ public:
 	void SetPosition(float _x, float _y) { x = _x; y = _y; if(item != NULL) item->SetPosition(_x, _y); }
 	CItem* GetItem() { return item; }
 };
+#endif // !__TORCH_H_

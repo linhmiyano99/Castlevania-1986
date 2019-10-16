@@ -16,6 +16,24 @@ CSimon* CSimon::GetInstance()
 	return __instance;
 }
 
+CSimon::CSimon() : CGameObject()
+{
+	CVampireKiller* rob = CVampireKiller::GetInstance();
+	weapons.push_back(rob);
+	/*CDagger* dagger = CDagger::GetInstance();
+	weapons.push_back(dagger);*/
+	untouchable = 0;
+	attack_start = 0;
+	trans_start = 0;
+	_heart = 5;
+	CSimon::AddAnimation(400);		//0. idle left 
+	CSimon::AddAnimation(401);		//1. walk left
+	CSimon::AddAnimation(402);		//2. jump left
+	CSimon::AddAnimation(403);		//3. sit left
+	CSimon::AddAnimation(404);		//4. stand attack
+	CSimon::AddAnimation(405);		//5. sit attack
+	CSimon::AddAnimation(410);		//6. trans
+}
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {

@@ -30,10 +30,12 @@
 #include "Brick.h"
 #include "Dagger.h"
 
+#include "Scene.h"
+
 
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
-#define MAIN_WINDOW_TITLE L"02 - Sprite animation"
+#define MAIN_WINDOW_TITLE L"Castlevania 1986"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define SCREEN_WIDTH 560
@@ -41,14 +43,10 @@
 
 #define MAX_FRAME_RATE 120
 
-
-
-
 CGame * game;
 CSimon* simon;
-CMap* map;
-CDagger* dagger;
 CManagementTexture* manage;
+CScene* scene;
 
 vector<CGameObject*> objects;
 
@@ -149,42 +147,9 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 */
 void LoadResources()
 {
-	manage = new CManagementTexture();
 
-	map = new CMap();
-	map->LoadMap();
-
-	dagger = CDagger::GetInstance();
-	objects.push_back(dagger);
-
+	scene->LoadResoure();
 	simon = CSimon::GetInstance();
-	simon->SetPosition(0.0f, 20.0f);
-	objects.push_back(simon);
-
-
-	CTorch* torch0 = new CTorch(3);
-	torch0->SetPosition(190, 300);
-	objects.push_back(torch0);
-	
-	CTorch* torch1 = new CTorch(1);
-	torch1->SetPosition(416, 300);
-	objects.push_back(torch1);
-
-	CTorch* torch2 = new CTorch(1);
-	torch2->SetPosition(640, 300);
-	objects.push_back(torch2);
-
-	CTorch* torch3 = new CTorch(2);
-	torch3->SetPosition(864, 300);
-	objects.push_back(torch3);
-	
-	
-	for (int i = 0; i < 96; i++)
-	{
-		CBrick* brick = new CBrick();
-		brick->SetPosition(i * 32, 360);
-		objects.push_back(brick);
-	}
 
 }
 
@@ -193,37 +158,8 @@ void LoadResources()
 	dt: time period between beginning of last frame and beginning of this frame
 */
 void Update(DWORD dt)
-{
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
-
-	float cx, cy;
-	simon->GetPosition(cx, cy);
-
-
-	vector<LPGAMEOBJECT> coObjects;
-	for (int i = 1; i < objects.size(); i++)
-	{
-		coObjects.push_back(objects[i]);
-	}
-
-	for (int i = 0; i < objects.size(); i++)
-	{
-		objects[i]->Update(dt, &coObjects);
-	}
-
-	// Update camera to follow mario
-	
-
-
-	cx -= SCREEN_WIDTH / 2 - 40;
-	cy -= SCREEN_HEIGHT / 2;
-	if (cx < 0) cx = 0; if (cx > 966) cx = 966;
-
-	CGame* game = CGame::GetInstance();
-	game->SetCamPos(cx, 0);
-	
-
+{	
+	scene->Update(dt);
 }
 
 /*
@@ -242,12 +178,7 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		map->DrawMap();		
-
-		for (int i = 0; i < objects.size(); i++)
-		{
-			objects[i]->Render();
-		}
+		scene->Render();
 
 		spriteHandler->End();
 		d3ddv->EndScene();
@@ -349,6 +280,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	game = CGame::GetInstance();
 	game->Init(hWnd);
+
+	scene = new CScene();
+
 
 	keyHandler = new CSampleKeyHander();
 	game->InitKeyboard(keyHandler);
