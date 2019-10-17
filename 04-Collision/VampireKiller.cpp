@@ -18,6 +18,22 @@ CVampireKiller::CVampireKiller() :CWeapon()
 	animation = animations[0];
 }
 
+void CVampireKiller::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPGAMEOBJECT> listObj;
+	// Collision logic with items
+	for (UINT i = 0; i < coObjects->size(); i++)
+	{
+		LPGAMEOBJECT object = coObjects->at(i);
+		listObj.push_back(object);
+	}
+	animations[_level - 1]->ResetFrame();
+	CollisionWithObject(dt, listObj);
+
+
+}
+
+
 void CVampireKiller::SetPosition(float simon_x, float simon_y)
 {
 	if (_level == 1 || _level == 2)
@@ -58,6 +74,7 @@ void CVampireKiller::setDefaultLevel()
 {
 	if (_level < 3)
 		_level++;
+	animation = animations[_level - 1];
 }
 void CVampireKiller::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {

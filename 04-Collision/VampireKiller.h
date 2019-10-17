@@ -24,6 +24,7 @@ public:
 	CVampireKiller();
 	void SetPosition(float simon_x, float simon_y);
 	void Render();
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	void setDefaultLevel();
 	void setUpLevel();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);

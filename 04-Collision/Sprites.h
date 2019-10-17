@@ -78,6 +78,7 @@ public:
 	void Render(float x, float y, int trend);
 	void Render(float x, float y);
 	int GetCurrentFrame() { return currentFrame; }
+	void ResetFrame(){ lastFrameTime = -1; currentFrame = -1; }
 };
 
 typedef CAnimation* LPANIMATION;

@@ -281,7 +281,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game = CGame::GetInstance();
 	game->Init(hWnd);
 
-	scene = new CScene();
+	scene = new CScene(0);
 
 
 	keyHandler = new CSampleKeyHander();

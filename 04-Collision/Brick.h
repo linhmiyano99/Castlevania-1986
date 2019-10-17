@@ -19,6 +19,9 @@ public:
 	CBrick(int i = 0) :CGameObject()
 	{
 		if (i == 0) {
+			AddAnimation(499);
+		}
+		else {
 			AddAnimation(500);
 		}
 	}

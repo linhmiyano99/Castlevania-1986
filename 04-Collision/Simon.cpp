@@ -34,7 +34,6 @@ CSimon::CSimon() : CGameObject()
 	CSimon::AddAnimation(404);		//4. stand attack
 	CSimon::AddAnimation(405);		//5. sit attack
 	CSimon::AddAnimation(410);		//6. trans
-	animation = animations[SIMON_ANI_IDLE];
 }
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -197,11 +196,7 @@ void CSimon::Render()
 	}
 	else if (state == SIMON_STATE_ATTACK_DAGGER)
 	{
-		id = SIMON_ANI_IDLE;
-		//if (weapons.size() > 1)
-		{
-			//weapons[1]->Render();
-		}
+		id = SIMON_ANI_STANDING_ATTACKING;
 	}
 	else if (state == SIMON_STATE_SIT)
 	{
@@ -233,8 +228,7 @@ void CSimon::Render()
 		}
 	}
 
-	animation = animations[id];
-	animation->Render(x, y, nx);
+	animations[id]->Render(x, y, nx);
 	//RenderBoundingBox()
 
 	
