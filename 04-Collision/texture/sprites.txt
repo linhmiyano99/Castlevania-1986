@@ -1,9 +1,16 @@
-id= 10000
+id= 9999
 left= 0
 top= 0
 right= 32
 bottom= 32
 idTexture= 20
+
+id= 10000
+left= 0
+top= 0
+right= 32
+bottom= 32
+idTexture= 21
 
 id= 10001
 left= 190
@@ -258,6 +265,20 @@ top= 0
 right= 64
 bottom= 64
 idTexture= 30
+
+id= 11002
+left= 0
+top= 0
+right= 16
+bottom= 32
+idTexture= 31
+
+id= 11003
+left= 16
+top= 0
+right= 32
+bottom= 32
+idTexture= 31
 
 id= 13000
 left= 82

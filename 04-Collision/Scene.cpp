@@ -9,7 +9,7 @@ CScene::CScene(int id)
 void CScene::LoadResoure()
 {
 	CManagementTexture* manage = new CManagementTexture();
-
+	objects.clear();
 	if (id == 0) {
 		map = new CMap();
 		map->LoadMap();
@@ -48,7 +48,40 @@ void CScene::LoadResoure()
 	}
 	else
 	{
+		map = new CMap(1);
+		map->LoadMap();
 
+		dagger = CDagger::GetInstance();
+		objects.push_back(dagger);
+
+		simon = CSimon::GetInstance();
+		simon->SetPosition(0.0f, 20.0f);
+		objects.push_back(simon);
+
+
+		CTorch* candle = new CTorch(3, 1);
+		candle->SetPosition(190, 250);
+		objects.push_back(candle);
+
+		CTorch* candle1 = new CTorch(1, 1);
+		candle1->SetPosition(416, 200);
+		objects.push_back(candle1);
+
+		CTorch* candle2 = new CTorch(1, 1);
+		candle2->SetPosition(640, 2500);
+		objects.push_back(candle2);
+
+		CTorch* candle3 = new CTorch(2, 1);
+		candle3->SetPosition(864, 200);
+		objects.push_back(candle3);
+
+
+		for (int i = 0; i < 96; i++)
+		{
+			CBrick* brick = new CBrick();
+			brick->SetPosition(i * 32, 360);
+			objects.push_back(brick);
+		}
 	}
 }
 

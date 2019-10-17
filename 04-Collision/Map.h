@@ -18,7 +18,7 @@ private:
 	int _row;
 	int TileMap[200][200];
 public:
-	CMap(int i = 1);
+	CMap(int i = 0);
 	int getTile(int x, int y);
 	void LoadMap();
 	void DrawMap();

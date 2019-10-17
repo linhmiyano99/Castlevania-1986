@@ -17,8 +17,8 @@ CMap::CMap(int i)
 		_row = 5;
 		break;
 	case 1:
-		_column = 24;
-		_row = 5;
+		_column = 88;
+		_row = 12;
 		break;
 	default:
 		break;
@@ -31,13 +31,9 @@ void CMap::LoadMap()
 	switch (_scene)
 	{
 	case 0:
-		_row = 5;
-		_column = 24;
 		inFile.open("map/map.txt");
 		break;
 	case 1:
-		_row = 12;
-		_column = 88;
 		inFile.open("map/map2.txt");
 		break;
 	default:

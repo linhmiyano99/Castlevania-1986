@@ -10,14 +10,15 @@ CManagementTexture::CManagementTexture()
 
 	textures->Add(ID_TEX_SIMON, L"simon\\simon.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_SIMON_TRANS, L"simon\\simon_trans.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_VAMPIREKILLER, L"simon\\morningstar.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_TORCH, L"map\\torch.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_CANDLE, L"map\\candle.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_MAP, L"map\\map.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_MAP2, L"map\\map2.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_GROUND, L"map\\ground.png", D3DCOLOR_XRGB(0, 0, 0));
-	textures->Add(ID_TEX_TORCH, L"map\\fire.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_VAMPIREKILLER, L"simon\\morningstar.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_GROUND2, L"map\\ground2.png", D3DCOLOR_XRGB(0, 0, 0));
 	textures->Add(ID_TEX_BBOX, L"map\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_ITEM, L"item\\items.png", D3DCOLOR_XRGB(128, 0, 0));
-	textures->Add(ID_TEX_TORCH_FIRE, L"item\\Torch_fire.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_TORCH_FIRE, L"item\\Torch_fire.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	CSprites* sprites = CSprites::GetInstance();
@@ -102,18 +103,27 @@ CManagementTexture::CManagementTexture()
 #pragma region Add sprites Ground
 	ani = new CAnimation(100);
 	ani->Add(10000);
-	animations->Add(500, ani);
+	animations->Add(500, ani); //ground2
+
+	ani = new CAnimation(100);
+	ani->Add(9999);
+	animations->Add(499, ani); //ground1
 	
 
 #pragma endregion
 
-#pragma region Add sprites Torch 
+#pragma region Add sprites Torch & Candle
 	
 
 	ani = new CAnimation(100);
 	ani->Add(11000);
 	ani->Add(11001);
-	animations->Add(501, ani);
+	animations->Add(501, ani); // torch
+
+	ani = new CAnimation(100);
+	ani->Add(11002);
+	ani->Add(11003);
+	animations->Add(502, ani);//candle
 
 
 #pragma endregion

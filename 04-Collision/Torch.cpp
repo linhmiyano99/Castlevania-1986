@@ -1,10 +1,17 @@
 #include "Torch.h"
 
-CTorch::CTorch(int id) : CGameObject()
+CTorch::CTorch(int id, int level) : CGameObject()
 {
 	dt_die = 0;
 	state = TORCH_STATE_EXSIST;
-	AddAnimation(501);
+	if (level == 0)
+	{
+		AddAnimation(501);
+	}
+	else
+	{
+		AddAnimation(502);
+	}
 	AddAnimation(800);
 	switch (id)
 	{

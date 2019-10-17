@@ -32,10 +32,11 @@ class CTorch : public CGameObject
 {
 	DWORD dt_die;
 	CItem* item;
+	int _level;
 public:
 
 
-	CTorch(int id = 0);
+	CTorch(int id = 0, int _level = 0);
 	~CTorch()
 	{
 		CGameObject::~CGameObject();
