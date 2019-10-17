@@ -26,6 +26,7 @@ CSimon::CSimon() : CGameObject()
 	attack_start = 0;
 	trans_start = 0;
 	_heart = 5;
+	
 	CSimon::AddAnimation(400);		//0. idle left 
 	CSimon::AddAnimation(401);		//1. walk left
 	CSimon::AddAnimation(402);		//2. jump left
@@ -33,6 +34,7 @@ CSimon::CSimon() : CGameObject()
 	CSimon::AddAnimation(404);		//4. stand attack
 	CSimon::AddAnimation(405);		//5. sit attack
 	CSimon::AddAnimation(410);		//6. trans
+	animation = animations[SIMON_ANI_IDLE];
 }
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -181,23 +183,21 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CSimon::Render()
 {
-
-	int ani;
-
+	int id;
 	if (state == SIMON_STATE_SIT_ATTACK)
 	{
-		ani = SIMON_ANI_SITTING_ATTACKING;
+		id = SIMON_ANI_SITTING_ATTACKING;
 		weapons[0]->Render();
 	}
 	else if (state == SIMON_STATE_STAND_ATTACK)
 	{
-		ani = SIMON_ANI_STANDING_ATTACKING;
+		id = SIMON_ANI_STANDING_ATTACKING;
 		weapons[0]->Render();
 
 	}
 	else if (state == SIMON_STATE_ATTACK_DAGGER)
 	{
-		ani = SIMON_ANI_IDLE;
+		id = SIMON_ANI_IDLE;
 		//if (weapons.size() > 1)
 		{
 			//weapons[1]->Render();
@@ -205,35 +205,36 @@ void CSimon::Render()
 	}
 	else if (state == SIMON_STATE_SIT)
 	{
-		ani = SIMON_ANI_SITTING;
+		id = SIMON_ANI_SITTING;
 
 	}
 	else if (state == SIMON_STATE_JUMP)
 	{
 		if (vy < 0)
-			ani = SIMON_ANI_JUMPING;
+			id = SIMON_ANI_JUMPING;
 		else
-			ani = SIMON_ANI_IDLE;
+			id = SIMON_ANI_IDLE;
 	}
 	else {
 		if (vx == 0)
 		{
-			ani = SIMON_ANI_IDLE;
+			id = SIMON_ANI_IDLE;
 		}
 		else
 		{
-			ani = SIMON_ANI_WALKING;
+			id = SIMON_ANI_WALKING;
 		}
 	}
 	if (trans_start > 0) {
-		ani = SIMON_ANI_TRANS;
+		id = SIMON_ANI_TRANS;
 		if (GetTickCount() - trans_start > 200)
 		{
 			trans_start = 0;
 		}
 	}
 
-	animations[ani]->Render(x, y, nx);
+	animation = animations[id];
+	animation->Render(x, y, nx);
 	//RenderBoundingBox()
 
 	

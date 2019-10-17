@@ -15,6 +15,7 @@ CVampireKiller::CVampireKiller() :CWeapon()
 	AddAnimation(600);
 	AddAnimation(601);
 	AddAnimation(602);
+	animation = animations[0];
 }
 
 void CVampireKiller::SetPosition(float simon_x, float simon_y)
@@ -46,22 +47,7 @@ void CVampireKiller::SetPosition(float simon_x, float simon_y)
 
 void CVampireKiller::Render()
 {
-	
-	switch (_level)
-	{
-	case 1:
-		animations[0]->Render(x, y, nx);
-		break;
-	case 2:
-		animations[1]->Render(x, y, nx);
-		break;
-	case 3:
-		animations[2]->Render(x, y, nx);
-		break;
-	default:
-		break;
-	}
-
+	animation->Render(x, y, nx);
 	//RenderBoundingBox();
 }
 
@@ -96,6 +82,10 @@ void CVampireKiller::GetBoundingBox(float& left, float& top, float& right, float
 
 void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 {
+	if (animation->GetCurrentFrame() < 2)
+		return;
+
+
 	RECT rect, rect1;
 	float l, t, r, b;
 	float l1, t1, r1, b1;
@@ -107,6 +97,7 @@ void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj
 	rect.bottom = (int)b;
 
 	for (int i = 0; i < listObj.size(); i++)
+	{
 		if (dynamic_cast<CTorch*>(listObj.at(i)))
 		{
 			if (listObj.at(i)->GetState() == TORCH_STATE_EXSIST)
@@ -123,4 +114,5 @@ void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj
 				}
 			}
 		}
+	}
 }

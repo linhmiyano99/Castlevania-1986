@@ -50,6 +50,7 @@ public:
 	DWORD dt;
 
 	vector<LPANIMATION> animations;
+	LPANIMATION animation;
 
 public:
 	virtual void SetPosition(float x, float y) { this->x = x, this->y = y; }
