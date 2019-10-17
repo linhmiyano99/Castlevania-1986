@@ -1,6 +1,8 @@
-﻿  main.cpp
-C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(27,1): warning C4005: 'SIMON_ANI_JUMPING': macro redefinition
-C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(27): message : see previous definition of 'SIMON_ANI_JUMPING'
-C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(28,1): warning C4005: 'SIMON_ANI_SITTING': macro redefinition
-C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(26): message : see previous definition of 'SIMON_ANI_SITTING'
+﻿  Simon.cpp
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(26,1): warning C4005: 'SIMON_ANI_SITTING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(28): message : see previous definition of 'SIMON_ANI_SITTING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(27,1): warning C4005: 'SIMON_ANI_JUMPING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(27): message : see previous definition of 'SIMON_ANI_JUMPING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.cpp(61,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.cpp(244,20): warning C4018: '<': signed/unsigned mismatch
   04-Collision.vcxproj -> C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\Debug\04-Collision.exe

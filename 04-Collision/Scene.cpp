@@ -1,5 +1,15 @@
 #include "Scene.h"
 
+
+CScene* CScene::__instance = NULL;
+
+CScene* CScene::GetInstance()
+{
+	if (__instance == NULL) __instance = new CScene();
+	return __instance;
+}
+
+
 CScene::CScene(int id)
 {
 	this->id = id;
@@ -10,12 +20,13 @@ void CScene::LoadResoure()
 {
 	CManagementTexture* manage = new CManagementTexture();
 	objects.clear();
+	dagger = CDagger::GetInstance();
+	objects.push_back(dagger);
 	if (id == 0) {
 		map = new CMap();
 		map->LoadMap();
 
-		dagger = CDagger::GetInstance();
-		objects.push_back(dagger);
+		
 
 		simon = CSimon::GetInstance();
 		simon->SetPosition(0.0f, 20.0f);
@@ -45,6 +56,9 @@ void CScene::LoadResoure()
 			brick->SetPosition(i * 32, 360);
 			objects.push_back(brick);
 		}
+		hiden = new CHidenObject();
+		hiden->SetPosition(1364, 250);
+		objects.push_back(hiden);
 	}
 	else
 	{
@@ -82,6 +96,8 @@ void CScene::LoadResoure()
 			brick->SetPosition(i * 32, 360);
 			objects.push_back(brick);
 		}
+
+		
 	}
 }
 
@@ -119,4 +135,8 @@ void CScene::Render()
 	{
 		objects[i]->Render();
 	}
+}
+void CScene::SetMap(int id)
+{
+	this->id = id;
 }

@@ -22,22 +22,26 @@
 #include "ItemDagger.h"
 #include "Brick.h"
 #include "Dagger.h"
+#include "HidenObject.h"
 
 
 
 
 class CScene
 {
+	static CScene* __instance;
 	CSimon* simon;
 	CMap* map;
 	CDagger* dagger;
 	CGame* game;
+	CHidenObject* hiden;
 	vector<LPGAMEOBJECT> objects;
 	int id;
 public:
+	static CScene* GetInstance();
 	CScene(int id = 0);
 	void LoadResoure();
 	void Update(DWORD dt);
 	void Render();
-
+	void SetMap(int id = 0);
 };

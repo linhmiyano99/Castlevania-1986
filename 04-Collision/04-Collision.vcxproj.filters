@@ -42,6 +42,12 @@
     <Filter Include="Header Files\Define">
       <UniqueIdentifier>{62e63776-dc63-4ba0-afb9-b0dedba7f62d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameObject\hidenobject">
+      <UniqueIdentifier>{2d1761d7-8bc8-4331-8a92-2d04b91ada56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObject\enemy">
+      <UniqueIdentifier>{ff3423da-9741-4002-8810-b207bd60ae99}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h">
@@ -101,6 +107,12 @@
     <ClInclude Include="Define.h">
       <Filter>Header Files\Define</Filter>
     </ClInclude>
+    <ClInclude Include="HidenObject.h">
+      <Filter>Header Files\GameObject\hidenobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\GameObject\enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -159,6 +171,12 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Header Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="HidenObject.cpp">
+      <Filter>Header Files\GameObject\hidenobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Header Files\GameObject\enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

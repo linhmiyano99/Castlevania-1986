@@ -66,5 +66,8 @@ public:
 	CVampireKiller* getWeapon(int i = 0) { return (CVampireKiller *)(weapons[0]); }
 	int GetHeart() { return _heart; }
 	void SetHeart(int heart) { _heart = heart; }
+	void CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listObj);
+	void CollisionWithTorch(DWORD dt, vector<LPGAMEOBJECT>& listObj);
+	void CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj);
 };
 #endif
