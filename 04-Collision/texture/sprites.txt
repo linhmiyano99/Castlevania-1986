@@ -124,6 +124,27 @@ right= 165
 bottom= 133
 idTexture= 0
 
+id= 10114
+left= 185
+top= 68
+right= 217
+bottom= 133
+idTexture= 0
+
+id= 10115
+left= 250
+top= 68
+right= 293
+bottom= 133
+idTexture= 0
+
+id= 10116
+left= 125
+top= 68
+right= 165
+bottom= 133
+idTexture= 0
+
 id= 10201
 left= 245
 top= 0
@@ -335,3 +356,18 @@ top= 0
 right= 126
 bottom= 44
 idTexture= 60
+
+
+id= 30000
+left= 0
+top= 0
+right= 34
+bottom= 64
+idTexture= 100
+
+id= 30001
+left= 34
+top= 0
+right= 68
+bottom= 64
+idTexture= 100

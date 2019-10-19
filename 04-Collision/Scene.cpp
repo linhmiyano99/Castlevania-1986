@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "Enemy.h"
 
 
 CScene* CScene::__instance = NULL;
@@ -13,6 +14,7 @@ CScene* CScene::GetInstance()
 CScene::CScene(int id)
 {
 	this->id = id;
+	map = CMap::GetInstance();
 }
 
 
@@ -23,11 +25,7 @@ void CScene::LoadResoure()
 	dagger = CDagger::GetInstance();
 	objects.push_back(dagger);
 	if (id == 0) {
-		map = new CMap();
-		map->LoadMap();
-
-		
-
+		map->SetMap(0);
 		simon = CSimon::GetInstance();
 		simon->SetPosition(0.0f, 20.0f);
 		objects.push_back(simon);
@@ -62,8 +60,7 @@ void CScene::LoadResoure()
 	}
 	else
 	{
-		map = new CMap(1);
-		map->LoadMap();
+		map->SetMap(1);
 
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
@@ -74,29 +71,51 @@ void CScene::LoadResoure()
 
 
 		CTorch* candle = new CTorch(3, 1);
-		candle->SetPosition(190, 250);
+		candle->SetPosition(190, 300);
 		objects.push_back(candle);
 
 		CTorch* candle1 = new CTorch(1, 1);
-		candle1->SetPosition(416, 200);
+		candle1->SetPosition(416, 250);
 		objects.push_back(candle1);
 
 		CTorch* candle2 = new CTorch(1, 1);
-		candle2->SetPosition(640, 2500);
+		candle2->SetPosition(640, 300);
 		objects.push_back(candle2);
 
 		CTorch* candle3 = new CTorch(2, 1);
-		candle3->SetPosition(864, 200);
+		candle3->SetPosition(864, 250);
 		objects.push_back(candle3);
 
+		CEnemy* enemy = new CEnemy();
+		enemy->SetPosition(500, 250);
+		enemy->SetSpeed(-0.05f, 0);
+		objects.push_back(enemy);
 
 		for (int i = 0; i < 96; i++)
 		{
-			CBrick* brick = new CBrick();
-			brick->SetPosition(i * 32, 360);
+			CBrick* brick = new CBrick(1);
+			brick->SetPosition(i * 32, 394);
+			objects.push_back(brick);
+		}
+		for (int i = 43; i < 46; i++)
+		{
+			CBrick* brick = new CBrick(1);
+			brick->SetPosition(i * 32, 265);
 			objects.push_back(brick);
 		}
 
+		for (int i = 47; i < 57; i++)
+		{
+			CBrick* brick = new CBrick(1);
+			brick->SetPosition(i * 32, 200);
+			objects.push_back(brick);
+		}
+		CHidenObject *hiden = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR);
+		hiden->SetPosition(1216, 300);
+		objects.push_back(hiden);
+		CHidenObject *hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR);
+		hiden2->SetPosition(1376, 170);
+		objects.push_back(hiden2);
 		
 	}
 }
@@ -119,11 +138,17 @@ void CScene::Update(DWORD dt)
 	}
 
 	// Update camera to follow simon
-
 	cx -= SCREEN_WIDTH / 2 - 40;
 	cy -= SCREEN_HEIGHT / 2;
-	if (cx < 0) cx = 0; if (cx > 966) cx = 966;
-
+	if (id == 0)
+	{
+		
+		if (cx < 0) cx = 0; if (cx > 966) cx = 966;
+	}
+	else
+	{
+		if (cx < 0) cx = 0; if (cx > 88*64) cx = 88*64;
+	}
 	game = CGame::GetInstance();
 	game->SetCamPos(cx, 0);
 }

@@ -8,6 +8,8 @@
 #include "Dagger.h"
 #include "HidenObject.h"
 #include "Scene.h"
+#include "Enemy.h"
+#include "Map.h"
 
 
 CSimon* CSimon::__instance = NULL;
@@ -28,6 +30,8 @@ CSimon::CSimon() : CGameObject()
 	attack_start = 0;
 	trans_start = 0;
 	_heart = 5;
+	isGoUp = false;
+	isGoDown = false;
 	
 	CSimon::AddAnimation(400);		//0. idle left 
 	CSimon::AddAnimation(401);		//1. walk left
@@ -36,6 +40,8 @@ CSimon::CSimon() : CGameObject()
 	CSimon::AddAnimation(404);		//4. stand attack
 	CSimon::AddAnimation(405);		//5. sit attack
 	CSimon::AddAnimation(410);		//6. trans
+	CSimon::AddAnimation(406);		//7. go up
+	CSimon::AddAnimation(407);		//8. go down
 }
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -44,55 +50,74 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx = 0;
 	}
 	else {
-		// Calculate dx, dy 
-		CGameObject::Update(dt);
-
-		// Simple fall down
-		vy += SIMON_GRAVITY * dt;
-		if (x < 0)
-			x = 0;
-		if (x > 1370)
-			x = 1370;
-
-		vector<LPGAMEOBJECT> listTorch;
-		vector<LPGAMEOBJECT> listBrick;
-		vector<LPGAMEOBJECT> listHideObject;
-
-		for (int i = 0; i < coObjects->size(); i++)
+		if ((isGoDown && state == SIMON_STATE_GO_DOWN))
 		{
-			if (dynamic_cast<CTorch*>(coObjects->at(i)))
-			{
-				CTorch* torch = dynamic_cast<CTorch*>(coObjects->at(i));
-
-				listTorch.push_back(torch);
-
-			}
-			else if (dynamic_cast<CBrick*>(coObjects->at(i)))
-			{
-				CBrick* brick = dynamic_cast<CBrick*>(coObjects->at(i));
-				listBrick.push_back(brick);
-			}
-			else if (dynamic_cast<CHidenObject*>(coObjects->at(i)))
-			{
-				CHidenObject* hiden = dynamic_cast<CHidenObject*>(coObjects->at(i));
-				listHideObject.push_back(hiden);
-			}
+			x += 0.5f * dt;
+			y += 0.5f * dt;
 		}
-		if (state == SIMON_STATE_SIT_ATTACK || state == SIMON_STATE_STAND_ATTACK)
+		else if (isGoUp && state == SIMON_STATE_GO_UP)
 		{
-			weapons[0]->SetPosition(x, y);
-			weapons[0]->SetTrend(nx);
-			weapons[0]->CollisionWithObject(dt, listTorch);
-			attack_start = GetTickCount();
+			x += 0.1f * dt;
+			y -= 0.1f * dt;
 		}
-		if (listBrick.size() > 0)
-			CollisionWithBrick(dt, listBrick);
-		if (listTorch.size() > 0)
-			CollisionWithTorch(dt, listTorch);
-		if (listHideObject.size() > 0)
-			CollisionWithHidenObject(dt, listHideObject);
+		else {
+			// Calculate dx, dy 
+			CGameObject::Update(dt);
+
+			// Simple fall down
+			vy += SIMON_GRAVITY * dt;
+			if (x < 0)
+				x = 0;
+			if (x > CMap::GetInstance()->GetWidth() - SCREEN_WIDTH / 2)
+				x = CMap::GetInstance()->GetWidth() - SCREEN_WIDTH / 2;
+
+			vector<LPGAMEOBJECT> listTorch;
+			vector<LPGAMEOBJECT> listBrick;
+			vector<LPGAMEOBJECT> listHideObject;
+			vector<LPGAMEOBJECT> listGhost;
+
+			for (int i = 0; i < coObjects->size(); i++)
+			{
+				if (dynamic_cast<CTorch*>(coObjects->at(i)))
+				{
+					CTorch* torch = dynamic_cast<CTorch*>(coObjects->at(i));
+
+					listTorch.push_back(torch);
+
+				}
+				else if (dynamic_cast<CBrick*>(coObjects->at(i)))
+				{
+					CBrick* brick = dynamic_cast<CBrick*>(coObjects->at(i));
+					listBrick.push_back(brick);
+				}
+				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)))
+				{
+					CHidenObject* hiden = dynamic_cast<CHidenObject*>(coObjects->at(i));
+					listHideObject.push_back(hiden);
+				}
+				else if (dynamic_cast<CEnemy*>(coObjects->at(i)))
+				{
+					CEnemy* enemy = dynamic_cast<CEnemy*>(coObjects->at(i));
+					listGhost.push_back(enemy);
+				}
+			}
+			if (state == SIMON_STATE_SIT_ATTACK || state == SIMON_STATE_STAND_ATTACK)
+			{
+				weapons[0]->SetPosition(x, y);
+				weapons[0]->SetTrend(nx);
+				weapons[0]->CollisionWithObject(dt, listTorch);
+				attack_start = GetTickCount();
+			}
+			if (listBrick.size() > 0)
+				CollisionWithBrick(dt, listBrick);
+			if (listTorch.size() > 0)
+				CollisionWithTorch(dt, listTorch);
+			if (listHideObject.size() > 0)
+				CollisionWithHidenObject(dt, listHideObject);
+			if (listGhost.size() > 0)
+				CollisionWithHidenObject(dt, listGhost);
+		}
 	}
-
 }
 
 
@@ -109,6 +134,17 @@ void CSimon::Render()
 		id = SIMON_ANI_STANDING_ATTACKING;
 		weapons[0]->Render();
 
+	}
+	else if (state == SIMON_STATE_GO_UP && isGoUp)
+	{
+		id = SIMON_ANI_GO_UP;
+	}
+	else if (state == SIMON_STATE_GO_DOWN )
+	{
+		if(isGoDown)
+		id = SIMON_ANI_GO_DOWN;
+		else
+			id = SIMON_ANI_SITTING;
 	}
 	else if (state == SIMON_STATE_ATTACK_DAGGER)
 	{
@@ -222,6 +258,10 @@ void CSimon::SetState(int state)
 
 	case SIMON_STATE_IDLE:
 		vx = 0;
+		break;
+	case SIMON_STATE_GO_UP:
+		break;
+	case SIMON_STATE_GO_DOWN:
 		break;
 	}
 }
@@ -378,14 +418,57 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 		untouchable = 0;
 	}
 
-	// No collision occured, proceed normally
+	// collision occured, proceed normally
 
 	if (coEvents.size() > 0)
 	{
-		CScene* scene = CScene::GetInstance();
-		scene->SetMap(1);
-		scene->LoadResoure();
+		float min_tx, min_ty, nx = 0, ny;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		x += dx;
+
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+
+			CHidenObject* ohiden = dynamic_cast<CHidenObject*>(e->obj);// if e->obj is torch 
+			if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR) {
+				CScene* scene = CScene::GetInstance();
+				scene->SetMap(1);
+				scene->LoadResoure();
+				break;
+			}
+			else if (ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
+			{
+				if (isGoUp)
+				{
+					isGoUp = false;
+					state = SIMON_ANI_IDLE;
+					vx = vy = 0;
+				}
+				isGoDown = true;
+			}
+			else if (ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
+			{
+				if (isGoDown)
+				{
+					isGoDown = false;
+					state = SIMON_ANI_IDLE;
+					vx = vy = 0;
+
+				}
+				isGoUp = true;
+			}
+			
+
+		}
 	}
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+}
+
+void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj)
+{
+
 }

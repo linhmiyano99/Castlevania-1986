@@ -1,11 +1,15 @@
-﻿#ifndef __MAP_H_
-#define __MAP_H
-
-
-
-
-#include "Map.h"
+﻿#include "Map.h"
 #include "fstream"
+#include "Game.h"
+
+CMap* CMap::__instance = NULL;
+
+CMap* CMap::GetInstance()
+{
+	if (__instance == NULL) __instance = new CMap();
+	return __instance;
+}
+
 
 CMap::CMap(int i)
 {
@@ -23,6 +27,25 @@ CMap::CMap(int i)
 	default:
 		break;
 	}
+	LoadMap();
+}
+void CMap::SetMap(int i)
+{
+	_scene = i;
+	switch (i)
+	{
+	case 0:
+		_column = 24;
+		_row = 5;
+		break;
+	case 1:
+		_column = 88;
+		_row = 12;
+		break;
+	default:
+		break;
+	}
+	LoadMap();
 }
 
 void CMap::LoadMap()
@@ -59,12 +82,21 @@ int CMap::getTile(int x, int y)
 
 void CMap::DrawMap()
 {
-	for (int i = 0; i < _row; i++)
-	{
-		for (int j = 0; j < _column; j++) // ngay đây dư 1 nên... pla pla..
+
+	CGame* game = CGame::GetInstance();
+	float cam_x, cam_y;
+	game->GetCamPos(cam_x, cam_y);
+
+	for (int i = (int)(cam_y) / 64 - 1; i < (int)(cam_y + 560) / 64 + 3; i++)
+		for (int j = (int)(cam_x) / 64 - 1; j < (int)(cam_x + 460) / 64 + 3; j++)
 		{
-			CSprites::GetInstance()->Get(getTile(i, j))->Draw(64 * j, 64 * i + 40);
+			if (!(i < 0 || i > _row || j < 0 || j > _column))
+			{
+				CSprites* sprites = CSprites::GetInstance();
+				sprites->Get(getTile(i, j))->DrawStatic(64 * j - cam_x, 64 * i - cam_y + 40);
+
+			}
 		}
-	}
 }
-#endif // !__MAP_H_
+
+

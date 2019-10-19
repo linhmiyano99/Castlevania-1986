@@ -83,6 +83,10 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_X:
 		break;
 	case DIK_DOWN:
+		simon->SetState(SIMON_STATE_GO_DOWN);
+		break;
+	case DIK_UP:
+		simon->SetState(SIMON_STATE_GO_UP);
 		break;
 	}
 }
@@ -123,6 +127,14 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	else if (game->IsKeyDown(DIK_X))
 	{
 		//simon->SetState(SIMON_STATE_ATTACK_DAGGER);
+	}
+	else if (game->IsKeyDown(DIK_UP))
+	{
+		simon->SetState(SIMON_STATE_GO_UP);
+	}
+	else if (game->IsKeyDown(DIK_DOWN))
+	{
+		//simon->SetState(SIMON_STATE_DO_DOWN);
 	}
 	else
 		simon->SetState(SIMON_STATE_IDLE);

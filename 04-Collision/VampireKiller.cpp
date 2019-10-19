@@ -1,5 +1,6 @@
 ﻿#include "VampireKiller.h"
 #include "Torch.h"
+#include "Enemy.h"
 #include "Game.h"
 CVampireKiller* CVampireKiller::__instance = NULL;
 
@@ -64,7 +65,8 @@ void CVampireKiller::SetPosition(float simon_x, float simon_y)
 void CVampireKiller::Render()
 {
 	animation->Render(x, y, nx);
-	//RenderBoundingBox();
+	y += 15;
+	RenderBoundingBox();
 }
 
 void CVampireKiller::setDefaultLevel()
@@ -84,14 +86,14 @@ void CVampireKiller::GetBoundingBox(float& left, float& top, float& right, float
 		left = x;
 		right = x + 120;
 		top = y;
-		bottom = y + 30;
+		bottom = y + 20;
 	}
 	else
 	{
 		left = x;
 		right = x + 145;
 		top = y;
-		bottom = y + 30;
+		bottom = y + 20;
 	
 	}
 }
@@ -131,5 +133,6 @@ void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj
 				}
 			}
 		}
+		
 	}
 }

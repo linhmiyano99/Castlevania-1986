@@ -15,6 +15,8 @@
 
 #define TORCH_WIDTH 32
 #define TORCH_HEIGHT 64
+#define CANDLE_WIDTH 16
+#define CANDLE_HEIGHT 32
 
 #define TORCH_STATE_NOT_EXSIST 0
 #define TORCH_STATE_EXSIST 1
@@ -30,6 +32,7 @@
 
 class CTorch : public CGameObject
 {
+protected:
 	DWORD dt_die;
 	CItem* item;
 	int _level;
@@ -43,10 +46,10 @@ public:
 		if (item != NULL)
 			delete item;
 	}
-	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
-	void Render();
-	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	void SetPosition(float _x, float _y) { x = _x; y = _y; if(item != NULL) item->SetPosition(_x, _y); }
-	CItem* GetItem() { return item; }
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
+	virtual void Render();
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void SetPosition(float _x, float _y) { x = _x; y = _y; if(item != NULL) item->SetPosition(_x, _y); }
+	virtual CItem* GetItem() { return item; }
 };
 #endif // !__TORCH_H_

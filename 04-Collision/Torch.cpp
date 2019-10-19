@@ -51,7 +51,7 @@ void CTorch::Render()
 		}
 	}
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 void CTorch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -80,9 +80,19 @@ void CTorch::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	if (state == TORCH_STATE_EXSIST)
 	{
 		left = x;
-		right = x + TORCH_WIDTH;
+		
 		top = y;
-		bottom = y + TORCH_HEIGHT;
+		
+		if (_level == 0)
+		{
+			right = x + CANDLE_WIDTH;
+			bottom = y + CANDLE_HEIGHT;
+		}
+		else
+		{
+			right = x + CANDLE_WIDTH;
+			bottom = y + CANDLE_HEIGHT;
+		}
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{

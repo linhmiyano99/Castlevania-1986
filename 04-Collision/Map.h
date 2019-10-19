@@ -17,10 +17,15 @@ private:
 	int _column;
 	int _row;
 	int TileMap[200][200];
+	static CMap* __instance;
 public:
-	CMap(int i = 0);
+	static CMap* GetInstance();
+	CMap(int i = 1);
 	int getTile(int x, int y);
 	void LoadMap();
 	void DrawMap();
+	float GetWidth() { return 64 * _column; }
+	float GetHeight() { return 64 * _row; }
+	void SetMap(int id);
 };
 #endif // !__CMAP_H__

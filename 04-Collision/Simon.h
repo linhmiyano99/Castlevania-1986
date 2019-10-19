@@ -21,6 +21,8 @@
 #define SIMON_STATE_DIE				700
 #define SIMON_STATE_UP				800
 #define SIMON_STATE_ATTACK_DAGGER	900
+#define SIMON_STATE_GO_UP			1000
+#define SIMON_STATE_GO_DOWN			1001
 
 #define SIMON_ANI_IDLE						0
 #define SIMON_ANI_WALKING					1
@@ -28,8 +30,9 @@
 #define SIMON_ANI_SITTING					3
 #define SIMON_ANI_STANDING_ATTACKING 		4
 #define SIMON_ANI_SITTING_ATTACKING			5
-//#define SIMON_ANI_DAGGER					6
 #define SIMON_ANI_TRANS						6
+#define SIMON_ANI_GO_UP 					7
+#define SIMON_ANI_GO_DOWN					8
 
 #define SIMON_HEIGHT_STAND			60
 #define SIMON_HEIGHT_SIT			45
@@ -53,6 +56,8 @@ class CSimon : public CGameObject
 	vector<CWeapon*> weapons;
 	static CSimon* __instance;
 	int _heart;
+	bool isGoUp;
+	bool isGoDown;
 public:
 	static CSimon* GetInstance();
 	CSimon();
@@ -69,5 +74,6 @@ public:
 	void CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listObj);
 	void CollisionWithTorch(DWORD dt, vector<LPGAMEOBJECT>& listObj);
 	void CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj);
+	void CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj);
 };
 #endif
