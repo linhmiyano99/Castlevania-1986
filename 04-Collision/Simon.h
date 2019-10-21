@@ -7,7 +7,7 @@
 #include "VampireKiller.h"
 #include "Weapon.h"
 #include "Dagger.h"
-#define SIMON_WALKING_SPEED		0.1f
+#define SIMON_WALKING_SPEED		0.3f
 #define SIMON_JUMP_SPEED_Y		0.5f
 #define SIMON_GRAVITY			0.002f
 
@@ -56,8 +56,8 @@ class CSimon : public CGameObject
 	vector<CWeapon*> weapons;
 	static CSimon* __instance;
 	int _heart;
-	bool isGoUp;
-	bool isGoDown;
+	int isCanOnStair;
+	bool isOnStair;
 public:
 	static CSimon* GetInstance();
 	CSimon();
@@ -71,9 +71,11 @@ public:
 	CVampireKiller* getWeapon(int i = 0) { return (CVampireKiller *)(weapons[0]); }
 	int GetHeart() { return _heart; }
 	void SetHeart(int heart) { _heart = heart; }
-	void CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listObj);
-	void CollisionWithTorch(DWORD dt, vector<LPGAMEOBJECT>& listObj);
-	void CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj);
-	void CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj);
+	void CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
+	void CollisionWithTorch(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
+	void CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
+	//void CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj);
+	int IsCanOnStair(vector<LPGAMEOBJECT>& listObj);
+
 };
 #endif

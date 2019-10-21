@@ -9,7 +9,7 @@ C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-
 C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(97,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(103,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(110,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(130,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(135,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(159,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(136,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(141,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(165,20): warning C4018: '<': signed/unsigned mismatch
   04-Collision.vcxproj -> C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\Debug\04-Collision.exe

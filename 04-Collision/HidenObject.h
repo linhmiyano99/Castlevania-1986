@@ -11,7 +11,7 @@ private:
 	int _height;
 	int _width;
 public:
-	CHidenObject(int state = 0, int height = 100, int width = 50) :CGameObject()
+	CHidenObject(int state = 0, int height = 50, int width = 20) :CGameObject()
 	{
 		_height = height;
 		_width = width;

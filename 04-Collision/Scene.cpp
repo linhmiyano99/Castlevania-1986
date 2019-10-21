@@ -55,7 +55,7 @@ void CScene::LoadResoure()
 			objects.push_back(brick);
 		}
 		hiden = new CHidenObject();
-		hiden->SetPosition(1364, 250);
+		hiden->SetPosition(1364, 300);
 		objects.push_back(hiden);
 	}
 	else
@@ -66,7 +66,7 @@ void CScene::LoadResoure()
 		objects.push_back(dagger);
 
 		simon = CSimon::GetInstance();
-		simon->SetPosition(0.0f, 20.0f);
+		simon->SetPosition(1000.0f, 20.0f);
 		objects.push_back(simon);
 
 
@@ -91,7 +91,7 @@ void CScene::LoadResoure()
 		enemy->SetSpeed(-0.05f, 0);
 		objects.push_back(enemy);
 
-		for (int i = 0; i < 96; i++)
+		for (int i = 0; i < 98; i++)
 		{
 			CBrick* brick = new CBrick(1);
 			brick->SetPosition(i * 32, 394);
@@ -111,11 +111,17 @@ void CScene::LoadResoure()
 			objects.push_back(brick);
 		}
 		CHidenObject *hiden = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR);
-		hiden->SetPosition(1216, 300);
+		hiden->SetPosition(1236, 350);
 		objects.push_back(hiden);
-		CHidenObject *hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR);
+		CHidenObject *hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 100);
 		hiden2->SetPosition(1376, 170);
 		objects.push_back(hiden2);
+		CHidenObject *hiden3 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR);
+		hiden3->SetPosition(1420, 220);
+		objects.push_back(hiden3);
+		CHidenObject *hiden4 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 100);
+		hiden4->SetPosition(1500, 80);
+		objects.push_back(hiden4);
 		
 	}
 }
