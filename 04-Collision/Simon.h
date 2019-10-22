@@ -21,6 +21,8 @@
 #define SIMON_STATE_DIE				700
 #define SIMON_STATE_UP				800
 #define SIMON_STATE_ATTACK_DAGGER	900
+#define SIMON_STATE_GO_UP			1000
+#define SIMON_STATE_GO_DOWN			1001
 
 #define SIMON_ANI_IDLE						0
 #define SIMON_ANI_WALKING					1
@@ -28,8 +30,9 @@
 #define SIMON_ANI_SITTING					3
 #define SIMON_ANI_STANDING_ATTACKING 		4
 #define SIMON_ANI_SITTING_ATTACKING			5
-//#define SIMON_ANI_DAGGER					6
 #define SIMON_ANI_TRANS						6
+#define SIMON_ANI_GO_UP 					7
+#define SIMON_ANI_GO_DOWN					8
 
 #define SIMON_HEIGHT_STAND			60
 #define SIMON_HEIGHT_SIT			45
@@ -53,26 +56,11 @@ class CSimon : public CGameObject
 	vector<CWeapon*> weapons;
 	static CSimon* __instance;
 	int _heart;
+	int isCanOnStair;
+	bool isOnStair;
 public:
 	static CSimon* GetInstance();
-	CSimon() : CGameObject()
-	{
-		CVampireKiller* rob = CVampireKiller::GetInstance();
-		weapons.push_back(rob);
-		/*CDagger* dagger = CDagger::GetInstance();
-		weapons.push_back(dagger);*/
-		untouchable = 0;
-		attack_start = 0;
-		trans_start = 0;
-		_heart = 5;
-		CSimon::AddAnimation(400);		//0. idle left 
-		CSimon::AddAnimation(401);		//1. walk left
-		CSimon::AddAnimation(402);		//2. jump left
-		CSimon::AddAnimation(403);		//3. sit left
-		CSimon::AddAnimation(404);		//4. stand attack
-		CSimon::AddAnimation(405);		//5. sit attack
-		CSimon::AddAnimation(410);		//6. trans
-	}
+	CSimon();
 	int getTrend() { return nx; }
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();
@@ -83,5 +71,11 @@ public:
 	CVampireKiller* getWeapon(int i = 0) { return (CVampireKiller *)(weapons[0]); }
 	int GetHeart() { return _heart; }
 	void SetHeart(int heart) { _heart = heart; }
+	void CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
+	void CollisionWithTorch(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
+	void CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
+	//void CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj);
+	int IsCanOnStair(vector<LPGAMEOBJECT>& listObj);
+
 };
 #endif

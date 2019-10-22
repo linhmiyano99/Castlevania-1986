@@ -1,5 +1,6 @@
 ﻿#include "VampireKiller.h"
 #include "Torch.h"
+#include "Enemy.h"
 #include "Game.h"
 CVampireKiller* CVampireKiller::__instance = NULL;
 
@@ -8,6 +9,31 @@ CVampireKiller* CVampireKiller::GetInstance()
 	if (__instance == NULL) __instance = new CVampireKiller();
 	return __instance;
 }
+
+CVampireKiller::CVampireKiller() :CWeapon()
+{
+	_level = 1;
+	AddAnimation(600);
+	AddAnimation(601);
+	AddAnimation(602);
+	animation = animations[0];
+}
+
+void CVampireKiller::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPGAMEOBJECT> listObj;
+	// Collision logic with items
+	for (UINT i = 0; i < coObjects->size(); i++)
+	{
+		LPGAMEOBJECT object = coObjects->at(i);
+		listObj.push_back(object);
+	}
+	animations[_level - 1]->ResetFrame();
+	CollisionWithObject(dt, listObj);
+
+
+}
+
 
 void CVampireKiller::SetPosition(float simon_x, float simon_y)
 {
@@ -38,23 +64,9 @@ void CVampireKiller::SetPosition(float simon_x, float simon_y)
 
 void CVampireKiller::Render()
 {
-	
-	switch (_level)
-	{
-	case 1:
-		animations[0]->Render(x, y, nx);
-		break;
-	case 2:
-		animations[1]->Render(x, y, nx);
-		break;
-	case 3:
-		animations[2]->Render(x, y, nx);
-		break;
-	default:
-		break;
-	}
-
-	//RenderBoundingBox();
+	animation->Render(x, y, nx);
+	y += 15;
+	RenderBoundingBox();
 }
 
 void CVampireKiller::setDefaultLevel()
@@ -64,6 +76,7 @@ void CVampireKiller::setDefaultLevel()
 {
 	if (_level < 3)
 		_level++;
+	animation = animations[_level - 1];
 }
 void CVampireKiller::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -73,14 +86,14 @@ void CVampireKiller::GetBoundingBox(float& left, float& top, float& right, float
 		left = x;
 		right = x + 120;
 		top = y;
-		bottom = y + 30;
+		bottom = y + 20;
 	}
 	else
 	{
 		left = x;
 		right = x + 145;
 		top = y;
-		bottom = y + 30;
+		bottom = y + 20;
 	
 	}
 }
@@ -88,6 +101,10 @@ void CVampireKiller::GetBoundingBox(float& left, float& top, float& right, float
 
 void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 {
+	if (animation->GetCurrentFrame() < 2)
+		return;
+
+
 	RECT rect, rect1;
 	float l, t, r, b;
 	float l1, t1, r1, b1;
@@ -99,6 +116,7 @@ void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj
 	rect.bottom = (int)b;
 
 	for (int i = 0; i < listObj.size(); i++)
+	{
 		if (dynamic_cast<CTorch*>(listObj.at(i)))
 		{
 			if (listObj.at(i)->GetState() == TORCH_STATE_EXSIST)
@@ -115,4 +133,6 @@ void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj
 				}
 			}
 		}
+		
+	}
 }

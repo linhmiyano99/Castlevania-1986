@@ -22,7 +22,7 @@ public:
 	CSprite();
 
 	void Draw(float x, float y);
-	void DrawStatic(float x, float y);
+	//void DrawStatic(float x, float y);
 	void DrawFlipX(float x, float y);
 	void DrawCam(float x, float y);
 	int getHeight() { return bottom - top; }
@@ -77,6 +77,8 @@ public:
 	void Add(int spriteId, DWORD time = 0);
 	void Render(float x, float y, int trend);
 	void Render(float x, float y);
+	int GetCurrentFrame() { return currentFrame; }
+	void ResetFrame(){ lastFrameTime = -1; currentFrame = -1; }
 };
 
 typedef CAnimation* LPANIMATION;

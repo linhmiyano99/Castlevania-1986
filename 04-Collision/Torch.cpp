@@ -1,6 +1,35 @@
 #include "Torch.h"
 
-
+CTorch::CTorch(int id, int level) : CGameObject()
+{
+	dt_die = 0;
+	state = TORCH_STATE_EXSIST;
+	if (level == 0)
+	{
+		AddAnimation(501);
+	}
+	else
+	{
+		AddAnimation(502);
+	}
+	AddAnimation(800);
+	switch (id)
+	{
+	case ID_WHIPUPGRADE:
+		item = new CWhipUpgrade();
+		break;
+	case ID_DAGGER:
+		item = new CItemDagger();
+		break;
+	case ID_HEART:
+		item = new CItemHeart();
+		break;
+	case 0:
+		break;
+	default:
+		break;
+	}
+}
 
 void CTorch::Render()
 {
@@ -22,7 +51,7 @@ void CTorch::Render()
 		}
 	}
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 void CTorch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -51,9 +80,19 @@ void CTorch::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	if (state == TORCH_STATE_EXSIST)
 	{
 		left = x;
-		right = x + TORCH_WIDTH;
+		
 		top = y;
-		bottom = y + TORCH_HEIGHT;
+		
+		if (_level == 0)
+		{
+			right = x + CANDLE_WIDTH;
+			bottom = y + CANDLE_HEIGHT;
+		}
+		else
+		{
+			right = x + CANDLE_WIDTH;
+			bottom = y + CANDLE_HEIGHT;
+		}
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{

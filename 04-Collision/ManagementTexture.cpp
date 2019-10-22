@@ -10,18 +10,23 @@ CManagementTexture::CManagementTexture()
 
 	textures->Add(ID_TEX_SIMON, L"simon\\simon.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_SIMON_TRANS, L"simon\\simon_trans.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_MAP, L"map\\map.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_GROUND, L"map\\ground.png", D3DCOLOR_XRGB(0, 0, 0));
-	textures->Add(ID_TEX_TORCH, L"map\\fire.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_VAMPIREKILLER, L"simon\\morningstar.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_TORCH, L"map\\torch.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_CANDLE, L"map\\candle.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_MAP, L"map\\map.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_MAP2, L"map\\map2.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_GROUND, L"map\\ground.png", D3DCOLOR_XRGB(0, 0, 0));
+	textures->Add(ID_TEX_GROUND2, L"map\\ground2.png", D3DCOLOR_XRGB(0, 0, 0));
 	textures->Add(ID_TEX_BBOX, L"map\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_ITEM, L"item\\items.png", D3DCOLOR_XRGB(128, 0, 0));
 	textures->Add(ID_TEX_TORCH_FIRE, L"item\\Torch_fire.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_GHOST, L"enemy\\ghost.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	CSprites* sprites = CSprites::GetInstance();
 	CAnimations* animations = CAnimations::GetInstance();
 
 	LPDIRECT3DTEXTURE9 texmap = textures->Get(ID_TEX_MAP);
+	LPDIRECT3DTEXTURE9 texmap2 = textures->Get(ID_TEX_MAP2);
 
 	ifstream inFile("texture/sprites.txt");
 
@@ -73,6 +78,19 @@ CManagementTexture::CManagementTexture()
 	ani->Add(10312);
 	animations->Add(405, ani);
 
+	ani = new CAnimation(100);//simon go up stair
+	ani->Add(10115);
+	ani->Add(10114);
+	ani->Add(10116);
+	ani->Add(10114);
+	animations->Add(406, ani);
+
+	ani = new CAnimation(100);//simon go down stair
+	ani->Add(10116);
+	ani->Add(10114);
+	ani->Add(10115);
+	ani->Add(10114);
+	animations->Add(407, ani);
 
 #pragma endregion
 
@@ -85,24 +103,41 @@ CManagementTexture::CManagementTexture()
 			sprites->Add(index++, j * 64, i * 64, j * 64 + 64, i * 64 + 64, texmap);
 		}
 	}
+	index = 20000;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 22; j++)
+		{
+			sprites->Add(index++, j * 64, i * 64, j * 64 + 64, i * 64 + 64, texmap2);
+		}
+	}
 
 #pragma endregion
 
 #pragma region Add sprites Ground
 	ani = new CAnimation(100);
 	ani->Add(10000);
-	animations->Add(500, ani);
+	animations->Add(500, ani); //ground2
+
+	ani = new CAnimation(100);
+	ani->Add(9999);
+	animations->Add(499, ani); //ground1
 	
 
 #pragma endregion
 
-#pragma region Add sprites Torch 
+#pragma region Add sprites Torch & Candle
 	
 
 	ani = new CAnimation(100);
 	ani->Add(11000);
 	ani->Add(11001);
-	animations->Add(501, ani);
+	animations->Add(501, ani); // torch
+
+	ani = new CAnimation(100);
+	ani->Add(11002);
+	ani->Add(11003);
+	animations->Add(502, ani);//candle
 
 
 #pragma endregion
@@ -159,6 +194,14 @@ CManagementTexture::CManagementTexture()
 	ani->Add(14001);
 	ani->Add(14000);
 	animations->Add(800, ani); // fire after torch not exsist
+#pragma endregion
+
+#pragma region Add enemies
+	ani = new CAnimation(100);
+
+	ani->Add(30000);
+	ani->Add(30001);
+	animations->Add(10000, ani); // enemy 
 #pragma endregion
 
 }

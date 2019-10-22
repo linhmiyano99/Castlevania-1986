@@ -9,64 +9,174 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Header Files\map">
+      <UniqueIdentifier>{94b2a06d-d0c2-4910-9932-14f4a0b3eaf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Debug">
+      <UniqueIdentifier>{e6ea8da0-52c3-4bba-847c-60b0f8db39d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{1a34157e-f2c3-4f89-9308-997544c0f5c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObject">
+      <UniqueIdentifier>{e878588f-cd0a-47e7-b6bf-aecb9edd5b4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObject\simon">
+      <UniqueIdentifier>{588d9c3e-156b-4463-aadd-46d998d63093}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObject\staticobject">
+      <UniqueIdentifier>{cbca19e0-5e28-4df0-845c-2ad3320e3607}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObject\weapon">
+      <UniqueIdentifier>{10f4865e-3b73-41ce-bcf2-13ef600e84fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObject\item">
+      <UniqueIdentifier>{7fb3aeef-1e21-4fc2-adf4-b37cc00e5a74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ManagementTexture">
+      <UniqueIdentifier>{00e5f65a-0348-4df4-9feb-7796ee74b8d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{0c145e05-bca0-4d27-83e3-c2e52e0d9e1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Define">
+      <UniqueIdentifier>{62e63776-dc63-4ba0-afb9-b0dedba7f62d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObject\hidenobject">
+      <UniqueIdentifier>{2d1761d7-8bc8-4331-8a92-2d04b91ada56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObject\enemy">
+      <UniqueIdentifier>{ff3423da-9741-4002-8810-b207bd60ae99}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Brick.h">
+      <Filter>Header Files\GameObject\staticobject</Filter>
+    </ClInclude>
     <ClInclude Include="debug.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\map</Filter>
+    </ClInclude>
+    <ClInclude Include="MagagementTexture.h">
+      <Filter>Header Files\ManagementTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="Torch.h">
+      <Filter>Header Files\GameObject\staticobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Dagger.h">
+      <Filter>Header Files\GameObject\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="VampireKiller.h">
+      <Filter>Header Files\GameObject\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Header Files\GameObject\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Simon.h">
+      <Filter>Header Files\GameObject\simon</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files\GameObject\item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemDagger.h">
+      <Filter>Header Files\GameObject\item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemHeart.h">
+      <Filter>Header Files\GameObject\item</Filter>
+    </ClInclude>
+    <ClInclude Include="WhipUpgrade.h">
+      <Filter>Header Files\GameObject\item</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Sprites.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ManagementTexture</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ManagementTexture</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Define.h">
+      <Filter>Header Files\Define</Filter>
+    </ClInclude>
+    <ClInclude Include="HidenObject.h">
+      <Filter>Header Files\GameObject\hidenobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\GameObject\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="debug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Header Files\GameObject\staticobject</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Header Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Header Files\map</Filter>
+    </ClCompile>
+    <ClCompile Include="ManagementTexture.cpp">
+      <Filter>Header Files\ManagementTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="Torch.cpp">
+      <Filter>Header Files\GameObject\staticobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Dagger.cpp">
+      <Filter>Header Files\GameObject\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="VampireKiller.cpp">
+      <Filter>Header Files\GameObject\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Header Files\GameObject\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Simon.cpp">
+      <Filter>Header Files\GameObject\simon</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Header Files\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemDagger.cpp">
+      <Filter>Header Files\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemHeart.cpp">
+      <Filter>Header Files\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="WhipUpgrade.cpp">
+      <Filter>Header Files\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Header Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Header Files\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Sprites.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\ManagementTexture</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\ManagementTexture</Filter>
     </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Header Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="HidenObject.cpp">
+      <Filter>Header Files\GameObject\hidenobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Header Files\GameObject\enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -40,11 +40,11 @@ void CSprite::DrawCam(float x, float y)
 	CGame* game = CGame::GetInstance();
 	game->DrawFlipX(x, y, texture, left, top, right, bottom);
 }
-void CSprite::DrawStatic(float x, float y)
-{
-	CGame* game = CGame::GetInstance();
-	game->DrawStatic(x, y, texture, left, top, right, bottom);
-}
+//void CSprite::DrawStatic(float x, float y)
+//{
+//	CGame* game = CGame::GetInstance();
+//	game->DrawStatic(x, y, texture, left, top, right, bottom);
+//}
 void CSprite::DrawFlipX(float x, float y) {
 	LPD3DXSPRITE spriteHandler = CGame::GetInstance()->GetSpriteHandler();
 

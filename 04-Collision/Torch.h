@@ -1,3 +1,9 @@
+#ifndef __TORCH_H_
+#define __TORCH_H_
+
+
+
+
 #include "GameObject.h"
 #include "Simon.h"
 #include "Textures.h"
@@ -9,6 +15,8 @@
 
 #define TORCH_WIDTH 32
 #define TORCH_HEIGHT 64
+#define CANDLE_WIDTH 16
+#define CANDLE_HEIGHT 32
 
 #define TORCH_STATE_NOT_EXSIST 0
 #define TORCH_STATE_EXSIST 1
@@ -24,48 +32,24 @@
 
 class CTorch : public CGameObject
 {
+protected:
 	DWORD dt_die;
 	CItem* item;
+	int _level;
 public:
-	CTorch() : CGameObject()
-	{
-		dt_die = 0;
-		state = TORCH_STATE_EXSIST;
-		AddAnimation(501);
-		AddAnimation(800);
-		item = new CItem();
-	}
 
-	CTorch(int id) : CGameObject()
-	{
-		dt_die = 0;
-		state = TORCH_STATE_EXSIST;
-		AddAnimation(501);
-		AddAnimation(800);
-		switch (id)
-		{
-		case ID_WHIPUPGRADE:
-			item = new CWhipUpgrade();
-			break;
-		case ID_DAGGER:
-			item = new CItemDagger();
-			break;
-		case ID_HEART:
-			item = new CItemHeart();
-			break;
-		default:
-			break;
-		}
-	}
+
+	CTorch(int id = 0, int _level = 0);
 	~CTorch()
 	{
 		CGameObject::~CGameObject();
 		if (item != NULL)
 			delete item;
 	}
-	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
-	void Render();
-	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	void SetPosition(float _x, float _y) { x = _x; y = _y; if(item != NULL) item->SetPosition(_x, _y); }
-	CItem* GetItem() { return item; }
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
+	virtual void Render();
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void SetPosition(float _x, float _y) { x = _x; y = _y; if(item != NULL) item->SetPosition(_x, _y); }
+	virtual CItem* GetItem() { return item; }
 };
+#endif // !__TORCH_H_
