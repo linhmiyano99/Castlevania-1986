@@ -22,7 +22,7 @@ public:
 	CSprite();
 
 	void Draw(float x, float y);
-	void DrawStatic(float x, float y);
+	//void DrawStatic(float x, float y);
 	void DrawFlipX(float x, float y);
 	void DrawCam(float x, float y);
 	int getHeight() { return bottom - top; }

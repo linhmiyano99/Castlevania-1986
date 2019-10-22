@@ -83,17 +83,30 @@ int CMap::getTile(int x, int y)
 void CMap::DrawMap()
 {
 
-	CGame* game = CGame::GetInstance();
-	float cam_x, cam_y;
-	game->GetCamPos(cam_x, cam_y);
+	//CGame* game = CGame::GetInstance();
+	//float cam_x, cam_y;
+	//game->GetCamPos(cam_x, cam_y);
 
-	for (int i = (int)(cam_y) / 64 - 1; i < (int)(cam_y + 560) / 64 + 3; i++)
-		for (int j = (int)(cam_x) / 64 - 1; j < (int)(cam_x + 460) / 64 + 3; j++)
+	//for (int i = (int)(cam_y) / 64 - 1; i < (int)(cam_y + 560) / 64 + 3; i++)
+	//	for (int j = (int)(cam_x) / 64 - 1; j < (int)(cam_x + 460) / 64 + 3; j++)
+	//	{
+	//		if (!(i < 0 || i > _row || j < 0 || j > _column))
+	//		{
+	//			CSprites* sprites = CSprites::GetInstance();
+	//			//sprites->Get(getTile(i, j))->DrawStatic(64 * j - cam_x, 64 * i - cam_y + 40);
+	//			sprites->Get(getTile(i, j))->Draw(64 * j , 64 * i - + 40);
+
+	//		}
+	//	}
+
+	for (int i = 0; i < 12; i++)
+		for (int j = 0; j < 88; j++)
 		{
-			if (!(i < 0 || i > _row || j < 0 || j > _column))
+			//if (!(i < 0 || i > _row || j < 0 || j > _column))
 			{
 				CSprites* sprites = CSprites::GetInstance();
-				sprites->Get(getTile(i, j))->DrawStatic(64 * j - cam_x, 64 * i - cam_y + 40);
+				//sprites->Get(getTile(i, j))->DrawStatic(64 * j - cam_x, 64 * i - cam_y + 40);
+				sprites->Get(getTile(i, j))->Draw(64 * j, 64 * i  +40);
 
 			}
 		}

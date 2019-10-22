@@ -145,7 +145,7 @@ void CScene::Update(DWORD dt)
 
 	// Update camera to follow simon
 	cx -= SCREEN_WIDTH / 2 - 40;
-	cy -= SCREEN_HEIGHT / 2;
+	cy -= SCREEN_HEIGHT / 2 + 40;
 	if (id == 0)
 	{
 		
@@ -156,7 +156,7 @@ void CScene::Update(DWORD dt)
 		if (cx < 0) cx = 0; if (cx > 88*64) cx = 88*64;
 	}
 	game = CGame::GetInstance();
-	game->SetCamPos(cx, 0);
+	game->SetCamPos(cx, cy);
 }
 void CScene::Render() 
 {

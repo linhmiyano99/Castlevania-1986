@@ -177,24 +177,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			}
 
-
-		/*	if (listTorch.size() > 0)
-			{
-				CollisionWithTorch(dt, listTorch);
-			}
-			if (listHideObject.size() > 0)
-			{
-				CollisionWithHidenObject(dt, listHideObject);
-			}
-			if (listBrick.size() > 0)
-			{
-				CollisionWithBrick(dt, listBrick, min_tx, min_ty, nx, ny);
-			}
-			else {
-				x += dx;
-				y += dy;
-			}*/
-
 		}
 
 
@@ -269,7 +251,7 @@ void CSimon::Render()
 	}
 
 	animations[id]->Render(x, y, nx);
-	//RenderBoundingBox()
+	//RenderBoundingBox();
 
 	
 }
