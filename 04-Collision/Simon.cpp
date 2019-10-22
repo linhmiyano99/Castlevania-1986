@@ -65,33 +65,33 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 		
-		if (isOnStair && (state == SIMON_STATE_GO_DOWN || state == SIMON_STATE_GO_UP || state == SIMON_STATE_IDLE))
+		if (isOnStair)
 		{
 			if (state == SIMON_STATE_GO_DOWN)
 			{
-				if (vx >= 0)
+				if (nx > 0)
 				{
-					dx += 0.01f * dt;
-					dy += 0.01f * dt;
+					dx += 0.001f * dt;
+					dy += 0.001f * dt;
 				}
-				else if (vx < 0)
+				else if (nx < 0)
 				{
-					dx -= 0.01f * dt;
-					dy += 0.01f * dt;
+					dx -= 0.001f * dt;
+					dy += 0.001f * dt;
 				}
 			}
 
 			else if (state == SIMON_STATE_GO_UP)
 			{
-				if (vx >= 0)
+				if (nx > 0)
 				{
-					dx += 0.01f * dt;
-					dy -= 0.01f * dt;
+					dx += 0.001f * dt;
+					dy -= 0.001f * dt;
 				}
-				else if (vx < 0)
+				else if (nx < 0)
 				{
-					dx -= 0.01f * dt;
-					dy -= 0.01f * dt;
+					dx -= 0.001f * dt;
+					dy -= 0.001f * dt;
 				}
 			}
 			else
@@ -208,7 +208,7 @@ void CSimon::Render()
 		weapons[0]->Render();
 
 	}
-	else if (state == SIMON_STATE_GO_UP)
+	else if (state == SIMON_STATE_GO_UP && (isCanOnStair == 1 || isOnStair))
 	{
 		id = SIMON_ANI_GO_UP;
 	}
@@ -251,7 +251,7 @@ void CSimon::Render()
 	}
 
 	animations[id]->Render(x, y, nx);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 
 	
 }
@@ -336,7 +336,7 @@ void CSimon::SetState(int state)
 		if (isCanOnStair != 1)
 		{
 			state = SIMON_STATE_IDLE;
-			vx = vy = 0;
+			vx = 0;
 		}
 		else
 		{
@@ -348,8 +348,8 @@ void CSimon::SetState(int state)
 			break;
 		if (isCanOnStair != -1)
 		{
-			state = SIMON_STATE_IDLE;
-			vx = vy = 0;
+			state = SIMON_STATE_SIT;
+			vx = 0;
 		}
 		else
 		{
@@ -365,7 +365,7 @@ void CSimon::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	top = this->y;
 	right = this->x + SIMON_WIDTH;
 	bottom = this->y + SIMON_HEIGHT_STAND;
-	if (state == SIMON_STATE_SIT || state == SIMON_STATE_SIT_ATTACK)
+	if ((state == SIMON_STATE_GO_DOWN && isCanOnStair != -1) || state == SIMON_STATE_SIT_ATTACK )
 	{
 		bottom = this->y + SIMON_HEIGHT_SIT;
 	}
@@ -517,8 +517,10 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 				state = SIMON_ANI_IDLE;
 				vx = vy = 0;
 			}
-			isCanOnStair = true;
-
+			if(ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
+				isCanOnStair = -1;
+			if(ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
+				isCanOnStair = 1;
 		}
 	}
 }

@@ -110,19 +110,43 @@ void CScene::LoadResoure()
 			brick->SetPosition(i * 32, 200);
 			objects.push_back(brick);
 		}
-		CHidenObject *hiden = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR);
+		for (int i = 58; i < 63; i++)
+		{
+			CBrick* brick = new CBrick(1);
+			brick->SetPosition(i * 32, 265);
+			objects.push_back(brick);
+		}
+		for (int i = 86; i < 105; i++)
+		{
+			CBrick* brick = new CBrick(1);
+			brick->SetPosition(i * 32, 200);
+			objects.push_back(brick);
+		}
+		CHidenObject *hiden = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
 		hiden->SetPosition(1236, 350);
 		objects.push_back(hiden);
-		CHidenObject *hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 100);
-		hiden2->SetPosition(1376, 170);
+		CHidenObject *hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1, 100);
+		hiden2->SetPosition(1380, 170);
 		objects.push_back(hiden2);
-		CHidenObject *hiden3 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR);
-		hiden3->SetPosition(1420, 220);
+		CHidenObject *hiden3 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
+		hiden3->SetPosition(1425, 220);
 		objects.push_back(hiden3);
-		CHidenObject *hiden4 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 100);
-		hiden4->SetPosition(1500, 80);
+		CHidenObject *hiden4 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1, 100);
+		hiden4->SetPosition(1520, 80);
 		objects.push_back(hiden4);
-		
+		CHidenObject* hiden5 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1, 100);
+		hiden5->SetPosition(1790, 80);
+		objects.push_back(hiden5);
+		CHidenObject* hiden6 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1 , -1);
+		hiden6->SetPosition(1850, 220);
+		objects.push_back(hiden6);
+
+		CHidenObject* hiden7 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
+		hiden7->SetPosition(2555, 350);
+		objects.push_back(hiden7);
+		CHidenObject* hiden8 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1, 100);
+		hiden8->SetPosition(2755, 80);
+		objects.push_back(hiden8);
 	}
 }
 
@@ -156,7 +180,7 @@ void CScene::Update(DWORD dt)
 		if (cx < 0) cx = 0; if (cx > 88*64) cx = 88*64;
 	}
 	game = CGame::GetInstance();
-	game->SetCamPos(cx, cy);
+	game->SetCamPos(cx, 0);
 }
 void CScene::Render() 
 {

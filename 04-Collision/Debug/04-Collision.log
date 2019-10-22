@@ -1,4 +1,27 @@
-﻿  Simon.cpp
+﻿  main.cpp
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(29,1): warning C4005: 'SIMON_ANI_JUMPING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(28): message : see previous definition of 'SIMON_ANI_JUMPING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(30,1): warning C4005: 'SIMON_ANI_SITTING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(27): message : see previous definition of 'SIMON_ANI_SITTING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Map.h(27,31): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  Scene.cpp
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Map.h(28,32): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(29,1): warning C4005: 'SIMON_ANI_JUMPING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(28): message : see previous definition of 'SIMON_ANI_JUMPING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(30,1): warning C4005: 'SIMON_ANI_SITTING': macro redefinition
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(27): message : see previous definition of 'SIMON_ANI_SITTING'
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Map.h(27,31): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Map.h(28,32): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(54,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(97,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(103,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(110,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(116,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(122,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(160,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(165,20): warning C4018: '<': signed/unsigned mismatch
+  Simon.cpp
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Scene.cpp(189,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(27,1): warning C4005: 'SIMON_ANI_SITTING': macro redefinition
 C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.h(30): message : see previous definition of 'SIMON_ANI_SITTING'
 C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\MagagementTexture.h(28,1): warning C4005: 'SIMON_ANI_JUMPING': macro redefinition
@@ -15,5 +38,6 @@ C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-
 C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.cpp(377,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.cpp(456,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.cpp(500,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.cpp(543,20): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\04-Collision\Simon.cpp(545,20): warning C4018: '<': signed/unsigned mismatch
   04-Collision.vcxproj -> C:\Users\17520\Documents\gamedev-intro-tutorials-master\gamedev-intro-tutorials-master\Castlevania_ver2\Debug\04-Collision.exe

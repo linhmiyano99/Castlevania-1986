@@ -110,15 +110,17 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE* states)
 {
-	if (game->IsKeyDown(DIK_DOWN))
-		simon->SetState(SIMON_STATE_SIT);
+	if (game->IsKeyDown(DIK_RIGHT))
+		simon->SetState(SIMON_STATE_WALKING_RIGHT);
+	else if (game->IsKeyDown(DIK_LEFT))
+		simon->SetState(SIMON_STATE_WALKING_LEFT);
+	else if (game->IsKeyDown(DIK_DOWN))
+	{
+	}
 	else if (game->IsKeyDown(DIK_Z))
 	{
 	}
-	else if (game->IsKeyDown(DIK_RIGHT))
-		simon->SetState(SIMON_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_LEFT))
-		simon->SetState(SIMON_STATE_WALKING_LEFT);		
+		
 	else if (game->IsKeyDown(DIK_SPACE))
 	{
 		simon->SetState(SIMON_STATE_JUMP);
