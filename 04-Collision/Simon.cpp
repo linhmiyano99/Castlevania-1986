@@ -249,7 +249,7 @@ void CSimon::Render()
 		id = SIMON_ANI_TRANS;
 
 	}
-
+	
 	animations[id]->Render(x, y, nx);
 	RenderBoundingBox();
 
@@ -258,104 +258,119 @@ void CSimon::Render()
 
 void CSimon::SetState(int state)
 {
-	CGameObject::SetState(state);
-	switch (state)
-	{
-	case SIMON_STATE_WALKING_RIGHT:
-		vx = SIMON_WALKING_SPEED;
-		nx = 1;
-		break;
-	case SIMON_STATE_WALKING_LEFT:
-		vx = -SIMON_WALKING_SPEED;
-		nx = -1;
-		break;
-	case SIMON_STATE_JUMP:
-		if(vy == 0){
-			vy = -SIMON_JUMP_SPEED_Y;
-			vx = 0;
-		}
-		break;
 	
-	case SIMON_STATE_SIT_ATTACK:
-		if (attack_start != 0)
+	if (animations[SIMON_ANI_ATTACKING]->GetCurrentFrame() > 0)
+	{
+		state = SIMON_STATE_STAND_ATTACK;
+	}
+	else if (animations[SIMON_ANI_SITTING_ATTACKING]->GetCurrentFrame() > 0)
+	{
+		state = SIMON_STATE_SIT_ATTACK;
+	}
+	
+	else
+	{
+		CGameObject::SetState(state);
+		switch (state)
 		{
-			if (GetTickCount() - attack_start >= ATTACK_TIME)
-			{
-				attack_start = 0;
-			}
-
-		}
-		else {
-			attack_start = GetTickCount();
-			vx = 0;
-
-		}
-		break;
-	case SIMON_STATE_SIT:
-		//y = 272.0f;
-		vx = 0;
-		break;
-	case SIMON_STATE_STAND_ATTACK:
-		if (attack_start != 0)
-		{
-			if (GetTickCount() - attack_start >= ATTACK_TIME)
-			{
-				attack_start = 0;
-			}
-
-		}
-		else {
-			attack_start = GetTickCount();
-			vx = 0;
-
-		}
-		break;
-	case SIMON_STATE_ATTACK_DAGGER:
-		vx = 0;
-		if (_heart > 0 && weapons.size() > 1)
-		{
-			CDagger* dagger = CDagger::GetInstance();
-			if (dagger->GetState() == DAGGER_STATE_HIDE)
-			{
-				dagger->SetState(DAGGER_STATE_ATTACK);
-				dagger->SetPosition(x, y);
-				dagger->SetTrend(nx);
-				_heart--;
-			}
-		}
-		break;
-	case SIMON_STATE_UP:
-		y -= 20;
-
-	case SIMON_STATE_IDLE:
-		vx = 0;
-		break;
-	case SIMON_STATE_GO_UP:
-		if (isOnStair)
+		case SIMON_STATE_WALKING_RIGHT:
+			vx = SIMON_WALKING_SPEED;
+			nx = 1;
 			break;
-		if (isCanOnStair != 1)
-		{
-			state = SIMON_STATE_IDLE;
-			vx = 0;
-		}
-		else
-		{
-			isOnStair = true;
-		}
-		break;
-	case SIMON_STATE_GO_DOWN:
-		if (isOnStair)
+		case SIMON_STATE_WALKING_LEFT:
+			vx = -SIMON_WALKING_SPEED;
+			nx = -1;
 			break;
-		if (isCanOnStair != -1)
-		{
-			state = SIMON_STATE_SIT;
+		case SIMON_STATE_JUMP:
+			if (vy == 0) {
+				vy = -SIMON_JUMP_SPEED_Y;
+				vx = 0;
+			}
+			break;
+
+		case SIMON_STATE_SIT_ATTACK:
+			if (attack_start != 0)
+			{
+				if (GetTickCount() - attack_start >= ATTACK_TIME)
+				{
+					attack_start = 0;
+				}
+
+			}
+			else {
+				attack_start = GetTickCount();
+				vx = 0;
+
+			}
+			break;
+		case SIMON_STATE_SIT:
+			//y = 272.0f;
 			vx = 0;
+			break;
+		case SIMON_STATE_STAND_ATTACK:
+			if (attack_start != 0)
+			{
+				if (GetTickCount() - attack_start >= ATTACK_TIME)
+				{
+					attack_start = 0;
+				}
+
+			}
+			else {
+				attack_start = GetTickCount();
+				vx = 0;
+
+			}
+			break;
+		case SIMON_STATE_ATTACK_DAGGER:
+			vx = 0;
+			if (_heart > 0 && weapons.size() > 1)
+			{
+				CDagger* dagger = CDagger::GetInstance();
+				if (dagger->GetState() == DAGGER_STATE_HIDE)
+				{
+					dagger->SetState(DAGGER_STATE_ATTACK);
+					dagger->SetPosition(x, y);
+					dagger->SetTrend(nx);
+					_heart--;
+				}
+			}
+			break;
+		case SIMON_STATE_UP:
+			y -= 20;
+
+		case SIMON_STATE_IDLE:
+			vx = 0;
+			break;
+		case SIMON_STATE_GO_UP:
+			if (isOnStair)
+				break;
+			if (isCanOnStair != 1)
+			{
+				state = SIMON_STATE_IDLE;
+				vx = 0;
+			}
+			else
+			{
+				isOnStair = true;
+			}
+			break;
+		case SIMON_STATE_GO_DOWN:
+			if (isOnStair)
+				break;
+			if (isCanOnStair != -1)
+			{
+				state = SIMON_STATE_SIT;
+				vx = 0;
+			}
+			else
+			{
+				isOnStair = true;
+			}
+			break;
+
+
 		}
-		else
-		{
-			isOnStair = true;
-		}
-		break;
 	}
 }
 void CSimon::GetBoundingBox(float& left, float& top, float& right, float& bottom)
