@@ -51,7 +51,6 @@ class CSimon : public CGameObject
 {
 	int untouchable;
 	DWORD untouchable_start;
-	DWORD attack_start;
 	DWORD trans_start;
 	vector<CWeapon*> weapons;
 	static CSimon* __instance;

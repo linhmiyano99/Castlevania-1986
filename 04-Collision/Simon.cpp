@@ -27,7 +27,6 @@ CSimon::CSimon() : CGameObject()
 	/*CDagger* dagger = CDagger::GetInstance();
 	weapons.push_back(dagger);*/
 	untouchable = 0;
-	attack_start = 0;
 	trans_start = 0;
 	_heart = 5;
 	isCanOnStair = 0;
@@ -112,7 +111,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			weapons[0]->SetPosition(x, y);
 			weapons[0]->SetTrend(nx);
 			weapons[0]->CollisionWithObject(dt, *coObjects);
-			attack_start = GetTickCount();
 		}
 
 		// Calculate dx, dy 
@@ -251,7 +249,7 @@ void CSimon::Render()
 	}
 	
 	animations[id]->Render(x, y, nx);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 
 	
 }
@@ -289,38 +287,14 @@ void CSimon::SetState(int state)
 			break;
 
 		case SIMON_STATE_SIT_ATTACK:
-			if (attack_start != 0)
-			{
-				if (GetTickCount() - attack_start >= ATTACK_TIME)
-				{
-					attack_start = 0;
-				}
-
-			}
-			else {
-				attack_start = GetTickCount();
-				vx = 0;
-
-			}
+			vx = 0;
 			break;
 		case SIMON_STATE_SIT:
 			//y = 272.0f;
 			vx = 0;
 			break;
 		case SIMON_STATE_STAND_ATTACK:
-			if (attack_start != 0)
-			{
-				if (GetTickCount() - attack_start >= ATTACK_TIME)
-				{
-					attack_start = 0;
-				}
-
-			}
-			else {
-				attack_start = GetTickCount();
-				vx = 0;
-
-			}
+			vx = 0;
 			break;
 		case SIMON_STATE_ATTACK_DAGGER:
 			vx = 0;

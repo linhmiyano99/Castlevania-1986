@@ -12,21 +12,6 @@ void CEnemy::GetBoundingBox(float& left, float& top, float& right, float& bottom
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
-	//
-	// TO-DO: make sure ENEMY can interact with the world and to each of them too!
-	// 
-
-	//x += dx;
-	//y += dy;
-
-	//if (vx < 0 && x < 0) {
-	//	x = 0; vx = -vx;
-	//}
-
-	//if (vx > 0 && x > 290) {
-	//	x = 290; vx = -vx;
-	//}
-	// Calculate dx, dy 
 	if (dt_die == 0)
 	{
 		if (state == TORCH_STATE_NOT_EXSIST) {

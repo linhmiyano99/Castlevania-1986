@@ -66,7 +66,7 @@ void CScene::LoadResoure()
 		objects.push_back(dagger);
 
 		simon = CSimon::GetInstance();
-		simon->SetPosition(1000.0f, 20.0f);
+		simon->SetPosition(0, 20.0f);
 		objects.push_back(simon);
 
 
