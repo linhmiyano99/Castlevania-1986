@@ -116,7 +116,7 @@ void CScene::LoadResoure()
 			brick->SetPosition(i * 32, 265);
 			objects.push_back(brick);
 		}
-		for (int i = 86; i < 105; i++)
+		for (int i = 87; i < 105; i++)
 		{
 			CBrick* brick = new CBrick(1);
 			brick->SetPosition(i * 32, 200);
@@ -132,20 +132,20 @@ void CScene::LoadResoure()
 		hiden3->SetPosition(1425, 220);
 		objects.push_back(hiden3);
 		CHidenObject *hiden4 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1, 100);
-		hiden4->SetPosition(1520, 80);
+		hiden4->SetPosition(1535, 80);
 		objects.push_back(hiden4);
 		CHidenObject* hiden5 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1, 100);
 		hiden5->SetPosition(1790, 80);
 		objects.push_back(hiden5);
 		CHidenObject* hiden6 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1 , -1);
-		hiden6->SetPosition(1850, 220);
+		hiden6->SetPosition(1870, 220);
 		objects.push_back(hiden6);
 
 		CHidenObject* hiden7 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
 		hiden7->SetPosition(2555, 350);
 		objects.push_back(hiden7);
 		CHidenObject* hiden8 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1, 100);
-		hiden8->SetPosition(2755, 80);
+		hiden8->SetPosition(2785, 80);
 		objects.push_back(hiden8);
 	}
 }

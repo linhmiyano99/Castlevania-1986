@@ -134,7 +134,6 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	{
 		simon->SetState(SIMON_STATE_GO_UP);
 	}
-
 	else
 		simon->SetState(SIMON_STATE_IDLE);
 }
