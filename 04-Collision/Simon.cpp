@@ -72,7 +72,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				listPanther.push_back(coObjects->at(i));
 			}
 		}
-
+		for (int i = 0; i < listPanther.size(); i++)
+		{
+			float p_x, p_y;
+			listPanther.at(i)->GetPosition(p_x, p_y);
+			if (abs(x - p_x) < 200)
+				listPanther.at(i)->SetSpeed(-0.1f, -0.01f);
+		}
 		if (isOnStair)
 		{
 			if (state == SIMON_STATE_GO_DOWN)
