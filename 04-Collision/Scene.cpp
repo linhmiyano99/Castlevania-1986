@@ -62,11 +62,15 @@ void CScene::LoadResoure()
 	{
 		map->SetMap(1);
 
+		CGate* gate = new CGate();
+		gate->SetPosition(3063, 105);
+		objects.push_back(gate);
+
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 
 		simon = CSimon::GetInstance();
-		simon->SetPosition(1500.0f, 20.0f);
+		simon->SetPosition(2500.0f, 20.0f);
 		objects.push_back(simon);
 
 

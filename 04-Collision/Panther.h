@@ -21,7 +21,7 @@ public:
 	CPanther() :CEnemy()
 	{
 		animations.clear();
-		AddAnimation(10001);
+		AddAnimation(1001);
 		AddAnimation(800);
 	}
 	virtual void Render();

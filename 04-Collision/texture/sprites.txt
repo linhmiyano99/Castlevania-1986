@@ -1,3 +1,10 @@
+id= 9998
+left= 0
+top= 0
+right= 32
+bottom= 32
+idTexture= 22
+
 id= 9999
 left= 0
 top= 0
@@ -406,3 +413,24 @@ top= 0
 right= 256
 bottom= 32
 idTexture= 101
+
+id= 40000
+left= 0
+top= 0
+right= 32
+bottom= 96
+idTexture= 110
+
+id= 40001
+left= 32
+top= 0
+right= 88
+bottom= 96
+idTexture= 110
+
+id= 40002
+left= 88
+top= 0
+right= 192
+bottom= 96
+idTexture= 110

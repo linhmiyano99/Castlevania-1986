@@ -13,6 +13,7 @@
 #define ID_TEX_MAP2				11
 #define ID_TEX_GROUND			20
 #define ID_TEX_GROUND2			21
+#define ID_TEX_GROUND3			22
 #define ID_TEX_TORCH			30
 #define ID_TEX_CANDLE			31
 #define ID_TEX_VAMPIREKILLER	40
@@ -21,6 +22,7 @@
 #define ID_TEX_SIMON_TRANS		70
 #define ID_TEX_GHOST			100
 #define ID_TEX_PANTHER			101
+#define ID_TEX_DOOR				110
 
 
 #define SIMON_ANI_IDLE				0
