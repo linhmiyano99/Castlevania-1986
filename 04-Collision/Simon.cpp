@@ -158,15 +158,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				LPCOLLISIONEVENT e = coEventsResult[i];
 				if (dynamic_cast<CTorch*>(e->obj))
 				{
-
-					CTorch* torch = dynamic_cast<CTorch*>(e->obj);
-					if (dynamic_cast<CGhost*>(torch))
+					if (untouchable == 0)
 					{
-						if (untouchable == 0)
+						CTorch* torch = dynamic_cast<CTorch*>(e->obj);
+						if (dynamic_cast<CGhost*>(torch))
 						{
+
 							CGhost* torch = dynamic_cast<CGhost*>(e->obj);
 
-							if (torch->GetState() != TORCH_STATE_EXSIST)
+							if (torch->GetState() == TORCH_STATE_EXSIST)
 							{
 								listGhost.push_back(torch);
 								CollisionWithEnemy(dt, listGhost, min_tx, min_ty, nx, ny);
@@ -176,12 +176,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							else {
 								continue;
 							}
+
 						}
-					}
-					else {
-						listTorch.push_back(torch);
-						CollisionWithTorch(dt, listTorch, min_tx, min_ty, nx, ny);
-						listTorch.clear();
+						else {
+							listTorch.push_back(torch);
+							CollisionWithTorch(dt, listTorch, min_tx, min_ty, nx, ny);
+							listTorch.clear();
+						}
 					}
 				}
 				else if (dynamic_cast<CBrick*>(e->obj))

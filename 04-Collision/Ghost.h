@@ -7,6 +7,12 @@
 class CGhost: public CEnemy
 {
 public:
+	CGhost() :CEnemy()
+	{
+		animations.clear();
+		AddAnimation(10000);
+		AddAnimation(800);
+	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 };

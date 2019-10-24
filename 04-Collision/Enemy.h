@@ -26,9 +26,7 @@ public:
 		
 		dt_die = 0;
 		state = TORCH_STATE_EXSIST;
-		animations.clear();
-		AddAnimation(10000);
-		AddAnimation(800);
+
 		switch (id)
 		{
 		case ID_WHIPUPGRADE:
