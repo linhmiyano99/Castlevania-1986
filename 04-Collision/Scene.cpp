@@ -240,7 +240,12 @@ void CScene::LoadResoure()
 				brick->SetPosition(i * 32, 550);
 				objects.push_back(brick);
 			}
-
+			CHidenObject* hiden1 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
+			hiden1->SetPosition(3282, 472);
+			objects.push_back(hiden1);
+			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
+			hiden2->SetPosition(3980, 526);
+			objects.push_back(hiden2);
 		}
 	}
 }
