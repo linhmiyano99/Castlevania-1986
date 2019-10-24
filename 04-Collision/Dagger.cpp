@@ -43,7 +43,7 @@ void CDagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CDagger::Render()
 {
 	if (state == DAGGER_STATE_ATTACK) {
-		animations[0]->Render(x, y, -nx);
+		animations[0]->Render(x, y, -nx, 255);
 		//RenderBoundingBox();
 	}
 }
