@@ -57,6 +57,7 @@ class CSimon : public CGameObject
 	int _heart;
 	int isCanOnStair;
 	bool isOnStair;
+	int _stairTrend;
 public:
 	static CSimon* GetInstance();
 	CSimon();

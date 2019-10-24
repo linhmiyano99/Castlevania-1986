@@ -81,15 +81,15 @@ CManagementTexture::CManagementTexture()
 	ani = new CAnimation(100);//simon go up stair
 	ani->Add(10115);
 	ani->Add(10114);
-	ani->Add(10116);
-	ani->Add(10114);
+	//ani->Add(10116);
+	//ani->Add(10114);
 	animations->Add(406, ani);
 
 	ani = new CAnimation(100);//simon go down stair
 	ani->Add(10116);
 	ani->Add(10114);
-	ani->Add(10115);
-	ani->Add(10114);
+	//ani->Add(10115);
+	//ani->Add(10114);
 	animations->Add(407, ani);
 
 #pragma endregion

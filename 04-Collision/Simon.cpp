@@ -31,6 +31,7 @@ CSimon::CSimon() : CGameObject()
 	_heart = 5;
 	isCanOnStair = 0;
 	isOnStair = false;
+	_stairTrend = 0;
 	
 	CSimon::AddAnimation(400);		//0. idle left 
 	CSimon::AddAnimation(401);		//1. walk left
@@ -68,29 +69,33 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (state == SIMON_STATE_GO_DOWN)
 			{
-				if (nx > 0)
+				if (_stairTrend == 0)
 				{
-					dx += 0.001f * dt;
-					dy += 0.001f * dt;
+					nx = -1;
+					dx = -2.0f;
+					dy = 2.0f;
 				}
-				else if (nx < 0)
+				else
 				{
-					dx -= 0.001f * dt;
-					dy += 0.001f * dt;
+					nx = 1;
+					dx = 2.0f;
+					dy = 2.0f;
 				}
 			}
 
 			else if (state == SIMON_STATE_GO_UP)
 			{
-				if (nx > 0)
+				if (_stairTrend == 0)
 				{
-					dx += 0.001f * dt;
-					dy -= 0.001f * dt;
+					nx = 1;
+					dx = 2.0f;
+					dy = -2.0f;
 				}
-				else if (nx < 0)
+				else
 				{
-					dx -= 0.001f * dt;
-					dy -= 0.001f * dt;
+					nx = -1;
+					dx = -2.0f;
+					dy = -2.0f;
 				}
 			}
 			else
@@ -256,14 +261,17 @@ void CSimon::Render()
 
 void CSimon::SetState(int state)
 {
-	
+
 	if (animations[SIMON_ANI_ATTACKING]->GetCurrentFrame() > 0)
 	{
-		state = SIMON_STATE_STAND_ATTACK;
+
 	}
 	else if (animations[SIMON_ANI_SITTING_ATTACKING]->GetCurrentFrame() > 0)
 	{
-		state = SIMON_STATE_SIT_ATTACK;
+		
+	}
+	else if (isOnStair && (animations[SIMON_ANI_GO_UP]->GetCurrentFrame() > 0 || animations[SIMON_ANI_GO_DOWN]->GetCurrentFrame() > 0)) {
+	
 	}
 	
 	else
@@ -510,7 +518,19 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 				isCanOnStair = -1;
 			if(ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
 				isCanOnStair = 1;
+			
 		}
+		
+		
+			if (ohiden->getNx() * ohiden->getNy() > 0)
+			{
+				_stairTrend = 1;
+			}
+			else
+			{
+				_stairTrend = 0;
+			}
+		
 	}
 }
 //
@@ -543,16 +563,25 @@ int CSimon::IsCanOnStair(vector<LPGAMEOBJECT>& listObj)
 			rect1.bottom = (int)b1;
 			if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 			{
-				if (listObj.at(i)->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
+				CHidenObject* ohiden = dynamic_cast<CHidenObject*>(listObj.at(i)); 
+				if (ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
 				{
 					isCanOnStair = -1;
 					return -1;
 				}
-				if (listObj.at(i)->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
+				if (ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
 				{
 					
 					isCanOnStair = 1;
 					return 1;
+				}
+				if (ohiden->getNx() * ohiden->getNy() > 0)
+				{
+					_stairTrend = 1;
+				}
+				else
+				{
+					_stairTrend = 0;
 				}
 			}
 		}

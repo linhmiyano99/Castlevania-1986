@@ -105,6 +105,13 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	case DIK_RIGHT:
 		simon->SetState(SIMON_STATE_IDLE);
 		break;
+	case DIK_Z:
+		if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
+			simon->SetState(SIMON_STATE_SIT);
+		else if (simon->GetState() == SIMON_STATE_STAND_ATTACK)
+			simon->SetState(SIMON_STATE_IDLE);
+			 
+		break;
 	}
 }
 
