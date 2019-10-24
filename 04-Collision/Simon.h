@@ -7,8 +7,8 @@
 #include "VampireKiller.h"
 #include "Weapon.h"
 #include "Dagger.h"
-#define SIMON_WALKING_SPEED		0.1f
-#define SIMON_JUMP_SPEED_Y		0.8f
+#define SIMON_WALKING_SPEED		0.15f
+#define SIMON_JUMP_SPEED_Y		0.7f
 #define SIMON_GRAVITY			0.002f
 
 #define SIMON_STATE_IDLE			0
@@ -23,6 +23,8 @@
 #define SIMON_STATE_ATTACK_DAGGER	900
 #define SIMON_STATE_GO_UP			1000
 #define SIMON_STATE_GO_DOWN			1001
+#define SIMON_STATE_IDLE_UP			1002
+#define SIMON_STATE_IDLE_DOWN		1003
 #define SIMON_STATE_HURT			1100
 
 #define SIMON_ANI_IDLE						0
@@ -35,6 +37,8 @@
 #define SIMON_ANI_GO_UP 					7
 #define SIMON_ANI_GO_DOWN					8
 #define SIMON_ANI_HURT						9
+#define SIMON_ANI_IDLE_UP					10
+#define SIMON_ANI_IDLE_DOWN					11
 
 #define SIMON_HEIGHT_STAND			60
 #define SIMON_HEIGHT_SIT			45
@@ -80,6 +84,8 @@ public:
 	void CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
 	void CollisionWithGate(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
 	int IsCanOnStair(vector<LPGAMEOBJECT>& listObj);
-
+	bool IsOnStair() { return isOnStair; }
+	int GetStairTrend() { return _stairTrend; }
+	int GetNx() { return nx; }
 };
 #endif

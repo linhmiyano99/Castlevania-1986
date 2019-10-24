@@ -99,6 +99,14 @@ CManagementTexture::CManagementTexture()
 	ani = new CAnimation(100);//simon hurt
 	ani->Add(10117);
 	animations->Add(408, ani);
+	
+	ani = new CAnimation(100);//simon idle up
+	ani->Add(10115);
+	animations->Add(409, ani);
+	
+	ani = new CAnimation(100);//simon idle down
+	ani->Add(10116);
+	animations->Add(410, ani);
 
 #pragma endregion
 

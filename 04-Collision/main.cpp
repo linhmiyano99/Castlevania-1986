@@ -97,6 +97,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_DOWN:
+		if(!simon->IsOnStair())
 		simon->SetState(SIMON_STATE_UP);
 		break;
 	case DIK_LEFT:
@@ -121,13 +122,6 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		simon->SetState(SIMON_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
 		simon->SetState(SIMON_STATE_WALKING_LEFT);
-	else if (game->IsKeyDown(DIK_DOWN))
-	{
-	}
-	else if (game->IsKeyDown(DIK_Z))
-	{
-	}
-		
 	else if (game->IsKeyDown(DIK_SPACE))
 	{
 		simon->SetState(SIMON_STATE_JUMP);
@@ -141,8 +135,18 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	{
 		simon->SetState(SIMON_STATE_GO_UP);
 	}
-	else
-		simon->SetState(SIMON_STATE_IDLE);
+	else if(!game->IsKeyDown(DIK_DOWN)&& !game->IsKeyDown(DIK_Z)){
+		
+		if (simon->IsOnStair()) {
+			if ((simon->GetStairTrend() == 0 && simon->GetNx() == 1) || (simon->GetStairTrend() == 1 && simon->GetNx() == -1))
+				simon->SetState(SIMON_STATE_IDLE_UP);
+			else
+				simon->SetState(SIMON_STATE_IDLE_DOWN);
+		}
+		else
+			simon->SetState(SIMON_STATE_IDLE);
+	}
+		
 }
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

@@ -44,6 +44,8 @@ CSimon::CSimon() : CGameObject()
 	CSimon::AddAnimation(406);		//7. go up
 	CSimon::AddAnimation(407);		//8. go down
 	CSimon::AddAnimation(408);		//9. hurt
+	CSimon::AddAnimation(409);		//9. idle up
+	CSimon::AddAnimation(410);		//9. idle down
 }
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -259,7 +261,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CSimon::Render()
 {
 	int id;
-	if (state == SIMON_STATE_SIT_ATTACK)
+	if (state == SIMON_STATE_IDLE_DOWN)
+	{
+		id = SIMON_ANI_IDLE_DOWN;
+	}
+	else if (state == SIMON_STATE_IDLE_UP)
+	{
+		id = SIMON_ANI_IDLE_UP;
+	}
+	else if (state == SIMON_STATE_SIT_ATTACK)
 	{
 		id = SIMON_ANI_SITTING_ATTACKING;
 		weapons[0]->Render();
@@ -338,9 +348,6 @@ void CSimon::SetState(int state)
 	{
 		
 	}
-	else if (isOnStair && (animations[SIMON_ANI_GO_UP]->GetCurrentFrame() > 0 || animations[SIMON_ANI_GO_DOWN]->GetCurrentFrame() > 0)) {
-	
-	}
 	
 	else
 	{
@@ -418,7 +425,10 @@ void CSimon::SetState(int state)
 				isOnStair = true;
 			}
 			break;
-
+		case SIMON_STATE_IDLE_UP:
+		case SIMON_STATE_IDLE_DOWN:
+			vx = vy = 0;
+			break;
 
 		}
 	}
