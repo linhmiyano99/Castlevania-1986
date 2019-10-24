@@ -1,15 +1,6 @@
-#include "Enemy.h"
+#include"Ghost.h"
 
-
-void CEnemy::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = x;
-	top = y;
-	right = x + ENEMY_BBOX_WIDTH;
-	bottom = y + ENEMY_BBOX_HEIGHT;
-}
-
-void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	if (dt_die == 0)
@@ -79,45 +70,12 @@ void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 	}
-	
+
 }
-
-void CEnemy::Render()
-{	
-	if (state == TORCH_STATE_EXSIST)
-	{
-		if (vx < 0)
-			animations[ENEMY_ANI_WALKING]->Render(x, y);
-		else
-			animations[ENEMY_ANI_WALKING]->Render(x, y, vx);
-	}
-	else if (state == TORCH_STATE_ITEM)
-	{
-		if (item != NULL)
-			item->Render();
-
-	}
-	else
-	{
-		if (GetTickCount() - dt_die < 150)
-		{
-			animations[1]->Render(x, y);
-
-		}
-	}
-	//RenderBoundingBox();
-}
-
-void CEnemy::SetState(int state)
+void CGhost::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	CGameObject::SetState(state);
-	switch (state)
-	{
-	case ENEMY_STATE_DIE:
-
-		break;
-	case ENEMY_STATE_WALKING:
-		vx = -ENEMY_WALKING_SPEED;
-	}
-
+	left = x;
+	top = y;
+	right = x + GHOST_BBOX_WIDTH;
+	bottom = y + GHOST_BBOX_HEIGHT;
 }

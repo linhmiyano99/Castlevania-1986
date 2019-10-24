@@ -23,6 +23,7 @@
 #include "Brick.h"
 #include "Dagger.h"
 #include "HidenObject.h"
+#include "Ghost.h"
 
 
 

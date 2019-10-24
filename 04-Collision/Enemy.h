@@ -1,6 +1,7 @@
 #pragma once
 #include"GameObject.h"
 #include"Torch.h"
+#include "Brick.h"
 
 #define ENEMY_WALKING_SPEED 0.05f;
 
