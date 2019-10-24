@@ -28,7 +28,7 @@ void CVampireKiller::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		LPGAMEOBJECT object = coObjects->at(i);
 		listObj.push_back(object);
 	}
-	animations[_level - 1]->ResetFrame();
+	//animations[_level - 1]->ResetFrame();
 	CollisionWithObject(dt, listObj);
 
 

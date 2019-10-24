@@ -20,6 +20,7 @@
 #define ID_TEX_TORCH_FIRE		60
 #define ID_TEX_SIMON_TRANS		70
 #define ID_TEX_GHOST			100
+#define ID_TEX_PANTHER			101
 
 
 #define SIMON_ANI_IDLE				0

@@ -21,6 +21,7 @@ CManagementTexture::CManagementTexture()
 	textures->Add(ID_TEX_ITEM, L"item\\items.png", D3DCOLOR_XRGB(128, 0, 0));
 	textures->Add(ID_TEX_TORCH_FIRE, L"item\\Torch_fire.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_GHOST, L"enemy\\ghost.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(ID_TEX_PANTHER, L"enemy\\panther.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	CSprites* sprites = CSprites::GetInstance();
 	CAnimations* animations = CAnimations::GetInstance();
@@ -193,7 +194,6 @@ CManagementTexture::CManagementTexture()
 
 #pragma region Add sprites fire after torch not exsist
 	ani = new CAnimation(100);
-
 	ani->Add(14002);
 	ani->Add(14001);
 	ani->Add(14000);
@@ -202,10 +202,17 @@ CManagementTexture::CManagementTexture()
 
 #pragma region Add enemies
 	ani = new CAnimation(100);
-
 	ani->Add(30000);
 	ani->Add(30001);
-	animations->Add(10000, ani); // enemy 
+	animations->Add(10000, ani); // ghost go
+	
+	ani = new CAnimation(100);
+	ani->Add(30002);
+	ani->Add(30003);
+	ani->Add(30004);
+	ani->Add(30005);
+	animations->Add(10001, ani); // panther run 
+
 #pragma endregion
 
 }

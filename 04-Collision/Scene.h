@@ -24,6 +24,7 @@
 #include "Dagger.h"
 #include "HidenObject.h"
 #include "Ghost.h"
+#include "Panther.h"
 
 
 

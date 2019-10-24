@@ -66,7 +66,7 @@ void CScene::LoadResoure()
 		objects.push_back(dagger);
 
 		simon = CSimon::GetInstance();
-		simon->SetPosition(0.0f, 20.0f);
+		simon->SetPosition(1700.0f, 20.0f);
 		objects.push_back(simon);
 
 
@@ -90,6 +90,11 @@ void CScene::LoadResoure()
 		enemy->SetPosition(500, 250);
 		enemy->SetSpeed(-0.05f, 0);
 		objects.push_back(enemy);
+		
+		CPanther* enemy2 = new CPanther();
+		enemy2->SetPosition(1800, 150);
+		enemy2->SetSpeed(0, 0);
+		objects.push_back(enemy2);
 
 		for (int i = 0; i < 98; i++)
 		{
@@ -169,7 +174,7 @@ void CScene::Update(DWORD dt)
 
 
 	vector<LPGAMEOBJECT> coObjects;
-	for (int i = 1; i < objects.size(); i++)
+	for (int i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
 	}

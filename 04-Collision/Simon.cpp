@@ -59,12 +59,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vector<LPGAMEOBJECT> listTorch;
 		vector<LPGAMEOBJECT> listBrick;
 		vector<LPGAMEOBJECT> listHideObject;
-		vector<LPGAMEOBJECT> listGhost;
+		vector<LPGAMEOBJECT> listEnemy;
+		vector<LPGAMEOBJECT> listPanther;
 		for (int i = 0; i < coObjects->size(); i++)
 		{
 			if (dynamic_cast<CHidenObject*>(coObjects->at(i)))
 			{
 				listHideObject.push_back(coObjects->at(i));
+			}
+			else if (dynamic_cast<CPanther*>(coObjects->at(i)))
+			{
+				listPanther.push_back(coObjects->at(i));
 			}
 		}
 
@@ -168,15 +173,30 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 							if (torch->GetState() == TORCH_STATE_EXSIST)
 							{
-								listGhost.push_back(torch);
-								CollisionWithEnemy(dt, listGhost, min_tx, min_ty, nx, ny);
+								listEnemy.push_back(torch);
+								CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
 								StartUntouchable();
-								listGhost.clear();
+								listEnemy.clear();
 							}
 							else {
 								continue;
 							}
 
+						}
+						else if (dynamic_cast<CPanther*>(torch))
+						{
+							CPanther* torch = dynamic_cast<CPanther*>(e->obj);
+
+							if (torch->GetState() == TORCH_STATE_EXSIST)
+							{
+								listEnemy.push_back(torch);
+								CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
+								StartUntouchable();
+								listEnemy.clear();
+							}
+							else {
+								continue;
+							}
 						}
 						else {
 							listTorch.push_back(torch);

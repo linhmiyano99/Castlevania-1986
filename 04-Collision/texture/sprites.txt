@@ -378,3 +378,31 @@ top= 0
 right= 68
 bottom= 64
 idTexture= 100
+
+id= 30002
+left= 0
+top= 0
+right= 64
+bottom= 32
+idTexture= 101
+
+id= 30003
+left= 64
+top= 0
+right= 128
+bottom= 32
+idTexture= 101
+
+id= 30004
+left= 128
+top= 0
+right= 192
+bottom= 32
+idTexture= 101
+
+id= 30005
+left= 192
+top= 0
+right= 256
+bottom= 32
+idTexture= 101
