@@ -2,8 +2,15 @@
 
 void CGate::Render()
 {
-	animations[0]->ResetFrame();
-	animations[0]->Render(x, y);
+	if (state == GATE_STATE_CLOSE)
+	{
+		animations[0]->ResetFrame();
+		animations[0]->Render(x, y);
+	}
+	else
+	{
+		animations[0]->Render(x, y);
+	}
 }
 
 void CGate::GetBoundingBox(float& left, float& top, float& right, float& bottom)

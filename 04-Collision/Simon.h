@@ -8,7 +8,7 @@
 #include "Weapon.h"
 #include "Dagger.h"
 #define SIMON_WALKING_SPEED		0.1f
-#define SIMON_JUMP_SPEED_Y		0.5f
+#define SIMON_JUMP_SPEED_Y		0.8f
 #define SIMON_GRAVITY			0.002f
 
 #define SIMON_STATE_IDLE			0
@@ -78,6 +78,7 @@ public:
 	void CollisionWithTorch(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
 	void CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
 	void CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
+	void CollisionWithGate(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
 	int IsCanOnStair(vector<LPGAMEOBJECT>& listObj);
 
 };

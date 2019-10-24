@@ -61,6 +61,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vector<LPGAMEOBJECT> listHideObject;
 		vector<LPGAMEOBJECT> listEnemy;
 		vector<LPGAMEOBJECT> listPanther;
+		vector<LPGAMEOBJECT> listGate;
 		for (int i = 0; i < coObjects->size(); i++)
 		{
 			if (dynamic_cast<CHidenObject*>(coObjects->at(i)))
@@ -227,6 +228,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					CollisionWithHidenObject(dt, listHideObject, min_tx, min_ty, nx, ny);
 					listHideObject.clear();
 				}
+				else if (dynamic_cast<CGate*>(e->obj))
+				{
+					CGate* torch = dynamic_cast<CGate*>(e->obj);
+
+					listGate.push_back(torch);
+					CollisionWithGate(dt, listGate, min_tx, min_ty, nx, ny);
+					listGate.clear();
+				}
 
 
 			}
@@ -310,7 +319,7 @@ void CSimon::Render()
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 	animations[id]->Render(x, y, nx, alpha);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 
 	
 }
@@ -560,7 +569,7 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 		{
 			if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR) {
 				CScene* scene = CScene::GetInstance();
-				scene->SetMap(1);
+				scene->SetMap(scene->GetScene() +1);
 				scene->LoadResoure();
 				break;
 			}
@@ -620,6 +629,54 @@ void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 	_enegy--;
 
 	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+}
+
+void CSimon::CollisionWithGate(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx0, float min_ty0, int nx0, int ny0)
+{
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	// turn off collision when die 
+
+	CalcPotentialCollisions(&listObj, coEvents);
+
+	float min_tx, min_ty, nx = 0, ny;
+
+	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+	CGate* gate0 = dynamic_cast<CGate*>(listObj.at(0));// if e->obj is torch 
+
+	if (gate0->GetState() == GATE_STATE_CLOSE)
+	{
+		if (min_tx <= min_tx0)
+			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		if (min_ty <= min_ty0)
+			y += min_ty * dy + ny * 0.4f;
+		if (nx != 0) vx = 0;
+		if (ny != 0) vy = 0;
+	}
+	else
+	{
+		x += dx;
+	}
+	// clean up collision events
+	
+
+	for (int i = 0; i < listObj.size(); i++)
+	{
+		CGate* gate = dynamic_cast<CGate*>(listObj.at(i));// if e->obj is torch 
+		if (gate->GetState() == GATE_STATE_CLOSE)
+		{
+			gate->SetState(GATE_STATE_OPEN);
+			CScene* scene = CScene::GetInstance();
+			scene->SetMap(2);
+			scene->LoadResoure();
+			break;
+		}
+
+	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 int CSimon::IsCanOnStair(vector<LPGAMEOBJECT>& listObj)
