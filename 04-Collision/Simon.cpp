@@ -32,6 +32,7 @@ CSimon::CSimon() : CGameObject()
 	isCanOnStair = 0;
 	isOnStair = false;
 	_stairTrend = 0;
+	_enegy = 20;
 	
 	CSimon::AddAnimation(400);		//0. idle left 
 	CSimon::AddAnimation(401);		//1. walk left
@@ -42,6 +43,7 @@ CSimon::CSimon() : CGameObject()
 	CSimon::AddAnimation(410);		//6. trans
 	CSimon::AddAnimation(406);		//7. go up
 	CSimon::AddAnimation(407);		//8. go down
+	CSimon::AddAnimation(408);		//9. hurt
 }
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -57,6 +59,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vector<LPGAMEOBJECT> listTorch;
 		vector<LPGAMEOBJECT> listBrick;
 		vector<LPGAMEOBJECT> listHideObject;
+		vector<LPGAMEOBJECT> listGhost;
 		for (int i = 0; i < coObjects->size(); i++)
 		{
 			if (dynamic_cast<CHidenObject*>(coObjects->at(i)))
@@ -64,7 +67,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				listHideObject.push_back(coObjects->at(i));
 			}
 		}
-		
+
 		if (isOnStair)
 		{
 			if (state == SIMON_STATE_GO_DOWN)
@@ -108,7 +111,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			CGameObject::Update(dt);
 			vy += SIMON_GRAVITY * dt;
 		}
-		if(listHideObject.size() > 0)
+		if (listHideObject.size() > 0)
 			IsCanOnStair(listHideObject);
 		listHideObject.clear();
 		if (state == SIMON_STATE_SIT_ATTACK || state == SIMON_STATE_STAND_ATTACK)
@@ -155,11 +158,31 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				LPCOLLISIONEVENT e = coEventsResult[i];
 				if (dynamic_cast<CTorch*>(e->obj))
 				{
-					CTorch* torch = dynamic_cast<CTorch*>(e->obj);
 
-					listTorch.push_back(torch);
-					CollisionWithTorch(dt, listTorch, min_tx, min_ty, nx, ny);
-					listTorch.clear();
+					CTorch* torch = dynamic_cast<CTorch*>(e->obj);
+					if (dynamic_cast<CGhost*>(torch))
+					{
+						if (untouchable == 0)
+						{
+							CGhost* torch = dynamic_cast<CGhost*>(e->obj);
+
+							if (torch->GetState() != TORCH_STATE_EXSIST)
+							{
+								listGhost.push_back(torch);
+								CollisionWithEnemy(dt, listGhost, min_tx, min_ty, nx, ny);
+								StartUntouchable();
+								listGhost.clear();
+							}
+							else {
+								continue;
+							}
+						}
+					}
+					else {
+						listTorch.push_back(torch);
+						CollisionWithTorch(dt, listTorch, min_tx, min_ty, nx, ny);
+						listTorch.clear();
+					}
 				}
 				else if (dynamic_cast<CBrick*>(e->obj))
 				{
@@ -178,6 +201,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					listHideObject.clear();
 				}
 
+
 			}
 
 		}
@@ -194,7 +218,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		x = CMap::GetInstance()->GetWidth() - SCREEN_WIDTH / 2;
 
 }
-
 
 
 void CSimon::Render()
@@ -238,6 +261,11 @@ void CSimon::Render()
 		else
 			id = SIMON_ANI_IDLE;
 	}
+	else if (state == SIMON_STATE_HURT)
+	{
+		id = SIMON_ANI_HURT;
+		nx = - nx;
+	}
 	else {
 		if (vx == 0)
 		{
@@ -252,8 +280,9 @@ void CSimon::Render()
 		id = SIMON_ANI_TRANS;
 
 	}
-	
-	animations[id]->Render(x, y, nx);
+	int alpha = 255;
+	if (untouchable) alpha = 128;
+	animations[id]->Render(x, y, nx, alpha);
 	//RenderBoundingBox();
 
 	
@@ -261,8 +290,11 @@ void CSimon::Render()
 
 void CSimon::SetState(int state)
 {
+	if ((state == SIMON_STATE_ATTACK_DAGGER || state == SIMON_STATE_SIT_ATTACK || state == SIMON_STATE_STAND_ATTACK) && untouchable)
+	{
 
-	if (animations[SIMON_ANI_ATTACKING]->GetCurrentFrame() > 0)
+	}
+	else if (animations[SIMON_ANI_ATTACKING]->GetCurrentFrame() > 0)
 	{
 
 	}
@@ -533,11 +565,36 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 		
 	}
 }
-//
-//void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj)
-//{
-//
-//}
+
+void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx0, float min_ty0, int nx0, int ny0)
+{
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	// turn off collision when die 
+
+	CalcPotentialCollisions(&listObj, coEvents);
+
+	float min_tx, min_ty, nx = 0, ny;
+
+	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+	//// block 
+	if (min_tx <= min_tx0 || min_ty <= min_ty0)
+	{
+		x += min_tx * dx + nx * 50.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		y -= 50.0f;
+	}
+	if (nx != 0) vx = nx * 0.2f;
+	vy = -0.2f;
+	state = SIMON_STATE_HURT;
+	_enegy--;
+
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+}
 int CSimon::IsCanOnStair(vector<LPGAMEOBJECT>& listObj)
 {
 

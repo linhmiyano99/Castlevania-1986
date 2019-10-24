@@ -145,6 +145,13 @@ right= 165
 bottom= 133
 idTexture= 0
 
+id= 10117
+left= 5
+top= 68
+right= 43
+bottom= 131
+idTexture= 0
+
 id= 10201
 left= 245
 top= 0

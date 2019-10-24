@@ -89,7 +89,7 @@ void CEnemy::Render()
 		if (vx < 0)
 			animations[ENEMY_ANI_WALKING]->Render(x, y);
 		else
-			animations[ENEMY_ANI_WALKING]->Render(x, y, vx);
+			animations[ENEMY_ANI_WALKING]->Render(x, y, vx, 255);
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{

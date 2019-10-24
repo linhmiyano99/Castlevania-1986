@@ -64,7 +64,7 @@ void CVampireKiller::SetPosition(float simon_x, float simon_y)
 
 void CVampireKiller::Render()
 {
-	animation->Render(x, y, nx);
+	animation->Render(x, y, nx, 255);
 	y += 15;
 	RenderBoundingBox();
 }

@@ -46,4 +46,5 @@ public:
 	void Render();
 	void SetMap(int id = 0);
 	int GetScene() { return id; }
+	vector<LPGAMEOBJECT> GetObjects() { return objects; }
 };

@@ -23,6 +23,7 @@
 #define SIMON_STATE_ATTACK_DAGGER	900
 #define SIMON_STATE_GO_UP			1000
 #define SIMON_STATE_GO_DOWN			1001
+#define SIMON_STATE_HURT			1100
 
 #define SIMON_ANI_IDLE						0
 #define SIMON_ANI_WALKING					1
@@ -33,6 +34,7 @@
 #define SIMON_ANI_TRANS						6
 #define SIMON_ANI_GO_UP 					7
 #define SIMON_ANI_GO_DOWN					8
+#define SIMON_ANI_HURT						9
 
 #define SIMON_HEIGHT_STAND			60
 #define SIMON_HEIGHT_SIT			45
@@ -58,6 +60,7 @@ class CSimon : public CGameObject
 	int isCanOnStair;
 	bool isOnStair;
 	int _stairTrend;
+	int _enegy;
 public:
 	static CSimon* GetInstance();
 	CSimon();
@@ -74,7 +77,7 @@ public:
 	void CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
 	void CollisionWithTorch(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
 	void CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
-	//void CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj);
+	void CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
 	int IsCanOnStair(vector<LPGAMEOBJECT>& listObj);
 
 };

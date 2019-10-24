@@ -30,22 +30,22 @@ CSprites* CSprites::GetInstance()
 	return __instance;
 }
 
-void CSprite::Draw(float x, float y)
+void CSprite::Draw(float x, float y, int alpha)
 {
 	CGame* game = CGame::GetInstance();
-	game->Draw(x, y, texture, left, top, right, bottom);
+	game->Draw(x, y, texture, left, top, right, bottom, alpha);
 }
-void CSprite::DrawCam(float x, float y)
+void CSprite::DrawCam(float x, float y, int alpha)
 {
 	CGame* game = CGame::GetInstance();
-	game->DrawFlipX(x, y, texture, left, top, right, bottom);
+	game->DrawFlipX(x, y, texture, left, top, right, bottom, alpha);
 }
 //void CSprite::DrawStatic(float x, float y)
 //{
 //	CGame* game = CGame::GetInstance();
 //	game->DrawStatic(x, y, texture, left, top, right, bottom);
 //}
-void CSprite::DrawFlipX(float x, float y) {
+void CSprite::DrawFlipX(float x, float y, int alpha) {
 	LPD3DXSPRITE spriteHandler = CGame::GetInstance()->GetSpriteHandler();
 
 	D3DXMATRIX oldMt;
@@ -64,7 +64,7 @@ void CSprite::DrawFlipX(float x, float y) {
 
 	x -= getwidth();
 
-	this->DrawCam(x , y);
+	this->DrawCam(x , y, alpha);
 
 	spriteHandler->SetTransform(&oldMt);
 }
@@ -110,7 +110,7 @@ void CAnimation::Add(int spriteId, DWORD time)
 	frames.push_back(frame);
 }
 
-void CAnimation::Render(float x, float y, int trend)
+void CAnimation::Render(float x, float y, int trend, int alpha)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -131,11 +131,11 @@ void CAnimation::Render(float x, float y, int trend)
 
 	}
 	if(trend <0)
-		frames[currentFrame]->GetSprite()->Draw(x, y);
+		frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
 	else
-		frames[currentFrame]->GetSprite()->DrawFlipX(x, y);
+		frames[currentFrame]->GetSprite()->DrawFlipX(x, y, alpha);
 }
-void CAnimation::Render(float x, float y)
+void CAnimation::Render(float x, float y, int alpha)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -156,7 +156,7 @@ void CAnimation::Render(float x, float y)
 
 	}
 
-	frames[currentFrame]->GetSprite()->Draw(x, y);
+	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
 }
 
 CAnimations* CAnimations::__instance = NULL;
