@@ -129,12 +129,15 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Gate.h" />
+    <ClInclude Include="Ghost.h" />
     <ClInclude Include="HidenObject.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemDagger.h" />
     <ClInclude Include="ItemHeart.h" />
     <ClInclude Include="MagagementTexture.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Panther.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="Sprites.h" />
@@ -151,6 +154,8 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Gate.cpp" />
+    <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="HidenObject.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemDagger.cpp" />
@@ -158,6 +163,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ManagementTexture.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Panther.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="Sprites.cpp" />

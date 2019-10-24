@@ -113,6 +113,15 @@
     <ClInclude Include="Enemy.h">
       <Filter>Header Files\GameObject\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Ghost.h">
+      <Filter>Header Files\GameObject\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Panther.h">
+      <Filter>Header Files\GameObject\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Gate.h">
+      <Filter>Header Files\GameObject\staticobject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -177,6 +186,15 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Header Files\GameObject\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>Header Files\GameObject\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Panther.cpp">
+      <Filter>Header Files\GameObject\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Gate.cpp">
+      <Filter>Header Files\GameObject\staticobject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
