@@ -120,6 +120,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				dx = 0;
 				dy = 0;
 			}
+
 		}
 		else {
 			CGameObject::Update(dt);
@@ -216,11 +217,18 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else if (dynamic_cast<CBrick*>(e->obj))
 				{
-					CBrick* torch = dynamic_cast<CBrick*>(e->obj);
+					if (!isOnStair) {
+						CBrick* torch = dynamic_cast<CBrick*>(e->obj);
 
-					listBrick.push_back(torch);
-					CollisionWithBrick(dt, listBrick, min_tx, min_ty, nx, ny);
-					listBrick.clear();
+						listBrick.push_back(torch);
+						CollisionWithBrick(dt, listBrick, min_tx, min_ty, nx, ny);
+						listBrick.clear();
+					}
+					else
+					{
+						x += dx;
+						y += dy;
+					}
 				}
 				else if (dynamic_cast<CHidenObject*>(e->obj))
 				{
@@ -590,12 +598,8 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 			{
 				isOnStair = false;
 				state = SIMON_ANI_IDLE;
-				vx = vy = 0;
 			}
-			if(ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
-				isCanOnStair = -1;
-			if(ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
-				isCanOnStair = 1;
+			IsCanOnStair(listObj);
 			
 		}
 		

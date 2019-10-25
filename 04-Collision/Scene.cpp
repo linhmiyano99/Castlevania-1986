@@ -21,6 +21,9 @@ CScene::CScene(int id)
 void CScene::LoadResoure()
 {
 	CManagementTexture* manage = new CManagementTexture();
+	float simon_x, simon_y;
+	simon = CSimon::GetInstance();
+	simon->GetPosition(simon_x, simon_y);
 	objects.clear();
 	dagger = CDagger::GetInstance();
 	objects.push_back(dagger);
@@ -145,17 +148,17 @@ void CScene::LoadResoure()
 			CHidenObject* hiden = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
 			hiden->SetPosition(1236, 350);
 			objects.push_back(hiden);
-			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1, 100);
+			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1);
 			hiden2->SetPosition(1380, 170);
 			objects.push_back(hiden2);
 			CHidenObject* hiden3 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
 			hiden3->SetPosition(1425, 220);
 			objects.push_back(hiden3);
-			CHidenObject* hiden4 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1, 100);
-			hiden4->SetPosition(1535, 80);
+			CHidenObject* hiden4 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1);
+			hiden4->SetPosition(1535, 90);
 			objects.push_back(hiden4);
-			CHidenObject* hiden5 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1, 100);
-			hiden5->SetPosition(1790, 80);
+			CHidenObject* hiden5 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
+			hiden5->SetPosition(1790, 90);
 			objects.push_back(hiden5);
 			CHidenObject* hiden6 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
 			hiden6->SetPosition(1870, 220);
@@ -164,8 +167,8 @@ void CScene::LoadResoure()
 			CHidenObject* hiden7 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
 			hiden7->SetPosition(2555, 350);
 			objects.push_back(hiden7);
-			CHidenObject* hiden8 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1, 100);
-			hiden8->SetPosition(2785, 80);
+			CHidenObject* hiden8 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1);
+			hiden8->SetPosition(2800, 90);
 			objects.push_back(hiden8);
 
 			CGate* gate = new CGate();
@@ -174,8 +177,12 @@ void CScene::LoadResoure()
 		}
 		else if (id == 2)
 		{
-			simon->SetPosition(3069, 77);
-			for (int i = 96; i < 104; i++)
+			if (simon_y < 190)
+				simon->SetPosition(simon_x, simon_y);
+			else
+				simon->SetPosition(simon_x, simon_y - 0);
+
+			for (int i = 94; i < 104; i++)
 			{
 				CBrick* brick = new CBrick(1);
 				brick->SetPosition(i * 32, 200);
@@ -189,7 +196,7 @@ void CScene::LoadResoure()
 				objects.push_back(brick);
 			}
 
-			for (int i = 95; i < 99; i++)
+			for (int i = 94; i < 99; i++)
 			{
 				CBrick* brick = new CBrick(1);
 				brick->SetPosition(i * 32, 394);
@@ -202,26 +209,26 @@ void CScene::LoadResoure()
 				brick->SetPosition(i * 32, 394);
 				objects.push_back(brick);
 			}
-			CHidenObject* hiden = new CHidenObject(HIDENOBJECT_TYPE_DOOR, 1, 1, 100);
-			hiden->SetPosition(3137, 335);
+			CHidenObject* hiden = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
+			hiden->SetPosition(3137, 285);
 			objects.push_back(hiden);
 			CHidenObject* hiden1 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
 			hiden1->SetPosition(3566, 335);
 			objects.push_back(hiden1);
-			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1, 100);
-			hiden2->SetPosition(3393, 220);
+			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
+			hiden2->SetPosition(3393, 170);
 			objects.push_back(hiden2);
 		}
 		else if (id == 3)
 		{
-		simon->SetPosition(3194, 393);
+			simon->SetPosition(simon_x, simon_y + 0);
 			for (int i = 96; i < 110; i++)
 			{
 				CBrick* brick = new CBrick(1);
 				brick->SetPosition(i * 32, 614);
 				objects.push_back(brick);
 			}
-			
+
 			for (int i = 112; i < 114; i++)
 			{
 				CBrick* brick = new CBrick(1);
@@ -240,11 +247,45 @@ void CScene::LoadResoure()
 				brick->SetPosition(i * 32, 550);
 				objects.push_back(brick);
 			}
+
+			for (int i = 126; i < 128; i++)
+			{
+				CBrick* brick = new CBrick(1);
+				brick->SetPosition(i * 32, 680);
+				objects.push_back(brick);
+			}
+
+			for (int i = 124; i < 126; i++)
+			{
+				CBrick* brick = new CBrick(1);
+				brick->SetPosition(i * 32, 740);
+				objects.push_back(brick);
+			}
 			CHidenObject* hiden1 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
-			hiden1->SetPosition(3282, 472);
+			hiden1->SetPosition(3282, 500);
 			objects.push_back(hiden1);
 			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
-			hiden2->SetPosition(3980, 526);
+			hiden2->SetPosition(3980, 550);
+			objects.push_back(hiden2);
+		}
+		else
+		{
+			simon->SetPosition(simon_x, simon_y - 20);
+			for (int i = 116; i < 119; i++)
+			{
+				CBrick* brick = new CBrick(1);
+				brick->SetPosition(i * 32, 390);
+				objects.push_back(brick);
+			}
+			for (int i = 120; i < 176; i++)
+			{
+				CBrick* brick = new CBrick(1);
+				brick->SetPosition(i * 32, 390);
+				objects.push_back(brick);
+			}
+
+			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
+			hiden2->SetPosition(3747, 310);
 			objects.push_back(hiden2);
 		}
 	}
@@ -254,7 +295,44 @@ void CScene::Update(DWORD dt)
 {
 	float cx, cy;
 	simon->GetPosition(cx, cy);
+	
 
+	if (cy >= 350 && id != 3)
+	{
+		SetMap(3);
+		LoadResoure();
+		cy = 430;
+	}
+	else if (id == 3)
+	{
+		if (cy < 420)
+		{
+			if ((cx > 3100 && cx < 3240))
+			{
+				id = 2;
+				SetMap(2);
+				LoadResoure();
+				cy = 0;
+			}
+			else if ((cx > 3770 && cx < 3900))
+			{
+				id = 4;
+				SetMap(4);
+				LoadResoure();
+				cy = 0;
+			}
+			else
+				cy = 430;
+			
+		}
+		else
+			cy = 430;
+	}
+	else
+		cy = 0;
+	// Update camera to follow simon
+	cx -= SCREEN_WIDTH / 2 - 40;
+	//cy -= SCREEN_HEIGHT / 2 + 40;
 
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 0; i < objects.size(); i++)
@@ -267,20 +345,18 @@ void CScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
-	// Update camera to follow simon
-	cx -= SCREEN_WIDTH / 2 - 40;
-	cy -= SCREEN_HEIGHT / 2 + 40;
+	
 	if (id == 0)
 	{
-		
+
 		if (cx < 0) cx = 0; if (cx > 966) cx = 966;
 	}
-	else if(id == 1)
+	else if (id == 1)
 	{
-		if(cx < 3100)
+		if (cx < 3100)
 			if (cx < 0) cx = 0; if (cx > 3150 - SCREEN_WIDTH) cx = 3150 - SCREEN_WIDTH;
 	}
-	else if(id ==2)
+	else if (id == 2)
 	{
 		if (cx < 3038)
 			cx = 3038;
@@ -302,10 +378,7 @@ void CScene::Update(DWORD dt)
 		if (cx > 5630 - SCREEN_WIDTH)
 			cx = 5630 - SCREEN_WIDTH;
 	}
-	if (id == 3)
-		cy = 430;
-	else
-		cy = 0;
+
 	game = CGame::GetInstance();
 	game->SetCamPos(cx, cy);
 }
