@@ -221,7 +221,7 @@ void CScene::LoadResoure()
 		}
 		else if (id == 3)
 		{
-			simon->SetPosition(simon_x + 32, simon_y + 65);
+			simon->SetPosition(simon_x + 20, simon_y + 65);
 			for (int i = 96; i < 110; i++)
 			{
 				CBrick* brick = new CBrick(1);
@@ -283,10 +283,71 @@ void CScene::LoadResoure()
 				brick->SetPosition(i * 32, 390);
 				objects.push_back(brick);
 			}
+			for (int i = 116; i < 118; i++)
+			{
+				CBrick* brick = new CBrick(1);
+				brick->SetPosition(i * 32, 230);
+				objects.push_back(brick);
+			}
+			for (int i = 118; i < 121; i++)
+			{
+				CBrick* brick = new CBrick(1);
+				brick->SetPosition(i * 32, 262);
+				objects.push_back(brick);
+			}
+			for (int i = 122; i < 135; i++)
+			{
+				CBrick* brick = new CBrick(1);
+				brick->SetPosition(i * 32, 200);
+				objects.push_back(brick);
+			}
+			for (int i = 136; i < 147; i++)
+			{
+				CBrick* brick = new CBrick(1);
+				brick->SetPosition(i * 32, 264);
+				objects.push_back(brick);
+			}
+			for (int i = 170; i < 171; i++)
+			{
+				CBrick* brick = new CBrick(1);
+				brick->SetPosition(i * 32, 330);
+				objects.push_back(brick);
+			}
+			for (int i = 173; i < 176; i++)
+			{
+				CBrick* brick = new CBrick(1);
+				brick->SetPosition(i * 32, 264);
+				objects.push_back(brick);
+			}
 
+			CHidenObject* hiden = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
+			hiden->SetPosition(3747, 310);
+			objects.push_back(hiden);
 			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
-			hiden2->SetPosition(3747, 310);
-			objects.push_back(hiden2);
+			hiden2->SetPosition(3840, 165);
+			objects.push_back(hiden2); 
+			CHidenObject* hiden3 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
+			hiden3->SetPosition(4290, 100);
+			objects.push_back(hiden3); 
+			CHidenObject* hiden4 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
+			hiden4->SetPosition(4670, 210);
+			objects.push_back(hiden4);
+			CHidenObject* hiden5= new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
+			hiden5->SetPosition(5544, 215);
+			objects.push_back(hiden5);
+			CHidenObject* hiden6 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, 1);
+			hiden6->SetPosition(4000, 350);
+			objects.push_back(hiden6);
+			CHidenObject* hiden7 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, 1);
+			hiden7->SetPosition(4390, 210);
+			objects.push_back(hiden7);
+			CHidenObject* hiden8 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, 1);
+			hiden8->SetPosition(4835, 350);
+			objects.push_back(hiden8);
+			CHidenObject* hiden9 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, 1);
+			hiden9->SetPosition(5430, 276);
+			objects.push_back(hiden9);
+
 		}
 	}
 }
@@ -307,14 +368,14 @@ void CScene::Update(DWORD dt)
 	{
 		if (cy < 465)
 		{
-			if ((cx > 3100 && cx < 3240))
+			if ((cx > 3070 && cx < 3290))
 			{
 				id = 2;
 				SetMap(2);
 				LoadResoure();
 				cy = 0;
 			}
-			else if ((cx > 3770 && cx < 3900))
+			else if ((cx > 3740 && cx < 3940))
 			{
 				id = 4;
 				SetMap(4);
