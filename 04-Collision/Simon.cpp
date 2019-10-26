@@ -258,10 +258,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
 
-	if (x < 0)
-		x = 0;
-	if (x > CMap::GetInstance()->GetWidth() - SCREEN_WIDTH / 2)
-		x = CMap::GetInstance()->GetWidth() - SCREEN_WIDTH / 2;
+	if (x < CScene::GetInstance()->GetLeft())
+		x = CScene::GetInstance()->GetLeft();
+	if (x > CScene::GetInstance()->GetRight())
+		x = CScene::GetInstance()->GetRight();
 
 }
 

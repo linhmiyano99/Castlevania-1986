@@ -332,7 +332,7 @@ void CScene::LoadResoure()
 			CHidenObject* hiden4 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
 			hiden4->SetPosition(4670, 210);
 			objects.push_back(hiden4);
-			CHidenObject* hiden5= new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
+			CHidenObject* hiden5= new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1);
 			hiden5->SetPosition(5544, 215);
 			objects.push_back(hiden5);
 			CHidenObject* hiden6 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, 1);
@@ -344,7 +344,7 @@ void CScene::LoadResoure()
 			CHidenObject* hiden8 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, 1);
 			hiden8->SetPosition(4835, 350);
 			objects.push_back(hiden8);
-			CHidenObject* hiden9 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, 1);
+			CHidenObject* hiden9 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
 			hiden9->SetPosition(5430, 276);
 			objects.push_back(hiden9);
 
@@ -455,4 +455,70 @@ void CScene::Render()
 void CScene::SetMap(int id)
 {
 	this->id = id;
+}
+int CScene::GetLeft()
+{
+	switch (id)
+	{
+	case 0:
+		return 0;
+	case 1:
+		return 0;
+	case 2:
+		return 3038;
+	case 3:
+		return 3074;
+	case 4:
+		return 3711;
+	default:
+		return 0;
+	}
+}
+int CScene::GetTop()
+{
+	switch (id)
+	{
+	case 0:
+	case 1:
+	case 2:
+	case 4:
+		return 0;
+	case 3:
+		return 430;
+	default:
+		return 0;
+	}
+}
+int CScene::GetRight()
+{
+	switch (id)
+	{
+	case 0:
+		return 1536;
+	case 1:
+		return 3140;
+	case 2:
+		return 3646;
+	case 3:
+		return 4097;
+	case 4:
+		return 5632;
+	default:
+		return 0;
+	}
+}
+int CScene::GetBottom()
+{
+	switch (id)
+	{
+	case 0:
+	case 1:
+	case 2:
+	case 4:
+		return 384;
+	case 3:
+		return 768;
+	default:
+		return 384;
+	}
 }
