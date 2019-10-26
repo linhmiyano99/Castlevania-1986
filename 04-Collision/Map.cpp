@@ -18,7 +18,7 @@ CMap::CMap(int i)
 	{
 	case 0:
 		_column = 24;
-		_row = 5;
+		_row = 6;
 		break;
 	case 1:
 		_column = 88;
@@ -36,7 +36,7 @@ void CMap::SetMap(int i)
 	{
 	case 0:
 		_column = 24;
-		_row = 5;
+		_row = 6;
 		break;
 	case 1:
 		_column = 88;

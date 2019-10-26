@@ -12,7 +12,7 @@ private:
 	int _width;
 	int ny;
 public:
-	CHidenObject(int state = 0, int trendX = 0,int trendY = 0, int height = 50, int width = 20) :CGameObject()
+	CHidenObject(int state = 0, int trendX = 0,int trendY = 0, int height = 50, int width = 40) :CGameObject()
 	{
 		_height = height;
 		_width = width;
@@ -24,5 +24,5 @@ public:
 	void Render();
 	int getNx() { return nx; }
 	int getNy() { return ny; }
-
+	int GetX() { return x; }
 };

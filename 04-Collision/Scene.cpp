@@ -70,7 +70,7 @@ void CScene::LoadResoure()
 		objects.push_back(dagger);
 
 		simon = CSimon::GetInstance();
-		simon->SetPosition(2500.0f, 20.0f);
+		simon->SetPosition(1000.0f, 20.0f);
 		objects.push_back(simon);
 
 
@@ -324,7 +324,7 @@ void CScene::LoadResoure()
 			hiden->SetPosition(3747, 310);
 			objects.push_back(hiden);
 			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
-			hiden2->SetPosition(3840, 165);
+			hiden2->SetPosition(3835, 165);
 			objects.push_back(hiden2); 
 			CHidenObject* hiden3 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
 			hiden3->SetPosition(4290, 100);
@@ -366,16 +366,16 @@ void CScene::Update(DWORD dt)
 	}
 	else if (id == 3)
 	{
-		if (cy < 465)
+		if (cy < 465 )
 		{
-			if ((cx > 3070 && cx < 3290))
+			if ((cx > 3070 && cx < 3290 && simon->IsOnStair()))
 			{
 				id = 2;
 				SetMap(2);
 				LoadResoure();
 				cy = 0;
 			}
-			else if ((cx > 3740 && cx < 3940))
+			else if ((cx > 3740 && cx < 3940 && simon->IsOnStair()))
 			{
 				id = 4;
 				SetMap(4);

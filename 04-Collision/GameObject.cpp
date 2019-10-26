@@ -139,4 +139,8 @@ void CGameObject::AddAnimation(int aniId)
 CGameObject::~CGameObject()
 {
 
+	if (animation != NULL)
+		delete animation;
+	animation = NULL;
+	animations.clear();
 }

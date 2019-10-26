@@ -65,6 +65,8 @@ class CSimon : public CGameObject
 	bool isOnStair;
 	int _stairTrend;
 	int _enegy;
+	bool isAutoGo;
+	int auto_x;
 public:
 	static CSimon* GetInstance();
 	CSimon();
@@ -87,5 +89,6 @@ public:
 	bool IsOnStair() { return isOnStair; }
 	int GetStairTrend() { return _stairTrend; }
 	int GetNx() { return nx; }
+	void AutoGo();
 };
 #endif

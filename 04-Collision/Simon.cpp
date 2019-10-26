@@ -33,6 +33,8 @@ CSimon::CSimon() : CGameObject()
 	isOnStair = false;
 	_stairTrend = 0;
 	_enegy = 20;
+	isAutoGo = false;
+	auto_x = -1;
 	
 	CSimon::AddAnimation(400);		//0. idle left 
 	CSimon::AddAnimation(401);		//1. walk left
@@ -40,7 +42,7 @@ CSimon::CSimon() : CGameObject()
 	CSimon::AddAnimation(403);		//3. sit left
 	CSimon::AddAnimation(404);		//4. stand attack
 	CSimon::AddAnimation(405);		//5. sit attack
-	CSimon::AddAnimation(410);		//6. trans
+	CSimon::AddAnimation(399);		//6. trans
 	CSimon::AddAnimation(406);		//7. go up
 	CSimon::AddAnimation(407);		//8. go down
 	CSimon::AddAnimation(408);		//9. hurt
@@ -50,7 +52,18 @@ CSimon::CSimon() : CGameObject()
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (trans_start > 0) {
+	if (isAutoGo)
+	{
+		if (auto_x - x < 0)
+			x -= 0.5;
+		else
+		{
+			isAutoGo = false;
+		}
+		return;
+	}
+	else if (trans_start > 0)
+	{
 		vx = 0;
 		if (GetTickCount() - trans_start > 200)
 		{
@@ -269,7 +282,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CSimon::Render()
 {
 	int id;
-	if (state == SIMON_STATE_IDLE_DOWN)
+	if (isAutoGo)
+	{
+		id = SIMON_ANI_WALKING;
+	}
+	else if (state == SIMON_STATE_IDLE_DOWN)
 	{
 		id = SIMON_ANI_IDLE_DOWN;
 	}
@@ -332,7 +349,6 @@ void CSimon::Render()
 	}
 	if (trans_start > 0) {
 		id = SIMON_ANI_TRANS;
-
 	}
 	int alpha = 255;
 	if (untouchable) alpha = 128;
@@ -344,7 +360,22 @@ void CSimon::Render()
 
 void CSimon::SetState(int state)
 {
-	if (animations[SIMON_ANI_ATTACKING]->GetCurrentFrame() > 0)
+	if (isAutoGo)
+	{
+
+	}
+	else if (trans_start > 0) {
+
+	}
+	else if (animations[SIMON_ANI_ATTACKING]->GetCurrentFrame() > 0)
+	{
+
+	}
+	else if (animations[SIMON_ANI_GO_UP]->GetCurrentFrame() > 0 && isOnStair)
+	{
+
+	}
+	else if (animations[SIMON_ANI_GO_DOWN]->GetCurrentFrame() > 0 && isOnStair)
 	{
 
 	}
@@ -417,6 +448,9 @@ void CSimon::SetState(int state)
 			else
 			{
 				isOnStair = true;
+
+				if (auto_x - x < 0)
+					AutoGo();
 			}
 			break;
 		case SIMON_STATE_GO_DOWN:
@@ -430,6 +464,9 @@ void CSimon::SetState(int state)
 			else
 			{
 				isOnStair = true;
+
+				if (auto_x - x < 0)
+					AutoGo();
 			}
 			break;
 		case SIMON_STATE_IDLE_UP:
@@ -721,6 +758,15 @@ int CSimon::IsCanOnStair(vector<LPGAMEOBJECT>& listObj)
 			if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 			{
 				CHidenObject* ohiden = dynamic_cast<CHidenObject*>(listObj.at(i)); 
+				if (ohiden->getNx() * ohiden->getNy() > 0)
+				{
+					_stairTrend = 1;
+				}
+				else
+				{
+					_stairTrend = 0;
+				}
+				auto_x = ohiden->GetX();
 				if (ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
 				{
 					isCanOnStair = -1;
@@ -732,17 +778,23 @@ int CSimon::IsCanOnStair(vector<LPGAMEOBJECT>& listObj)
 					isCanOnStair = 1;
 					return 1;
 				}
-				if (ohiden->getNx() * ohiden->getNy() > 0)
-				{
-					_stairTrend = 1;
-				}
-				else
-				{
-					_stairTrend = 0;
-				}
+
 			}
 		}
 	}
+	auto_x = -1;
 	isCanOnStair = 0;
 	return 0;
+}
+void CSimon::AutoGo()
+{
+	if (auto_x - x < 0)
+	{
+		nx = -1;
+		isAutoGo = true;
+	}
+	else
+	{
+		isAutoGo = false;
+	}
 }

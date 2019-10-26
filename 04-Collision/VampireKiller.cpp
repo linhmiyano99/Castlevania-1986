@@ -66,6 +66,8 @@ void CVampireKiller::Render()
 {
 	animation->Render(x, y, nx, 255);
 	y += 15;
+	if (animation->GetCurrentFrame() < 2)
+		return;
 	RenderBoundingBox();
 }
 
