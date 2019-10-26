@@ -149,23 +149,23 @@ void CScene::LoadResoure()
 			hiden->SetPosition(1236, 350);
 			objects.push_back(hiden);
 			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1);
-			hiden2->SetPosition(1380, 170);
+			hiden2->SetPosition(1385, 155);
 			objects.push_back(hiden2);
 			CHidenObject* hiden3 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
 			hiden3->SetPosition(1425, 220);
 			objects.push_back(hiden3);
 			CHidenObject* hiden4 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1);
-			hiden4->SetPosition(1535, 90);
+			hiden4->SetPosition(1525, 90);
 			objects.push_back(hiden4);
 			CHidenObject* hiden5 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
 			hiden5->SetPosition(1790, 90);
 			objects.push_back(hiden5);
 			CHidenObject* hiden6 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
-			hiden6->SetPosition(1870, 220);
+			hiden6->SetPosition(1890, 220);
 			objects.push_back(hiden6);
 
 			CHidenObject* hiden7 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
-			hiden7->SetPosition(2555, 350);
+			hiden7->SetPosition(2565, 350);
 			objects.push_back(hiden7);
 			CHidenObject* hiden8 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1);
 			hiden8->SetPosition(2800, 90);
@@ -180,7 +180,7 @@ void CScene::LoadResoure()
 			if (simon_y < 190)
 				simon->SetPosition(simon_x, simon_y);
 			else
-				simon->SetPosition(simon_x, simon_y - 0);
+				simon->SetPosition(simon_x - 20, simon_y - 65);
 
 			for (int i = 94; i < 104; i++)
 			{
@@ -216,12 +216,12 @@ void CScene::LoadResoure()
 			hiden1->SetPosition(3566, 335);
 			objects.push_back(hiden1);
 			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
-			hiden2->SetPosition(3393, 170);
+			hiden2->SetPosition(3393, 155);
 			objects.push_back(hiden2);
 		}
 		else if (id == 3)
 		{
-			simon->SetPosition(simon_x, simon_y + 0);
+			simon->SetPosition(simon_x + 32, simon_y + 65);
 			for (int i = 96; i < 110; i++)
 			{
 				CBrick* brick = new CBrick(1);
@@ -270,7 +270,7 @@ void CScene::LoadResoure()
 		}
 		else
 		{
-			simon->SetPosition(simon_x, simon_y - 20);
+		simon->SetPosition(simon_x - 20, simon_y - 65);
 			for (int i = 116; i < 119; i++)
 			{
 				CBrick* brick = new CBrick(1);
@@ -297,7 +297,7 @@ void CScene::Update(DWORD dt)
 	simon->GetPosition(cx, cy);
 	
 
-	if (cy >= 350 && id != 3)
+	if (cy >= 370 && id != 3)
 	{
 		SetMap(3);
 		LoadResoure();
@@ -305,7 +305,7 @@ void CScene::Update(DWORD dt)
 	}
 	else if (id == 3)
 	{
-		if (cy < 420)
+		if (cy < 465)
 		{
 			if ((cx > 3100 && cx < 3240))
 			{

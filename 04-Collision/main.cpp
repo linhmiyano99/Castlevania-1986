@@ -106,27 +106,21 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	case DIK_RIGHT:
 		simon->SetState(SIMON_STATE_IDLE);
 		break;
-	case DIK_Z:
-		if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
-			simon->SetState(SIMON_STATE_SIT);
-		else if (simon->GetState() == SIMON_STATE_STAND_ATTACK)
-			simon->SetState(SIMON_STATE_IDLE);
-			 
-		break;
+
 	}
 }
 
 void CSampleKeyHander::KeyState(BYTE* states)
 {
-	if (game->IsKeyDown(DIK_RIGHT))
-		simon->SetState(SIMON_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_LEFT))
-		simon->SetState(SIMON_STATE_WALKING_LEFT);
-	else if (game->IsKeyDown(DIK_SPACE))
+	if (game->IsKeyDown(DIK_SPACE))
 	{
 		simon->SetState(SIMON_STATE_JUMP);
 	}
-	
+
+	if (game->IsKeyDown(DIK_RIGHT))
+		simon->SetState(SIMON_STATE_WALKING_RIGHT);
+	else if (game->IsKeyDown(DIK_LEFT))
+		simon->SetState(SIMON_STATE_WALKING_LEFT); 
 	else if (game->IsKeyDown(DIK_X))
 	{
 		//simon->SetState(SIMON_STATE_ATTACK_DAGGER);

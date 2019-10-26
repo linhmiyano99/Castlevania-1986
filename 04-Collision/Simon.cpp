@@ -79,7 +79,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			float p_x, p_y;
 			listPanther.at(i)->GetPosition(p_x, p_y);
-			if (abs(x - p_x) < 200)
+			if (abs(x - p_x) < 200 && abs(y-p_y) < 40)
 				listPanther.at(i)->SetSpeed(-0.1f, -0.01f);
 		}
 		if (isOnStair)
@@ -344,19 +344,18 @@ void CSimon::Render()
 
 void CSimon::SetState(int state)
 {
-	if ((state == SIMON_STATE_ATTACK_DAGGER || state == SIMON_STATE_SIT_ATTACK || state == SIMON_STATE_STAND_ATTACK) && untouchable)
+	if (animations[SIMON_ANI_ATTACKING]->GetCurrentFrame() > 0)
 	{
 
 	}
-	else if (animations[SIMON_ANI_ATTACKING]->GetCurrentFrame() > 0)
-	{
-
-	}
-	else if (animations[SIMON_ANI_SITTING_ATTACKING]->GetCurrentFrame() > 0)
+	/*else if (animations[SIMON_ANI_SITTING_ATTACKING]->GetCurrentFrame() > 0)
 	{
 		
+	}*/
+	else if (this->state == SIMON_STATE_SIT_ATTACK)
+	{
+		 this->state = SIMON_STATE_SIT;
 	}
-	
 	else
 	{
 		CGameObject::SetState(state);
@@ -448,7 +447,10 @@ void CSimon::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	top = this->y;
 	right = this->x + SIMON_WIDTH;
 	bottom = this->y + SIMON_HEIGHT_STAND;
-	if ((state == SIMON_STATE_GO_DOWN && isCanOnStair != -1) || state == SIMON_STATE_SIT_ATTACK )
+	if ((state == SIMON_STATE_GO_DOWN && isCanOnStair != -1) 
+		|| state == SIMON_STATE_SIT_ATTACK 
+		|| state == SIMON_STATE_JUMP 
+		||(state == SIMON_STATE_SIT))
 	{
 		bottom = this->y + SIMON_HEIGHT_SIT;
 	}

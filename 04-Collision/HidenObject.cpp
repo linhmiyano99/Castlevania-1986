@@ -9,5 +9,5 @@ void CHidenObject::GetBoundingBox(float& left, float& top, float& right, float& 
 }
 void CHidenObject::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
