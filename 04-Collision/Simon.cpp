@@ -766,7 +766,7 @@ int CSimon::IsCanOnStair(vector<LPGAMEOBJECT>& listObj)
 				{
 					_stairTrend = 0;
 				}
-				auto_x = ohiden->GetX();
+				auto_x = ohiden->GetAutoX();
 				if (ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
 				{
 					isCanOnStair = -1;
