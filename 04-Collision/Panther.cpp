@@ -49,7 +49,8 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 				//// block 
-				x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+				//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+				x += dx;
 				y += min_ty * dy + ny * 0.4f;
 
 				if (nx != 0) vx = 0;

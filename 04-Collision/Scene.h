@@ -42,8 +42,9 @@ class CScene
 	int id;
 public:
 	static CScene* GetInstance();
-	CScene(int id = 1);
+	CScene(int id = 0);
 	void LoadResoure();
+	void LoadSimon();
 	void Update(DWORD dt);
 	void Render();
 	void SetMap(int id = 0);

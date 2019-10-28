@@ -21,9 +21,7 @@ CScene::CScene(int id)
 void CScene::LoadResoure()
 {
 	CManagementTexture* manage = new CManagementTexture();
-	float simon_x, simon_y;
-	simon = CSimon::GetInstance();
-	simon->GetPosition(simon_x, simon_y);
+
 	objects.clear();
 	dagger = CDagger::GetInstance();
 	objects.push_back(dagger);
@@ -74,7 +72,7 @@ void CScene::LoadResoure()
 		objects.push_back(simon);
 
 
-		if (id == 1)
+		
 		{
 			CTorch* candle = new CTorch(3, 1);
 			candle->SetPosition(190, 300);
@@ -146,41 +144,37 @@ void CScene::LoadResoure()
 				objects.push_back(brick);
 			}
 			CHidenObject* hiden = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
-			hiden->SetPosition(1236, 350);
+			hiden->SetPosition(1236, 370);
 			objects.push_back(hiden);
 			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1);
-			hiden2->SetPosition(1385, 155);
+			hiden2->SetPosition(1385, 195);
 			objects.push_back(hiden2);
 			CHidenObject* hiden3 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
-			hiden3->SetPosition(1425, 220);
+			hiden3->SetPosition(1425, 240);
 			objects.push_back(hiden3);
 			CHidenObject* hiden4 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1);
-			hiden4->SetPosition(1525, 90);
+			hiden4->SetPosition(1525, 130);
 			objects.push_back(hiden4);
 			CHidenObject* hiden5 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
-			hiden5->SetPosition(1790, 90);
+			hiden5->SetPosition(1790, 130);
 			objects.push_back(hiden5);
 			CHidenObject* hiden6 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
-			hiden6->SetPosition(1890, 220);
+			hiden6->SetPosition(1890, 240);
 			objects.push_back(hiden6);
 
 			CHidenObject* hiden7 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
-			hiden7->SetPosition(2565, 350);
+			hiden7->SetPosition(2580, 370);
 			objects.push_back(hiden7);
 			CHidenObject* hiden8 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1);
-			hiden8->SetPosition(2800, 90);
+			hiden8->SetPosition(2800, 130);
 			objects.push_back(hiden8);
 
 			CGate* gate = new CGate();
 			gate->SetPosition(3063, 105);
 			objects.push_back(gate);
 		}
-		else if (id == 2)
+	
 		{
-			if (simon_y < 190)
-				simon->SetPosition(simon_x, simon_y);
-			else
-				simon->SetPosition(simon_x - 20, simon_y - 65);
 
 			for (int i = 94; i < 104; i++)
 			{
@@ -210,18 +204,18 @@ void CScene::LoadResoure()
 				objects.push_back(brick);
 			}
 			CHidenObject* hiden = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
-			hiden->SetPosition(3137, 285);
+			hiden->SetPosition(3137, 325);
 			objects.push_back(hiden);
 			CHidenObject* hiden1 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
-			hiden1->SetPosition(3566, 335);
+			hiden1->SetPosition(3556, 365);
 			objects.push_back(hiden1);
 			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
-			hiden2->SetPosition(3393, 155);
+			hiden2->SetPosition(3393, 195);
 			objects.push_back(hiden2);
 		}
-		else if (id == 3)
+
 		{
-			simon->SetPosition(simon_x + 20, simon_y + 65);
+		
 			for (int i = 96; i < 110; i++)
 			{
 				CBrick* brick = new CBrick(1);
@@ -262,15 +256,15 @@ void CScene::LoadResoure()
 				objects.push_back(brick);
 			}
 			CHidenObject* hiden1 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
-			hiden1->SetPosition(3282, 500);
+			hiden1->SetPosition(3282, 520);
 			objects.push_back(hiden1);
 			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
-			hiden2->SetPosition(3980, 550);
+			hiden2->SetPosition(3965, 570);
 			objects.push_back(hiden2);
 		}
-		else
+
 		{
-		simon->SetPosition(simon_x - 20, simon_y - 65);
+
 			for (int i = 116; i < 119; i++)
 			{
 				CBrick* brick = new CBrick(1);
@@ -321,34 +315,63 @@ void CScene::LoadResoure()
 			}
 
 			CHidenObject* hiden = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
-			hiden->SetPosition(3747, 310);
+			hiden->SetPosition(3717, 320);
 			objects.push_back(hiden);
 			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
-			hiden2->SetPosition(3835, 165);
+			hiden2->SetPosition(3805, 205);
 			objects.push_back(hiden2); 
 			CHidenObject* hiden3 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
-			hiden3->SetPosition(4290, 100);
+			hiden3->SetPosition(4290, 140);
 			objects.push_back(hiden3); 
 			CHidenObject* hiden4 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
-			hiden4->SetPosition(4670, 210);
+			hiden4->SetPosition(4670, 250);
 			objects.push_back(hiden4);
 			CHidenObject* hiden5= new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1);
-			hiden5->SetPosition(5544, 215);
+			hiden5->SetPosition(5544, 255);
 			objects.push_back(hiden5);
 			CHidenObject* hiden6 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, 1);
-			hiden6->SetPosition(4000, 350);
+			hiden6->SetPosition(4000, 370);
 			objects.push_back(hiden6);
 			CHidenObject* hiden7 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, 1);
-			hiden7->SetPosition(4390, 210);
+			hiden7->SetPosition(4390, 230);
 			objects.push_back(hiden7);
 			CHidenObject* hiden8 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, 1);
-			hiden8->SetPosition(4835, 350);
+			hiden8->SetPosition(4835, 370);
 			objects.push_back(hiden8);
 			CHidenObject* hiden9 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
-			hiden9->SetPosition(5430, 276);
+			hiden9->SetPosition(5430, 286);
 			objects.push_back(hiden9);
 
 		}
+		
+
+	}
+}
+void CScene::LoadSimon()
+{
+	float simon_x, simon_y;
+	simon = CSimon::GetInstance();
+	simon->GetPosition(simon_x, simon_y);
+	if (id == 1)
+	{
+		simon->SetPosition(0.0f, 20.0f);
+
+	}
+	else if (id == 2)
+	{
+		if (simon_y < 190)
+			simon->SetPosition(simon_x, simon_y);
+		else
+			simon->SetPosition(simon_x - 20, simon_y - 65);
+	}
+	else if (id == 3)
+	{
+		simon->SetPosition(simon_x + 20, simon_y + 65);
+
+	}
+	else
+	{
+		simon->SetPosition(simon_x - 20, simon_y - 65);
 	}
 }
 
@@ -361,7 +384,7 @@ void CScene::Update(DWORD dt)
 	if (cy >= 370 && id != 3)
 	{
 		SetMap(3);
-		LoadResoure();
+		LoadSimon();
 		cy = 430;
 	}
 	else if (id == 3)
@@ -372,14 +395,14 @@ void CScene::Update(DWORD dt)
 			{
 				id = 2;
 				SetMap(2);
-				LoadResoure();
+				LoadSimon();
 				cy = 0;
 			}
 			else if ((cx > 3740 && cx < 3940 && simon->IsOnStair()))
 			{
 				id = 4;
 				SetMap(4);
-				LoadResoure();
+				LoadSimon();
 				cy = 0;
 			}
 			else

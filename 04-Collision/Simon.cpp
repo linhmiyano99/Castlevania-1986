@@ -626,8 +626,9 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 		{
 			if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR) {
 				CScene* scene = CScene::GetInstance();
-				scene->SetMap(scene->GetScene() +1);
+				scene->SetMap(1);
 				scene->LoadResoure();
+				scene->LoadSimon();
 				break;
 			}
 		}
@@ -725,7 +726,7 @@ void CSimon::CollisionWithGate(DWORD dt, vector<LPGAMEOBJECT>& listObj, float mi
 			gate->SetState(GATE_STATE_OPEN);
 			CScene* scene = CScene::GetInstance();
 			scene->SetMap(2);
-			scene->LoadResoure();
+			scene->LoadSimon();
 			break;
 		}
 

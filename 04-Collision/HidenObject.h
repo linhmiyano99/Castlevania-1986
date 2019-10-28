@@ -13,10 +13,10 @@ private:
 	int ny;
 	int _autoX;
 public:
-	CHidenObject(int state = 0, int trendX = 0,int trendY = 0, int height = 50, int width = 40) :CGameObject()
+	CHidenObject(int state = 0, int trendX = 0,int trendY = 0) :CGameObject()
 	{
-		_height = height;
-		_width = width;
+		_height = 10;
+		_width = 50;
 		nx = trendX;
 		ny = trendY;
 		this->state = state;
