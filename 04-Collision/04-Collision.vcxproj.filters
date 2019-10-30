@@ -122,6 +122,15 @@
     <ClInclude Include="Gate.h">
       <Filter>Header Files\GameObject\staticobject</Filter>
     </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>Header Files\GameObject\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Header Files\GameObject\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Fishman.h">
+      <Filter>Header Files\GameObject\enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -195,6 +204,15 @@
     </ClCompile>
     <ClCompile Include="Gate.cpp">
       <Filter>Header Files\GameObject\staticobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>Header Files\GameObject\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Header Files\GameObject\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Fishman.cpp">
+      <Filter>Header Files\GameObject\enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

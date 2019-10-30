@@ -383,10 +383,10 @@ void CSimon::SetState(int state)
 	{
 		
 	}*/
-	else if (this->state == SIMON_STATE_SIT_ATTACK)
+	/*else if (this->state == SIMON_STATE_SIT_ATTACK)
 	{
 		 this->state = SIMON_STATE_SIT;
-	}
+	}*/
 	else
 	{
 		CGameObject::SetState(state);
