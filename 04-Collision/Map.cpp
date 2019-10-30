@@ -84,6 +84,7 @@ void CMap::DrawMap()
 {
 
 	CGame* game = CGame::GetInstance();
+	CSprites* sprites = CSprites::GetInstance();
 	float cam_x, cam_y;
 	game->GetCamPos(cam_x, cam_y);
 	if (cam_y == 0)
@@ -92,11 +93,7 @@ void CMap::DrawMap()
 		{
 			for (int j = (int)(cam_x) / 64; j < (int)(cam_x + 460) / 64 + 3; j++)
 			{
-
-				CSprites* sprites = CSprites::GetInstance();
 				sprites->Get(getTile(i, j))->Draw(64 * j, 64 * i + 40);
-
-
 			}
 		}
 	}
@@ -107,8 +104,7 @@ void CMap::DrawMap()
 			for (int j = (int)(cam_x) / 64; j < (int)(cam_x + 460) / 64 + 3; j++)
 			{
 
-				CSprites* sprites = CSprites::GetInstance();
-				sprites->Get(getTile(i, j))->Draw(64 * j, 64 * i + 40);
+				sprites->Get(getTile(i, j))->Draw(64 * j, 64 * i + 80);
 
 
 			}

@@ -219,40 +219,40 @@ void CScene::LoadResoure()
 			for (int i = 96; i < 110; i++)
 			{
 				CBrick* brick = new CBrick(1);
-				brick->SetPosition(i * 32, 614);
+				brick->SetPosition(i * 32, 654);
 				objects.push_back(brick);
 			}
 
 			for (int i = 112; i < 114; i++)
 			{
 				CBrick* brick = new CBrick(1);
-				brick->SetPosition(i * 32, 614);
+				brick->SetPosition(i * 32, 654);
 				objects.push_back(brick);
 			}
 			for (int i = 116; i < 125; i++)
 			{
 				CBrick* brick = new CBrick(1);
-				brick->SetPosition(i * 32, 614);
+				brick->SetPosition(i * 32, 654);
 				objects.push_back(brick);
 			}
 			for (int i = 102; i < 104; i++)
 			{
 				CBrick* brick = new CBrick(1);
-				brick->SetPosition(i * 32, 550);
+				brick->SetPosition(i * 32, 590);
 				objects.push_back(brick);
 			}
 
 			for (int i = 126; i < 128; i++)
 			{
 				CBrick* brick = new CBrick(1);
-				brick->SetPosition(i * 32, 680);
+				brick->SetPosition(i * 32, 720);
 				objects.push_back(brick);
 			}
 
 			for (int i = 124; i < 126; i++)
 			{
 				CBrick* brick = new CBrick(1);
-				brick->SetPosition(i * 32, 740);
+				brick->SetPosition(i * 32, 780);
 				objects.push_back(brick);
 			}
 			CHidenObject* hiden1 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
@@ -465,6 +465,8 @@ void CScene::Update(DWORD dt)
 
 	game = CGame::GetInstance();
 	game->SetCamPos(cx, cy);
+	
+
 }
 void CScene::Render() 
 {
@@ -474,6 +476,10 @@ void CScene::Render()
 	{
 		objects[i]->Render();
 	}
+	float cx, cy;
+	CGame::GetInstance()->GetCamPos(cx, cy);
+	CSprites* sprites = CSprites::GetInstance();
+	sprites->Get(50000)->Draw(cx, cy);
 }
 void CScene::SetMap(int id)
 {

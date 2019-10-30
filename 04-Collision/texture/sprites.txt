@@ -54,6 +54,27 @@ right= 706
 bottom= 265
 idTexture= 1
 
+id= 10401
+left= 1150
+top= 131
+right= 1190
+bottom= 193
+idTexture= 1
+
+id= 10402
+left= 1190
+top= 131
+right= 1230
+bottom= 193
+idTexture= 1
+
+id= 10403
+left= 1230
+top= 131
+right= 1280
+bottom= 193
+idTexture= 1
+
 id= 10005
 left= 906
 top= 0
@@ -332,4 +353,11 @@ left= 88
 top= 118
 right= 120
 bottom= 212
+idTexture= 1
+
+id= 50000
+left= 0
+top= 560
+right= 551
+bottom= 636
 idTexture= 1

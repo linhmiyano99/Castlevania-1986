@@ -65,7 +65,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else if (trans_start > 0)
 	{
 		vx = 0;
-		if (GetTickCount() - trans_start > 200)
+		if (GetTickCount() - trans_start > 400)
 		{
 			trans_start = 0;
 		}

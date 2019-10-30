@@ -42,7 +42,7 @@ class CScene
 	int id;
 public:
 	static CScene* GetInstance();
-	CScene(int id = 2);
+	CScene(int id = 0);
 	void LoadResoure();
 	void LoadSimon();
 	void Update(DWORD dt);
