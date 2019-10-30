@@ -106,7 +106,7 @@ void CMap::DrawMap()
 			{
 				CSprites* sprites = CSprites::GetInstance();
 				//sprites->Get(getTile(i, j))->DrawStatic(64 * j - cam_x, 64 * i - cam_y + 40);
-				sprites->Get(getTile(i, j))->Draw(64 * j, 64 * i  +40);
+				sprites->Get(getTile(i, j))->Draw(64 * j, 64 * i  + 40);
 
 			}
 		}

@@ -8,29 +8,13 @@ CManagementTexture::CManagementTexture()
 {
 	CTextures* textures = CTextures::GetInstance();
 
-	textures->Add(ID_TEX_SIMON, L"simon\\simon.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_SIMON_TRANS, L"simon\\simon_trans.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_VAMPIREKILLER, L"simon\\morningstar.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_TORCH, L"map\\torch.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_CANDLE, L"map\\candle.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_MAP, L"map\\map.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_MAP2, L"map\\map2.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_GROUND, L"map\\ground.png", D3DCOLOR_XRGB(0, 0, 0));
-	textures->Add(ID_TEX_GROUND2, L"map\\ground2.png", D3DCOLOR_XRGB(0, 0, 0));
-	textures->Add(ID_TEX_GROUND3, L"map\\ground3.png", D3DCOLOR_XRGB(0, 0, 0));
 	textures->Add(ID_TEX_BBOX, L"map\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(ID_TEX_DOOR, L"map\\Gate1.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_ITEM, L"item\\items.png", D3DCOLOR_XRGB(128, 0, 0));
-	textures->Add(ID_TEX_TORCH_FIRE, L"item\\Torch_fire.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_GHOST, L"enemy\\ghost.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(ID_TEX_PANTHER, L"enemy\\panther.png", D3DCOLOR_XRGB(255, 0, 255));
-
+	textures->Add(ID_TEX, L"texture\\texture.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	CSprites* sprites = CSprites::GetInstance();
 	CAnimations* animations = CAnimations::GetInstance();
 
-	LPDIRECT3DTEXTURE9 texmap = textures->Get(ID_TEX_MAP);
-	LPDIRECT3DTEXTURE9 texmap2 = textures->Get(ID_TEX_MAP2);
+	LPDIRECT3DTEXTURE9 tex = textures->Get(ID_TEX);
 
 	ifstream inFile("texture/sprites.txt");
 
@@ -49,82 +33,81 @@ CManagementTexture::CManagementTexture()
 	LPANIMATION ani;
 
 	ani = new CAnimation(100); //simon idle left
-	ani->Add(10004);
+	ani->Add(10001);
 	animations->Add(400, ani);
 
 	ani = new CAnimation(1); //simon trans idle left
 	ani->Add(10400);
-	ani->Add(10004);
+	ani->Add(10001);
 	animations->Add(399, ani);
 
 	ani = new CAnimation(100);// simon walk left
-	ani->Add(10011);
-	ani->Add(10012);
+	ani->Add(10002);
+	ani->Add(10003);
+	ani->Add(10004);
 	animations->Add(401, ani);
 
 	ani = new CAnimation(100);// simon jump left
-	ani->Add(10201);
+	ani->Add(10005);
 	animations->Add(402, ani);
 
 	ani = new CAnimation(100);// simon sit left
-	ani->Add(10201);
+	ani->Add(10005);
 	animations->Add(403, ani);
 
 	ani = new CAnimation(100);// simon stand attack
-	ani->Add(10300);
-	ani->Add(10301);
-	ani->Add(10302);
+	ani->Add(10011);
+	ani->Add(10012);
+	ani->Add(10013);
 	animations->Add(404, ani);
 
 	ani = new CAnimation(100);//simon sit attack
-	ani->Add(10310);
-	ani->Add(10311);
-	ani->Add(10312);
+	ani->Add(10014);
+	ani->Add(10015);
+	ani->Add(10016);
 	animations->Add(405, ani);
 
 	ani = new CAnimation(100);//simon go up stair
-	ani->Add(10115);
-	ani->Add(10114);
-	//ani->Add(10116);
-	//ani->Add(10114);
+	ani->Add(10100);
+	ani->Add(10101);
 	animations->Add(406, ani);
 
 	ani = new CAnimation(100);//simon go down stair
-	ani->Add(10116);
-	ani->Add(10114);
-	//ani->Add(10115);
-	//ani->Add(10114);
+	ani->Add(10102);
+	ani->Add(10103);
 	animations->Add(407, ani);
 
 	ani = new CAnimation(100);//simon hurt
-	ani->Add(10117);
+	ani->Add(10104);
 	animations->Add(408, ani);
 	
 	ani = new CAnimation(100);//simon idle up
-	ani->Add(10115);
+	ani->Add(10100);
 	animations->Add(409, ani);
 	
 	ani = new CAnimation(100);//simon idle down
-	ani->Add(10116);
+	ani->Add(10102);
 	animations->Add(410, ani);
 
 #pragma endregion
 
 #pragma region Add sprites Map
 	int index = 0;
+	int _x = 4, _y = 699;
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
-			sprites->Add(index++, j * 64, i * 64, j * 64 + 64, i * 64 + 64, texmap);
+			sprites->Add(index++, j * 64 + _x, i * 64 + _y, j * 64 + 64 +_x, i * 64 + 64 +_y, tex);
 		}
 	}
 	index = 20000;
+	_x = 4, _y = 970;
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 22; j++)
 		{
-			sprites->Add(index++, j * 64, i * 64, j * 64 + 64, i * 64 + 64, texmap2);
+			sprites->Add(index++, j * 64 + _x, i * 64 + _y, j * 64 + 64 + _x, i * 64 + 64 + _y, tex);
 		}
 	}
 
@@ -196,11 +179,6 @@ CManagementTexture::CManagementTexture()
 	animations->Add(701, ani);//dragger - item
 
 	ani = new CAnimation(100);
-	ani->Add(13010);
-	animations->Add(702, ani);//fire - item
-
-
-	ani = new CAnimation(100);
 	ani->Add(13002);
 	animations->Add(704, ani);//heart - item
 
@@ -209,9 +187,9 @@ CManagementTexture::CManagementTexture()
 
 #pragma region Add sprites fire after torch not exsist
 	ani = new CAnimation(100);
-	ani->Add(14002);
-	ani->Add(14001);
-	ani->Add(14000);
+	ani->Add(13010);
+	ani->Add(13011);
+	ani->Add(13012);
 	animations->Add(800, ani); // fire after torch not exsist
 #pragma endregion
 
@@ -236,6 +214,7 @@ CManagementTexture::CManagementTexture()
 	ani->Add(40000);
 	ani->Add(40001);
 	ani->Add(40002);
+	ani->Add(40000);
 	animations->Add(1100, ani); // door open
 
 #pragma endregion

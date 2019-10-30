@@ -1,436 +1,335 @@
 id= 9998
-left= 0
-top= 0
-right= 32
-bottom= 32
-idTexture= 22
-
-id= 9999
-left= 0
-top= 0
-right= 32
-bottom= 32
-idTexture= 20
+left= 217
+top= 233
+right= 249
+bottom= 255
+idTexture= 1
 
 id= 10000
-left= 0
-top= 0
-right= 32
-bottom= 32
-idTexture= 21
+left= 175
+top= 261
+right= 208
+bottom= 293
+idTexture= 1
+
+id= 9999
+left= 135
+top= 260
+right= 167
+bottom= 292
+idTexture= 1
 
 id= 10001
-left= 190
-top= 3
-right= 225
+left= 670
+top= 1
+right= 705
 bottom= 65
-idTexture= 0
+idTexture= 1
 
 id= 10002
-left= 130
-top= 3
-right= 170
+left= 729
+top= 1
+right= 764
 bottom= 65
-idTexture= 0
+idTexture= 1
 
 id= 10003
-left= 71
-top= 3
-right= 108
+left= 793
+top= 1
+right= 828
 bottom= 65
-idTexture= 0
+idTexture= 1
 
 id= 10004
-left= 6
-top= 3
-right= 50
+left= 855
+top= 1
+right= 890
 bottom= 65
-idTexture= 0
-
-id= 10005
-left= 190
-top= 3
-right= 255
-bottom= 65
-idTexture= 0
-
-id= 10011
-left= 190
-top= 3
-right= 225
-bottom= 65
-idTexture= 0
-
-id= 10012
-left= 130
-top= 3
-right= 170
-bottom= 65
-idTexture= 0
-
-id= 10013
-left= 71
-top= 3
-right= 108
-bottom= 65
-idTexture= 0
-
-id= 10014
-left= 6
-top= 3
-right= 50
-bottom= 65
-idTexture= 0
-
-id= 10015
-left= 190
-top= 3
-right= 255
-bottom= 65
-idTexture= 0
-
-id= 10101
-left= 250
-top= 68
-right= 295
-bottom= 133
-idTexture= 0
-
-id= 10102
-left= 180
-top= 68
-right= 255
-bottom= 133
-idTexture= 0
-
-id= 10103
-left= 120
-top= 68
-right= 165
-bottom= 133
-idTexture= 0
-
-id= 10111
-left= 250
-top= 68
-right= 295
-bottom= 133
-idTexture= 0
-
-id= 10112
-left= 180
-top= 68
-right= 255
-bottom= 133
-idTexture= 0
-
-id= 10113
-left= 120
-top= 68
-right= 165
-bottom= 133
-idTexture= 0
-
-id= 10114
-left= 185
-top= 68
-right= 217
-bottom= 133
-idTexture= 0
-
-id= 10115
-left= 250
-top= 68
-right= 293
-bottom= 133
-idTexture= 0
-
-id= 10116
-left= 125
-top= 68
-right= 165
-bottom= 133
-idTexture= 0
-
-id= 10117
-left= 5
-top= 68
-right= 43
-bottom= 131
-idTexture= 0
-
-id= 10201
-left= 245
-top= 0
-right= 290
-bottom= 55
-idTexture= 0
-
-id= 10202
-left= 245
-top= 0
-right= 290
-bottom= 55
-idTexture= 0
-
-id= 10300
-left= 290
-top= 0
-right= 360
-bottom= 65
-idTexture= 0
-
-id= 10301
-left= 360
-top= 0
-right= 418
-bottom= 65
-idTexture= 0
-
-
-id= 10302
-left= 418
-top= 0
-right= 480
-bottom= 65
-idTexture= 0
-
-
-id= 10310
-left= 425
-top= 64
-right= 480
-bottom= 115
-idTexture= 0
-
-id= 10311
-left= 7
-top= 131
-right= 50
-bottom= 180
-idTexture= 0
-
-id= 10312
-left= 60
-top= 131
-right= 112
-bottom= 180
-idTexture= 0
+idTexture= 1
 
 id= 10400
-left= 6
-top= 3
-right= 50
+left= 660
+top= 201
+right= 706
+bottom= 265
+idTexture= 1
+
+id= 10005
+left= 906
+top= 0
+right= 946
+bottom= 50
+idTexture= 1
+
+id= 10011
+left= 960
+top= 1
+right= 1023
 bottom= 65
-idTexture= 70
+idTexture= 1
+
+id= 10012
+left= 1023
+top= 3
+right= 1079
+bottom= 65
+idTexture= 1
+
+id= 10013
+left= 1079
+top= 3
+right= 1139
+bottom= 65
+idTexture= 1
+
+id= 10014
+left= 660
+top= 131
+right= 720
+bottom= 180
+idTexture= 1
+
+id= 10015
+left= 720
+top= 131
+right= 780
+bottom= 180
+idTexture= 1
+
+id= 10016
+left= 780
+top= 131
+right= 840
+bottom= 197
+idTexture= 1
+
+id= 10100
+left= 915
+top= 65
+right= 950
+bottom= 131
+idTexture= 1
+
+id= 10101
+left= 975
+top= 65
+right= 1010
+bottom= 131
+idTexture= 1
+
+id= 10102
+left= 787
+top= 65
+right= 826
+bottom= 131
+idTexture= 1
+
+id= 10103
+left= 845
+top= 65
+right= 881
+bottom= 131
+idTexture= 1
+
+id= 10104
+left= 670
+top= 70
+right= 705
+bottom= 131
+idTexture= 1
 
 id= 12000
 left= 25
-top= 0
+top= 353
 right= 160
-bottom= 70
-idTexture= 40
+bottom= 423
+idTexture= 1
 
 id= 12001
 left= 186
-top= 0
+top= 353
 right= 320
-bottom= 70
-idTexture= 40
+bottom= 423
+idTexture= 1
 
 id= 12002
 left= 350
-top= 0
-right= 470
-bottom= 70
-idTexture= 40
+top= 353
+right= 465
+bottom= 423
+idTexture= 1
 
 id= 12010
 left= 25
-top= 70
+top= 423
 right= 160
-bottom= 137
-idTexture= 40
+bottom= 490
+idTexture= 1
 
 id= 12011
 left= 186
-top= 70
+top= 423
 right= 320
-bottom= 137
-idTexture= 40
+bottom= 490
+idTexture= 1
 
 id= 12012
 left= 346
-top= 70
-right= 470
-bottom= 137
-idTexture= 40
+top= 423
+right= 465
+bottom= 490
+idTexture= 1
 
 id= 12020
 left= 0
-top= 137
+top= 490
 right= 160
-bottom= 204
-idTexture= 40
+bottom= 557
+idTexture= 1
 
 id= 12021
 left= 160
-top= 137
+top= 490
 right= 320
-bottom= 204
-idTexture= 40
+bottom= 557
+idTexture= 1
 
 id= 12022
 left= 320
-top= 137
-right= 470
-bottom= 204
-idTexture= 40
+top= 490
+right= 465
+bottom= 557
+idTexture= 1
 
 id= 11000
-left= 0
-top= 0
-right= 32
-bottom= 64
-idTexture= 30
+left= 13
+top= 246
+right= 45
+bottom= 310
+idTexture= 1
 
 id= 11001
-left= 32
-top= 0
-right= 64
-bottom= 64
-idTexture= 30
+left= 45
+top= 246
+right= 72
+bottom= 310
+idTexture= 1
 
 id= 11002
-left= 0
-top= 0
-right= 16
-bottom= 32
-idTexture= 31
+left= 87
+top= 262
+right= 103
+bottom= 294
+idTexture= 1
 
 id= 11003
-left= 16
-top= 0
-right= 32
-bottom= 32
-idTexture= 31
+left= 103
+top= 262
+right= 119
+bottom= 294
+idTexture= 1
 
 id= 13000
-left= 82
-top= 74
-right= 130
-bottom= 117
-idTexture= 50
+left= 426
+top= 203
+right= 458
+bottom= 234
+idTexture= 1
 
 id= 13001
-left= 341
-top= 68
-right= 395
-bottom= 102
-idTexture= 50
+left= 2
+top= 331
+right= 34
+bottom= 348
+idTexture= 1
 
 id= 13002
-left= 245
-top= 111
-right= 274
-bottom= 133
-idTexture= 50
+left= 293
+top= 231
+right= 317
+bottom= 250
+idTexture= 1
 
 id= 13010
-left= 248
-top= 252
-right= 296
-bottom= 295
-idTexture= 50
+left= 318
+top= 156
+right= 360
+bottom= 198
+idTexture= 1
 
 id= 13011
-left= 252
-top= 300
-right= 303
-bottom= 341
-idTexture= 50
+left= 271
+top= 156
+right= 318
+bottom= 198
+idTexture= 1
 
-id= 14000
-left= 0
-top= 0
-right= 42
-bottom= 44
-idTexture= 60
-
-id= 14001
-left= 42
-top= 0
-right= 84
-bottom= 44
-idTexture= 60
-
-id= 14002
-left= 84
-top= 0
-right= 126
-bottom= 44
-idTexture= 60
-
+id= 13012
+left= 232
+top= 156
+right= 271
+bottom= 198
+idTexture= 1
 
 id= 30000
-left= 0
+left= 128
 top= 0
-right= 34
+right= 160
 bottom= 64
-idTexture= 100
+idTexture= 1
 
 id= 30001
-left= 34
+left= 160
 top= 0
-right= 68
+right= 192
 bottom= 64
-idTexture= 100
+idTexture= 1
 
 id= 30002
 left= 0
-top= 0
+top= 82
 right= 64
-bottom= 32
-idTexture= 101
+bottom= 114
+idTexture= 1
 
 id= 30003
 left= 64
-top= 0
+top= 82
 right= 128
-bottom= 32
-idTexture= 101
+bottom= 114
+idTexture= 1
 
 id= 30004
 left= 128
-top= 0
+top= 82
 right= 192
-bottom= 32
-idTexture= 101
+bottom= 114
+idTexture= 1
 
 id= 30005
 left= 192
-top= 0
+top= 82
 right= 256
-bottom= 32
-idTexture= 101
+bottom= 114
+idTexture= 1
 
 id= 40000
-left= 0
-top= 0
+left= 2
+top= 118
 right= 32
-bottom= 96
-idTexture= 110
+bottom= 212
+idTexture= 1
 
 id= 40001
 left= 32
-top= 0
+top= 118
 right= 88
-bottom= 96
-idTexture= 110
+bottom= 212
+idTexture= 1
 
 id= 40002
 left= 88
-top= 0
-right= 192
-bottom= 96
-idTexture= 110
+top= 118
+right= 120
+bottom= 212
+idTexture= 1

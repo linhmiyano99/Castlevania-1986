@@ -2,14 +2,17 @@
 
 void CGate::Render()
 {
-	if (state == GATE_STATE_CLOSE)
+	if (animations[0]->GetCurrentFrame() != animations[0]->GetLastFrame())
 	{
-		animations[0]->ResetFrame();
-		animations[0]->Render(x, y);
-	}
-	else
-	{
-		animations[0]->Render(x, y);
+		if (state == GATE_STATE_CLOSE)
+		{
+			animations[0]->ResetFrame();
+			animations[0]->Render(x, y);
+		}
+		else
+		{
+			animations[0]->Render(x, y);
+		}
 	}
 }
 
