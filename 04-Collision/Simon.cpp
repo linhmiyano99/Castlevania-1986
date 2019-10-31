@@ -54,7 +54,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isAutoGo)
 	{
-		if (auto_x - x < 0)
+		if (abs(auto_x - x) > 0.5f)
 			x -= 0.5;
 		else
 		{
@@ -360,14 +360,15 @@ void CSimon::Render()
 
 void CSimon::SetState(int state)
 {
-	if (isAutoGo)
+	if (animations[SIMON_ANI_ATTACKING]->GetCurrentFrame() > 0)
+
 	{
 
 	}
 	else if (trans_start > 0) {
 
 	}
-	else if (animations[SIMON_ANI_ATTACKING]->GetCurrentFrame() > 0)
+	else if (isAutoGo)
 	{
 
 	}
@@ -449,7 +450,7 @@ void CSimon::SetState(int state)
 			{
 				isOnStair = true;
 
-				if (auto_x - x < 0)
+				if (abs(auto_x - x) > 0.5f)
 					AutoGo();
 			}
 			break;
@@ -465,7 +466,7 @@ void CSimon::SetState(int state)
 			{
 				isOnStair = true;
 
-				if (auto_x - x < 0)
+				if (abs(auto_x - x) > 0.5f)
 					AutoGo();
 			}
 			break;
@@ -789,9 +790,14 @@ int CSimon::IsCanOnStair(vector<LPGAMEOBJECT>& listObj)
 }
 void CSimon::AutoGo()
 {
-	if (auto_x - x < 0)
+	if (auto_x < x)
 	{
 		nx = -1;
+		isAutoGo = true;
+	}
+	else if(auto_x > x)
+	{
+		nx = 1;
 		isAutoGo = true;
 	}
 	else

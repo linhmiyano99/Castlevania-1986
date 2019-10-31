@@ -19,14 +19,14 @@ void CHidenObject::SetPosition(float _x, float _y)
 		if (nx > 0)
 			_autoX = x - 10;
 		else
-			_autoX = x- 20;
+			_autoX = x - 20;
 	}
 	else if (state == HIDENOBJECT_TYPE_UPSTAIR)
 	{
 		if (nx < 0)
 			_autoX = x - 30;
 		else
-			_autoX = x + 20;
+			_autoX = x + 30;
 
 	}
 	else
