@@ -68,7 +68,7 @@ void CScene::LoadResoure()
 		objects.push_back(dagger);
 
 		simon = CSimon::GetInstance();
-		simon->SetPosition(4700.0f, 20.0f);
+		simon->SetPosition(0.0f, 20.0f);
 		objects.push_back(simon);
 
 
@@ -327,7 +327,7 @@ void CScene::LoadResoure()
 			hiden4->SetPosition(4640, 210);
 			objects.push_back(hiden4);
 			CHidenObject* hiden5= new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, -1, 1);
-			hiden5->SetPosition(5544, 215);
+			hiden5->SetPosition(5560, 215);
 			objects.push_back(hiden5);
 			CHidenObject* hiden6 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, 1);
 			hiden6->SetPosition(4000, 370);
@@ -339,7 +339,7 @@ void CScene::LoadResoure()
 			hiden8->SetPosition(4835, 370);
 			objects.push_back(hiden8);
 			CHidenObject* hiden9 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
-			hiden9->SetPosition(5430, 336);
+			hiden9->SetPosition(5460, 316);
 			objects.push_back(hiden9);
 
 		}

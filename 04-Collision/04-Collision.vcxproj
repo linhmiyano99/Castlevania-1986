@@ -140,9 +140,11 @@
     <ClInclude Include="ItemHeart.h" />
     <ClInclude Include="MagagementTexture.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Money.h" />
     <ClInclude Include="Panther.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Simon.h" />
+    <ClInclude Include="SmallHeart.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Torch.h" />
@@ -169,9 +171,11 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ManagementTexture.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Money.cpp" />
     <ClCompile Include="Panther.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Simon.cpp" />
+    <ClCompile Include="SmallHeart.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Torch.cpp" />

@@ -17,6 +17,7 @@
 
 class CPanther : public CEnemy
 {
+	float LeftLimit;
 public:
 	CPanther() :CEnemy()
 	{
@@ -27,5 +28,8 @@ public:
 	virtual void Render();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void SetSpeed(float _x, float _y) {
+		vx = _x; vy = _y; LeftLimit = x - 600;
+	}
 //	virtual void SetState(int state);
 };

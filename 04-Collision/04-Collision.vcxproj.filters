@@ -131,6 +131,12 @@
     <ClInclude Include="Fishman.h">
       <Filter>Header Files\GameObject\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="SmallHeart.h">
+      <Filter>Header Files\GameObject\item</Filter>
+    </ClInclude>
+    <ClInclude Include="Money.h">
+      <Filter>Header Files\GameObject\item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -213,6 +219,12 @@
     </ClCompile>
     <ClCompile Include="Fishman.cpp">
       <Filter>Header Files\GameObject\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallHeart.cpp">
+      <Filter>Header Files\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="Money.cpp">
+      <Filter>Header Files\GameObject\item</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

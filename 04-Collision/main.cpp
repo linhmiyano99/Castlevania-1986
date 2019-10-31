@@ -100,12 +100,12 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 		if(!simon->IsOnStair())
 		simon->SetState(SIMON_STATE_UP);
 		break;
-	case DIK_LEFT:
-		simon->SetState(SIMON_STATE_IDLE);
-		break;
-	case DIK_RIGHT:
-		simon->SetState(SIMON_STATE_IDLE);
-		break;
+	//case DIK_LEFT:
+	//	simon->SetState(SIMON_STATE_IDLE);
+	//	break;
+	//case DIK_RIGHT:
+	//	simon->SetState(SIMON_STATE_IDLE);
+	//	break;
 
 	}
 }
@@ -116,8 +116,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	{
 		simon->SetState(SIMON_STATE_JUMP);
 	}
-
-	if (game->IsKeyDown(DIK_RIGHT))
+	else if (game->IsKeyDown(DIK_RIGHT))
 		simon->SetState(SIMON_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
 		simon->SetState(SIMON_STATE_WALKING_LEFT); 

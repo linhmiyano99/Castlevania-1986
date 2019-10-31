@@ -54,7 +54,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isAutoGo)
 	{
-		if (abs(auto_x - x) > 0.5f)
+		if (abs(auto_x - x) > 5.0f)
 			x -= 0.5;
 		else
 		{
@@ -91,9 +91,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (int i = 0; i < listPanther.size(); i++)
 		{
 			float p_x, p_y;
-			listPanther.at(i)->GetPosition(p_x, p_y);
-			if (abs(x - p_x) < 200 && abs(y-p_y) < 40)
-				listPanther.at(i)->SetSpeed(-0.1f, -0.01f);
+			listPanther.at(i)->GetSpeed(p_x, p_y);
+			if (p_x == 0)
+			{
+				listPanther.at(i)->GetPosition(p_x, p_y);
+				if (abs(x - p_x) < 200 && abs(y - p_y) < 40)
+					listPanther.at(i)->SetSpeed(-0.1f, 0);
+			}
 		}
 		if (isOnStair)
 		{
@@ -450,7 +454,7 @@ void CSimon::SetState(int state)
 			{
 				isOnStair = true;
 
-				if (abs(auto_x - x) > 0.5f)
+				if (abs(auto_x - x) > 5.0f)
 					AutoGo();
 			}
 			break;
@@ -466,7 +470,7 @@ void CSimon::SetState(int state)
 			{
 				isOnStair = true;
 
-				if (abs(auto_x - x) > 0.5f)
+				if (abs(auto_x - x) > 5.0f)
 					AutoGo();
 			}
 			break;

@@ -334,6 +334,76 @@ right= 256
 bottom= 114
 idTexture= 1
 
+id= 30006
+left= 0
+top= 0
+right= 32
+bottom= 32
+idTexture= 1
+
+id= 30007
+left= 32
+top= 0
+right= 64
+bottom= 32
+idTexture= 1
+
+id= 30008
+left= 64
+top= 0
+right= 96
+bottom= 32
+idTexture= 1
+
+id= 30009
+left= 96
+top= 0
+right= 128
+bottom= 32
+idTexture= 1
+
+id= 30010
+left= 203
+top= 0
+right= 233
+bottom= 64
+idTexture= 1
+
+id= 30011
+left= 233
+top= 0
+right= 264
+bottom= 64
+idTexture= 1
+
+id= 30012
+left= 264
+top= 0
+right= 300
+bottom= 64
+idTexture= 1
+
+id= 30013
+left= 336
+top= 0
+right= 374
+bottom= 37
+idTexture= 1
+
+id= 30014
+left= 401
+top= 0
+right= 500
+bottom= 45
+idTexture= 1
+
+id= 30015
+left= 514
+top= 0
+right= 583
+bottom= 45
+idTexture= 1
+
 id= 40000
 left= 2
 top= 118

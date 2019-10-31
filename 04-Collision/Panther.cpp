@@ -53,7 +53,6 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				x += dx;
 				y += min_ty * dy + ny * 0.4f;
 
-				if (nx != 0) vx = 0;
 				if (ny != 0) vy = 0;
 			}
 			// clean up collision events
@@ -71,7 +70,11 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 	}
-
+	if (x <= LeftLimit)
+	{
+		nx = 1;
+		vx = 0.1f;
+	}
 }
 
 

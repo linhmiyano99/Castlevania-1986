@@ -208,6 +208,25 @@ CManagementTexture::CManagementTexture()
 	ani->Add(30005);
 	animations->Add(1001, ani); // panther run 
 
+	ani = new CAnimation(100);
+	ani->Add(30006);
+	ani->Add(30007);
+	ani->Add(30008);
+	ani->Add(30009);
+	animations->Add(1002, ani); // bat run 
+
+	ani = new CAnimation(100);
+	ani->Add(30010);
+	ani->Add(30011);
+	ani->Add(30012);
+	animations->Add(1003, ani); // fishman run 
+
+	ani = new CAnimation(100);
+	ani->Add(30013);
+	ani->Add(30014);
+	ani->Add(30015);
+	animations->Add(1004, ani); // boss run 
+
 #pragma endregion
 
 #pragma region Add Door
