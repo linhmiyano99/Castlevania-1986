@@ -3,43 +3,68 @@
 
 void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt);
-	x += dx;
-	y += dy;
 	CScene* scene = CScene::GetInstance();
 
-	if (nx < 0)
+	if (dt_die == 0)
 	{
-		if (x <= scene->GetLeft())
+		if (state == TORCH_STATE_NOT_EXSIST) {
+			dt_die = GetTickCount();
+		}
+		else
 		{
-			vx = -vx;
-			nx = 1;
+			if (scene->GetScene() == 2)
+			{
+				CGameObject::Update(dt);
+				x += dx;
+				y += dy;
+
+				if (nx < 0)
+				{
+					if (x <= scene->GetLeft())
+					{
+						vx = -vx;
+						nx = 1;
+					}
+				}
+				else if (nx > 0)
+				{
+					if (x >= scene->GetRight() - 32)
+					{
+						vx = -vx;
+						nx = -1;
+					}
+				}
+				if (ny < 0)
+				{
+					if (y <= scene->GetTop())
+					{
+						vy = -vy;
+						ny = 1;
+					}
+				}
+				else if (ny > 0)
+				{
+					if (y >= scene->GetBottom() - 32)
+					{
+						vy = -vy;
+						ny = -1;
+					}
+				}
+			}
 		}
 	}
-	else if (nx > 0)
+	else
 	{
-		if (x >= scene->GetRight() - 32)
-		{
-			vx = -vx;
-			nx = -1;
+		if (item != NULL) {//co item
+			if (GetTickCount() - dt_die > 150) // cho 150 mili second
+			{
+
+				item->Update(dt, coObjects);
+				state = TORCH_STATE_ITEM;
+			}
 		}
 	}
-	if (ny < 0)
-	{
-		if (y <= scene->GetTop())
-		{
-			vy = -vy;
-			ny = 1;
-		}
-	}
-	else if (ny > 0)
-	{
-		if (y >= scene->GetBottom() - 32)
-		{
-			vy = -vy;
-			ny = -1;
-		}
-	}
+
 }
 void CBat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {

@@ -28,12 +28,15 @@
 #include "Gate.h"
 #include "Bat.h"
 #include "Fishman.h"
+#include "Boss.h"
+
 
 
 class CScene
 {
 	static CScene* __instance;
 	CSimon* simon;
+	CBoss* boss;
 	CMap* map;
 	CDagger* dagger;
 	CGame* game;
@@ -42,7 +45,7 @@ class CScene
 	int id;
 public:
 	static CScene* GetInstance();
-	CScene(int id = 2);
+	CScene(int id = 4);
 	void LoadResoure();
 	void LoadSimon();
 	void Update(DWORD dt);

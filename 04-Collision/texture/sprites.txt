@@ -384,23 +384,23 @@ bottom= 64
 idTexture= 1
 
 id= 30013
-left= 336
+left= 300
 top= 0
-right= 374
+right= 400
 bottom= 37
 idTexture= 1
 
 id= 30014
-left= 401
+left= 400
 top= 0
 right= 500
 bottom= 45
 idTexture= 1
 
 id= 30015
-left= 514
+left= 500
 top= 0
-right= 583
+right= 594
 bottom= 45
 idTexture= 1
 

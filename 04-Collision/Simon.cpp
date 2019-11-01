@@ -649,32 +649,40 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 
 void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx0, float min_ty0, int nx0, int ny0)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
+	
 
-	coEvents.clear();
-
-	// turn off collision when die 
-
-	CalcPotentialCollisions(&listObj, coEvents);
-
-	float min_tx, min_ty, nx = 0, ny;
-
-	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-
-	//// block 
-	if (min_tx <= min_tx0 || min_ty <= min_ty0)
+	if (isOnStair)
 	{
-		x += min_tx * dx + nx * 50.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y -= 50.0f;
-	}
-	if (nx != 0) vx = nx * 0.2f;
-	vy = -0.2f;
-	state = SIMON_STATE_HURT;
-	_enegy--;
+		_enegy--;
 
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	}
+	else {
+		vector<LPCOLLISIONEVENT> coEvents;
+		vector<LPCOLLISIONEVENT> coEventsResult;
+
+		coEvents.clear();
+		// turn off collision when die 
+
+		CalcPotentialCollisions(&listObj, coEvents);
+
+		float min_tx, min_ty, nx = 0, ny;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		//// block 
+		if (min_tx <= min_tx0 || min_ty <= min_ty0)
+		{
+			x += min_tx * dx + nx * 50.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+			y -= 50.0f;
+		}
+		if (nx != 0) vx = nx * 0.2f;
+		vy = -0.2f;
+		state = SIMON_STATE_HURT;
+		_enegy--;
+
+		// clean up collision events
+		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	}
 }
 
 void CSimon::CollisionWithGate(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx0, float min_ty0, int nx0, int ny0)

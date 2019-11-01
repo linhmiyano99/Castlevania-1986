@@ -68,7 +68,7 @@ void CScene::LoadResoure()
 		objects.push_back(dagger);
 
 		simon = CSimon::GetInstance();
-		simon->SetPosition(3500.0f, 20.0f);
+		simon->SetPosition(5125.0f, 20.0f);
 		objects.push_back(simon);
 
 
@@ -322,6 +322,12 @@ void CScene::LoadResoure()
 				objects.push_back(brick);
 			}
 
+			boss = CBoss::GetInstance();
+			boss->SetPosition(5225, 100);
+			boss->SetSpeed(0.1f, 0.1f);
+			objects.push_back(boss);
+
+
 			CHidenObject* hiden = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
 			hiden->SetPosition(3717, 320);
 			objects.push_back(hiden);
@@ -379,7 +385,7 @@ void CScene::LoadSimon()
 	}
 	else
 	{
-		simon->SetPosition(simon_x + 20, simon_y - 65);
+		simon->SetPosition(simon_x - 20, simon_y - 65);
 	}
 }
 
@@ -519,7 +525,7 @@ int CScene::GetTop()
 	case 1:
 	case 2:
 	case 4:
-		return 0;
+		return 40;
 	case 3:
 		return 430;
 	default:

@@ -6,7 +6,10 @@
 
 class CBoss : public CEnemy
 {
+	static CBoss* __instance;
 public:
+	static CBoss* GetInstance();
+
 	CBoss() :CEnemy()
 	{
 		animations.clear();

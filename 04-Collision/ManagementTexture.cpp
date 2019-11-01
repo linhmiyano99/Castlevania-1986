@@ -222,7 +222,7 @@ CManagementTexture::CManagementTexture()
 	animations->Add(1003, ani); // fishman run 
 
 	ani = new CAnimation(100);
-	ani->Add(30013);
+	//ani->Add(30013);
 	ani->Add(30014);
 	ani->Add(30015);
 	animations->Add(1004, ani); // boss run 
