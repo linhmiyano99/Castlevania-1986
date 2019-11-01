@@ -1,10 +1,10 @@
-#include "Monney.h"
+#include "Money.h"
 
-void CMonney::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CMoney::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 
 }
-void CMonney::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CMoney::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 }

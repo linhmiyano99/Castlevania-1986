@@ -10,8 +10,8 @@ class CHidenObject : public CGameObject
 private:
 	int _height;
 	int _width;
-	int ny;
 	int _autoX;
+	int ny;
 public:
 	CHidenObject(int state = 0, int trendX = 0,int trendY = 0) :CGameObject()
 	{

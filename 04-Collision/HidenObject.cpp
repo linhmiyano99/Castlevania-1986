@@ -26,7 +26,7 @@ void CHidenObject::SetPosition(float _x, float _y)
 		if (nx < 0)
 			_autoX = x - 30;
 		else
-			_autoX = x + 40;
+			_autoX = x + 30;
 
 	}
 	else

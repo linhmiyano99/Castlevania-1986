@@ -1,10 +1,10 @@
 #pragma once
 #include "Item.h"
 
-class CSmallHeart :public CItem
+class CMoney :public CItem
 {
 public:
-	CSmallHeart() :CItem()
+	CMoney() :CItem()
 	{
 
 	}

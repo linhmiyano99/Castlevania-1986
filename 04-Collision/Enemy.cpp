@@ -108,16 +108,3 @@ void CEnemy::Render()
 	//RenderBoundingBox();
 }
 
-void CEnemy::SetState(int state)
-{
-	CGameObject::SetState(state);
-	switch (state)
-	{
-	case ENEMY_STATE_DIE:
-
-		break;
-	case ENEMY_STATE_WALKING:
-		vx = -ENEMY_WALKING_SPEED;
-	}
-
-}

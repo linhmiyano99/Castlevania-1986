@@ -26,7 +26,7 @@
 #include "Ghost.h"
 #include "Panther.h"
 #include "Gate.h"
-
+#include "Bat.h"
 
 
 
@@ -42,7 +42,7 @@ class CScene
 	int id;
 public:
 	static CScene* GetInstance();
-	CScene(int id = 0);
+	CScene(int id = 2);
 	void LoadResoure();
 	void LoadSimon();
 	void Update(DWORD dt);

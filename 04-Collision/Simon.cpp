@@ -54,8 +54,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isAutoGo)
 	{
-		if (abs(auto_x - x) > 5.0f)
-			x -= 0.5;
+		AutoGo();
+		if (abs(auto_x - x) > 0.5f)
+			x += 0.5*nx;
 		else
 		{
 			isAutoGo = false;
@@ -77,6 +78,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vector<LPGAMEOBJECT> listEnemy;
 		vector<LPGAMEOBJECT> listPanther;
 		vector<LPGAMEOBJECT> listGate;
+		vector<LPGAMEOBJECT> listBat;
 		for (int i = 0; i < coObjects->size(); i++)
 		{
 			if (dynamic_cast<CHidenObject*>(coObjects->at(i)))
@@ -99,6 +101,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					listPanther.at(i)->SetSpeed(-0.1f, 0);
 			}
 		}
+		
 		if (isOnStair)
 		{
 			if (state == SIMON_STATE_GO_DOWN)
@@ -193,26 +196,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (untouchable == 0)
 					{
 						CTorch* torch = dynamic_cast<CTorch*>(e->obj);
-						if (dynamic_cast<CGhost*>(torch))
+						 if (dynamic_cast<CEnemy*>(torch))
 						{
-
-							CGhost* torch = dynamic_cast<CGhost*>(e->obj);
-
-							if (torch->GetState() == TORCH_STATE_EXSIST)
-							{
-								listEnemy.push_back(torch);
-								CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
-								StartUntouchable();
-								listEnemy.clear();
-							}
-							else {
-								continue;
-							}
-
-						}
-						else if (dynamic_cast<CPanther*>(torch))
-						{
-							CPanther* torch = dynamic_cast<CPanther*>(e->obj);
+							CEnemy* torch = dynamic_cast<CEnemy*>(e->obj);
 
 							if (torch->GetState() == TORCH_STATE_EXSIST)
 							{
@@ -454,8 +440,8 @@ void CSimon::SetState(int state)
 			{
 				isOnStair = true;
 
-				if (abs(auto_x - x) > 5.0f)
-					AutoGo();
+				if (abs(auto_x - x) > 0.5f)
+					isAutoGo = true;
 			}
 			break;
 		case SIMON_STATE_GO_DOWN:
@@ -470,8 +456,8 @@ void CSimon::SetState(int state)
 			{
 				isOnStair = true;
 
-				if (abs(auto_x - x) > 5.0f)
-					AutoGo();
+				if (abs(auto_x - x) > 0.5f)
+					isAutoGo = true;
 			}
 			break;
 		case SIMON_STATE_IDLE_UP:
@@ -797,15 +783,9 @@ void CSimon::AutoGo()
 	if (auto_x < x)
 	{
 		nx = -1;
-		isAutoGo = true;
 	}
 	else if(auto_x > x)
 	{
 		nx = 1;
-		isAutoGo = true;
-	}
-	else
-	{
-		isAutoGo = false;
 	}
 }

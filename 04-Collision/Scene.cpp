@@ -68,7 +68,7 @@ void CScene::LoadResoure()
 		objects.push_back(dagger);
 
 		simon = CSimon::GetInstance();
-		simon->SetPosition(0.0f, 20.0f);
+		simon->SetPosition(3500.0f, 20.0f);
 		objects.push_back(simon);
 
 
@@ -203,6 +203,11 @@ void CScene::LoadResoure()
 				brick->SetPosition(i * 32, 394);
 				objects.push_back(brick);
 			}
+			CBat* bat = new CBat();
+			bat->SetPosition(3580, 141);
+			bat->SetSpeed(0.1f, 0.1f);
+			objects.push_back(bat);
+
 			CHidenObject* hiden = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
 			hiden->SetPosition(3137, 325);
 			objects.push_back(hiden);
