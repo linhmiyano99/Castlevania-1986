@@ -172,6 +172,10 @@ void CScene::LoadResoure()
 			CGate* gate = new CGate();
 			gate->SetPosition(3063, 105);
 			objects.push_back(gate);
+
+			CGate* gate2 = new CGate();
+			gate2->SetPosition(4067, 105);
+			objects.push_back(gate2);
 		}
 	
 		{
@@ -263,6 +267,7 @@ void CScene::LoadResoure()
 			CFishman* fishman = new CFishman();
 			fishman->SetPosition(3344, 716);
 			objects.push_back(fishman);
+			
 			CHidenObject* hiden1 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
 			hiden1->SetPosition(3240, 560);
 			objects.push_back(hiden1);
@@ -322,11 +327,6 @@ void CScene::LoadResoure()
 				objects.push_back(brick);
 			}
 
-			boss = CBoss::GetInstance();
-			boss->SetPosition(5225, 100);
-			boss->SetSpeed(0.1f, 0.1f);
-			objects.push_back(boss);
-
 
 			CHidenObject* hiden = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
 			hiden->SetPosition(3717, 320);
@@ -355,6 +355,9 @@ void CScene::LoadResoure()
 			CHidenObject* hiden9 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, 1, -1);
 			hiden9->SetPosition(5460, 316);
 			objects.push_back(hiden9);
+			boss = CBoss::GetInstance();
+			boss->SetPosition(5311, 100);
+			objects.push_back(boss);
 
 		}
 		
@@ -383,9 +386,15 @@ void CScene::LoadSimon()
 		simon->SetPosition(simon_x + 20, simon_y + 65);
 
 	}
+	else if (id == 4)
+	{
+		simon->SetPosition(simon_x + 20, simon_y);
+	}
 	else
 	{
-		simon->SetPosition(simon_x - 20, simon_y - 65);
+		//simon->SetPosition(simon_x + 20, simon_y);
+		
+		boss->SetSpeed(0.1f, 0.1f);
 	}
 }
 
@@ -393,7 +402,7 @@ void CScene::Update(DWORD dt)
 {
 	float cx, cy;
 	simon->GetPosition(cx, cy);
-	
+
 
 	if (cy >= 370 && id != 3)
 	{
@@ -403,28 +412,34 @@ void CScene::Update(DWORD dt)
 	}
 	else if (id == 3)
 	{
-		if (cy < 465 )
+		if (cy < 465)
 		{
-			if ((cx > 3070 && cx < 3290 && simon->IsOnStair()))
+			if ((cx > 3070 && cx < 3290) || (cx > 3740 && cx < 3940) && simon->IsOnStair())
 			{
 				id = 2;
 				SetMap(2);
 				LoadSimon();
 				cy = 0;
 			}
-			else if ((cx > 3740 && cx < 3940 && simon->IsOnStair()))
-			{
-				id = 4;
-				SetMap(4);
-				LoadSimon();
-				cy = 0;
-			}
 			else
 				cy = 430;
-			
+
 		}
 		else
 			cy = 430;
+	}
+	//else if (id == 2 && cy <= 140 && cx > 4037)
+	//{
+
+	//	id = 4;
+	//	SetMap(4);
+	//	LoadSimon();
+	//}
+	else if (id == 4 && cx > 5115)
+	{
+		id = 5;
+		SetMap(5);
+		LoadSimon();
 	}
 	else
 		cy = 0;
@@ -443,43 +458,20 @@ void CScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
-	
-	if (id == 0)
-	{
 
-		if (cx < 0) cx = 0; if (cx > 966) cx = 966;
-	}
-	else if (id == 1)
-	{
-		if (cx < 3100)
-			if (cx < 0) cx = 0; if (cx > 3150 - SCREEN_WIDTH) cx = 3150 - SCREEN_WIDTH;
-	}
-	else if (id == 2)
-	{
-		if (cx < 3038)
-			cx = 3038;
-		if (cx > 3645 - SCREEN_WIDTH)
-			cx = 3645 - SCREEN_WIDTH;
 
-	}
-	else if (id == 3)
+	if (cx < GetLeft())
+		cx = GetLeft();
+	if (id != 4)
 	{
-		if (cx < 3073)
-			cx = 3073;
-		if (cx > 4100 - SCREEN_WIDTH)
-			cx = 4100 - SCREEN_WIDTH;
+		if (cx > GetRight() - SCREEN_WIDTH)
+			cx = GetRight() - SCREEN_WIDTH;
 	}
-	else
-	{
-		if (cx < 3711)
-			cx = 3711;
-		if (cx > 5630 - SCREEN_WIDTH)
-			cx = 5630 - SCREEN_WIDTH;
-	}
+
 
 	game = CGame::GetInstance();
 	game->SetCamPos(cx, cy);
-	
+
 
 }
 void CScene::Render() 
@@ -512,7 +504,9 @@ int CScene::GetLeft()
 	case 3:
 		return 3074;
 	case 4:
-		return 3711;
+		return 4096;
+	case 5:
+		return 5116;
 	default:
 		return 0;
 	}
@@ -525,6 +519,7 @@ int CScene::GetTop()
 	case 1:
 	case 2:
 	case 4:
+	case 5:
 		return 40;
 	case 3:
 		return 430;
@@ -541,10 +536,11 @@ int CScene::GetRight()
 	case 1:
 		return 3140;
 	case 2:
-		return 3646;
 	case 3:
 		return 4097;
 	case 4:
+		return 5119;
+	case 5:
 		return 5632;
 	default:
 		return 0;
@@ -558,6 +554,7 @@ int CScene::GetBottom()
 	case 1:
 	case 2:
 	case 4:
+	case 5:
 		return 384;
 	case 3:
 		return 768;

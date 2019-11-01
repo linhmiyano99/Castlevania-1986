@@ -651,7 +651,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 {
 	
 
-	if (isOnStair)
+	if (isOnStair || state == SIMON_ANI_ATTACKING || state == SIMON_STATE_SIT_ATTACK)
 	{
 		_enegy--;
 
@@ -724,7 +724,10 @@ void CSimon::CollisionWithGate(DWORD dt, vector<LPGAMEOBJECT>& listObj, float mi
 		{
 			gate->SetState(GATE_STATE_OPEN);
 			CScene* scene = CScene::GetInstance();
-			scene->SetMap(2);
+			if (x < 3100)
+				scene->SetMap(2);
+			else
+				scene->SetMap(4);
 			scene->LoadSimon();
 			break;
 		}
