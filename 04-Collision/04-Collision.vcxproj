@@ -144,6 +144,7 @@
     <ClInclude Include="Panther.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Simon.h" />
+    <ClInclude Include="SmallBall.h" />
     <ClInclude Include="SmallHeart.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Panther.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Simon.cpp" />
+    <ClCompile Include="SmallBall.cpp" />
     <ClCompile Include="SmallHeart.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />

@@ -12,6 +12,10 @@ public:
 		animations.clear();
 		AddAnimation(1003);
 		AddAnimation(800);
+		vy = -0.5f;
+		ny = -1;
+		vx = 0;
+		nx = 1;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

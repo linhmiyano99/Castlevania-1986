@@ -209,10 +209,10 @@ void CScene::LoadResoure()
 			objects.push_back(bat);
 
 			CHidenObject* hiden = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
-			hiden->SetPosition(3137, 325);
+			hiden->SetPosition(3115, 325);
 			objects.push_back(hiden);
 			CHidenObject* hiden1 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
-			hiden1->SetPosition(3556, 365);
+			hiden1->SetPosition(3540, 365);
 			objects.push_back(hiden1);
 			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_UPSTAIR, 1, 1);
 			hiden2->SetPosition(3393, 195);
@@ -260,11 +260,14 @@ void CScene::LoadResoure()
 				brick->SetPosition(i * 32, 780);
 				objects.push_back(brick);
 			}
+			CFishman* fishman = new CFishman();
+			fishman->SetPosition(3344, 716);
+			objects.push_back(fishman);
 			CHidenObject* hiden1 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
-			hiden1->SetPosition(3282, 560);
+			hiden1->SetPosition(3240, 560);
 			objects.push_back(hiden1);
 			CHidenObject* hiden2 = new CHidenObject(HIDENOBJECT_TYPE_DOWNSTAIR, -1, -1);
-			hiden2->SetPosition(3965, 610);
+			hiden2->SetPosition(3930, 610);
 			objects.push_back(hiden2);
 		}
 
@@ -376,7 +379,7 @@ void CScene::LoadSimon()
 	}
 	else
 	{
-		simon->SetPosition(simon_x - 20, simon_y - 65);
+		simon->SetPosition(simon_x + 20, simon_y - 65);
 	}
 }
 

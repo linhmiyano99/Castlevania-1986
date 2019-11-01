@@ -48,6 +48,9 @@
     <Filter Include="Header Files\GameObject\enemy">
       <UniqueIdentifier>{ff3423da-9741-4002-8810-b207bd60ae99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameObject\enemy\Enemy_shot">
+      <UniqueIdentifier>{0c8e5937-8c84-41e1-ae8d-01006009da4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h">
@@ -137,6 +140,9 @@
     <ClInclude Include="Money.h">
       <Filter>Header Files\GameObject\item</Filter>
     </ClInclude>
+    <ClInclude Include="SmallBall.h">
+      <Filter>Header Files\GameObject\enemy\Enemy_shot</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -225,6 +231,9 @@
     </ClCompile>
     <ClCompile Include="Money.cpp">
       <Filter>Header Files\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallBall.cpp">
+      <Filter>Header Files\GameObject\enemy\Enemy_shot</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

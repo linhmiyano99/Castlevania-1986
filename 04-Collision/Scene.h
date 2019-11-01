@@ -27,7 +27,7 @@
 #include "Panther.h"
 #include "Gate.h"
 #include "Bat.h"
-
+#include "Fishman.h"
 
 
 class CScene

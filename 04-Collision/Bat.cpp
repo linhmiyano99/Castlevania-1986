@@ -7,9 +7,7 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	x += dx;
 	y += dy;
 	CScene* scene = CScene::GetInstance();
-	CGame* game = CGame::GetInstance();
-	float cam_x, cam_y;
-	game->GetCamPos(cam_x, cam_y);
+
 	if (nx < 0)
 	{
 		if (x <= scene->GetLeft())
@@ -20,7 +18,7 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else if (nx > 0)
 	{
-		if (x >= scene->GetRight() - 32 - cam_x)
+		if (x >= scene->GetRight() - 32)
 		{
 			vx = -vx;
 			nx = -1;
@@ -28,7 +26,7 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (ny < 0)
 	{
-		if (y <= scene->GetTop() - cam_y)
+		if (y <= scene->GetTop())
 		{
 			vy = -vy;
 			ny = 1;
@@ -36,7 +34,7 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else if (ny > 0)
 	{
-		if (y >= scene->GetBottom() - 32 - cam_y)
+		if (y >= scene->GetBottom() - 32)
 		{
 			vy = -vy;
 			ny = -1;
