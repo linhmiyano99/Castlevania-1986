@@ -19,6 +19,7 @@
 #include "GameObject.h"
 #include "Textures.h"
 #include "MagagementTexture.h"
+#include "Define.h"
 
 #include "Camera.h"
 
@@ -34,14 +35,6 @@
 
 
 
-#define WINDOW_CLASS_NAME L"SampleWindow"
-#define MAIN_WINDOW_TITLE L"Castlevania 1986"
-
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
-#define SCREEN_WIDTH 560
-#define SCREEN_HEIGHT 460
-
-#define MAX_FRAME_RATE 120
 
 CGame * game;
 CSimon* simon;

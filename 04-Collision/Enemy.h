@@ -21,14 +21,14 @@ class CEnemy : public CTorch
 protected:
 	int ny;
 public:
-	CEnemy(int id =0, int level = 0)
+	CEnemy(float _x, float _y, int id = 0, int level = 0) : CTorch(_x, _y, id, level)
 	{
 		
 		dt_die = 0;
 		state = TORCH_STATE_EXSIST;
 		nx = ny = 1;
 
-		switch (id)
+		/*switch (id)
 		{
 		case ID_WHIPUPGRADE:
 			item = new CWhipUpgrade();
@@ -43,7 +43,7 @@ public:
 			break;
 		default:
 			break;
-		}
+		}*/
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

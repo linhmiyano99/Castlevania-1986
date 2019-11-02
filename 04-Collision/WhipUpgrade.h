@@ -16,7 +16,7 @@
 class CWhipUpgrade : public CItem
 {
 public:
-	CWhipUpgrade() : CItem()
+	CWhipUpgrade(float _x, float _y) : CItem(_x, _y)
 	{
 		AddAnimation(700);
 		_type = TYPE_ITEM_WHIPUPGRADE;

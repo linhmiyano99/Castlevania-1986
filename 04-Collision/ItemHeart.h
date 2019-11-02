@@ -16,7 +16,7 @@
 class CItemHeart : public CItem
 {
 public:
-	CItemHeart() : CItem()
+	CItemHeart(float _x, float _y) : CItem(_x, _y)
 	{
 		AddAnimation(704);
 		_type = TYPE_ITEM_HEART;

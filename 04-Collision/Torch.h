@@ -39,7 +39,7 @@ protected:
 public:
 
 
-	CTorch(int id = 0, int _level = 0);
+	CTorch(float _x, float _y, int id = 0, int _level = 0);
 	~CTorch()
 	{
 		CGameObject::~CGameObject();

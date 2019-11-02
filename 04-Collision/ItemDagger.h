@@ -16,7 +16,7 @@
 class CItemDagger : public CItem
 {
 public:
-	CItemDagger() : CItem()
+	CItemDagger(float _x, float _y) : CItem(_x, _y)
 	{
 		AddAnimation(701);
 		_type = TYPE_ITEM_DAGGER;

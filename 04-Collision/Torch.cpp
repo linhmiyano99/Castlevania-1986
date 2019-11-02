@@ -1,6 +1,6 @@
 #include "Torch.h"
 
-CTorch::CTorch(int id, int level) : CGameObject()
+CTorch::CTorch(float _x, float _y, int id, int level) : CGameObject(_x, _y)
 {
 	dt_die = 0;
 	state = TORCH_STATE_EXSIST;
@@ -16,19 +16,22 @@ CTorch::CTorch(int id, int level) : CGameObject()
 	switch (id)
 	{
 	case ID_WHIPUPGRADE:
-		item = new CWhipUpgrade();
+		item = new CWhipUpgrade(_x,_y);
 		break;
 	case ID_DAGGER:
-		item = new CItemDagger();
+		item = new CItemDagger(_x,_y);
 		break;
 	case ID_HEART:
-		item = new CItemHeart();
+		item = new CItemHeart(_x, _y);
 		break;
 	case 0:
 		break;
 	default:
 		break;
 	}
+
+	x = _x;
+	y = _y;
 }
 
 void CTorch::Render()

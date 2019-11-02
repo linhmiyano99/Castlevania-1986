@@ -13,7 +13,7 @@ private:
 	int _autoX;
 	int ny;
 public:
-	CHidenObject(int state = 0, int trendX = 0,int trendY = 0) :CGameObject()
+	CHidenObject(float _x = 0, float _y = 0,int state = 0, int trendX = 0,int trendY = 0) :CGameObject(_x, _y)
 	{
 		_height = 10;
 		_width = 50;

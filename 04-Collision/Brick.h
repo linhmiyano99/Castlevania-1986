@@ -16,7 +16,7 @@
 class CBrick : public CGameObject
 {
 public:
-	CBrick(int i = 0) :CGameObject()
+	CBrick(float _x, float _y, int i = 0) :CGameObject()
 	{
 		if (i == 0) {
 			AddAnimation(499);
@@ -24,6 +24,9 @@ public:
 		else {
 			AddAnimation(500);
 		}
+		x = _x;
+		y = _y;
+		
 	}
 	void Render();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);

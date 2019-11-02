@@ -25,13 +25,13 @@ class CItem : public CGameObject
 protected:
 	int _type;
 public:
-	CItem() : CGameObject()
+	CItem(float _x = 0, float _y = 0) : CGameObject(_x, _y)
 	{
 		state = ITEM_STATE_EXSIST;
 		_type = TYPE_ITEM;
 	}
 	virtual int getType() { return _type; }
-	void Render();
+	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };

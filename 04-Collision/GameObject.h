@@ -78,7 +78,7 @@ public:
 
 	void AddAnimation(int aniId);
 
-	CGameObject();
+	CGameObject(float _x = 0, float _y = 0);
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;//do hình bao tùy thuộc trạng thái của đối tượng
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);

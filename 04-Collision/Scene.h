@@ -57,4 +57,8 @@ public:
 	int GetTop();
 	int GetRight();
 	int GetBottom();
+
+	void LoadObject(char* filename);
+	void Insert(int id, int type, int trend, float x, float y, float w, float h, int id_item);
+	CGameObject* GetNewObject(int type, int x, int y, int w, int h, int id_item);
 };

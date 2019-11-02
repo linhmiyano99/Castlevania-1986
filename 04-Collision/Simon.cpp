@@ -350,8 +350,7 @@ void CSimon::Render()
 
 void CSimon::SetState(int state)
 {
-	if (animations[SIMON_ANI_ATTACKING]->GetCurrentFrame() > 0)
-
+	if (animations[SIMON_ANI_STANDING_ATTACKING]->GetCurrentFrame() > 0)
 	{
 
 	}
@@ -651,7 +650,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 {
 	
 
-	if (isOnStair || state == SIMON_ANI_ATTACKING || state == SIMON_STATE_SIT_ATTACK)
+	if (isOnStair || state == SIMON_STATE_STAND_ATTACK || state == SIMON_STATE_SIT_ATTACK)
 	{
 		_enegy--;
 

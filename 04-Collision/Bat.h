@@ -7,7 +7,7 @@
 class CBat : public CEnemy
 {
 public:
-	CBat() :CEnemy()
+	CBat(float _x, float _y, int id) :CEnemy(_x,_y, id)
 	{
 		animations.clear();
 		AddAnimation(1002);

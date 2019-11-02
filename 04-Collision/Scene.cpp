@@ -23,6 +23,7 @@ void CScene::LoadResoure()
 	CManagementTexture* manage = new CManagementTexture();
 
 	objects.clear();
+	
 	dagger = CDagger::GetInstance();
 	objects.push_back(dagger);
 	if (id == 0) {
@@ -31,33 +32,7 @@ void CScene::LoadResoure()
 		simon->SetPosition(0.0f, 20.0f);
 		objects.push_back(simon);
 
-
-		CTorch* torch0 = new CTorch(3);
-		torch0->SetPosition(190, 300);
-		objects.push_back(torch0);
-
-		CTorch* torch1 = new CTorch(1);
-		torch1->SetPosition(416, 300);
-		objects.push_back(torch1);
-
-		CTorch* torch2 = new CTorch(1);
-		torch2->SetPosition(640, 300);
-		objects.push_back(torch2);
-
-		CTorch* torch3 = new CTorch(2);
-		torch3->SetPosition(864, 300);
-		objects.push_back(torch3);
-
-
-		for (int i = 0; i < 96; i++)
-		{
-			CBrick* brick = new CBrick();
-			brick->SetPosition(i * 32, 360);
-			objects.push_back(brick);
-		}
-		hiden = new CHidenObject();
-		hiden->SetPosition(1364, 300);
-		objects.push_back(hiden);
+		LoadObject("map/Obj1.txt");
 	}
 	else
 	{
@@ -72,7 +47,7 @@ void CScene::LoadResoure()
 		objects.push_back(simon);
 
 
-		
+		/*
 		{
 			CTorch* candle = new CTorch(3, 1);
 			candle->SetPosition(190, 300);
@@ -360,8 +335,7 @@ void CScene::LoadResoure()
 			objects.push_back(boss);
 
 		}
-		
-
+		*/
 	}
 }
 void CScene::LoadSimon()
@@ -561,4 +535,49 @@ int CScene::GetBottom()
 	default:
 		return 384;
 	}
+}
+void CScene::LoadObject(char* filename)
+{
+
+	//objects.clear();
+	ifstream inFile(filename);
+
+	int id, type, trend, id_item;
+	float x, y, w, h;
+
+	if (inFile)
+	{
+		while (inFile >> id >> type >> trend >> x >> y >> w >> h >> id_item)
+		{
+			if (type == eType::BRICK_1 || type == eType::BRICK_2)
+			{
+				for(int i = 0; i < w / h; i++)
+					Insert(id, type, trend, x + i * 32, y, w, h, id_item);
+			}
+			else
+				Insert(id, type, trend, x, y, w, h, id_item);
+		}
+		inFile.close();
+	}
+}
+void CScene::Insert(int id, int type, int trend, float x, float y, float w, float h,int id_item)
+{
+	CGameObject* obj = GetNewObject(type, x, y, w, h, id_item);
+	if (obj == NULL)
+	{
+		DebugOut(L"[Insert Object GRID Fail] : Bo tay roi :v Khong tao duoc object!\n");
+		return;
+	}
+	obj->SetTrend(trend);
+
+	objects.push_back(obj);
+}
+CGameObject* CScene::GetNewObject(int type, int x, int y, int w, int h, int id_item)
+{
+	if (type == eType::BRICK_1) return new CBrick(x, y);
+	if (type == eType::TORCH) return new CTorch(x, y, id_item);
+	if (type == eType::OBJECT_HIDDEN_DOOR) return new CHidenObject(x, y);
+
+
+	return NULL;
 }

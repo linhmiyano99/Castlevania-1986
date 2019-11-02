@@ -8,9 +8,10 @@
 #include "GameObject.h"
 #include "Sprites.h"
 
-CGameObject::CGameObject()
+CGameObject::CGameObject(float _x, float _y)
 {
-	x = y = 0;
+	x = _x;
+	y = _y;
 	vx = vy = 0;
 	nx = 1;
 }

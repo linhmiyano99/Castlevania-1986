@@ -7,7 +7,7 @@
 class CFishman : public CEnemy
 {
 public:
-	CFishman() :CEnemy()
+	CFishman(float _x, float _y, int id) :CEnemy(_x, _y, id)
 	{
 		animations.clear();
 		AddAnimation(1003);

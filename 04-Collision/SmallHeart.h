@@ -4,7 +4,7 @@
 class CSmallHeart :public CItem
 {
 public:
-	CSmallHeart():CItem()
+	CSmallHeart(float _x, float _y) : CItem(_x, _y)
 	{
 
 	}

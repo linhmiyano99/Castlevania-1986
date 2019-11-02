@@ -5,7 +5,7 @@ CBoss* CBoss::__instance = NULL;
 
 CBoss* CBoss::GetInstance()
 {
-	if (__instance == NULL) __instance = new CBoss();
+	if (__instance == NULL) __instance = new CBoss(5311, 100, 0);
 	return __instance;
 }
 

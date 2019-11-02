@@ -4,7 +4,7 @@
 class CMoney :public CItem
 {
 public:
-	CMoney() :CItem()
+	CMoney(float _x, float _y) : CItem(_x, _y)
 	{
 
 	}

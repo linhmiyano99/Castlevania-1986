@@ -11,12 +11,7 @@
 #define ID_TEX 1
 
 
-#define SIMON_ANI_IDLE				0
-#define SIMON_ANI_WALKING			1
-#define SIMON_ANI_SITTING			2
-#define SIMON_ANI_JUMPING			3
-#define SIMON_ANI_ATTACKING 		4
-#define SIMON_ANI_SITTING_ATTACKING	5
+
 #define BRICK_ANI					6
 #define TORCH_ANI_FIRE				7
 #define VAMPIREKILLER_1				8
