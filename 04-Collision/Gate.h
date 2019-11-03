@@ -8,7 +8,7 @@ class CGate : public CGameObject
 {
 
 public:
-	CGate() :CGameObject()
+	CGate(float _x, float _y) :CGameObject(_x, _y)
 	{
 		state = 0;
 		AddAnimation(1100);

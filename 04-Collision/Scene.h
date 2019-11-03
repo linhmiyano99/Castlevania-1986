@@ -45,7 +45,7 @@ class CScene
 	int id;
 public:
 	static CScene* GetInstance();
-	CScene(int id = 0);
+	CScene(int id = 1);
 	void LoadResoure();
 	void LoadSimon();
 	void Update(DWORD dt);
@@ -60,5 +60,5 @@ public:
 
 	void LoadObject(char* filename);
 	void Insert(int id, int type, int trend, float x, float y, float w, float h, int id_item);
-	CGameObject* GetNewObject(int type, int x, int y, int w, int h, int id_item);
+	CGameObject* GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item);
 };

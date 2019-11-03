@@ -56,7 +56,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		AutoGo();
 		if (abs(auto_x - x) > 0.5f)
-			x += 0.5*nx;
+			x += 0.5 * nx;
 		else
 		{
 			isAutoGo = false;

@@ -23,7 +23,7 @@ void CScene::LoadResoure()
 	CManagementTexture* manage = new CManagementTexture();
 
 	objects.clear();
-	
+
 	dagger = CDagger::GetInstance();
 	objects.push_back(dagger);
 	if (id == 0) {
@@ -43,10 +43,11 @@ void CScene::LoadResoure()
 		objects.push_back(dagger);
 
 		simon = CSimon::GetInstance();
-		simon->SetPosition(5125.0f, 20.0f);
+		simon->SetPosition(3005.0f, 20.0f);
 		objects.push_back(simon);
-
-
+		LoadObject("map/Obj2.txt");
+	}
+}
 		/*
 		{
 			CTorch* candle = new CTorch(3, 1);
@@ -335,9 +336,9 @@ void CScene::LoadResoure()
 			objects.push_back(boss);
 
 		}
-		*/
+		
 	}
-}
+}*/
 void CScene::LoadSimon()
 {
 	float simon_x, simon_y;
@@ -409,11 +410,11 @@ void CScene::Update(DWORD dt)
 	//	SetMap(4);
 	//	LoadSimon();
 	//}
-	else if (id == 4 && cx > 5115)
+	else if (id == 4 && cx > 5356)
 	{
 		id = 5;
 		SetMap(5);
-		LoadSimon();
+		//LoadSimon();
 	}
 	else
 		cy = 0;
@@ -438,8 +439,8 @@ void CScene::Update(DWORD dt)
 		cx = GetLeft();
 	if (id != 4)
 	{
-		if (cx > GetRight() - SCREEN_WIDTH)
-			cx = GetRight() - SCREEN_WIDTH;
+		if (cx > GetRight() - SCREEN_WIDTH + 10)
+			cx = GetRight() - SCREEN_WIDTH + 10;
 	}
 
 
@@ -480,7 +481,7 @@ int CScene::GetLeft()
 	case 4:
 		return 4096;
 	case 5:
-		return 5116;
+		return 5086;
 	default:
 		return 0;
 	}
@@ -513,7 +514,6 @@ int CScene::GetRight()
 	case 3:
 		return 4097;
 	case 4:
-		return 5119;
 	case 5:
 		return 5632;
 	default:
@@ -542,7 +542,7 @@ void CScene::LoadObject(char* filename)
 	//objects.clear();
 	ifstream inFile(filename);
 
-	int id, type, trend, id_item;
+	int id, type, trend, id_item, nx, ny;
 	float x, y, w, h;
 
 	if (inFile)
@@ -562,21 +562,26 @@ void CScene::LoadObject(char* filename)
 }
 void CScene::Insert(int id, int type, int trend, float x, float y, float w, float h,int id_item)
 {
-	CGameObject* obj = GetNewObject(type, x, y, w, h, id_item);
+	CGameObject* obj = GetNewObject(type, trend, x, y, w, h, id_item);
 	if (obj == NULL)
 	{
-		DebugOut(L"[Insert Object GRID Fail] : Bo tay roi :v Khong tao duoc object!\n");
+		DebugOut(L"[Insert Object Fail] : object is not create!\n");
 		return;
 	}
 	obj->SetTrend(trend);
 
 	objects.push_back(obj);
 }
-CGameObject* CScene::GetNewObject(int type, int x, int y, int w, int h, int id_item)
+CGameObject* CScene::GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item)
 {
 	if (type == eType::BRICK_1) return new CBrick(x, y);
+	if (type == eType::BRICK_2) return new CBrick(x, y, 1);
 	if (type == eType::TORCH) return new CTorch(x, y, id_item);
+	if (type == eType::CANDLE) return new CTorch(x, y, id_item, 1);
 	if (type == eType::OBJECT_HIDDEN_DOOR) return new CHidenObject(x, y);
+	if (type == eType::STAIR_DOWN) return new CHidenObject(x, y, HIDENOBJECT_TYPE_DOWNSTAIR, trend, -1);
+	if (type == eType::STAIR_UP) return new CHidenObject(x, y, HIDENOBJECT_TYPE_UPSTAIR, trend, 1);
+	if (type == eType::GATE) return new CGate(x, y);
 
 
 	return NULL;
