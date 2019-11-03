@@ -76,7 +76,6 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_X:
 		break;
 	case DIK_DOWN:
-		simon->SetState(SIMON_STATE_GO_DOWN);
 		break;
 	case DIK_UP:
 		simon->SetState(SIMON_STATE_GO_UP);
@@ -92,6 +91,15 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	case DIK_DOWN:
 		if(!simon->IsOnStair())
 		simon->SetState(SIMON_STATE_UP);
+		break;
+	case DIK_Z:
+		if (simon->GetState() == SIMON_STATE_SIT_ATTACK)
+		{
+			if(game->IsKeyDown(DIK_DOWN))
+				simon->SetState(SIMON_STATE_SIT);
+			else
+				simon->SetState(SIMON_STATE_UP);
+		}
 		break;
 	//case DIK_LEFT:
 	//	simon->SetState(SIMON_STATE_IDLE);
@@ -109,6 +117,17 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	{
 		simon->SetState(SIMON_STATE_JUMP);
 	}
+	else if (game->IsKeyDown(DIK_DOWN) && game->IsKeyDown(DIK_Z))
+	{
+		simon->SetState(SIMON_STATE_SIT_ATTACK);
+
+
+	}
+	else if (game->IsKeyDown(DIK_DOWN))
+	{
+		simon->SetState(SIMON_STATE_GO_DOWN);
+
+	}
 	else if (game->IsKeyDown(DIK_RIGHT))
 		simon->SetState(SIMON_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
@@ -122,13 +141,16 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		simon->SetState(SIMON_STATE_GO_UP);
 	}
 	else if(!game->IsKeyDown(DIK_DOWN)&& !game->IsKeyDown(DIK_Z)){
-		
+		float l,t,r,b;
+		simon->GetBoundingBox(l, t, r, b);
 		if (simon->IsOnStair()) {
 			if ((simon->GetStairTrend() == 0 && simon->GetNx() == 1) || (simon->GetStairTrend() == 1 && simon->GetNx() == -1))
 				simon->SetState(SIMON_STATE_IDLE_UP);
 			else
 				simon->SetState(SIMON_STATE_IDLE_DOWN);
 		}
+		else if(b-t < SIMON_HEIGHT_STAND)
+			simon->SetState(SIMON_STATE_UP);
 		else
 			simon->SetState(SIMON_STATE_IDLE);
 	}

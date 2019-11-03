@@ -29,5 +29,6 @@ public:
 	void setUpLevel();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj);
+	CAnimation* GetAnimation() { return animation; }
 };
 #endif // !__VAMPIREILLER_H__

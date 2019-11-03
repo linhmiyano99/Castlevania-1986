@@ -315,11 +315,13 @@ void CSimon::Render()
 	else if (state == SIMON_STATE_SIT_ATTACK)
 	{
 		id = SIMON_ANI_SITTING_ATTACKING;
+
 		weapons[0]->Render();
 	}
 	else if (state == SIMON_STATE_STAND_ATTACK)
 	{
 		id = SIMON_ANI_STANDING_ATTACKING;
+		weapons[0]->GetAnimation()->SetFrame(animations[SIMON_ANI_STANDING_ATTACKING]->GetCurrentFrame());
 		weapons[0]->Render();
 
 	}
@@ -379,6 +381,10 @@ void CSimon::Render()
 void CSimon::SetState(int state)
 {
 	if (animations[SIMON_ANI_STANDING_ATTACKING]->GetCurrentFrame() > 0)
+	{
+
+	}
+	else if (animations[SIMON_ANI_SITTING_ATTACKING]->GetCurrentFrame() > 0)
 	{
 
 	}
