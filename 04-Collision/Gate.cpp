@@ -2,18 +2,22 @@
 
 void CGate::Render()
 {
-	if (animations[0]->GetCurrentFrame() != animations[0]->GetLastFrame())
+
+	if (state == GATE_STATE_CLOSE)
 	{
-		if (state == GATE_STATE_CLOSE)
-		{
-			animations[0]->ResetFrame();
-			animations[0]->Render(x, y);
-		}
-		else
-		{
-			animations[0]->Render(x, y);
-		}
+		animations[0]->Render(x, y);
 	}
+	else
+	{
+		if(animations[1]->GetCurrentFrame() != animations[1]->GetLastFrame())
+			animations[1]->Render(x, y);
+	
+	}
+
+}
+void CGate::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	
 }
 
 void CGate::GetBoundingBox(float& left, float& top, float& right, float& bottom)

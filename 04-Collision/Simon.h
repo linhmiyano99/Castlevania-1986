@@ -90,5 +90,7 @@ public:
 	int GetStairTrend() { return _stairTrend; }
 	int GetNx() { return nx; }
 	void AutoGo();
+	void TransScene();
+	bool IsAutoGo() { return isAutoGo; }
 };
 #endif

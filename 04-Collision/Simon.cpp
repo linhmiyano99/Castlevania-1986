@@ -52,7 +52,18 @@ CSimon::CSimon() : CGameObject()
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (isAutoGo)
+	if (isAutoGo && !CScene::GetInstance()->IsTranScene())
+	{
+		AutoGo();
+		if (abs(auto_x - x) > 0.5f)
+			x += 0.5 * nx;
+		else
+		{
+			isAutoGo = false;
+		}
+		return;
+	}
+	else if (isAutoGo && CScene::GetInstance()->IsTranScene())
 	{
 		AutoGo();
 		if (abs(auto_x - x) > 0.5f)
@@ -274,7 +285,24 @@ void CSimon::Render()
 	int id;
 	if (isAutoGo)
 	{
-		id = SIMON_ANI_WALKING;
+		if (CScene::GetInstance()->IsTranScene())
+		{
+			float c_x, c_y;
+			CGame* game = CGame::GetInstance();
+			game->GetCamPos(c_x, c_y);
+			CScene* scene = CScene::GetInstance();
+			CScene* scene2 = new CScene();
+			if (scene->GetScene() == 1)
+				scene2->SetMap(2);
+			else
+				scene2->SetMap(4);
+			if (c_x < scene2->GetLeft() - SCREEN_WIDTH / 2)
+				id = SIMON_ANI_IDLE;
+			else
+				id = SIMON_ANI_WALKING;
+		}
+		else
+			id = SIMON_ANI_WALKING;
 	}
 	else if (state == SIMON_STATE_IDLE_DOWN)
 	{
@@ -708,30 +736,30 @@ void CSimon::CollisionWithGate(DWORD dt, vector<LPGAMEOBJECT>& listObj, float mi
 			y += min_ty * dy + ny * 0.4f;
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
+		
+		TransScene();
+		gate0->SetState(GATE_STATE_OPEN);
 	}
-	else
-	{
-		x += dx;
-	}
+
 	// clean up collision events
 	
 
-	for (int i = 0; i < listObj.size(); i++)
-	{
-		CGate* gate = dynamic_cast<CGate*>(listObj.at(i));// if e->obj is torch 
-		if (gate->GetState() == GATE_STATE_CLOSE)
-		{
-			gate->SetState(GATE_STATE_OPEN);
-			CScene* scene = CScene::GetInstance();
-			if (x < 3100)
-				scene->SetMap(2);
-			else
-				scene->SetMap(4);
-			scene->LoadSimon();
-			break;
-		}
+	//for (int i = 0; i < listObj.size(); i++)
+	//{
+	//	CGate* gate = dynamic_cast<CGate*>(listObj.at(i));// if e->obj is torch 
+	//	if (gate->GetState() == GATE_STATE_CLOSE)
+	//	{
+	//		gate->SetState(GATE_STATE_OPEN);
+	//		CScene* scene = CScene::GetInstance();
+	//		if (x < 3100)
+	//			scene->SetMap(2);
+	//		else
+	//			scene->SetMap(4);
+	//		//scene->LoadSimon();
+	//		break;
+	//	}
 
-	}
+	//}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 int CSimon::IsCanOnStair(vector<LPGAMEOBJECT>& listObj)
@@ -798,4 +826,16 @@ void CSimon::AutoGo()
 	{
 		nx = 1;
 	}
+}
+void CSimon::TransScene()
+{
+	CScene* scene = CScene::GetInstance();
+	CScene* scene2 = new CScene();
+	if(scene->GetScene() == 1)
+		scene2->SetMap(2);
+	else
+		scene2->SetMap(4);
+	scene->TranScene(scene2->GetLeft());
+	isAutoGo = true;
+	auto_x = x + 100;
 }
