@@ -19,7 +19,7 @@ class CPanther : public CEnemy
 {
 	float LeftLimit;
 public:
-	CPanther(float _x, float _y, int id) :CEnemy(_x, _y, id)
+	CPanther(float _x = 1419, float _y = 230, int id = 0) :CEnemy(_x, _y, id)
 	{
 		animations.clear();
 		AddAnimation(1001);

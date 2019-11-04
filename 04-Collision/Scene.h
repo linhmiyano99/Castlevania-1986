@@ -42,12 +42,16 @@ class CScene
 	CGame* game;
 	CHidenObject* hiden;
 	vector<LPGAMEOBJECT> objects;
+	vector<LPGAMEOBJECT> ghosts;
+	vector<LPGAMEOBJECT> panthers;
+	vector<LPGAMEOBJECT> bats;
+	vector<LPGAMEOBJECT> fishmans;
 	int id;
 	bool isAutoTran;
 	float auto_tran;
 public:
 	static CScene* GetInstance();
-	CScene(int id = 0);
+	CScene(int id = 4);
 	void LoadResoure();
 	void LoadSimon();
 	void Update(DWORD dt);

@@ -49,6 +49,32 @@ void CScene::LoadResoure()
 		simon->SetPosition(4205.0f, 20.0f);
 		objects.push_back(simon);
 		LoadObject("map/Obj2.txt");
+		for (int i = 0; i < 10; i++)
+		{
+			CGhost* ghost = new CGhost();
+			ghosts.push_back(ghost);
+			objects.push_back(ghost);
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			CPanther* ghost = new CPanther();
+			panthers.push_back(ghost);
+			objects.push_back(ghost);
+		}
+		for (int i = 0; i < 1; i++)
+		{
+			CBat* ghost = new CBat();
+			panthers.push_back(ghost);
+			objects.push_back(ghost);
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			CFishman* ghost = new CFishman();
+			panthers.push_back(ghost);
+			objects.push_back(ghost);
+		}
+		boss = new CBoss(5276, 95);
+		objects.push_back(boss);
 	}
 }
 		
@@ -60,6 +86,16 @@ void CScene::LoadSimon()
 	if (id == 1)
 	{
 		simon->SetPosition(0.0f, 20.0f);
+		float _x = 2000 , _y = 200;
+		for each (CGhost* var in ghosts)
+		{
+			var->SetPosition(_x, _y);
+			var->SetSpeed(-0.05f, 0);
+			_x += 100;
+		}
+		panthers[0]->SetPosition(1393, 230);
+		panthers[1]->SetPosition(1761, 160);
+		panthers[2]->SetPosition(1954, 230);
 
 	}
 	else if (id == 2)
@@ -68,11 +104,12 @@ void CScene::LoadSimon()
 			simon->SetPosition(simon_x, simon_y);
 		else
 			simon->SetPosition(simon_x - 20, simon_y - 65);
+		/*bats[0]->SetPosition(3474, 100);
+		bats[1]->SetPosition(3513, 200);*/
 	}
 	else if (id == 3)
 	{
 		simon->SetPosition(simon_x + 15, simon_y + 65);
-
 	}
 	else if (id == 4)
 	{
@@ -80,7 +117,7 @@ void CScene::LoadSimon()
 	}
 	else
 	{		
-		boss->SetSpeed(0.1f, 0.1f);
+
 	}
 }
 
@@ -145,21 +182,14 @@ void CScene::Update(DWORD dt)
 			else
 				cy = 430;
 		}
-		//else if (id == 2 && cy <= 140 && cx > 4037)
-		//{
-
-		//	id = 4;
-		//	SetMap(4);
-		//	LoadSimon();
-		//}
 		else if (id == 4 && cx > 5356)
 		{
 			id = 5;
-			SetMap(5);
-			//LoadSimon();
+			boss->SetSpeed(0.03f, 0.03f);
 		}
 		else
 			cy = 0;
+		
 		// Update camera to follow simon
 		cx -= SCREEN_WIDTH / 2 - 40;
 		//cy -= SCREEN_HEIGHT / 2 + 40;
