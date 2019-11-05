@@ -18,38 +18,7 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				x += dx;
 				y += dy;
 
-				if (nx < 0)
-				{
-					if (x <= scene->GetLeft())
-					{
-						vx = -vx;
-						nx = 1;
-					}
-				}
-				else if (nx > 0)
-				{
-					if (x >= scene->GetRight() - 32)
-					{
-						vx = -vx;
-						nx = -1;
-					}
-				}
-				if (ny < 0)
-				{
-					if (y <= scene->GetTop())
-					{
-						vy = -vy;
-						ny = 1;
-					}
-				}
-				else if (ny > 0)
-				{
-					if (y >= scene->GetBottom() - 32)
-					{
-						vy = -vy;
-						ny = -1;
-					}
-				}
+				
 			}
 		}
 	}
@@ -64,7 +33,10 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 	}
-
+	if (x <= scene->GetLeft() || x >= scene->GetRight())
+		vx = -vx;
+	if (y <= 40 || y >= SCREEN_HEIGHT)
+		vy = -vy;
 }
 void CBat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {

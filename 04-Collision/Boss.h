@@ -10,7 +10,7 @@ class CBoss : public CEnemy
 public:
 	static CBoss* GetInstance();
 
-	CBoss(float _x, float _y, int id) :CEnemy(_x, _y, id)
+	CBoss(float _x, float _y, int id = 0) :CEnemy(_x, _y, id)
 	{
 		animations.clear();
 		AddAnimation(1004);
@@ -18,4 +18,5 @@ public:
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void Render();
 };
