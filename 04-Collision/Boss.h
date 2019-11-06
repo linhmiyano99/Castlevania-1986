@@ -13,7 +13,7 @@ public:
 	CBoss(float _x, float _y, int id = 0) :CEnemy(_x, _y, id)
 	{
 		animations.clear();
-		AddAnimation(1004);
+		AddAnimation(1100);
 		AddAnimation(800);
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

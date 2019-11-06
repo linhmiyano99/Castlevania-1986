@@ -203,29 +203,40 @@ CManagementTexture::CManagementTexture()
 	
 	ani = new CAnimation(100);
 	ani->Add(30002);
+	animations->Add(1001, ani); // panther sit 
+
+	ani = new CAnimation(100);
+
 	ani->Add(30003);
 	ani->Add(30004);
 	ani->Add(30005);
-	animations->Add(1001, ani); // panther run 
+	animations->Add(1002, ani); // panther run 
 
 	ani = new CAnimation(100);
 	ani->Add(30006);
 	ani->Add(30007);
 	ani->Add(30008);
 	ani->Add(30009);
-	animations->Add(1002, ani); // bat run 
+	animations->Add(1003, ani); // bat run 
 
+	ani = new CAnimation(100);
+	ani->Add(30012);
+	animations->Add(1004, ani); // fishman jump 
+	
 	ani = new CAnimation(100);
 	ani->Add(30010);
 	ani->Add(30011);
-	ani->Add(30012);
-	animations->Add(1003, ani); // fishman run 
+	animations->Add(1005, ani); // fishman walking
+
+	ani = new CAnimation(100);
+	ani->Add(30010);
+	animations->Add(1006, ani); // fishman attack
 
 	ani = new CAnimation(100);
 	//ani->Add(30013);
 	ani->Add(30014);
 	ani->Add(30015);
-	animations->Add(1004, ani); // boss run 
+	animations->Add(1100, ani); // boss run 
 
 #pragma endregion
 

@@ -72,8 +72,8 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (x <= LeftLimit)
 	{
-		nx = 1;
-		vx = 0.1f;
+		nx = - nx;
+		vx = -vx;
 	}
 }
 
@@ -86,14 +86,16 @@ void CPanther::Render()
 		if (vx == 0)
 		{
 
-			animations[ENEMY_ANI_WALKING]->ResetFrame();
-			animations[ENEMY_ANI_WALKING]->Render(x, y, -1, 255);
+			animations[PANTHER_ANI_SIT]->Render(x, y, -1, 255);
+
 		}
 		else
+		{
 			if (vx < 0)
-				animations[ENEMY_ANI_WALKING]->Render(x, y);
+				animations[PANTHER_ANI_RUNNING]->Render(x, y, -1, 255);
 			else
-				animations[ENEMY_ANI_WALKING]->Render(x, y, vx, 255);
+				animations[PANTHER_ANI_RUNNING]->Render(x, y, 1, 255);
+		}
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{

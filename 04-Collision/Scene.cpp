@@ -64,13 +64,13 @@ void CScene::LoadResoure()
 		for (int i = 0; i < 1; i++)
 		{
 			CBat* ghost = new CBat();
-			panthers.push_back(ghost);
+			bats.push_back(ghost);
 			objects.push_back(ghost);
 		}
 		for (int i = 0; i < 2; i++)
 		{
 			CFishman* ghost = new CFishman();
-			panthers.push_back(ghost);
+			fishmans.push_back(ghost);
 			objects.push_back(ghost);
 		}
 		boss = new CBoss(5276, 95);

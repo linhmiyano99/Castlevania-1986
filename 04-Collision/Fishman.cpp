@@ -126,3 +126,38 @@ void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bott
 		item->GetBoundingBox(left, top, right, bottom);
 	}
 }
+void CFishman::Render()
+{
+	if (state == TORCH_STATE_EXSIST)
+	{
+		
+		if (vx == 0)
+		{
+
+			animations[FISHMAN_ANI_JUMPING]->Render(x, y, -1, 255);
+
+		}
+		else
+		{
+			if (vx < 0)
+				animations[FISHMAN_ANI_WALKING]->Render(x, y, -1, 255);
+			else
+				animations[FISHMAN_ANI_WALKING]->Render(x, y, 1, 255);
+		}
+	}
+	else if (state == TORCH_STATE_ITEM)
+	{
+		if (item != NULL)
+			item->Render();
+
+	}
+	else
+	{
+		if (GetTickCount() - dt_die < 150)
+		{
+			animations[1]->Render(x, y);
+
+		}
+	}
+	RenderBoundingBox();
+}
