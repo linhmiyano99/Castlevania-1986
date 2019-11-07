@@ -10,7 +10,7 @@ public:
 	CBat(float _x = 3500, float _y = 200, int id = 0) :CEnemy(_x,_y, id)
 	{
 		animations.clear();
-		AddAnimation(1003;
+		AddAnimation(1003);
 		AddAnimation(800);
 		vx = -0.1f;
 		vy = 0.1f;

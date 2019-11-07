@@ -92,5 +92,6 @@ public:
 	void AutoGo();
 	void TransScene();
 	bool IsAutoGo() { return isAutoGo; }
+	bool IsUntouchable() { if (untouchable) return true; return false; }
 };
 #endif

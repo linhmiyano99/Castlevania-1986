@@ -30,6 +30,9 @@
 #include "Fishman.h"
 #include "Boss.h"
 
+#include "SmallBall.h"
+
+
 
 
 class CScene
@@ -46,12 +49,13 @@ class CScene
 	vector<LPGAMEOBJECT> panthers;
 	vector<LPGAMEOBJECT> bats;
 	vector<LPGAMEOBJECT> fishmans;
+	vector<LPGAMEOBJECT> smallballs;
 	int id;
 	bool isAutoTran;
 	float auto_tran;
 public:
 	static CScene* GetInstance();
-	CScene(int id = 0);
+	CScene(int id = 2);
 	void LoadResoure();
 	void LoadSimon();
 	void Update(DWORD dt);

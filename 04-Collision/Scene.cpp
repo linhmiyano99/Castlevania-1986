@@ -46,10 +46,10 @@ void CScene::LoadResoure()
 		objects.push_back(dagger);
 
 		simon = CSimon::GetInstance();
-		simon->SetPosition(4205.0f, 20.0f);
+		simon->SetPosition(3205.0f, 20.0f);
 		objects.push_back(simon);
 		LoadObject("map/Obj2.txt");
-		for (int i = 0; i < 10; i++)
+		/*for (int i = 0; i < 10; i++)
 		{
 			CGhost* ghost = new CGhost();
 			ghosts.push_back(ghost);
@@ -74,7 +74,7 @@ void CScene::LoadResoure()
 			objects.push_back(ghost);
 		}
 		boss = new CBoss(5276, 95);
-		objects.push_back(boss);
+		objects.push_back(boss);*/
 	}
 }
 		
@@ -86,7 +86,7 @@ void CScene::LoadSimon()
 	if (id == 1)
 	{
 		simon->SetPosition(0.0f, 20.0f);
-		float _x = 2000 , _y = 200;
+		/*float _x = 2000 , _y = 200;
 		for each (CGhost* var in ghosts)
 		{
 			var->SetPosition(_x, _y);
@@ -95,7 +95,7 @@ void CScene::LoadSimon()
 		}
 		panthers[0]->SetPosition(1393, 230);
 		panthers[1]->SetPosition(1761, 160);
-		panthers[2]->SetPosition(1954, 230);
+		panthers[2]->SetPosition(1954, 230);*/
 
 	}
 	else if (id == 2)
@@ -185,7 +185,7 @@ void CScene::Update(DWORD dt)
 		else if (id == 4 && cx > 5356)
 		{
 			id = 5;
-			boss->SetSpeed(0.03f, 0.03f);
+			//boss->SetSpeed(0.03f, 0.03f);
 		}
 		else
 			cy = 0;
@@ -365,7 +365,11 @@ CGameObject* CScene::GetNewObject(int type, int trend, int x, int y, int w, int 
 	if (type == eType::STAIR_DOWN) return new CHidenObject(x, y, HIDENOBJECT_TYPE_DOWNSTAIR, trend, -1);
 	if (type == eType::STAIR_UP) return new CHidenObject(x, y, HIDENOBJECT_TYPE_UPSTAIR, trend, 1);
 	if (type == eType::GATE) return new CGate(x, y);
-
+	if (type == eType::GHOST) return new CGhost(x, y);
+	if (type == eType::PANTHER) return new CPanther(x, y);
+	if (type == eType::BAT) return new CBat(x, y);
+	if (type == eType::FISHMEN) return new CFishman(x, y);
+	if (type == eType::BOSS) return new CBoss(x, y);
 
 	return NULL;
 }

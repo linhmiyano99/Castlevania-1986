@@ -1,11 +1,36 @@
 #include "Fishman.h"
 #include "Simon.h"
+#include "SmallBall.h"
 
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	float s_x, s_y;
 	CSimon* simon = new CSimon();
 	simon->GetPosition(s_x, s_y);
+	if (GetTickCount() - start_attack > 10000)
+	{
+		start_attack = GetTickCount();
+		isAttacking = true;
+		return;
+	}
+	if (isAttacking)
+	{
+		if (s_x > x)
+		{
+			nx = -1;
+			vx = 0;
+		}
+		else
+		{
+			nx = 1;
+			vx = 0;
+
+		}
+		CSmallBall* smallball = new CSmallBall(x, y, nx);
+		(*coObjects).push_back(smallball);
+		return;
+	}
+	vx = nx * FISHMAN_RUNNING_SPEED_X;
 	if (y <= 448)
 	{
 		vy = SIMON_GRAVITY * dt;
@@ -133,9 +158,19 @@ void CFishman::Render()
 		
 		if (vx == 0)
 		{
-
 			animations[FISHMAN_ANI_JUMPING]->Render(x, y, -1, 255);
-
+		}
+		else if (isAttacking)
+		{
+			if (vx < 0)
+			{
+				animations[FISHMAN_ANI_ATTACKING]->Render(x, y, -1, 255);
+			}
+			else
+			{
+				animations[FISHMAN_ANI_ATTACKING]->Render(x, y, 1, 255);
+			}
+			isAttacking = false;
 		}
 		else
 		{

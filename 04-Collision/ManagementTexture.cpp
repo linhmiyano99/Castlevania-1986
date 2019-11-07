@@ -224,7 +224,7 @@ CManagementTexture::CManagementTexture()
 	animations->Add(1004, ani); // fishman jump 
 	
 	ani = new CAnimation(100);
-	ani->Add(30010);
+	ani->Add(30012);
 	ani->Add(30011);
 	animations->Add(1005, ani); // fishman walking
 
@@ -236,7 +236,7 @@ CManagementTexture::CManagementTexture()
 	//ani->Add(30013);
 	ani->Add(30014);
 	ani->Add(30015);
-	animations->Add(1100, ani); // boss run 
+	animations->Add(1099, ani); // boss run 
 
 #pragma endregion
 

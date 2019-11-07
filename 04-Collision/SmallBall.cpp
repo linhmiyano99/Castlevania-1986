@@ -9,3 +9,9 @@ void CSmallBall::GetBoundingBox(float& left, float& top, float& right, float& bo
 	right = x + 10;
 	bottom = y + 10;
 }
+void CSmallBall::Render()
+{
+		animations[0]->Render(x, y);
+		//RenderBoundingBox();
+	
+}

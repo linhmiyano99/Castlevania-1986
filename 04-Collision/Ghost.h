@@ -13,6 +13,7 @@ public:
 		AddAnimation(1000);
 		AddAnimation(800);
 		nx = -1;
+		vx = -0.03f;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
