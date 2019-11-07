@@ -51,6 +51,9 @@
     <Filter Include="Header Files\GameObject\enemy\Enemy_shot">
       <UniqueIdentifier>{0c8e5937-8c84-41e1-ae8d-01006009da4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Grid">
+      <UniqueIdentifier>{ec8094d0-22f3-41be-ba42-4dd4184343f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h">
@@ -144,7 +147,7 @@
       <Filter>Header Files\GameObject\enemy\Enemy_shot</Filter>
     </ClInclude>
     <ClInclude Include="Grid.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Grid</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -239,7 +242,7 @@
       <Filter>Header Files\GameObject\enemy\Enemy_shot</Filter>
     </ClCompile>
     <ClCompile Include="Grid.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Grid</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
