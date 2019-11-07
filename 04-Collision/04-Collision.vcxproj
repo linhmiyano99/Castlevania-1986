@@ -134,6 +134,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Gate.h" />
     <ClInclude Include="Ghost.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="HidenObject.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemDagger.h" />
@@ -165,6 +166,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="HidenObject.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemDagger.cpp" />

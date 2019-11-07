@@ -143,6 +143,9 @@
     <ClInclude Include="SmallBall.h">
       <Filter>Header Files\GameObject\enemy\Enemy_shot</Filter>
     </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -234,6 +237,9 @@
     </ClCompile>
     <ClCompile Include="SmallBall.cpp">
       <Filter>Header Files\GameObject\enemy\Enemy_shot</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
