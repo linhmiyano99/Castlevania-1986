@@ -32,9 +32,11 @@ CSimon::CSimon() : CGameObject()
 	isCanOnStair = 0;
 	isOnStair = false;
 	_stairTrend = 0;
-	_enegy = 20;
+	_energy = 16;
 	isAutoGo = false;
 	auto_x = -1;
+	_score = 0;
+	_lives = 3;
 	
 	CSimon::AddAnimation(400);		//0. idle left 
 	CSimon::AddAnimation(401);		//1. walk left
@@ -702,7 +704,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 
 	if (isOnStair || state == SIMON_STATE_STAND_ATTACK || state == SIMON_STATE_SIT_ATTACK)
 	{
-		_enegy--;
+		_energy -= 2;
 
 	}
 	else {
@@ -727,7 +729,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 		if (nx != 0) vx = nx * 0.2f;
 		vy = -0.2f;
 		state = SIMON_STATE_HURT;
-		_enegy--;
+		_energy-=2;
 
 		// clean up collision events
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];

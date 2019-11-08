@@ -11,6 +11,7 @@
 class CBoard
 {
 	int _time;
+	DWORD _count;
 	CCode* code;
 	static CBoard* __instance;
 
@@ -18,6 +19,8 @@ public:
 	static CBoard* GetInstance();
 	CBoard()
 	{
+		_time = 300;
+		_count = GetTickCount();
 		code = new CCode();
 	}
 	~CBoard()

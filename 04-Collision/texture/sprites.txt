@@ -498,8 +498,8 @@ idTexture= 1
 id= 60009
 left= 462
 top= 89
-right= 342
-bottom= 477
+right= 477
+bottom= 102
 idTexture= 1
 
 id= 60010

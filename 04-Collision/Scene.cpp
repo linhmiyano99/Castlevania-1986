@@ -50,7 +50,10 @@ void CScene::LoadResoure()
 		simon->SetPosition(2505.0f, 20.0f);
 		objects.push_back(simon);
 		LoadObject("map/Obj2.txt");
-		
+		boss = CBoss::GetInstance();
+		boss->SetPosition(5276, 95);
+		objects.push_back(boss);
+
 	}
 }
 		
@@ -86,6 +89,7 @@ void CScene::LoadSimon()
 
 void CScene::Update(DWORD dt)
 {
+	board->Update(dt);
 	float c_x, c_y;
 
 	game->GetCamPos(c_x, c_y);
@@ -330,7 +334,7 @@ CGameObject* CScene::GetNewObject(int type, int trend, int x, int y, int w, int 
 	if (type == eType::PANTHER) return new CPanther(x, y);
 	if (type == eType::FISHMEN) return new CFishman(x, y);
 	if (type == eType::GHOST) return new CGhost(x, y);
-	if (type == eType::BOSS) return new CBoss(x, y);
+	//if (type == eType::BOSS) return new CBoss(x, y);
 	if (type == eType::BAT) return new CBat(x, y);
 
 	return NULL;

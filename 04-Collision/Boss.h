@@ -6,6 +6,7 @@
 
 class CBoss : public CEnemy
 {
+	int _energy;
 	static CBoss* __instance;
 public:
 	static CBoss* GetInstance();
@@ -17,8 +18,10 @@ public:
 		AddAnimation(800);
 		vx = 0.15f;
 		vy = 0.1f;
+		_energy = 16;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
+	int GetEnergy() { return _energy; }
 };

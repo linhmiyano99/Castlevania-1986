@@ -64,9 +64,11 @@ class CSimon : public CGameObject
 	int isCanOnStair;
 	bool isOnStair;
 	int _stairTrend;
-	int _enegy;
+	int _energy;
 	bool isAutoGo;
 	int auto_x;
+	int _score;
+	int _lives;
 public:
 	static CSimon* GetInstance();
 	CSimon();
@@ -92,5 +94,8 @@ public:
 	void AutoGo();
 	void TransScene();
 	bool IsAutoGo() { return isAutoGo; }
+	int GetEnergy() { return _energy; }
+	int GetScore() { return _score; }
+	int GetLives() { return _lives; }
 };
 #endif
