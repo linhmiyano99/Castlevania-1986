@@ -49,32 +49,7 @@ void CScene::LoadResoure()
 		simon->SetPosition(3205.0f, 20.0f);
 		objects.push_back(simon);
 		LoadObject("map/Obj2.txt");
-		for (int i = 0; i < 10; i++)
-		{
-			CGhost* ghost = new CGhost();
-			ghosts.push_back(ghost);
-			objects.push_back(ghost);
-		}
-		for (int i = 0; i < 3; i++)
-		{
-			CPanther* ghost = new CPanther();
-			panthers.push_back(ghost);
-			objects.push_back(ghost);
-		}
-		for (int i = 0; i < 1; i++)
-		{
-			CBat* ghost = new CBat();
-			bats.push_back(ghost);
-			objects.push_back(ghost);
-		}
-		for (int i = 0; i < 2; i++)
-		{
-			CFishman* ghost = new CFishman();
-			fishmans.push_back(ghost);
-			objects.push_back(ghost);
-		}
-		boss = new CBoss(5276, 95);
-		objects.push_back(boss);
+		
 	}
 }
 		
@@ -85,18 +60,7 @@ void CScene::LoadSimon()
 	simon->GetPosition(simon_x, simon_y);
 	if (id == 1)
 	{
-		simon->SetPosition(0.0f, 20.0f);
-		float _x = 2000 , _y = 200;
-		for each (CGhost* var in ghosts)
-		{
-			var->SetPosition(_x, _y);
-			var->SetSpeed(-0.05f, 0);
-			_x += 100;
-		}
-		panthers[0]->SetPosition(1393, 230);
-		panthers[1]->SetPosition(1761, 160);
-		panthers[2]->SetPosition(1954, 230);
-
+		simon->SetPosition(0.0f, 20.0f);		
 	}
 	else if (id == 2)
 	{
@@ -104,8 +68,6 @@ void CScene::LoadSimon()
 			simon->SetPosition(simon_x, simon_y);
 		else
 			simon->SetPosition(simon_x - 20, simon_y - 65);
-		/*bats[0]->SetPosition(3474, 100);
-		bats[1]->SetPosition(3513, 200);*/
 	}
 	else if (id == 3)
 	{
@@ -185,7 +147,6 @@ void CScene::Update(DWORD dt)
 		else if (id == 4 && cx > 5356)
 		{
 			id = 5;
-			boss->SetSpeed(0.03f, 0.03f);
 		}
 		else
 			cy = 0;
@@ -365,7 +326,11 @@ CGameObject* CScene::GetNewObject(int type, int trend, int x, int y, int w, int 
 	if (type == eType::STAIR_DOWN) return new CHidenObject(x, y, HIDENOBJECT_TYPE_DOWNSTAIR, trend, -1);
 	if (type == eType::STAIR_UP) return new CHidenObject(x, y, HIDENOBJECT_TYPE_UPSTAIR, trend, 1);
 	if (type == eType::GATE) return new CGate(x, y);
-
+	if (type == eType::PANTHER) return new CPanther(x, y);
+	if (type == eType::FISHMEN) return new CFishman(x, y);
+	if (type == eType::GHOST) return new CGhost(x, y);
+	if (type == eType::BOSS) return new CBoss(x, y);
+	if (type == eType::BAT) return new CBat(x, y);
 
 	return NULL;
 }

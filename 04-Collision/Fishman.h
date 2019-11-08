@@ -16,7 +16,7 @@
 #define FISHMAN_STATE_DIE 300
 
 #define TIME_START_ATTACK 10000
-#define TIME_ATTACK 3000
+#define TIME_ATTACK 1000
 
 class CFishman : public CEnemy
 {

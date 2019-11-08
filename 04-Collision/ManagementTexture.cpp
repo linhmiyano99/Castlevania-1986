@@ -228,7 +228,7 @@ CManagementTexture::CManagementTexture()
 	ani->Add(30012);
 	animations->Add(1005, ani); // fishman walking
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(200);
 	ani->Add(30010);
 	ani->Add(30011);
 	animations->Add(1006, ani); // fishman attack

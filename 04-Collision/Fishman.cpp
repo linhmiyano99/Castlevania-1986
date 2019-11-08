@@ -1,5 +1,6 @@
 #include "Fishman.h"
 #include "Simon.h"
+#include "SmallBall.h"
 
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -19,6 +20,8 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		vx = 0;
 		isAttacking = true;
+		CSmallBall* smallball = new CSmallBall(x, y, nx);
+		(coObjects)->push_back(smallball);
 		return;
 	}
 	if (GetTickCount() - start_attack > TIME_ATTACK)
