@@ -247,9 +247,13 @@ CManagementTexture::CManagementTexture()
 	ani->Add(40000);
 	animations->Add(1100, ani); // door close
 
-	ani = new CAnimation(500);
+	ani = new CAnimation(2500);
 	ani->Add(40001);
 	ani->Add(40002);
+	ani->Add(40000);
+	ani->Add(40000);
+	ani->Add(40000);
+
 	
 	animations->Add(1101, ani); // door open
 

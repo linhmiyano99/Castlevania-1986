@@ -215,6 +215,22 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							{
 								listEnemy.push_back(torch);
 								CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
+								if (dynamic_cast<CBat*>(torch))
+								{
+									CBat* bat = dynamic_cast<CBat*>(e->obj);
+									bat->SetState(TORCH_STATE_NOT_EXSIST);
+								}
+								else if (dynamic_cast<CPanther*>(torch))
+								{
+									CPanther* panther = dynamic_cast<CPanther*>(e->obj);
+									float _x, _y;
+									panther->GetPosition(_x, _y);
+									if (_x > x)
+										nx = 1;
+									else
+										nx = -1;
+
+								}
 								StartUntouchable();
 								listEnemy.clear();
 							}
