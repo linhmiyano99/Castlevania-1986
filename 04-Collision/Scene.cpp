@@ -16,6 +16,7 @@ CScene::CScene(int id)
 	this->id = id;
 	map = CMap::GetInstance();
 	game = CGame::GetInstance();
+	board = CBoard::GetInstance();
 	isAutoTran = false;
 	auto_tran = 0;
 }
@@ -192,7 +193,7 @@ void CScene::Render()
 	float cx, cy;
 	CGame::GetInstance()->GetCamPos(cx, cy);
 	CSprites* sprites = CSprites::GetInstance();
-	sprites->Get(50000)->Draw(cx, cy);
+	board->Render();
 }
 void CScene::SetMap(int id)
 {

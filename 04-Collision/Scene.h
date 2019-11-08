@@ -29,6 +29,7 @@
 #include "Bat.h"
 #include "Fishman.h"
 #include "Boss.h"
+#include "Board.h"
 
 
 
@@ -41,6 +42,7 @@ class CScene
 	CDagger* dagger;
 	CGame* game;
 	CHidenObject* hiden;
+	CBoard* board;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> ghosts;
 	vector<LPGAMEOBJECT> panthers;

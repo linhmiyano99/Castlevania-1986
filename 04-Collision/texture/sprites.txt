@@ -431,3 +431,101 @@ top= 560
 right= 551
 bottom= 636
 idTexture= 1
+
+id= 60000
+left= 327
+top= 89
+right= 342
+bottom= 102
+idTexture= 1
+
+id= 60001
+left= 342
+top= 89
+right= 357
+bottom= 102
+idTexture= 1
+
+id= 60002
+left= 357
+top= 89
+right= 372
+bottom= 102
+idTexture= 1
+
+id= 60003
+left= 372
+top= 89
+right= 387
+bottom= 102
+idTexture= 1
+
+id= 60004
+left= 387
+top= 89
+right= 402
+bottom= 102
+idTexture= 1
+
+id= 60005
+left= 402
+top= 89
+right= 417
+bottom= 102
+idTexture= 1
+
+id= 60006
+left= 417
+top= 89
+right= 432
+bottom= 102
+idTexture= 1
+
+id= 60007
+left= 432
+top= 89
+right= 447
+bottom= 102
+idTexture= 1
+
+id= 60008
+left= 447
+top= 89
+right= 462
+bottom= 102
+idTexture= 1
+
+id= 60009
+left= 462
+top= 89
+right= 342
+bottom= 477
+idTexture= 1
+
+id= 60010
+left= 477
+top= 89
+right= 492
+bottom= 102
+idTexture= 1
+
+id= 60011
+left= 289
+top= 77
+right= 300
+bottom= 96
+idTexture= 1
+
+id= 60012
+left= 277
+top= 77
+right= 289
+bottom= 96
+idTexture= 1
+
+id= 60013
+left= 300
+top= 77
+right= 311
+bottom= 96
+idTexture= 1

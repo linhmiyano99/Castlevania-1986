@@ -51,6 +51,12 @@
     <Filter Include="Header Files\GameObject\enemy\Enemy_shot">
       <UniqueIdentifier>{0c8e5937-8c84-41e1-ae8d-01006009da4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Board">
+      <UniqueIdentifier>{c52ff502-f3da-4b46-aacc-1b955b644afd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Board\Code">
+      <UniqueIdentifier>{754e7344-acbf-4724-8130-341a77bd6591}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h">
@@ -146,6 +152,12 @@
     <ClInclude Include="Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Header Files\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Code.h">
+      <Filter>Header Files\Board\Code</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -240,6 +252,12 @@
     </ClCompile>
     <ClCompile Include="Grid.cpp">
       <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Header Files\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="Code.cpp">
+      <Filter>Header Files\Board\Code</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

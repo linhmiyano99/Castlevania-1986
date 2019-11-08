@@ -123,6 +123,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bat.h" />
+    <ClInclude Include="Board.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Dagger.h" />
@@ -135,6 +136,7 @@
     <ClInclude Include="Gate.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="Code.h" />
     <ClInclude Include="HidenObject.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemDagger.h" />
@@ -156,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bat.cpp" />
+    <ClCompile Include="Board.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Dagger.cpp" />
@@ -180,6 +183,7 @@
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="SmallBall.cpp" />
     <ClCompile Include="SmallHeart.cpp" />
+    <ClCompile Include="Code.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Torch.cpp" />
