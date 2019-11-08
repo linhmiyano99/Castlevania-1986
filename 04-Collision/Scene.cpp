@@ -46,7 +46,7 @@ void CScene::LoadResoure()
 		objects.push_back(dagger);
 
 		simon = CSimon::GetInstance();
-		simon->SetPosition(4205.0f, 20.0f);
+		simon->SetPosition(3205.0f, 20.0f);
 		objects.push_back(simon);
 		LoadObject("map/Obj2.txt");
 		for (int i = 0; i < 10; i++)

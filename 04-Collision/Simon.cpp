@@ -109,7 +109,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				listPanther.at(i)->GetPosition(p_x, p_y);
 				if ((abs(x - p_x) < 200 && abs(y - p_y) < 40) || abs(x - p_x) < 40)
-					listPanther.at(i)->SetSpeed();
+					listPanther.at(i)->SetSpeed(0.1f,0.1f);
 			}
 		}
 		

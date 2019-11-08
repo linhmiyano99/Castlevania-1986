@@ -4,8 +4,8 @@
 #define PANTHER_BBOX_WIDTH 64
 #define PANTHER_BBOX_HEIGHT 32
 
-#define PANTHER_RUNNING_SPEED_X 0.01f;
-#define PANTHER_RUNNING_SPEED_Y 0.01f;
+#define PANTHER_RUNNING_SPEED_X 0.1f;
+#define PANTHER_RUNNING_SPEED_Y 0.1f;
 
 #define PANTHER_ANI_SIT 0
 #define PANTHER_ANI_RUNNING 1
@@ -30,7 +30,7 @@ public:
 	virtual void Render();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void SetSpeed() {
+	virtual void SetSpeed(float _vx, float _vy) {
 		vx = -PANTHER_RUNNING_SPEED_X; vy = PANTHER_RUNNING_SPEED_Y; LeftLimit = x - 400;
 	}
 //	virtual void SetState(int state);

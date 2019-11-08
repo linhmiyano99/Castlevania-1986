@@ -224,12 +224,13 @@ CManagementTexture::CManagementTexture()
 	animations->Add(1004, ani); // fishman jump 
 	
 	ani = new CAnimation(100);
-	ani->Add(30010);
 	ani->Add(30011);
+	ani->Add(30012);
 	animations->Add(1005, ani); // fishman walking
 
 	ani = new CAnimation(100);
 	ani->Add(30010);
+	ani->Add(30011);
 	animations->Add(1006, ani); // fishman attack
 
 	ani = new CAnimation(100);
@@ -251,6 +252,21 @@ CManagementTexture::CManagementTexture()
 	ani->Add(40002);
 	
 	animations->Add(1101, ani); // door open
+
+#pragma endregion
+
+
+#pragma region Add font
+
+	/*int index = 0;
+	int _x = 4, _y = 699;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			sprites->Add(index++, j * 64 + _x, i * 64 + _y, j * 64 + 64 + _x, i * 64 + 64 + _y, tex);
+		}
+	}*/
 
 #pragma endregion
 }

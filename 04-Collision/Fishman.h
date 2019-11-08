@@ -15,20 +15,29 @@
 #define FISHMAN_STATE_RUN 200
 #define FISHMAN_STATE_DIE 300
 
+#define TIME_START_ATTACK 10000
+#define TIME_ATTACK 3000
+
 class CFishman : public CEnemy
 {
+	bool isAttacking;
+	DWORD start_attack;
 public:
 	CFishman(float _x = 3300, float _y = 780, int id = 0) :CEnemy(_x, _y, id)
 	{
 		animations.clear();
-		AddAnimation(1003);
+		AddAnimation(1004);
+		AddAnimation(1005);
+		AddAnimation(1006);
 		AddAnimation(800);
 		vy = -0.5f;
 		ny = -1;
 		vx = 0;
-		nx = 1;
+		nx = -1;
+		start_attack = GetTickCount();
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
+	bool IsAttacking() { return isAttacking; }
 };

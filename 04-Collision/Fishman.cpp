@@ -6,35 +6,58 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	float s_x, s_y;
 	CSimon* simon = new CSimon();
 	simon->GetPosition(s_x, s_y);
-	if (y <= 448)
+	if (GetTickCount() - start_attack > TIME_START_ATTACK)
 	{
-		vy = SIMON_GRAVITY * dt;
-		vy = 1;
+		start_attack = GetTickCount();
 		if (x < s_x)
 		{
 			nx = 1;
-			vx = 0.5f;
+		}
+		else
+		{
+			nx = -1;
+		}
+		vx = 0;
+		isAttacking = true;
+		return;
+	}
+	if (GetTickCount() - start_attack > TIME_ATTACK)
+	{
+		isAttacking = false;
+		vx = nx * 0.15f;
+	}
+	
+	if (y <= 448)
+	{
+		vy = SIMON_GRAVITY * dt;
+		//vy = 1;
+		/*if (x < s_x)
+		{
+			nx = 1;
+			vx = 0.15f;
 		}
 		else
 		{
 			nx = -1;
 			vx = -0.15f;
-		}
+		}*/
+		vx = nx * 0.15f;
 	}
 
-	if (x < s_x)
+	/*if (x < s_x)
 	{
 		nx = 1;
 	}
 	else
 	{
 		nx = -1;
-	}
+	}*/
 
 	if (vx == 0)
 	{
 		CGameObject::Update(dt);
-		y += dy;
+		if(!isAttacking)
+			y += dy;
 	}
 	else
 	{
@@ -107,7 +130,10 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 	if (x <= 3076 || x >= 3464)
+	{
 		vx = -vx;
+		nx = -nx;
+	}
 
 }
 void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -137,12 +163,17 @@ void CFishman::Render()
 			animations[FISHMAN_ANI_JUMPING]->Render(x, y, -1, 255);
 
 		}
+		else if (isAttacking)
+		{
+				animations[FISHMAN_ANI_ATTACK]->Render(x, y, nx, 255);
+		}
 		else
 		{
-			if (vx < 0)
-				animations[FISHMAN_ANI_WALKING]->Render(x, y, -1, 255);
-			else
+			if (vx > 0)
 				animations[FISHMAN_ANI_WALKING]->Render(x, y, 1, 255);
+			else
+				animations[FISHMAN_ANI_WALKING]->Render(x, y, -1, 255);
+
 		}
 	}
 	else if (state == TORCH_STATE_ITEM)
