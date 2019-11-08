@@ -21,7 +21,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx = 0;
 		isAttacking = true;
 		CSmallBall* smallball = new CSmallBall(x, y, nx);
-		(coObjects)->push_back(smallball);
+		coObjects->push_back(smallball);
 		return;
 	}
 	if (GetTickCount() - start_attack > TIME_ATTACK)
@@ -33,28 +33,8 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (y <= 448)
 	{
 		vy = SIMON_GRAVITY * dt;
-		//vy = 1;
-		/*if (x < s_x)
-		{
-			nx = 1;
-			vx = 0.15f;
-		}
-		else
-		{
-			nx = -1;
-			vx = -0.15f;
-		}*/
 		vx = nx * 0.15f;
 	}
-
-	/*if (x < s_x)
-	{
-		nx = 1;
-	}
-	else
-	{
-		nx = -1;
-	}*/
 
 	if (vx == 0)
 	{
@@ -132,10 +112,30 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 	}
-	if (x <= 3076 || x >= 3464)
+	if (x > 3065 && x < 3505)
 	{
-		vx = -vx;
-		nx = -nx;
+		if (x <= 3076 || x >= 3464)
+		{
+			vx = -vx;
+			nx = -nx;
+		}
+	}
+	else if (x > 3571 && x < 3631)
+	{
+		if (x <= 3585 || x >= 3590)
+		{
+			vx = -vx;
+			nx = -nx;
+		}
+	}
+	else if (x > 3701 && x < 4010)
+	{
+		if (x <= 3710 || x >= 3970)
+		{
+			vx = -vx;
+			nx = -nx;
+		}
+
 	}
 
 }

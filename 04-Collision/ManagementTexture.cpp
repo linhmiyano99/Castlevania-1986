@@ -237,7 +237,7 @@ CManagementTexture::CManagementTexture()
 	//ani->Add(30013);
 	ani->Add(30014);
 	ani->Add(30015);
-	animations->Add(1100, ani); // boss run 
+	animations->Add(1099, ani); // boss run 
 
 #pragma endregion
 
