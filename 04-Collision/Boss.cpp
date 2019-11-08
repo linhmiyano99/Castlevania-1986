@@ -59,7 +59,7 @@ void CBoss::Render()
 		else if (vx < 0)
 			animations[ENEMY_ANI_WALKING]->Render(x, y);
 		else
-			animations[ENEMY_ANI_WALKING]->Render(x, y, vx, 255);
+			animations[ENEMY_ANI_WALKING]->Render(x, y, 1, 255);
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{
