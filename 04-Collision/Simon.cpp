@@ -553,11 +553,11 @@ void CSimon::CollisionWithItem(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 				CDagger* dagger = CDagger::GetInstance();
 				weapons.push_back(dagger);
 				listObj.at(i)->SetState(ITEM_STATE_NOT_EXSIST);
-
+				CBoard::GetInstance()->SetWeapon(eType::DAGGER);
 			}
 			else if (listObj.at(i)->getType() == TYPE_ITEM_HEART)
 			{
-				_heart++;
+				_heart += 5;
 				listObj.at(i)->SetState(ITEM_STATE_NOT_EXSIST);
 			}
 

@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Game.h"
 #include "Code.h"
+#include "Define.h"
 
 
 #define SCORE_X 110
@@ -11,6 +12,7 @@
 class CBoard
 {
 	int _time;
+	int _weapon;
 	DWORD _count;
 	CCode* code;
 	static CBoard* __instance;
@@ -20,6 +22,7 @@ public:
 	CBoard()
 	{
 		_time = 300;
+		_weapon = 0;
 		_count = GetTickCount();
 		code = new CCode();
 	}
@@ -31,4 +34,5 @@ public:
 	}
 	void Update(DWORD dt);
 	void Render();
+	void SetWeapon(int weapon) { _weapon = weapon; }
 };

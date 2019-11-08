@@ -38,5 +38,9 @@ void CBoard::Render()
 	code->DrawNumber(2, cx + 400, cy + 52, simon->GetLives());
 	code->DrawEnergyBar(cx + 110, cy + 30, 0, simon->GetEnergy());
 	code->DrawEnergyBar(cx + 110, cy + 50, 1, boss->GetEnergy());
-
+	if (_weapon != 0)
+	{
+		if (_weapon == eType::DAGGER)
+			sprites->Get(13001)->Draw(cx + 310, cy + 40);
+	}
 }

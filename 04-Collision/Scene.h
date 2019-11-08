@@ -17,7 +17,6 @@
 
 #include "Simon.h"
 #include "Map.h"
-#include "Torch.h"
 #include "WhipUpgrade.h"
 #include "ItemDagger.h"
 #include "Brick.h"
@@ -30,6 +29,7 @@
 #include "Fishman.h"
 #include "Boss.h"
 #include "Board.h"
+#include "Grid.h"
 
 
 
@@ -43,11 +43,10 @@ class CScene
 	CGame* game;
 	CHidenObject* hiden;
 	CBoard* board;
+	CGrid* grid;
 	vector<LPGAMEOBJECT> objects;
-	vector<LPGAMEOBJECT> ghosts;
-	vector<LPGAMEOBJECT> panthers;
-	vector<LPGAMEOBJECT> bats;
-	vector<LPGAMEOBJECT> fishmans;
+
+
 	int id;
 	bool isAutoTran;
 	float auto_tran;
@@ -66,9 +65,6 @@ public:
 	int GetRight();
 	int GetBottom();
 
-	void LoadObject(char* filename);
-	void Insert(int id, int type, int trend, float x, float y, float w, float h, int id_item);
-	CGameObject* GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item);
 	void TranScene(float _x);
 	bool IsTranScene() { return isAutoTran; }
 };

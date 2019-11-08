@@ -17,6 +17,7 @@ CScene::CScene(int id)
 	map = CMap::GetInstance();
 	game = CGame::GetInstance();
 	board = CBoard::GetInstance();
+	grid = CGrid::GetInstance();
 	isAutoTran = false;
 	auto_tran = 0;
 }
@@ -32,26 +33,26 @@ void CScene::LoadResoure()
 	objects.push_back(dagger);
 	if (id == 0) {
 		map->SetMap(0);
+		
+		grid->LoadObject("map/Obj1.txt");
+		grid->GetListObject(objects);
 		simon = CSimon::GetInstance();
 		simon->SetPosition(0.0f, 20.0f);
 		objects.push_back(simon);
-
-		LoadObject("map/Obj1.txt");
 	}
 	else
 	{
 		map->SetMap(1);
-
-
+		
+		grid->LoadObject("map/Obj2.txt");
+		grid->GetListObject(objects);
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
-
 		simon = CSimon::GetInstance();
-		simon->SetPosition(2505.0f, 20.0f);
+		simon->SetPosition(1505.0f, 20.0f);
 		objects.push_back(simon);
-		LoadObject("map/Obj2.txt");
 		boss = CBoss::GetInstance();
-		boss->SetPosition(5276, 95);
+		boss->SetPosition(5276.0f, 95.0f);
 		objects.push_back(boss);
 
 	}
@@ -89,6 +90,7 @@ void CScene::LoadSimon()
 
 void CScene::Update(DWORD dt)
 {
+	grid->GetListObject(objects);
 	board->Update(dt);
 	float c_x, c_y;
 
@@ -218,7 +220,7 @@ int CScene::GetLeft()
 	case 1:
 		return 0;
 	case 2:
-		return 3038;
+		return 3074;
 	case 3:
 		return 3074;
 	case 4:
@@ -258,7 +260,7 @@ int CScene::GetRight()
 	case 0:
 		return 1536;
 	case 1:
-		return 3140;
+		return 3074;
 	case 2:
 	case 3:
 		return 4097;
@@ -285,60 +287,7 @@ int CScene::GetBottom()
 		return 384;
 	}
 }
-void CScene::LoadObject(char* filename)
-{
 
-	//objects.clear();
-	ifstream inFile(filename);
-
-	int id, type, trend, id_item, nx, ny;
-	float x, y, w, h;
-
-	if (inFile)
-	{
-		while (inFile >> id >> type >> trend >> x >> y >> w >> h >> id_item)
-		{
-			if (type == eType::BRICK_1 || type == eType::BRICK_2)
-			{
-				for(int i = 0; i < w / h; i++)
-					Insert(id, type, trend, x + i * 32, y, w, h, id_item);
-			}
-			else
-				Insert(id, type, trend, x, y, w, h, id_item);
-		}
-		inFile.close();
-	}
-}
-void CScene::Insert(int id, int type, int trend, float x, float y, float w, float h,int id_item)
-{
-	CGameObject* obj = GetNewObject(type, trend, x, y, w, h, id_item);
-	if (obj == NULL)
-	{
-		DebugOut(L"[Insert Object Fail] : object is not create!\n");
-		return;
-	}
-	obj->SetTrend(trend);
-
-	objects.push_back(obj);
-}
-CGameObject* CScene::GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item)
-{
-	if (type == eType::BRICK_1) return new CBrick(x, y);
-	if (type == eType::BRICK_2) return new CBrick(x, y, 1);
-	if (type == eType::TORCH) return new CTorch(x, y, id_item);
-	if (type == eType::CANDLE) return new CTorch(x, y, id_item, 1);
-	if (type == eType::OBJECT_HIDDEN_DOOR) return new CHidenObject(x, y);
-	if (type == eType::STAIR_DOWN) return new CHidenObject(x, y, HIDENOBJECT_TYPE_DOWNSTAIR, trend, -1);
-	if (type == eType::STAIR_UP) return new CHidenObject(x, y, HIDENOBJECT_TYPE_UPSTAIR, trend, 1);
-	if (type == eType::GATE) return new CGate(x, y);
-	if (type == eType::PANTHER) return new CPanther(x, y);
-	if (type == eType::FISHMEN) return new CFishman(x, y);
-	if (type == eType::GHOST) return new CGhost(x, y);
-	//if (type == eType::BOSS) return new CBoss(x, y);
-	if (type == eType::BAT) return new CBat(x, y);
-
-	return NULL;
-}
 void CScene::TranScene(float _x)
 {
 	auto_tran = _x;
