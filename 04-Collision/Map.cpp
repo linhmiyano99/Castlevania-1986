@@ -89,9 +89,9 @@ void CMap::DrawMap()
 	game->GetCamPos(cam_x, cam_y);
 	if (cam_y == 0)
 	{
-		for (int i = (int)(cam_y) / 64; i < (int)(cam_y + 560) / 64 + 3; i++)
+		for (int i = (int)cam_y / 64; i < (int)(cam_y + 560) / 64 + 3; i++)
 		{
-			for (int j = (int)(cam_x) / 64; j < (int)(cam_x + 560) / 64 + 3; j++)
+			for (int j = (int)cam_x / 64; j < (int)(cam_x + 560) / 64 + 3; j++)
 			{
 				if (!(i < 0 || j >= _column))
 					sprites->Get(getTile(i, j))->Draw(64 * j, 64 * i + 40);
@@ -102,7 +102,7 @@ void CMap::DrawMap()
 	{
 		for (int i = 0; i < 12; i++)
 		{
-			for (int j = (int)(cam_x) / 64; j < (int)(cam_x + 560) / 64 + 3; j++)
+			for (int j = (int)cam_x / 64; j < (int)(cam_x + 560) / 64 + 3; j++)
 			{
 				if (!(i < 0 || j >= _column))
 				{

@@ -52,7 +52,7 @@ class CScene
 	float auto_tran;
 public:
 	static CScene* GetInstance();
-	CScene(int id = 1);
+	CScene(int id = 0);
 	void LoadResoure();
 	void LoadSimon();
 	void Update(DWORD dt);

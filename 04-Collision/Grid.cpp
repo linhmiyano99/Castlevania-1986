@@ -14,6 +14,7 @@
 #include "Fishman.h"
 #include "Boss.h"
 #include "Board.h"
+#include "Scene.h"
 
 
 CGrid* CGrid::__instance = NULL;
@@ -24,25 +25,23 @@ CGrid* CGrid::GetInstance()
 	return __instance;
 }
 
-void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj)
+void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_y)
 {
 	ListObj.clear();
 
 
-	float cam_x, cam_y;
-	CGame* game = new CGame();
-	game->GetCamPos(cam_x, cam_y);
+	int top = (int)(cam_y + 1) / GRID_CELL_HEIGHT;
+	int bottom = (int)(cam_y + SCREEN_HEIGHT + 1 ) / GRID_CELL_HEIGHT;
 
-	int bottom = (int)((cam_y + SCREEN_HEIGHT) / SCREEN_HEIGHT);
-	int top = (int)((cam_y) / SCREEN_HEIGHT);
 
-	int left = (int)((cam_x) / SCREEN_WIDTH);
-	int right = (int)((cam_x + SCREEN_WIDTH) / SCREEN_WIDTH);
-	for (int i = top; i <= bottom + 1; i++)
+	int left = (int)(cam_x + 1) / GRID_CELL_WIDTH;
+	int right = (int)(cam_x + SCREEN_HEIGHT - 1) / GRID_CELL_WIDTH ;
+
+	for (int i = top - 1; i <= bottom + 1; i++)
 	{
-		for (int j = left; j <= right +1; j++)
+		for (int j = left - 1; j <= right + 1; j++)
 		{
-			if (bottom <= GRID_ROW_MAX && right <= GRID_COLUMN_MAX)
+			if (i <= GRID_ROW_MAX && j <= GRID_COLUMN_MAX && i >= 0 && j >= 0)
 			{
 				for (UINT k = 0; k < cells[i][j].size(); k++)
 				{

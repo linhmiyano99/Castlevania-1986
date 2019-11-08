@@ -35,7 +35,6 @@ void CScene::LoadResoure()
 		map->SetMap(0);
 		
 		grid->LoadObject("map/Obj1.txt");
-		grid->GetListObject(objects);
 		simon = CSimon::GetInstance();
 		simon->SetPosition(0.0f, 20.0f);
 		objects.push_back(simon);
@@ -45,7 +44,6 @@ void CScene::LoadResoure()
 		map->SetMap(1);
 		
 		grid->LoadObject("map/Obj2.txt");
-		grid->GetListObject(objects);
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
@@ -90,7 +88,6 @@ void CScene::LoadSimon()
 
 void CScene::Update(DWORD dt)
 {
-	grid->GetListObject(objects);
 	board->Update(dt);
 	float c_x, c_y;
 
@@ -185,6 +182,8 @@ void CScene::Update(DWORD dt)
 
 
 		game->SetCamPos(cx, cy);
+		grid->GetListObject(objects, cx , cy);
+
 	}
 
 }
