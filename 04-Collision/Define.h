@@ -10,6 +10,16 @@
 
 #define MAX_FRAME_RATE 120
 
+#ifndef SAFE_DELETE
+#define SAFE_DELETE(ptr) \
+if(ptr) \
+{\
+	delete (ptr); \
+	ptr = nullptr; \
+} \
+
+#endif
+
 
 // ID của Sprite, object
 enum eType

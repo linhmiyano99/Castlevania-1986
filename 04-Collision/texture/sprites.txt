@@ -365,7 +365,7 @@ idTexture= 1
 id= 30010
 left= 203
 top= 0
-right= 233
+right= 234
 bottom= 64
 idTexture= 1
 
@@ -528,4 +528,11 @@ left= 300
 top= 77
 right= 311
 bottom= 96
+idTexture= 1
+
+id= 70000
+left= 436
+top= 311
+right= 450
+bottom= 344
 idTexture= 1

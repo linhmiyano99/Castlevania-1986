@@ -228,16 +228,24 @@ CManagementTexture::CManagementTexture()
 	ani->Add(30012);
 	animations->Add(1005, ani); // fishman walking
 
-	ani = new CAnimation(200);
+	ani = new CAnimation(400);
 	ani->Add(30010);
-	ani->Add(30011);
+	ani->Add(30012);
 	animations->Add(1006, ani); // fishman attack
+
+	ani = new CAnimation(100);
+	ani->Add(30013);
+	animations->Add(1090, ani); // boss sleep
 
 	ani = new CAnimation(100);
 	//ani->Add(30013);
 	ani->Add(30014);
 	ani->Add(30015);
-	animations->Add(1099, ani); // boss run 
+	animations->Add(1091, ani); // boss run 
+
+	ani = new CAnimation(100);
+	ani->Add(70000);
+	animations->Add(1100, ani); // smallball 
 
 #pragma endregion
 
@@ -245,7 +253,7 @@ CManagementTexture::CManagementTexture()
 
 	ani = new CAnimation(100);
 	ani->Add(40000);
-	animations->Add(1100, ani); // door close
+	animations->Add(1200, ani); // door close
 
 	ani = new CAnimation(2500);
 	ani->Add(40001);
@@ -255,7 +263,7 @@ CManagementTexture::CManagementTexture()
 	ani->Add(40000);
 
 	
-	animations->Add(1101, ani); // door open
+	animations->Add(1201, ani); // door open
 
 #pragma endregion
 

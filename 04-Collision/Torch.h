@@ -12,6 +12,7 @@
 #include "WhipUpgrade.h"
 #include "ItemDagger.h"
 #include "ItemHeart.h"
+#include "Define.h"
 
 #define TORCH_WIDTH 32
 #define TORCH_HEIGHT 64
@@ -43,8 +44,7 @@ public:
 	~CTorch()
 	{
 		CGameObject::~CGameObject();
-		if (item != NULL)
-			delete item;
+		SAFE_DELETE(item);
 	}
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();

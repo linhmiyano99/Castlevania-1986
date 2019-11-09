@@ -82,39 +82,12 @@
 100 142 -1 1954 230 0 0 0
 101 143 -1 3474 100 0 0 0
 102 143 -1 3513 200 0 0 0
-103 144 -1 3300 780 0 0 0
-104 144 -1 3940 780 0 0 0
+103 144 -1 3300 710 0 0 0
+104 144 -1 3940 710 0 0 0
 105 150 -1 5276 95 0 0 0
 106 22 -1 4350 265 352 32 2
 107 22 -1 5537 265 96 32 2
 108 23 -1 5616 80 16 96 3
 109 23 -1 5616 303 16 96 3
 110 22 -1 5440 325 64 32 2
-
-
-
-// id 124 - kích ho?t boss
- 
-c?u thang 34  bottom, 33 top
-id 45: object ?n -> tr? lên tru?c khi xu?ng h? nu?c -> t? sinh ra
-id 71: Holy Water
-
-id 72: brick -> a bonus
-
-id 39: brick 4 ô -> ch? effect
-id 40: brick 3 ô ->Pot Roast
-id 41: object ?n -> xu?ng h? nu?c
- 
-id 51: brick 2 -> effect
-id 65: object ?n -> bonus
-id 66: object ?n -> ch?m nu?c -> ch?t
-id 67: object ?n -> box xác nh?n simon dã qua c?a
-
-id 23, 98: cross
-
-// id 81: object ?n -> ra kh?i h? nu?c phía ph?i
-id 86: object ?n -> vào h? nu?c phía ph?i
-
-
-// id 64, type 26 Object ?n dùng d? m? c?a 
 

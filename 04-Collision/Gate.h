@@ -14,8 +14,8 @@ public:
 	CGate(float _x, float _y) :CGameObject(_x, _y)
 	{
 		state = 0;
-		AddAnimation(1100);
-		AddAnimation(1101);
+		AddAnimation(1200);
+		AddAnimation(1201);
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);

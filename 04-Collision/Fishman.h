@@ -5,7 +5,7 @@
 #define GHOST_BBOX_HEIGHT 60
 
 #define FISHMAN_RUNNING_SPEED_X 0.01f;
-#define FISHMAN_RUNNING_SPEED_Y 0.01f;
+#define FISHMAN_RUNNING_SPEED_Y 0.5f;
 
 #define FISHMAN_ANI_JUMPING 0
 #define FISHMAN_ANI_WALKING 1
@@ -15,13 +15,15 @@
 #define FISHMAN_STATE_RUN 200
 #define FISHMAN_STATE_DIE 300
 
-#define TIME_START_ATTACK 10000
-#define TIME_ATTACK 1000
+#define TIME_START_ATTACK 5000
+#define TIME_ATTACK 800
 
 class CFishman : public CEnemy
 {
 	bool isAttacking;
+	bool isJumping;
 	DWORD start_attack;
+	vector<LPGAMEOBJECT> smallballs;
 public:
 	CFishman(float _x = 3300, float _y = 780, int id = 0) :CEnemy(_x, _y, id)
 	{
@@ -29,7 +31,8 @@ public:
 		AddAnimation(1004);
 		AddAnimation(1005);
 		AddAnimation(1006);
-		AddAnimation(800);
+		AddAnimation(1100);
+		isJumping = true;
 		vy = -0.5f;
 		ny = -1;
 		vx = 0;

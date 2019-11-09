@@ -5,8 +5,12 @@
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	float s_x, s_y;
-	CSimon* simon = new CSimon();
+	CSimon* simon = CSimon::GetInstance();
 	simon->GetPosition(s_x, s_y);
+	for each (CSmallBall* var in smallballs)
+	{
+		var->Update(dt);
+	}
 	if (GetTickCount() - start_attack > TIME_START_ATTACK)
 	{
 		start_attack = GetTickCount();
@@ -20,8 +24,8 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		vx = 0;
 		isAttacking = true;
-		CSmallBall* smallball = new CSmallBall(x, y, nx);
-		coObjects->push_back(smallball);
+		CSmallBall* smallball = new CSmallBall(x, y - 10, nx);
+		smallballs.push_back(smallball);
 		return;
 	}
 	if (GetTickCount() - start_attack > TIME_ATTACK)
@@ -30,10 +34,13 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx = nx * 0.15f;
 	}
 	
-	if (y <= 448)
-	{
-		vy = SIMON_GRAVITY * dt;
-		vx = nx * 0.15f;
+	if(isJumping){
+		if (y <= 448)
+		{
+			vy = SIMON_GRAVITY * dt;
+			vx = nx * 0.15f;
+			isJumping = false;
+		}
 	}
 
 	if (vx == 0)
@@ -160,7 +167,7 @@ void CFishman::Render()
 	if (state == TORCH_STATE_EXSIST)
 	{
 		
-		if (vx == 0)
+		if (isJumping)
 		{
 
 			animations[FISHMAN_ANI_JUMPING]->Render(x, y, -1, 255);
@@ -168,7 +175,7 @@ void CFishman::Render()
 		}
 		else if (isAttacking)
 		{
-				animations[FISHMAN_ANI_ATTACK]->Render(x, y, nx, 255);
+			animations[FISHMAN_ANI_ATTACK]->Render(x, y, nx, 255);
 		}
 		else
 		{
@@ -176,7 +183,6 @@ void CFishman::Render()
 				animations[FISHMAN_ANI_WALKING]->Render(x, y, 1, 255);
 			else
 				animations[FISHMAN_ANI_WALKING]->Render(x, y, -1, 255);
-
 		}
 	}
 	else if (state == TORCH_STATE_ITEM)
@@ -192,6 +198,10 @@ void CFishman::Render()
 			animations[1]->Render(x, y);
 
 		}
+	}
+	for each (CSmallBall * var in smallballs)
+	{
+		var->Render();
 	}
 	RenderBoundingBox();
 }
