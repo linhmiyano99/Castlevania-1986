@@ -1,3 +1,4 @@
+
 #include "Scene.h"
 #include "Enemy.h"
 
@@ -50,7 +51,7 @@ void CScene::LoadResoure()
 		simon->SetPosition(3505.0f, 20.0f);
 		objects.push_back(simon);
 		boss = CBoss::GetInstance();
-		boss->SetPosition(3776.0f, 95.0f);
+		boss->SetPosition(5340.0f, 95.0f);
 		objects.push_back(boss);
 
 	}
@@ -61,6 +62,7 @@ void CScene::LoadSimon()
 	float simon_x, simon_y;
 	simon = CSimon::GetInstance();
 	simon->GetPosition(simon_x, simon_y);
+	smallballs.clear();
 	if (id == 1)
 	{
 		simon->SetPosition(0.0f, 20.0f);		
@@ -89,6 +91,10 @@ void CScene::LoadSimon()
 void CScene::Update(DWORD dt)
 {
 	board->Update(dt);
+	for each (LPGAMEOBJECT var in smallballs)
+	{
+		var->Update(dt);
+	}
 	float c_x, c_y;
 
 	game->GetCamPos(c_x, c_y);
@@ -190,6 +196,11 @@ void CScene::Update(DWORD dt)
 void CScene::Render() 
 {
 	map->DrawMap();
+
+	for each (LPGAMEOBJECT var in smallballs)
+	{
+		var->Render();
+	}
 
 	for (int i = 0; i < objects.size(); i++)
 	{
@@ -293,3 +304,8 @@ void CScene::TranScene(float _x)
 	isAutoTran = true;
 
 }
+void CScene::AddSmallBall(LPGAMEOBJECT smallball)
+{
+	smallballs.push_back(smallball);
+}
+

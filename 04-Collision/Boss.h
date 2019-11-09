@@ -1,8 +1,12 @@
 #pragma once
 #include "Enemy.h"
 
-#define GHOST_BBOX_WIDTH 40
+#define GHOST_BBOX_WIDTH  40
 #define GHOST_BBOX_HEIGHT 60
+
+#define BOSS_ANI_SLEEPING  0
+#define BOSS_ANI_FLYING	   1
+#define BOSS_ANI_ATTACKING 2
 
 class CBoss : public CEnemy
 {
@@ -14,7 +18,8 @@ public:
 	CBoss(float _x, float _y, int id = 0) :CEnemy(_x, _y, id)
 	{
 		animations.clear();
-		AddAnimation(1099);
+		AddAnimation(1090);
+		AddAnimation(1091);
 		AddAnimation(800);
 		vx = 0.15f;
 		vy = 0.1f;

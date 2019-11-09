@@ -63,6 +63,8 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 	ListObj.push_back(simon);
 	CDagger* dagger = CDagger::GetInstance();
 	ListObj.push_back(dagger);
+	CDagger* boss = CDagger::GetInstance();
+	ListObj.push_back(boss);
 }
 void CGrid::LoadObject(char* filename)
 {

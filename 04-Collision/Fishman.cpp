@@ -1,16 +1,27 @@
 #include "Fishman.h"
 #include "Simon.h"
 #include "SmallBall.h"
+#include "Scene.h"
 
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (isJumping) {
+		if (y <= 448)
+		{
+			vy = SIMON_GRAVITY * dt;
+			vx = nx * 0.15f;
+			isJumping = false;
+		}
+	}
+	if (isJumping)
+	{
+		y += vy * dt;
+		return;
+	}
 	float s_x, s_y;
 	CSimon* simon = CSimon::GetInstance();
 	simon->GetPosition(s_x, s_y);
-	for each (CSmallBall* var in smallballs)
-	{
-		var->Update(dt);
-	}
+
 	if (GetTickCount() - start_attack > TIME_START_ATTACK)
 	{
 		start_attack = GetTickCount();
@@ -25,7 +36,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx = 0;
 		isAttacking = true;
 		CSmallBall* smallball = new CSmallBall(x, y - 10, nx);
-		smallballs.push_back(smallball);
+		CScene::GetInstance() ->AddSmallBall(smallball);
 		return;
 	}
 	if (GetTickCount() - start_attack > TIME_ATTACK)
@@ -34,14 +45,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx = nx * 0.15f;
 	}
 	
-	if(isJumping){
-		if (y <= 448)
-		{
-			vy = SIMON_GRAVITY * dt;
-			vx = nx * 0.15f;
-			isJumping = false;
-		}
-	}
+	
 
 	if (vx == 0)
 	{
@@ -198,10 +202,6 @@ void CFishman::Render()
 			animations[1]->Render(x, y);
 
 		}
-	}
-	for each (CSmallBall * var in smallballs)
-	{
-		var->Render();
 	}
 	RenderBoundingBox();
 }

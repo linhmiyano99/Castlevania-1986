@@ -23,7 +23,6 @@ class CFishman : public CEnemy
 	bool isAttacking;
 	bool isJumping;
 	DWORD start_attack;
-	vector<LPGAMEOBJECT> smallballs;
 public:
 	CFishman(float _x = 3300, float _y = 780, int id = 0) :CEnemy(_x, _y, id)
 	{
@@ -35,7 +34,7 @@ public:
 		isJumping = true;
 		vy = -0.5f;
 		ny = -1;
-		vx = 0;
+		vx =  - 0.15f;
 		nx = -1;
 		start_attack = GetTickCount();
 	}

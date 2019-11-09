@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __SCENE_H__
+
+#define __SCENE_H__
 
 
 #include <windows.h>
@@ -32,7 +34,6 @@
 #include "Grid.h"
 
 
-
 class CScene
 {
 	static CScene* __instance;
@@ -45,14 +46,14 @@ class CScene
 	CBoard* board;
 	CGrid* grid;
 	vector<LPGAMEOBJECT> objects;
-
+	vector<LPGAMEOBJECT> smallballs;
 
 	int id;
 	bool isAutoTran;
 	float auto_tran;
 public:
 	static CScene* GetInstance();
-	CScene(int id = 2);
+	CScene(int id = 0);
 	void LoadResoure();
 	void LoadSimon();
 	void Update(DWORD dt);
@@ -67,4 +68,6 @@ public:
 
 	void TranScene(float _x);
 	bool IsTranScene() { return isAutoTran; }
+	void AddSmallBall(LPGAMEOBJECT smallball);
 };
+#endif // !__SMALLBALL_H__
