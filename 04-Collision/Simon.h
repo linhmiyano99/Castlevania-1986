@@ -7,8 +7,8 @@
 #include "VampireKiller.h"
 #include "Weapon.h"
 #include "Dagger.h"
-#define SIMON_WALKING_SPEED		0.15f
-#define SIMON_JUMP_SPEED_Y		0.7f
+#define SIMON_WALKING_SPEED		0.2f
+#define SIMON_JUMP_SPEED_Y		0.5f
 #define SIMON_GRAVITY			0.002f
 
 #define SIMON_STATE_IDLE			0
@@ -58,7 +58,8 @@ class CSimon : public CGameObject
 	int untouchable;
 	DWORD untouchable_start;
 	DWORD trans_start;
-	vector<CWeapon*> weapons;
+	unordered_map<int, CWeapon*> weapons;
+
 	static CSimon* __instance;
 	int _heart;
 	int isCanOnStair;

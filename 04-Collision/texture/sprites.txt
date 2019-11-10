@@ -531,8 +531,8 @@ bottom= 96
 idTexture= 1
 
 id= 70000
-left= 436
-top= 311
+left= 438
+top= 332
 right= 450
 bottom= 344
 idTexture= 1

@@ -33,7 +33,7 @@ void CBoard::Render()
 
 	code->DrawNumber(6, cx + 110, cy + 12, simon->GetScore());
 	code->DrawNumber(4, cx + 295, cy + 12, _time);
-	code->DrawNumber(2, cx + 465, cy + 12, scene->GetScene());
+	code->DrawNumber(2, cx + 465, cy + 12, scene->GetStage());
 	code->DrawNumber(2, cx + 400, cy + 32, simon->GetHeart());
 	code->DrawNumber(2, cx + 400, cy + 52, simon->GetLives());
 	code->DrawEnergyBar(cx + 110, cy + 30, 0, simon->GetEnergy());

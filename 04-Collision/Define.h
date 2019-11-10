@@ -43,7 +43,7 @@ enum eType
 	
 
 	// weapon
-	MORNINGSTAR = 41,
+	VAMPIREKILLER = 41,
 	DAGGER = 42,
 
 	// item

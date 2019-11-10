@@ -23,9 +23,7 @@ CSimon* CSimon::GetInstance()
 CSimon::CSimon() : CGameObject()
 {
 	CVampireKiller* rob = CVampireKiller::GetInstance();
-	weapons.push_back(rob);
-	/*CDagger* dagger = CDagger::GetInstance();
-	weapons.push_back(dagger);*/
+	weapons[eType::VAMPIREKILLER] = rob;
 	untouchable = 0;
 	trans_start = 0;
 	_heart = 5;
@@ -164,9 +162,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		listHideObject.clear();
 		if (state == SIMON_STATE_SIT_ATTACK || state == SIMON_STATE_STAND_ATTACK)
 		{
-			weapons[0]->SetPosition(x, y);
-			weapons[0]->SetTrend(nx);
-			weapons[0]->CollisionWithObject(dt, *coObjects);
+			weapons[eType::VAMPIREKILLER]->SetPosition(x, y);
+			weapons[eType::VAMPIREKILLER]->SetTrend(nx);
+			weapons[eType::VAMPIREKILLER]->CollisionWithObject(dt, *coObjects);
+		}
+		else if (_heart > 0 &&state == SIMON_STATE_ATTACK_DAGGER && !(weapons.find(eType::DAGGER) == weapons.end()) && weapons[eType::DAGGER]->GetState() == DAGGER_STATE_HIDE)
+		{
+			weapons[eType::DAGGER]->SetState(DAGGER_STATE_ATTACK);
+			weapons[eType::DAGGER]->SetPosition(x, y);
+			weapons[eType::DAGGER]->SetTrend(nx);
+			_heart--;
+
 		}
 
 		// Calculate dx, dy 
@@ -333,14 +339,14 @@ void CSimon::Render()
 	else if (state == SIMON_STATE_SIT_ATTACK)
 	{
 		id = SIMON_ANI_SITTING_ATTACKING;
-
-		weapons[0]->Render();
+		weapons[eType::VAMPIREKILLER]->GetAnimation()->SetFrame(animations[SIMON_ANI_SITTING_ATTACKING]->GetCurrentFrame());
+		weapons[eType::VAMPIREKILLER]->Render();
 	}
 	else if (state == SIMON_STATE_STAND_ATTACK)
 	{
 		id = SIMON_ANI_STANDING_ATTACKING;
-		weapons[0]->GetAnimation()->SetFrame(animations[SIMON_ANI_STANDING_ATTACKING]->GetCurrentFrame());
-		weapons[0]->Render();
+		weapons[eType::VAMPIREKILLER]->GetAnimation()->SetFrame(animations[SIMON_ANI_STANDING_ATTACKING]->GetCurrentFrame());
+		weapons[eType::VAMPIREKILLER]->Render();
 
 	}
 	else if (state == SIMON_STATE_GO_UP && (isCanOnStair == 1 || isOnStair))
@@ -461,16 +467,18 @@ void CSimon::SetState(int state)
 			break;
 		case SIMON_STATE_ATTACK_DAGGER:
 			vx = 0;
-			if (_heart > 0 && weapons.size() > 1)
+			if (_heart > 0 && !(weapons.find(eType::DAGGER) == weapons.end()))
 			{
 				CDagger* dagger = CDagger::GetInstance();
-				if (dagger->GetState() == DAGGER_STATE_HIDE)
+				if (dagger->GetState() == DAGGER_STATE_ATTACK)
 				{
-					dagger->SetState(DAGGER_STATE_ATTACK);
-					dagger->SetPosition(x, y);
-					dagger->SetTrend(nx);
-					_heart--;
+					this->state = SIMON_STATE_IDLE;
 				}
+			}
+			else
+			{
+				this->state = SIMON_STATE_IDLE;
+
 			}
 			break;
 		case SIMON_STATE_UP:
@@ -527,8 +535,7 @@ void CSimon::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	right = this->x + SIMON_WIDTH;
 	bottom = this->y + SIMON_HEIGHT_STAND;
 	if ((state == SIMON_STATE_GO_DOWN && isCanOnStair != -1) 
-		|| state == SIMON_STATE_SIT_ATTACK 
-		|| state == SIMON_STATE_JUMP 
+		|| state == SIMON_STATE_SIT_ATTACK  
 		||(state == SIMON_STATE_SIT))
 	{
 		bottom = this->y + SIMON_HEIGHT_SIT;
@@ -551,7 +558,7 @@ void CSimon::CollisionWithItem(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 			else if (listObj.at(i)->getType() == TYPE_ITEM_DAGGER)
 			{
 				CDagger* dagger = CDagger::GetInstance();
-				weapons.push_back(dagger);
+				weapons[eType::DAGGER] = dagger;
 				listObj.at(i)->SetState(ITEM_STATE_NOT_EXSIST);
 				CBoard::GetInstance()->SetWeapon(eType::DAGGER);
 			}
@@ -611,8 +618,6 @@ void CSimon::CollisionWithTorch(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 		x += dx;
 	if (min_ty <= min_ty0)
 		y += dy;
-	if (nx != 0) vx = 0;
-	if (ny != 0) vy = 0;
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -764,26 +769,6 @@ void CSimon::CollisionWithGate(DWORD dt, vector<LPGAMEOBJECT>& listObj, float mi
 		TransScene();
 		gate0->SetState(GATE_STATE_OPEN);
 	}
-
-	// clean up collision events
-	
-
-	//for (int i = 0; i < listObj.size(); i++)
-	//{
-	//	CGate* gate = dynamic_cast<CGate*>(listObj.at(i));// if e->obj is torch 
-	//	if (gate->GetState() == GATE_STATE_CLOSE)
-	//	{
-	//		gate->SetState(GATE_STATE_OPEN);
-	//		CScene* scene = CScene::GetInstance();
-	//		if (x < 3100)
-	//			scene->SetMap(2);
-	//		else
-	//			scene->SetMap(4);
-	//		//scene->LoadSimon();
-	//		break;
-	//	}
-
-	//}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 int CSimon::IsCanOnStair(vector<LPGAMEOBJECT>& listObj)

@@ -6,8 +6,8 @@ void CItemDagger::GetBoundingBox(float& left, float& top, float& right, float& b
 	if (state == ITEM_STATE_EXSIST)
 	{
 		left = x;
-		right = x + 55;
+		right = x + 40;
 		top = y;
-		bottom = y + 40;
+		bottom = y + 20;
 	}
 }

@@ -21,6 +21,7 @@ CScene::CScene(int id)
 	grid = CGrid::GetInstance();
 	isAutoTran = false;
 	auto_tran = 0;
+	_stage = 1;
 }
 
 
@@ -48,7 +49,7 @@ void CScene::LoadResoure()
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
-		simon->SetPosition(3505.0f, 20.0f);
+		simon->SetPosition(2805.0f, 20.0f);
 		objects.push_back(simon);
 		boss = CBoss::GetInstance();
 		boss->SetPosition(5340.0f, 95.0f);
@@ -122,6 +123,7 @@ void CScene::Update(DWORD dt)
 			else
 				id = 4;
 			isAutoTran = false;
+			_stage++;
 		}
 	}
 	else

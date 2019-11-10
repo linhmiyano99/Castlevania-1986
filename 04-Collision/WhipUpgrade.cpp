@@ -28,8 +28,8 @@ void CWhipUpgrade::GetBoundingBox(float& left, float& top, float& right, float& 
 	if (state == ITEM_STATE_EXSIST)
 	{
 		left = x;
-		right = x + 50;
+		right = x + 32;
 		top = y;
-		bottom = y + 43;
+		bottom = y + 32;
 	}
 }

@@ -64,9 +64,9 @@ CManagementTexture::CManagementTexture()
 	animations->Add(404, ani);
 
 	ani = new CAnimation(100);//simon sit attack
+	ani->Add(10016);
 	ani->Add(10014);
 	ani->Add(10015);
-	ani->Add(10016);
 	animations->Add(405, ani);
 
 	ani = new CAnimation(100);//simon go up stair
@@ -255,7 +255,9 @@ CManagementTexture::CManagementTexture()
 	ani->Add(40000);
 	animations->Add(1200, ani); // door close
 
-	ani = new CAnimation(2500);
+	ani = new CAnimation(2000);
+	ani->Add(40000);
+	ani->Add(40000);
 	ani->Add(40001);
 	ani->Add(40002);
 	ani->Add(40000);

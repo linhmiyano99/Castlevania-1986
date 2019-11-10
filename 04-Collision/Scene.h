@@ -49,6 +49,7 @@ class CScene
 	vector<LPGAMEOBJECT> smallballs;
 
 	int id;
+	int _stage;
 	bool isAutoTran;
 	float auto_tran;
 public:
@@ -69,5 +70,7 @@ public:
 	void TranScene(float _x);
 	bool IsTranScene() { return isAutoTran; }
 	void AddSmallBall(LPGAMEOBJECT smallball);
+	void UpStage() { _stage++; }
+	int GetStage() { return _stage; }
 };
 #endif // !__SMALLBALL_H__

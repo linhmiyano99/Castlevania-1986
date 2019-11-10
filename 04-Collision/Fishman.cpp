@@ -35,7 +35,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		vx = 0;
 		isAttacking = true;
-		CSmallBall* smallball = new CSmallBall(x, y - 10, nx);
+		CSmallBall* smallball = new CSmallBall(x, y , nx);
 		CScene::GetInstance() ->AddSmallBall(smallball);
 		return;
 	}

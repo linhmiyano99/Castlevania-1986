@@ -31,7 +31,7 @@ void CDagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		else
 			x -= dt * vx;
 		CollisionWithObject(dt, *coObjects);
-		if (GetTickCount() - start_attack > 1000)
+		if (GetTickCount() - start_attack > 2000)
 		{
 			state = DAGGER_STATE_HIDE;
 			start_attack = 0;
@@ -50,42 +50,46 @@ void CDagger::Render()
 
 void CDagger::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-
-
-	left = x;
-	right = x + 40;
-	top = y;
-	bottom = y + 20;
+	if (state == DAGGER_STATE_ATTACK)
+	{
+		left = x;
+		right = x + 40;
+		top = y;
+		bottom = y + 20;
+	}
 
 }
 void CDagger::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 {
-	RECT rect, rect1;
-	float l, t, r, b;
-	float l1, t1, r1, b1;
-
-	GetBoundingBox(l, t, r, b);
-	rect.left = (int)l;
-	rect.top = (int)t;
-	rect.right = (int)r;
-	rect.bottom = (int)b;
-
-	for (int i = 0; i < listObj.size(); i++)
+	if (state == DAGGER_STATE_ATTACK)
 	{
-		if (dynamic_cast<CTorch*>(listObj.at(i)))
+		RECT rect, rect1;
+		float l, t, r, b;
+		float l1, t1, r1, b1;
+
+		GetBoundingBox(l, t, r, b);
+		rect.left = (int)l;
+		rect.top = (int)t;
+		rect.right = (int)r;
+		rect.bottom = (int)b;
+
+		for (int i = 0; i < listObj.size(); i++)
 		{
-			if (listObj.at(i)->GetState() == TORCH_STATE_EXSIST)
+			if (dynamic_cast<CTorch*>(listObj.at(i)))
 			{
-				listObj.at(i)->GetBoundingBox(l1, t1, r1, b1);
-				rect1.left = (int)l1;
-				rect1.top = (int)t1;
-				rect1.right = (int)r1;
-				rect1.bottom = (int)b1;
-				if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
+				if (listObj.at(i)->GetState() == TORCH_STATE_EXSIST)
 				{
-					listObj.at(i)->SetState(TORCH_STATE_NOT_EXSIST);
-					this->state = DAGGER_STATE_HIDE;
-					break;
+					listObj.at(i)->GetBoundingBox(l1, t1, r1, b1);
+					rect1.left = (int)l1;
+					rect1.top = (int)t1;
+					rect1.right = (int)r1;
+					rect1.bottom = (int)b1;
+					if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
+					{
+						listObj.at(i)->SetState(TORCH_STATE_NOT_EXSIST);
+						this->state = DAGGER_STATE_HIDE;
+						break;
+					}
 				}
 			}
 		}
