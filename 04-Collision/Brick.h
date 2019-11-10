@@ -9,28 +9,17 @@
 #include "Simon.h"
 #include "Textures.h"
 #include "MagagementTexture.h"
+#include "Define.h"
+#include "ItemChicken.h"
+#include "Torch.h"
 
 #define BRICK_WIDTH 32
 
-
-class CBrick : public CGameObject
+class CBrick : public CTorch
 {
 public:
-	CBrick(float _x, float _y, int i = 0) :CGameObject()
-	{
-		if (i == 0) {
-			AddAnimation(499);
-		}
-		else {
-			AddAnimation(500);
-		}
-		x = _x;
-		y = _y;
-		
-	}
-	void Render();
+	CBrick(float _x, float _y, int id = 0, int level = 0);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	//void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 
 };
 #endif // !__BRICK_H_

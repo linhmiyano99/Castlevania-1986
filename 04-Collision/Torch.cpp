@@ -1,18 +1,30 @@
 #include "Torch.h"
 
-CTorch::CTorch(float _x, float _y, int id, int level) : CGameObject(_x, _y)
+CTorch::CTorch(float _x, float _y, int id, int type) : CGameObject(_x, _y, type)
 {
 	dt_die = 0;
 	state = TORCH_STATE_EXSIST;
-	if (level == 0)
+	
+	switch (type)
 	{
+	case eType::TORCH:
 		AddAnimation(501);
-	}
-	else
-	{
+		break;
+	case eType::CANDLE:
 		AddAnimation(502);
+		break;
+	case eType::BRICK_1:
+		AddAnimation(499);
+		break;
+	case eType::BRICK_2:
+		AddAnimation(500);
+		break;
+	case eType::BRICK_3:
+		AddAnimation(498);
+		break;
 	}
 	AddAnimation(800);
+
 	switch (id)
 	{
 	case ID_WHIPUPGRADE:
@@ -24,12 +36,18 @@ CTorch::CTorch(float _x, float _y, int id, int level) : CGameObject(_x, _y)
 	case ID_HEART:
 		item = new CItemHeart(_x, _y);
 		break;
-	case 0:
+	case ID_SMALLHEART:
+		item = new CSmallHeart(_x, _y);
+		break;
+	case ID_CHICKEN:
+		item = new CItemChicken(_x, _y);
 		break;
 	default:
+		item = NULL;
 		break;
 	}
 
+	_type = type;
 	x = _x;
 	y = _y;
 }
@@ -86,7 +104,7 @@ void CTorch::GetBoundingBox(float& left, float& top, float& right, float& bottom
 		
 		top = y;
 		
-		if (_level == 0)
+		if (_type == eType::CANDLE)
 		{
 			right = x + CANDLE_WIDTH;
 			bottom = y + CANDLE_HEIGHT;

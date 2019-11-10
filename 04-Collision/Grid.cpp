@@ -86,7 +86,7 @@ void CGrid::LoadObject(char* filename)
 	{
 		while (inFile >> id >> type >> trend >> x >> y >> w >> h >> id_item)
 		{
-			if (type == eType::BRICK_1 || type == eType::BRICK_2)
+			if (type == eType::BRICK_1 || type == eType::BRICK_2 || type == eType::BRICK_3)
 			{
 				for (int i = 0; i < w / h; i++)
 					Insert(id, type, trend, x + i * 32, y, w, h, id_item);
@@ -120,10 +120,11 @@ void CGrid::Insert(int id, int type, int trend, float x, float y, float w, float
 }
 CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item)
 {
-	if (type == eType::BRICK_1) return new CBrick(x, y);
-	if (type == eType::BRICK_2) return new CBrick(x, y, 1);
-	if (type == eType::TORCH) return new CTorch(x, y, id_item);
-	if (type == eType::CANDLE) return new CTorch(x, y, id_item, 1);
+	if (type == eType::BRICK_1) return new CBrick(x, y, 0, eType::BRICK_1);
+	if (type == eType::BRICK_2) return new CBrick(x, y, 0, eType::BRICK_2);
+	if (type == eType::BRICK_3) return new CTorch(x, y, id_item, eType::BRICK_3);
+	if (type == eType::TORCH) return new CTorch(x, y, id_item, eType::TORCH);
+	if (type == eType::CANDLE) return new CTorch(x, y, id_item, eType::CANDLE);
 	if (type == eType::OBJECT_HIDDEN_DOOR) return new CHidenObject(x, y);
 	if (type == eType::STAIR_DOWN) return new CHidenObject(x, y, HIDENOBJECT_TYPE_DOWNSTAIR, trend, -1);
 	if (type == eType::STAIR_UP) return new CHidenObject(x, y, HIDENOBJECT_TYPE_UPSTAIR, trend, 1);

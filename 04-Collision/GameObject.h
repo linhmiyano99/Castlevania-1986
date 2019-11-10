@@ -50,6 +50,8 @@ public:
 
 	DWORD dt;
 
+	int _type;
+
 	vector<LPANIMATION> animations;
 	LPANIMATION animation;
 
@@ -63,7 +65,7 @@ public:
 
 	int GetState() { return this->state; }
 
-	virtual int getType() { return -1; };
+	int GetType() { return _type; }
 
 	void RenderBoundingBox();
 
@@ -79,7 +81,7 @@ public:
 
 	void AddAnimation(int aniId);
 
-	CGameObject(float _x = 0, float _y = 0);
+	CGameObject(float _x = 0, float _y = 0, int type = 0);
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;//do hình bao tùy thuộc trạng thái của đối tượng
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);

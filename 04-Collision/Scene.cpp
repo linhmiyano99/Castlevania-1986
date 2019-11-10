@@ -49,7 +49,7 @@ void CScene::LoadResoure()
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
-		simon->SetPosition(2805.0f, 20.0f);
+		simon->SetPosition(3205.0f, 20.0f);
 		objects.push_back(simon);
 		boss = CBoss::GetInstance();
 		boss->SetPosition(5340.0f, 95.0f);
@@ -73,7 +73,7 @@ void CScene::LoadSimon()
 		if (simon_y < 190)
 			simon->SetPosition(simon_x, simon_y);
 		else
-			simon->SetPosition(simon_x - 20, simon_y - 65);
+			simon->SetPosition(simon_x - 15, simon_y - 65);
 	}
 	else if (id == 3)
 	{
@@ -81,7 +81,7 @@ void CScene::LoadSimon()
 	}
 	else if (id == 4)
 	{
-		simon->SetPosition(simon_x + 20, simon_y);
+		simon->SetPosition(simon_x - 15, simon_y - 65);
 	}
 	else
 	{		

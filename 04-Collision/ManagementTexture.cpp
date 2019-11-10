@@ -127,7 +127,7 @@ CManagementTexture::CManagementTexture()
 
 	ani = new CAnimation(100);
 	ani->Add(9998);
-	animations->Add(501, ani); //ground3
+	animations->Add(498, ani); //ground3
 
 #pragma endregion
 
@@ -182,16 +182,32 @@ CManagementTexture::CManagementTexture()
 
 	ani = new CAnimation(100);
 	ani->Add(13002);
-	animations->Add(704, ani);//heart - item
+	animations->Add(702, ani);//heart - item
+
+	ani = new CAnimation(100);
+	ani->Add(13003);
+	animations->Add(703, ani);//smallheart - item
+
+	ani = new CAnimation(100);
+	ani->Add(13004);
+	animations->Add(704, ani);//chicken - item
 
 
 #pragma endregion
 
 #pragma region Add sprites fire after torch not exsist
 	ani = new CAnimation(100);
-	ani->Add(13010);
-	ani->Add(13011);
-	ani->Add(13012);
+	ani->Add(13100);
+	ani->Add(13101);
+	ani->Add(13102);
+	animations->Add(800, ani); // fire after torch not exsist
+#pragma endregion
+
+#pragma region Add sprites broken brick after brick not exsist
+	ani = new CAnimation(100);
+	ani->Add(13100);
+	ani->Add(13101);
+	ani->Add(13102);
 	animations->Add(800, ani); // fire after torch not exsist
 #pragma endregion
 
@@ -270,17 +286,4 @@ CManagementTexture::CManagementTexture()
 #pragma endregion
 
 
-#pragma region Add font
-
-	/*int index = 0;
-	int _x = 4, _y = 699;
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			sprites->Add(index++, j * 64 + _x, i * 64 + _y, j * 64 + 64 + _x, i * 64 + 64 + _y, tex);
-		}
-	}*/
-
-#pragma endregion
 }

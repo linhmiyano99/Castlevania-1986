@@ -109,10 +109,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				listPanther.at(i)->GetPosition(p_x, p_y);
 				if ((abs(x - p_x) < 200 && abs(y - p_y) < 40) || abs(x - p_x) < 40)
-					listPanther.at(i)->SetSpeed(0.1f,0.1f);
+					listPanther.at(i)->SetSpeed(0.1f, 0.1f);
 			}
 		}
-		
+
 		if (isOnStair)
 		{
 			if (state == SIMON_STATE_GO_DOWN)
@@ -166,7 +166,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			weapons[eType::VAMPIREKILLER]->SetTrend(nx);
 			weapons[eType::VAMPIREKILLER]->CollisionWithObject(dt, *coObjects);
 		}
-		else if (_heart > 0 &&state == SIMON_STATE_ATTACK_DAGGER && !(weapons.find(eType::DAGGER) == weapons.end()) && weapons[eType::DAGGER]->GetState() == DAGGER_STATE_HIDE)
+		else if (_heart > 0 && state == SIMON_STATE_ATTACK_DAGGER && !(weapons.find(eType::DAGGER) == weapons.end()) && weapons[eType::DAGGER]->GetState() == DAGGER_STATE_HIDE)
 		{
 			weapons[eType::DAGGER]->SetState(DAGGER_STATE_ATTACK);
 			weapons[eType::DAGGER]->SetPosition(x, y);
@@ -210,12 +210,27 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			for (UINT i = 0; i < coEventsResult.size(); i++)
 			{
 				LPCOLLISIONEVENT e = coEventsResult[i];
-				if (dynamic_cast<CTorch*>(e->obj))
+				if (dynamic_cast<CBrick*>(e->obj))
+				{
+					if (!isOnStair) {
+						CBrick* torch = dynamic_cast<CBrick*>(e->obj);
+
+						listBrick.push_back(torch);
+						CollisionWithBrick(dt, listBrick, min_tx, min_ty, nx, ny);
+						listBrick.clear();
+					}
+					else
+					{
+						x += dx;
+						y += dy;
+					}
+				}
+				else if (dynamic_cast<CTorch*>(e->obj))
 				{
 					if (untouchable == 0)
 					{
 						CTorch* torch = dynamic_cast<CTorch*>(e->obj);
-						 if (dynamic_cast<CEnemy*>(torch))
+						if (dynamic_cast<CEnemy*>(torch))
 						{
 							CEnemy* torch = dynamic_cast<CEnemy*>(e->obj);
 
@@ -253,21 +268,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 					}
 				}
-				else if (dynamic_cast<CBrick*>(e->obj))
-				{
-					if (!isOnStair) {
-						CBrick* torch = dynamic_cast<CBrick*>(e->obj);
 
-						listBrick.push_back(torch);
-						CollisionWithBrick(dt, listBrick, min_tx, min_ty, nx, ny);
-						listBrick.clear();
-					}
-					else
-					{
-						x += dx;
-						y += dy;
-					}
-				}
 				else if (dynamic_cast<CHidenObject*>(e->obj))
 				{
 					CHidenObject* torch = dynamic_cast<CHidenObject*>(e->obj);
@@ -549,25 +550,26 @@ void CSimon::CollisionWithItem(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 	{
 		if (listObj.at(i)->GetState() == ITEM_STATE_EXSIST)
 		{
-			if (listObj.at(i)->getType() == TYPE_ITEM_WHIPUPGRADE)
+			if (listObj.at(i)->GetType() == TYPE_ITEM_WHIPUPGRADE)
 			{
 				CVampireKiller::GetInstance()->setUpLevel();
-				listObj.at(i)->SetState(ITEM_STATE_NOT_EXSIST);
 				trans_start = GetTickCount();
 			}
-			else if (listObj.at(i)->getType() == TYPE_ITEM_DAGGER)
+			else if (listObj.at(i)->GetType() == TYPE_ITEM_DAGGER)
 			{
 				CDagger* dagger = CDagger::GetInstance();
 				weapons[eType::DAGGER] = dagger;
-				listObj.at(i)->SetState(ITEM_STATE_NOT_EXSIST);
 				CBoard::GetInstance()->SetWeapon(eType::DAGGER);
 			}
-			else if (listObj.at(i)->getType() == TYPE_ITEM_HEART)
+			else if (listObj.at(i)->GetType() == TYPE_ITEM_HEART)
 			{
 				_heart += 5;
-				listObj.at(i)->SetState(ITEM_STATE_NOT_EXSIST);
 			}
-
+			else if (listObj.at(i)->GetType() == TYPE_ITEM_SMALLHEART)
+			{
+				_heart ++;
+			}
+			listObj.at(i)->SetState(ITEM_STATE_NOT_EXSIST);
 		}
 	}
 }

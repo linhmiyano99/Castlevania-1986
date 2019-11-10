@@ -23,13 +23,8 @@ void CVampireKiller::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vector<LPGAMEOBJECT> listObj;
 	// Collision logic with items
-	for (UINT i = 0; i < coObjects->size(); i++)
-	{
-		LPGAMEOBJECT object = coObjects->at(i);
-		listObj.push_back(object);
-	}
-	//animations[_level - 1]->ResetFrame();
-	CollisionWithObject(dt, listObj);
+	
+	CollisionWithObject(dt, *coObjects);
 
 
 }
@@ -121,20 +116,22 @@ void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj
 	{
 		if (dynamic_cast<CTorch*>(listObj.at(i)))
 		{
-			if (listObj.at(i)->GetState() == TORCH_STATE_EXSIST)
+			CTorch* torch = dynamic_cast<CTorch*>(listObj.at(i));
+			if (torch->GetState() == TORCH_STATE_EXSIST)
 			{
-				listObj.at(i)->GetBoundingBox(l1, t1, r1, b1);
+				/*if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
+					return;*/
+				torch->GetBoundingBox(l1, t1, r1, b1);
 				rect1.left = (int)l1;
 				rect1.top = (int)t1;
 				rect1.right = (int)r1;
 				rect1.bottom = (int)b1;
 				if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 				{
-					listObj.at(i)->SetState(TORCH_STATE_NOT_EXSIST);
+					torch->SetState(TORCH_STATE_NOT_EXSIST);
 
 				}
 			}
 		}
-		
 	}
 }

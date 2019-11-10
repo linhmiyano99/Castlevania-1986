@@ -161,6 +161,9 @@
     <ClInclude Include="Grid.h">
       <Filter>framework\Grid</Filter>
     </ClInclude>
+    <ClInclude Include="ItemChicken.h">
+      <Filter>framework\GameObject\item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -261,6 +264,9 @@
     </ClCompile>
     <ClCompile Include="Grid.cpp">
       <Filter>framework\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemChicken.cpp">
+      <Filter>framework\GameObject\item</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

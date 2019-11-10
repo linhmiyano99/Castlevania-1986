@@ -12,7 +12,9 @@
 #include "WhipUpgrade.h"
 #include "ItemDagger.h"
 #include "ItemHeart.h"
+#include "SmallHeart.h"
 #include "Define.h"
+#include "ItemChicken.h"
 
 #define TORCH_WIDTH 32
 #define TORCH_HEIGHT 64
@@ -28,6 +30,8 @@
 #define ID_WHIPUPGRADE  1
 #define ID_DAGGER		2
 #define ID_HEART		3
+#define ID_SMALLHEART	4
+#define ID_CHICKEN		5
 
 
 
@@ -36,7 +40,7 @@ class CTorch : public CGameObject
 protected:
 	DWORD dt_die;
 	CItem* item;
-	int _level;
+	int _type;
 public:
 
 

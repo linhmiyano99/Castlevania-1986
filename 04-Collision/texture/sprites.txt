@@ -1,8 +1,8 @@
 id= 9998
 left= 217
-top= 233
+top= 221
 right= 249
-bottom= 255
+bottom= 253
 idTexture= 1
 
 id= 10000
@@ -271,21 +271,35 @@ right= 317
 bottom= 250
 idTexture= 1
 
-id= 13010
+id= 13003
+left= 293
+top= 205
+right= 310
+bottom= 221
+idTexture= 1
+
+id= 13004
+left= 548
+top= 205
+right= 583
+bottom= 232
+idTexture= 1
+
+id= 13100
 left= 318
 top= 156
 right= 360
 bottom= 198
 idTexture= 1
 
-id= 13011
+id= 13101
 left= 271
 top= 156
 right= 318
 bottom= 198
 idTexture= 1
 
-id= 13012
+id= 13102
 left= 232
 top= 156
 right= 271

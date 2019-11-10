@@ -8,12 +8,13 @@
 #include "GameObject.h"
 #include "Sprites.h"
 
-CGameObject::CGameObject(float _x, float _y)
+CGameObject::CGameObject(float _x, float _y, int type)
 {
 	x = _x;
 	y = _y;
 	vx = vy = 0;
 	nx = 1;
+	_type = type;
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

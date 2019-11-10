@@ -139,6 +139,7 @@
     <ClInclude Include="Code.h" />
     <ClInclude Include="HidenObject.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemChicken.h" />
     <ClInclude Include="ItemDagger.h" />
     <ClInclude Include="ItemHeart.h" />
     <ClInclude Include="MagagementTexture.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="HidenObject.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemChicken.cpp" />
     <ClCompile Include="ItemDagger.cpp" />
     <ClCompile Include="ItemHeart.cpp" />
     <ClCompile Include="main.cpp" />
