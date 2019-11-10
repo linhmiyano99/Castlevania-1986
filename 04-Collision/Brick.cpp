@@ -1,10 +1,5 @@
 #include "Brick.h"
 
-
-CBrick::CBrick(float _x, float _y, int id, int type) :CTorch(_x, _y, id, type)
-{
-}
-
 void CBrick::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state == TORCH_STATE_EXSIST)
@@ -15,10 +10,13 @@ void CBrick::GetBoundingBox(float& left, float& top, float& right, float& bottom
 		bottom = y + BRICK_WIDTH;
 
 	}
-	else if (state == ITEM_STATE_EXSIST)
+	else 
 	{
-		item->GetPosition(x, y);
-		item->GetBoundingBox(left, top, right, bottom);
+		if (item != NULL)
+		{
+			item->SetPosition(x, y);
+			item->GetBoundingBox(left, top, right, bottom);
+		}
 	}
 }
 

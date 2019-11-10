@@ -111,13 +111,13 @@ void CTorch::GetBoundingBox(float& left, float& top, float& right, float& bottom
 		}
 		else
 		{
-			right = x + CANDLE_WIDTH;
-			bottom = y + CANDLE_HEIGHT;
+			right = x + TORCH_WIDTH;
+			bottom = y + TORCH_HEIGHT;
 		}
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{
-		item->GetPosition(x,y);
+		item->SetPosition(x,y);
 		item->GetBoundingBox(left, top, right, bottom);
 	}
 }

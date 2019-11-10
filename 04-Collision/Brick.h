@@ -18,8 +18,7 @@
 class CBrick : public CTorch
 {
 public:
-	CBrick(float _x, float _y, int id = 0, int level = 0);
+	CBrick(float _x, float _y, int id = 0, int type = 0) :CTorch(_x, _y, id, type){}
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-
 };
 #endif // !__BRICK_H_

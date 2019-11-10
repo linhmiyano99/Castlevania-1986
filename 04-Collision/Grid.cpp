@@ -122,7 +122,7 @@ CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h
 {
 	if (type == eType::BRICK_1) return new CBrick(x, y, 0, eType::BRICK_1);
 	if (type == eType::BRICK_2) return new CBrick(x, y, 0, eType::BRICK_2);
-	if (type == eType::BRICK_3) return new CTorch(x, y, id_item, eType::BRICK_3);
+	if (type == eType::BRICK_3) return new CBrick(x, y, id_item, eType::BRICK_3);
 	if (type == eType::TORCH) return new CTorch(x, y, id_item, eType::TORCH);
 	if (type == eType::CANDLE) return new CTorch(x, y, id_item, eType::CANDLE);
 	if (type == eType::OBJECT_HIDDEN_DOOR) return new CHidenObject(x, y);

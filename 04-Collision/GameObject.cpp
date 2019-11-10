@@ -14,6 +14,7 @@ CGameObject::CGameObject(float _x, float _y, int type)
 	y = _y;
 	vx = vy = 0;
 	nx = 1;
+	state = 1;
 	_type = type;
 }
 

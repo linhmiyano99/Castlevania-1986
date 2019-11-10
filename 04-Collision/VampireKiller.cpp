@@ -119,8 +119,6 @@ void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj
 			CTorch* torch = dynamic_cast<CTorch*>(listObj.at(i));
 			if (torch->GetState() == TORCH_STATE_EXSIST)
 			{
-				/*if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
-					return;*/
 				torch->GetBoundingBox(l1, t1, r1, b1);
 				rect1.left = (int)l1;
 				rect1.top = (int)t1;

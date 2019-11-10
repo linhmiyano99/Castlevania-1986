@@ -214,7 +214,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					if (!isOnStair) {
 						CBrick* torch = dynamic_cast<CBrick*>(e->obj);
-
 						listBrick.push_back(torch);
 						CollisionWithBrick(dt, listBrick, min_tx, min_ty, nx, ny);
 						listBrick.clear();
@@ -582,20 +581,38 @@ void CSimon::CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float
 
 	// turn off collision when die 
 
-		CalcPotentialCollisions(&listBrick, coEvents);
+	CalcPotentialCollisions(&listBrick, coEvents);
 
-		float min_tx, min_ty, nx = 0, ny;
+	float min_tx, min_ty, nx = 0, ny;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		//// block 
-		if (min_tx <= min_tx0)
-			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		if (min_ty <= min_ty0)
-			y += min_ty * dy + ny * 0.4f;
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
-	
+	//// block 
+	if (min_tx <= min_tx0)
+		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+	if (min_ty <= min_ty0)
+		y += min_ty * dy + ny * 0.4f;
+	if (nx != 0) vx = 0;
+	if (ny != 0) vy = 0;
+	// clean up collision events
+	vector<LPGAMEOBJECT> listItem;
+	for (int i = 0; i < listBrick.size(); i++)
+	{
+		CTorch* torch = dynamic_cast<CTorch*>(listBrick.at(i));// if e->obj is torch 
+		if (torch->GetState() == TORCH_STATE_EXSIST) {
+
+		}
+		else
+		{
+			if (dynamic_cast<CItem*>(torch->GetItem())) // if e->obj->tiem is items 
+			{
+				CItem* item = dynamic_cast<CItem*>(torch->GetItem());
+				listItem.push_back(item);
+				torch->SetState(TORCH_STATE_ITEM_NOT_EXSIST);// item í eated 
+			}
+		}
+	}
+	CollisionWithItem(dt, listItem);
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
@@ -621,8 +638,7 @@ void CSimon::CollisionWithTorch(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 	if (min_ty <= min_ty0)
 		y += dy;
 
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
 	vector<LPGAMEOBJECT> listItem;
 	for (int i = 0; i < listObj.size(); i++)
 	{
@@ -641,6 +657,8 @@ void CSimon::CollisionWithTorch(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 		}
 	}
 	CollisionWithItem(dt,listItem);
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
 }
 void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx0, float min_ty0, int nx0, int ny0)
 {
@@ -689,19 +707,19 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 				state = SIMON_ANI_IDLE;
 			}
 			IsCanOnStair(listObj);
-			
+
 		}
-		
-		
-			if (ohiden->getNx() * ohiden->getNy() > 0)
-			{
-				_stairTrend = 1;
-			}
-			else
-			{
-				_stairTrend = 0;
-			}
-		
+
+
+		if (ohiden->getNx() * ohiden->getNy() > 0)
+		{
+			_stairTrend = 1;
+		}
+		else
+		{
+			_stairTrend = 0;
+		}
+
 	}
 }
 

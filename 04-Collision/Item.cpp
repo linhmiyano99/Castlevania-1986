@@ -66,7 +66,7 @@ void CItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
-void CItem::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = top = right = bottom = 0;
-}
+//void CItem::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+//{
+//	left = top = right = bottom = 0;
+//}
