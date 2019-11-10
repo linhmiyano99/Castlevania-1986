@@ -5,10 +5,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (dt_die == 0)
 	{
-		if (state == TORCH_STATE_NOT_EXSIST) {
-			dt_die = GetTickCount();
-		}
-		else
+		if (state == TORCH_STATE_EXSIST)
 		{
 			CGameObject::Update(dt);
 
@@ -58,19 +55,29 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			// clean up collision events
 			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 		}
+		else 
+		if (state == TORCH_STATE_NOT_EXSIST) 
+		{
+			dt_die = GetTickCount();
+			if (item)
+			{
+				item->SetPosition(x, y);
+			}
+		}
 	}
 	else
 	{
 		if (item != NULL) {//co item
+
 			if (GetTickCount() - dt_die > 150) // cho 150 mili second
 			{
-
 				item->Update(dt, coObjects);
+				item->GetPosition(x, y);
 				state = TORCH_STATE_ITEM;
 			}
 		}
 	}
-	
+
 }
 void CGhost::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -84,7 +91,7 @@ void CGhost::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{
-		item->GetPosition(x, y);
+		//item->SetPosition(x,y);
 		item->GetBoundingBox(left, top, right, bottom);
 	}
 }

@@ -257,7 +257,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								listEnemy.clear();
 							}
 							else {
-								continue;
+								if (dynamic_cast<CItem*>(torch->GetItem()))
+								{
+									listEnemy.push_back(torch->GetItem());
+									CollisionWithItem(dt, listEnemy);
+								}
 							}
 						}
 						else {

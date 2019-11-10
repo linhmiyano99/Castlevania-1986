@@ -131,7 +131,7 @@ CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h
 	if (type == eType::GATE) return new CGate(x, y);
 	if (type == eType::PANTHER) return new CPanther(x, y);
 	if (type == eType::FISHMEN) return new CFishman(x, y);
-	if (type == eType::GHOST) return new CGhost(x, y);
+	if (type == eType::GHOST) return new CGhost(x, y, id_item);
 	if (type == eType::BAT) return new CBat(x, y);
 
 	return NULL;

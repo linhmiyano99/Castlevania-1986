@@ -59,6 +59,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (state == TORCH_STATE_NOT_EXSIST) {
 				dt_die = GetTickCount();
+				item->SetPosition(x, y);
 			}
 			else
 			{
@@ -118,6 +119,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 
 					item->Update(dt, coObjects);
+					item->GetPosition(x, y);
 					state = TORCH_STATE_ITEM;
 				}
 			}
@@ -162,7 +164,6 @@ void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bott
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{
-		item->GetPosition(x, y);
 		item->GetBoundingBox(left, top, right, bottom);
 	}
 }

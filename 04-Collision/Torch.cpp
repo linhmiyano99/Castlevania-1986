@@ -80,6 +80,8 @@ void CTorch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (state == TORCH_STATE_NOT_EXSIST) {
 			dt_die = GetTickCount();
+			if (item)
+				item->SetPosition(x, y);
 		}
 	}
 	else
@@ -87,8 +89,8 @@ void CTorch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (item != NULL) {//co item
 			if (GetTickCount() - dt_die > 150) // cho 150 mili second
 			{
-
 				item->Update(dt, coObjects);
+				item->GetPosition(x, y);
 				state = TORCH_STATE_ITEM;
 			}
 		}
@@ -101,9 +103,7 @@ void CTorch::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	if (state == TORCH_STATE_EXSIST)
 	{
 		left = x;
-		
 		top = y;
-		
 		if (_type == eType::CANDLE)
 		{
 			right = x + CANDLE_WIDTH;
@@ -117,7 +117,7 @@ void CTorch::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{
-		item->SetPosition(x,y);
+		//item->SetPosition(x,y);
 		item->GetBoundingBox(left, top, right, bottom);
 	}
 }

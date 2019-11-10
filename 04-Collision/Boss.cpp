@@ -19,6 +19,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (state == TORCH_STATE_NOT_EXSIST) {
 				dt_die = GetTickCount();
+				item->SetPosition(x, y);
 			}
 			else
 			{
@@ -34,8 +35,8 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (item != NULL) {//co item
 				if (GetTickCount() - dt_die > 150) // cho 150 mili second
 				{
-
 					item->Update(dt, coObjects);
+					item->GetPosition(x, y);
 					state = TORCH_STATE_ITEM;
 				}
 			}
@@ -88,7 +89,6 @@ void CBoss::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{
-		item->GetPosition(x, y);
 		item->GetBoundingBox(left, top, right, bottom);
 	}
 }

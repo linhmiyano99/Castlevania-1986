@@ -6,7 +6,7 @@ void CSmallHeart::GetBoundingBox(float& left, float& top, float& right, float& b
 	if (state == ITEM_STATE_EXSIST)
 	{
 		left = x;
-		right = x + 7;
+		right = x + 16;
 		top = y;
 		bottom = y + 16;
 	}

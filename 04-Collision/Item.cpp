@@ -21,7 +21,7 @@ void CItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += SIMON_GRAVITY * dt;
+	vy = SIMON_GRAVITY * dt;
 
 	vector<LPGAMEOBJECT> listBrick;
 	for (int i = 0; i < coObjects->size(); i++)
@@ -66,7 +66,3 @@ void CItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
-//void CItem::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-//{
-//	left = top = right = bottom = 0;
-//}
