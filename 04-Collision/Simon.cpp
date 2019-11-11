@@ -553,7 +553,7 @@ void CSimon::CollisionWithItem(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 	{
 		if (listObj.at(i)->GetState() == ITEM_STATE_EXSIST)
 		{
-			if (listObj.at(i)->GetType() == eType::VAMPIREKILLER)
+			if (listObj.at(i)->GetType() == eType::WHIPUPGRADE)
 			{
 				CVampireKiller::GetInstance()->setUpLevel();
 				trans_start = GetTickCount();
@@ -574,8 +574,21 @@ void CSimon::CollisionWithItem(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 			}
 			else if (listObj.at(i)->GetType() == eType::MONEY_1)
 			{
-				_heart++;
+				_score += 100;
 			}
+			else if (listObj.at(i)->GetType() == eType::MONEY_2)
+			{
+				_score += 400;
+			}
+			else if (listObj.at(i)->GetType() == eType::MONEY_3)
+			{
+				_score += 700;
+			}
+			else if (listObj.at(i)->GetType() == eType::MONEY_4)
+			{
+				_score += 1000;
+			}
+
 			listObj.at(i)->SetState(ITEM_STATE_NOT_EXSIST);
 		}
 	}

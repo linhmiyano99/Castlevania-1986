@@ -19,15 +19,21 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (state == TORCH_STATE_NOT_EXSIST) {
 				dt_die = GetTickCount();
+				if(item)
 				item->SetPosition(x, y);
 			}
 			else
 			{
+				
+				if (CScene::GetInstance()->GetScene() == 5)
+					vx = 0.15f;
 				CGameObject::Update(dt);
 				x += dx;
 				y += dy;
-
-				
+				if (x <= scene->GetLeft() || x >= scene->GetRight())
+					vx = -vx;
+				if (y <= 80 || y >= SCREEN_HEIGHT - 80)
+					vy = -vy;
 			}
 		}
 		else
@@ -43,10 +49,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 	
-	if (x <= scene->GetLeft() || x >= scene->GetRight())
-		vx = -vx;
-	if (y <= 80 || y >= SCREEN_HEIGHT - 80)
-		vy = -vy;
+
 }
 void CBoss::Render()
 {
@@ -56,10 +59,10 @@ void CBoss::Render()
 		{
 			animations[BOSS_ANI_SLEEPING]->Render(x,y);
 		}
-		else if (vx < 0)
-			animations[BOSS_ANI_FLYING]->Render(x, y);
-		else
-			animations[BOSS_ANI_FLYING]->Render(x, y, 1, 255);
+		else if (vx != 0)
+		{
+			animations[BOSS_ANI_FLYING]->Render(x, y, nx, 255);
+		}
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{

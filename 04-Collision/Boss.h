@@ -21,7 +21,7 @@ public:
 		AddAnimation(1090);
 		AddAnimation(1091);
 		AddAnimation(800);
-		vx = 0.15f;
+		vx = 0.0f;
 		vy = 0.1f;
 		_energy = 16;
 	}

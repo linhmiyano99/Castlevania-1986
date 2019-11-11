@@ -129,7 +129,15 @@ void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj
 				if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 				{
 					torch->SetState(TORCH_STATE_NOT_EXSIST);
-
+					CSimon* simon = CSimon::GetInstance();
+					if (torch->GetType() == eType::GHOST)
+						simon->SetScore(100);
+					else if (torch->GetType() == eType::PANTHER)
+						simon->SetScore(300);
+					else if (torch->GetType() == eType::BAT)
+						simon->SetScore(200);
+					else if (torch->GetType() == eType::FISHMEN)
+						simon->SetScore(300);
 				}
 			}
 		}

@@ -96,8 +96,9 @@ public:
 	void TransScene();
 	bool IsAutoGo() { return isAutoGo; }
 	int GetEnergy() { return _energy; }
-	void Shotted() { _energy--; }
+	void Shotted() { _energy -= 2; }
 	int GetScore() { return _score; }
+	void SetScore(int score) { _score += score; }
 	int GetLives() { return _lives; }
 };
 #endif
