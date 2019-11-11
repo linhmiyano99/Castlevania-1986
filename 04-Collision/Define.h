@@ -52,7 +52,13 @@ enum eType
 	ITEMDAGGER = 53,
 	SMALLHEART = 54,
 	CHICKEN = 55,
-	MONEY = 56,
+	MONEY_1 = 56,
+	MONEY_2 = 57,
+	MONEY_3 = 58,
+	MONEY_4 = 59,
+	CLOCK = 60,
+	AXE = 61,
+	CROSS = 62,
 
 
 	// other

@@ -22,8 +22,6 @@ public:
 		_type = eType::HEART;
 	}
 
-	//void Render();
-	//void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
 

@@ -192,6 +192,34 @@ CManagementTexture::CManagementTexture()
 	ani->Add(13004);
 	animations->Add(704, ani);//chicken - item
 
+	ani = new CAnimation(100);
+	ani->Add(13005);
+	animations->Add(705, ani);//money - item
+
+	ani = new CAnimation(100);
+	ani->Add(13006);
+	animations->Add(706, ani);//money - item
+
+	ani = new CAnimation(100);
+	ani->Add(13007);
+	animations->Add(707, ani);//money - item
+
+	ani = new CAnimation(100);
+	ani->Add(13008);
+	animations->Add(708, ani);//money - item
+
+	ani = new CAnimation(100);
+	ani->Add(13009);
+	animations->Add(709, ani);//clock - item
+
+	ani = new CAnimation(100);
+	ani->Add(13010);
+	animations->Add(710, ani);//axe - item
+
+	ani = new CAnimation(100);
+	ani->Add(13011);
+	animations->Add(711, ani);//cross - item
+
 
 #pragma endregion
 

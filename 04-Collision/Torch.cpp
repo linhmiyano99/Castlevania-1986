@@ -42,6 +42,18 @@ CTorch::CTorch(float _x, float _y, int id, int type) : CGameObject(_x, _y, type)
 	case ID_CHICKEN:
 		item = new CItemChicken(_x, _y);
 		break;
+	case ID_MONEY_1:
+		item = new CItemMoney(_x, _y, eType::MONEY_1);
+		break;
+	case ID_MONEY_2:
+		item = new CItemMoney(_x, _y, eType::MONEY_2);
+		break;
+	case ID_MONEY_3:
+		item = new CItemMoney(_x, _y, eType::MONEY_3);
+		break;
+	case ID_MONEY_4:
+		item = new CItemMoney(_x, _y, eType::MONEY_4);
+		break;
 	default:
 		item = NULL;
 		break;

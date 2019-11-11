@@ -572,6 +572,10 @@ void CSimon::CollisionWithItem(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 			{
 				_heart ++;
 			}
+			else if (listObj.at(i)->GetType() == eType::MONEY_1)
+			{
+				_heart++;
+			}
 			listObj.at(i)->SetState(ITEM_STATE_NOT_EXSIST);
 		}
 	}

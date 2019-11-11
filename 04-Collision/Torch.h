@@ -15,6 +15,7 @@
 #include "SmallHeart.h"
 #include "Define.h"
 #include "ItemChicken.h"
+#include "Money.h"
 
 #define TORCH_WIDTH 32
 #define TORCH_HEIGHT 64
@@ -32,6 +33,10 @@
 #define ID_HEART		3
 #define ID_SMALLHEART	4
 #define ID_CHICKEN		5
+#define ID_MONEY_1		6
+#define ID_MONEY_2		7
+#define ID_MONEY_3		8
+#define ID_MONEY_4		9
 
 
 
