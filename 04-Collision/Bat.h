@@ -1,13 +1,13 @@
 #pragma once
 #include "Enemy.h"
 
-#define GHOST_BBOX_WIDTH 40
-#define GHOST_BBOX_HEIGHT 60
+#define BAT_BBOX_WIDTH 32
+#define BAT_BBOX_HEIGHT 32
 
 class CBat : public CEnemy
 {
 public:
-	CBat(float _x = 3500, float _y = 200, int id = 0) :CEnemy(_x,_y, id)
+	CBat(float _x = 3500, float _y = 200, int id = 0) :CEnemy(_x,_y, id, eType::BAT)
 	{
 		animations.clear();
 		AddAnimation(1003);

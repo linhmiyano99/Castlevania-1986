@@ -9,7 +9,8 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (state == TORCH_STATE_NOT_EXSIST) {
 			dt_die = GetTickCount();
-			item->SetPosition(x, y);
+			if(item)
+				item->SetPosition(x, y);
 		}
 		else
 		{
@@ -44,8 +45,8 @@ void CBat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	{
 		left = x;
 		top = y;
-		right = x + GHOST_BBOX_WIDTH;
-		bottom = y + GHOST_BBOX_HEIGHT;
+		right = x + BAT_BBOX_WIDTH;
+		bottom = y + BAT_BBOX_HEIGHT;
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{

@@ -13,7 +13,7 @@ public:
 	{
 		animations.clear();
 		AddAnimation(703);
-		_type = TYPE_ITEM_SMALLHEART;
+		_type = eType::SMALLHEART;
 		vx = SMALLHEART_SPEED_X;
 		vy = SMALLHEART_SPEED_Y;
 		left_limit = x - 20;

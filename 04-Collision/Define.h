@@ -50,7 +50,10 @@ enum eType
 	HEART = 51,
 	WHIPUPGRADE = 52,
 	ITEMDAGGER = 53,
-	SMALLHEART = 55,
+	SMALLHEART = 54,
+	CHICKEN = 55,
+	MONEY = 56,
+
 
 	// other
 	FONT = 71,

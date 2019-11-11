@@ -40,7 +40,6 @@ class CTorch : public CGameObject
 protected:
 	DWORD dt_die;
 	CItem* item;
-	int _type;
 public:
 
 
@@ -55,5 +54,6 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void SetPosition(float _x, float _y) { x = _x; y = _y; if(item != NULL) item->SetPosition(_x, _y); }
 	virtual CItem* GetItem() { return item; }
+
 };
 #endif // !__TORCH_H_

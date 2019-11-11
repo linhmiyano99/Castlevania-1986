@@ -20,7 +20,7 @@ class CPanther : public CEnemy
 {
 	float LeftLimit;
 public:
-	CPanther(float _x = 1419, float _y = 230, int id = 0) :CEnemy(_x, _y, id)
+	CPanther(float _x = 1419, float _y = 230, int id = 0) :CEnemy(_x, _y, id, eType::PANTHER)
 	{
 		animations.clear();
 		AddAnimation(1001);
@@ -31,7 +31,7 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetSpeed(float _vx, float _vy) {
-		vx = -PANTHER_RUNNING_SPEED_X; vy = PANTHER_RUNNING_SPEED_Y; LeftLimit = x - 400;
+		vx = -PANTHER_RUNNING_SPEED_X; vy = PANTHER_RUNNING_SPEED_Y; LeftLimit = x - 200;
 	}
 //	virtual void SetState(int state);
 };

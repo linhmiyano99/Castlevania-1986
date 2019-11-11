@@ -19,7 +19,7 @@ public:
 	CItemChicken(float _x, float _y) : CItem(_x, _y)
 	{
 		AddAnimation(704);
-		_type = TYPE_ITEM_CHICKEN;
+		_type = eType::CHICKEN;
 	}
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 

@@ -7,29 +7,27 @@
 #include "GameObject.h"
 #include "Simon.h"
 #include "Textures.h"
+#include "Define.h"
 
 
 #define ITEM_STATE_NOT_EXSIST 0
 #define ITEM_STATE_EXSIST 1
 
-#define TYPE_ITEM			  0
-#define TYPE_ITEM_DAGGER	  1
-#define TYPE_ITEM_WHIPUPGRADE 2
-#define TYPE_ITEM_HEART		  3
-#define TYPE_ITEM_SMALLHEART  4
-#define TYPE_ITEM_CHICKEN     5
-
-#define ITEM_GRAVITY		  0.05f
+#define TYPE_ITEM		 0
+#define ITEM_GRAVITY	 0.05f
+#define TIME_ITEM_EXSIST 5000
 
 
 class CItem : public CGameObject
 {
-
+protected:
+	DWORD time_exsist;
 public:
 	CItem(float _x = 0, float _y = 0) : CGameObject(_x, _y)
 	{
 		state = ITEM_STATE_EXSIST;
 		_type = TYPE_ITEM;
+		time_exsist = 0;
 	}
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);

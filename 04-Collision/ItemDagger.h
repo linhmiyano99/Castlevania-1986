@@ -19,7 +19,7 @@ public:
 	CItemDagger(float _x, float _y) : CItem(_x, _y)
 	{
 		AddAnimation(701);
-		_type = TYPE_ITEM_DAGGER;
+		_type = eType::DAGGER;
 	}
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 

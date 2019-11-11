@@ -59,7 +59,8 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (state == TORCH_STATE_NOT_EXSIST) {
 				dt_die = GetTickCount();
-				item->SetPosition(x, y);
+				if(item)
+					item->SetPosition(x, y);
 			}
 			else
 			{

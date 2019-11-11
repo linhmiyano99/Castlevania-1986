@@ -24,7 +24,7 @@ class CFishman : public CEnemy
 	bool isJumping;
 	DWORD start_attack;
 public:
-	CFishman(float _x = 3300, float _y = 780, int id = 0) :CEnemy(_x, _y, id)
+	CFishman(float _x = 3300, float _y = 780, int id = 0) :CEnemy(_x, _y, id, eType::FISHMEN)
 	{
 		animations.clear();
 		AddAnimation(1004);

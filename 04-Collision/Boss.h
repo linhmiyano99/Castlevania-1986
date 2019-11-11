@@ -15,7 +15,7 @@ class CBoss : public CEnemy
 public:
 	static CBoss* GetInstance();
 
-	CBoss(float _x, float _y, int id = 0) :CEnemy(_x, _y, id)
+	CBoss(float _x, float _y, int id = 0) :CEnemy(_x, _y, id, eType::BOSS)
 	{
 		animations.clear();
 		AddAnimation(1090);

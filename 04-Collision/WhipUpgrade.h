@@ -19,7 +19,7 @@ public:
 	CWhipUpgrade(float _x, float _y) : CItem(_x, _y)
 	{
 		AddAnimation(700);
-		_type = TYPE_ITEM_WHIPUPGRADE;
+		_type = eType::WHIPUPGRADE;
 	}
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 

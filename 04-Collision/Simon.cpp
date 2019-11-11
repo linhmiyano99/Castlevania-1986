@@ -553,22 +553,22 @@ void CSimon::CollisionWithItem(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 	{
 		if (listObj.at(i)->GetState() == ITEM_STATE_EXSIST)
 		{
-			if (listObj.at(i)->GetType() == TYPE_ITEM_WHIPUPGRADE)
+			if (listObj.at(i)->GetType() == eType::VAMPIREKILLER)
 			{
 				CVampireKiller::GetInstance()->setUpLevel();
 				trans_start = GetTickCount();
 			}
-			else if (listObj.at(i)->GetType() == TYPE_ITEM_DAGGER)
+			else if (listObj.at(i)->GetType() == eType::DAGGER)
 			{
 				CDagger* dagger = CDagger::GetInstance();
 				weapons[eType::DAGGER] = dagger;
 				CBoard::GetInstance()->SetWeapon(eType::DAGGER);
 			}
-			else if (listObj.at(i)->GetType() == TYPE_ITEM_HEART)
+			else if (listObj.at(i)->GetType() == eType::HEART)
 			{
 				_heart += 5;
 			}
-			else if (listObj.at(i)->GetType() == TYPE_ITEM_SMALLHEART)
+			else if (listObj.at(i)->GetType() == eType::SMALLHEART)
 			{
 				_heart ++;
 			}

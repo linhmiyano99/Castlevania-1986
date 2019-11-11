@@ -13,7 +13,15 @@ void CSmallHeart::GetBoundingBox(float& left, float& top, float& right, float& b
 }
 void CSmallHeart::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	
+	if (!time_exsist)
+	{
+		time_exsist = GetTickCount();
+	}
+	else
+	{
+		if (GetTickCount() - time_exsist >= TIME_ITEM_EXSIST)
+			state = ITEM_STATE_NOT_EXSIST;
+	}
 	CGameObject::Update(dt);
 
 	// Simple fall down

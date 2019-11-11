@@ -9,7 +9,7 @@
 class CGhost: public CEnemy
 {
 public:
-	CGhost(float _x = 2000, float _y = 0, int id = 0) :CEnemy(_x, _y, id)
+	CGhost(float _x = 2000, float _y = 0, int id = 0) :CEnemy(_x, _y, id, eType::GHOST)
 	{
 		animations.clear();
 		AddAnimation(1000);

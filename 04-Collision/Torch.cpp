@@ -47,7 +47,6 @@ CTorch::CTorch(float _x, float _y, int id, int type) : CGameObject(_x, _y, type)
 		break;
 	}
 
-	_type = type;
 	x = _x;
 	y = _y;
 }

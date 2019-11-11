@@ -55,10 +55,6 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 	}
 	
 	
-	for each (LPGAMEOBJECT var in listBrick)
-	{
-		ListObj.push_back(var);
-	}
 	CSimon* simon = CSimon::GetInstance();
 	ListObj.push_back(simon);
 	CDagger* dagger = CDagger::GetInstance();
@@ -115,8 +111,7 @@ void CGrid::Insert(int id, int type, int trend, float x, float y, float w, float
 	for (int i = top; i <= bottom; i++)
 		for (int j = left; j <= right; j++)
 			cells[i][j].push_back(obj);
-	if (type == eType::BRICK_1 || type == eType::BRICK_2)
-		listBrick.push_back(obj);
+
 }
 CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item)
 {

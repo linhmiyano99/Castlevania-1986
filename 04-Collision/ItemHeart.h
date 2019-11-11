@@ -19,7 +19,7 @@ public:
 	CItemHeart(float _x, float _y) : CItem(_x, _y)
 	{
 		AddAnimation(702);
-		_type = TYPE_ITEM_HEART;
+		_type = eType::HEART;
 	}
 
 	//void Render();
