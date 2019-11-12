@@ -4,6 +4,7 @@
 #define HIDENOBJECT_TYPE_DOOR		0
 #define HIDENOBJECT_TYPE_UPSTAIR	1
 #define HIDENOBJECT_TYPE_DOWNSTAIR  2
+#define HIDENOBJECT_TYPE_FISHMAN    3
 
 class CHidenObject : public CGameObject
 {
@@ -20,23 +21,29 @@ public:
 		nx = trendX;
 		ny = trendY;
 		this->state = state;
-		if (state == HIDENOBJECT_TYPE_DOWNSTAIR)
+		switch (state)
 		{
+		case HIDENOBJECT_TYPE_DOWNSTAIR:
 			if (nx > 0)
 				_autoX = x - 10;
 			else
 				_autoX = x + 20;
-		}
-		else if (state == HIDENOBJECT_TYPE_UPSTAIR)
-		{
+			break;
+		case HIDENOBJECT_TYPE_UPSTAIR:
 			if (nx < 0)
 				_autoX = x - 30;
 			else
 				_autoX = x + 40;
-
-		}
-		else
+			break;
+		case HIDENOBJECT_TYPE_DOOR:
 			_autoX = x + 40;
+			break;
+		case HIDENOBJECT_TYPE_FISHMAN:
+			break;
+		default:
+			break;
+		}
+
 	}
 	void SetPosition(float x, float y);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);

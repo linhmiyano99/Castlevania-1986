@@ -45,6 +45,11 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 			{
 				for (UINT k = 0; k < cells[i][j].size(); k++)
 				{
+					if (!CFishman::IsStart())
+					{
+						if (dynamic_cast<CFishman*>(cells[i][j].at(k)))
+							continue;
+					}
 					//if (cells[i][j].at(k)->GetState()) // đối tượng còn tồn tại
 					{
 						ListObj.push_back(cells[i][j].at(k));
@@ -123,6 +128,7 @@ CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h
 	if (type == eType::OBJECT_HIDDEN_DOOR) return new CHidenObject(x, y);
 	if (type == eType::STAIR_DOWN) return new CHidenObject(x, y, HIDENOBJECT_TYPE_DOWNSTAIR, trend, -1);
 	if (type == eType::STAIR_UP) return new CHidenObject(x, y, HIDENOBJECT_TYPE_UPSTAIR, trend, 1);
+	if (type == eType::OBJECT_HIDDEN_FISHMAN) return new CHidenObject(x, y, HIDENOBJECT_TYPE_FISHMAN);
 	if (type == eType::GATE) return new CGate(x, y);
 	if (type == eType::PANTHER) return new CPanther(x, y);
 	if (type == eType::FISHMEN) return new CFishman(x, y);

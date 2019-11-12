@@ -3,156 +3,159 @@
 #include "SmallBall.h"
 #include "Scene.h"
 
+bool CFishman::isStart = false;
+
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
-	if (isJumping) {
-		if (y <= 448)
-		{
-			vy = SIMON_GRAVITY * dt;
-			vx = nx * 0.15f;
-			isJumping = false;
+	if (TORCH_STATE_EXSIST)
+	{
+		if (isJumping) {
+			if (y <= 448)
+			{
+				vy = SIMON_GRAVITY * dt;
+				vx = nx * 0.15f;
+				isJumping = false;
+			}
 		}
-	}
-	if (isJumping)
-	{
-		y += vy * dt;
-		return;
-	}
-	float s_x, s_y;
-	CSimon* simon = CSimon::GetInstance();
-	simon->GetPosition(s_x, s_y);
-
-	if (GetTickCount() - start_attack > TIME_START_ATTACK)
-	{
-		start_attack = GetTickCount();
-		if (x < s_x)
+		if (isJumping)
 		{
-			nx = 1;
+			y += vy * dt;
+			return;
 		}
-		else
+		float s_x, s_y;
+		CSimon* simon = CSimon::GetInstance();
+		simon->GetPosition(s_x, s_y);
+
+		if (GetTickCount() - start_attack > TIME_START_ATTACK)
 		{
-			nx = -1;
-		}
-		vx = 0;
-		isAttacking = true;
-		CSmallBall* smallball = new CSmallBall(x, y, nx);
-		CScene::GetInstance()->AddSmallBall(smallball);
-		return;
-	}
-	if (GetTickCount() - start_attack > TIME_ATTACK)
-	{
-		isAttacking = false;
-		vx = nx * 0.15f;
-	}
-
-
-
-	if (vx == 0)
-	{
-		CGameObject::Update(dt);
-		if (!isAttacking)
-			y += dy;
-	}
-	else
-	{
-		if (dt_die == 0)
-		{
-			if (state == TORCH_STATE_NOT_EXSIST) {
-				dt_die = GetTickCount();
-				if (item)
-					item->SetPosition(x, y);
+			start_attack = GetTickCount();
+			if (x < s_x)
+			{
+				nx = 1;
 			}
 			else
 			{
-				CGameObject::Update(dt);
-
-				// Simple fall down
-				vy += SIMON_GRAVITY * dt;
-
-				vector<LPGAMEOBJECT> listBrick;
-				for (int i = 0; i < coObjects->size(); i++)
-				{
-
-					if (dynamic_cast<CBrick*>(coObjects->at(i)))
-					{
-						CBrick* brick = dynamic_cast<CBrick*>(coObjects->at(i));
-						listBrick.push_back(brick);
-					}
-
-				}
-
-				vector<LPCOLLISIONEVENT> coEvents;
-				vector<LPCOLLISIONEVENT> coEventsResult;
-
-				coEvents.clear();
-
-				// turn off collision when die 
-				if (state != SIMON_STATE_DIE)
-					CalcPotentialCollisions(&listBrick, coEvents);
-
-				// No collision occured, proceed normally
-				if (coEvents.size() == 0)
-				{
-					x += dx;
-					y += dy;
-				}
-				else
-				{
-					float min_tx, min_ty, nx = 0, ny;
-
-					FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-
-					//// block 
-					//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-					x += dx;
-					y += min_ty * dy + ny * 0.4f;
-
-					if (ny != 0) vy = 0;
-				}
-				// clean up collision events
-				for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+				nx = -1;
 			}
+			vx = 0;
+			isAttacking = true;
+			CSmallBall* smallball = new CSmallBall(x, y, nx);
+			CScene::GetInstance()->AddSmallBall(smallball);
+			return;
+		}
+		if (GetTickCount() - start_attack > TIME_ATTACK)
+		{
+			isAttacking = false;
+			vx = nx * 0.15f;
+		}
+
+
+
+		if (vx == 0)
+		{
+			CGameObject::Update(dt);
+			if (!isAttacking)
+				y += dy;
 		}
 		else
 		{
-			if (item != NULL) {//co item
-				if (GetTickCount() - dt_die > 150) // cho 150 mili second
+			if (dt_die == 0)
+			{
+				if (state == TORCH_STATE_NOT_EXSIST) {
+					dt_die = GetTickCount();
+					if (item)
+						item->SetPosition(x, y);
+				}
+				else
 				{
+					CGameObject::Update(dt);
 
-					item->Update(dt, coObjects);
-					item->GetPosition(x, y);
-					state = TORCH_STATE_ITEM;
+					// Simple fall down
+					vy += SIMON_GRAVITY * dt;
+
+					vector<LPGAMEOBJECT> listBrick;
+					for (int i = 0; i < coObjects->size(); i++)
+					{
+
+						if (dynamic_cast<CBrick*>(coObjects->at(i)))
+						{
+							CBrick* brick = dynamic_cast<CBrick*>(coObjects->at(i));
+							listBrick.push_back(brick);
+						}
+
+					}
+
+					vector<LPCOLLISIONEVENT> coEvents;
+					vector<LPCOLLISIONEVENT> coEventsResult;
+
+					coEvents.clear();
+
+					// turn off collision when die 
+					if (state != SIMON_STATE_DIE)
+						CalcPotentialCollisions(&listBrick, coEvents);
+
+					// No collision occured, proceed normally
+					if (coEvents.size() == 0)
+					{
+						x += dx;
+						y += dy;
+					}
+					else
+					{
+						float min_tx, min_ty, nx = 0, ny;
+
+						FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+						//// block 
+						//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+						x += dx;
+						y += min_ty * dy + ny * 0.4f;
+
+						if (ny != 0) vy = 0;
+					}
+					// clean up collision events
+					for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+				}
+			}
+			else
+			{
+				if (item != NULL) {//co item
+					if (GetTickCount() - dt_die > 150) // cho 150 mili second
+					{
+
+						item->Update(dt, coObjects);
+						item->GetPosition(x, y);
+						state = TORCH_STATE_ITEM;
+					}
 				}
 			}
 		}
-	}
-	if (x > 3065 && x < 3505)
-	{
-		if (x <= 3076 || x >= 3464)
+		if (x > 3065 && x < 3505)
 		{
-			vx = -vx;
-			nx = -nx;
+			if (x <= 3076 || x >= 3464)
+			{
+				vx = -vx;
+				nx = -nx;
+			}
 		}
-	}
-	else if (x > 3571 && x < 3631)
-	{
-		if (x <= 3585 || x >= 3590)
+		else if (x > 3571 && x < 3631)
 		{
-			vx = -vx;
-			nx = -nx;
+			if (x <= 3585 || x >= 3590)
+			{
+				vx = -vx;
+				nx = -nx;
+			}
 		}
-	}
-	else if (x > 3701 && x < 4010)
-	{
-		if (x <= 3710 || x >= 3970)
+		else if (x > 3701 && x < 4010)
 		{
-			vx = -vx;
-			nx = -nx;
-		}
+			if (x <= 3710 || x >= 3970)
+			{
+				vx = -vx;
+				nx = -nx;
+			}
 
+		}
 	}
-
 }
 void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {

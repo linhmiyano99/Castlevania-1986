@@ -23,6 +23,8 @@ class CFishman : public CEnemy
 	bool isAttacking;
 	bool isJumping;
 	DWORD start_attack;
+	static bool isStart;
+
 public:
 	CFishman(float _x = 3300, float _y = 780, int id = 0) :CEnemy(_x, _y, id, eType::FISHMEN)
 	{
@@ -42,4 +44,6 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 	bool IsAttacking() { return isAttacking; }
+	static void Start() { isStart = true; }
+	static bool IsStart() { return isStart; }
 };

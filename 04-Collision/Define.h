@@ -40,6 +40,7 @@ enum eType
 	STAIR_UP = 33,
 	STAIR_DOWN = 34,
 	CANDLE = 35,
+	OBJECT_HIDDEN_FISHMAN = 36,
 	
 
 	// weapon

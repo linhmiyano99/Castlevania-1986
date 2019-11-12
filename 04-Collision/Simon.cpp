@@ -52,6 +52,36 @@ CSimon::CSimon() : CGameObject()
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (_energy <= 0 || y > 780)
+	{
+		if (_lives > 0)
+		{
+			_lives--;
+			_energy = 16;
+			if (CScene::GetInstance()->GetStage() == 1)
+			{
+				x = 0.0f;
+				y = 300.0f;
+			}
+			else if (CScene::GetInstance()->GetStage() == 2)
+			{
+				x = 3120.0f;
+				y = 50.0f;
+			}
+			else  if (CScene::GetInstance()->GetStage() == 3)
+			{
+				x = 4130.0f;
+				y = 50.0f;
+			}
+		}
+		else
+		{
+			_energy = 16;
+
+		}
+		weapons[eType::VAMPIREKILLER]->Reset();
+		return;
+	}
 	if (isAutoGo && !CScene::GetInstance()->IsTranScene())
 	{
 		AutoGo();
@@ -747,7 +777,10 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 			IsCanOnStair(listObj);
 
 		}
-
+		else if (ohiden->GetState() == HIDENOBJECT_TYPE_FISHMAN)
+		{
+			CFishman::Start();
+		}
 
 		if (ohiden->getNx() * ohiden->getNy() > 0)
 		{
@@ -784,14 +817,15 @@ void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 		//// block 
-		if (min_tx <= min_tx0 || min_ty <= min_ty0)
+		if (nx != 0) vx = nx * 0.2f;
+		vy = -0.2f;
+		_energy -= 2;
+		if ((min_tx <= min_tx0 || min_ty <= min_ty0) && _energy >0)
 		{
 			x += min_tx * dx + nx * 50.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 			y -= 50.0f;
 		}
-		if (nx != 0) vx = nx * 0.2f;
-		vy = -0.2f;
-		_energy-=2;
+		
 
 		// clean up collision events
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
