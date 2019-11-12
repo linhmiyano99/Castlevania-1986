@@ -236,33 +236,35 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 
 					CTorch* torch = dynamic_cast<CTorch*>(e->obj);
-					if (untouchable == 0)
-					{
+					
 						if (dynamic_cast<CEnemy*>(torch))
 						{
 							CEnemy* torch = dynamic_cast<CEnemy*>(e->obj);
 
 							if (torch->GetState() == TORCH_STATE_EXSIST)
 							{
-								listEnemy.push_back(torch);
-								CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
-								if (dynamic_cast<CBat*>(torch))
+								if (untouchable == 0)
 								{
-									CBat* bat = dynamic_cast<CBat*>(e->obj);
-									bat->SetState(TORCH_STATE_NOT_EXSIST);
-								}
-								else if (dynamic_cast<CPanther*>(torch))
-								{
-									CPanther* panther = dynamic_cast<CPanther*>(e->obj);
-									float _x, _y;
-									panther->GetPosition(_x, _y);
-									if (_x > x)
-										nx = 1;
-									else
-										nx = -1;
+									listEnemy.push_back(torch);
+									CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
+									if (dynamic_cast<CBat*>(torch))
+									{
+										CBat* bat = dynamic_cast<CBat*>(e->obj);
+										bat->SetState(TORCH_STATE_NOT_EXSIST);
+									}
+									else if (dynamic_cast<CPanther*>(torch))
+									{
+										CPanther* panther = dynamic_cast<CPanther*>(e->obj);
+										float _x, _y;
+										panther->GetPosition(_x, _y);
+										if (_x > x)
+											nx = 1;
+										else
+											nx = -1;
 
+									}
+									StartUntouchable();
 								}
-								StartUntouchable();
 								listEnemy.clear();
 							}
 							else {
@@ -278,7 +280,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							CollisionWithTorch(dt, listTorch, min_tx, min_ty, nx, ny);
 							listTorch.clear();
 						}
-					}
+					
 				
 				}
 
@@ -600,47 +602,57 @@ void CSimon::CollisionWithItem(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 }
 void CSimon::CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float min_tx0, float min_ty0, int nx0, int ny0)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	// turn off collision when die 
-
-	CalcPotentialCollisions(&listBrick, coEvents);
-
-	float min_tx, min_ty, nx = 0, ny;
-
-	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-
-	//// block 
-	if (min_tx <= min_tx0)
-		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-	if (min_ty <= min_ty0)
-		y += min_ty * dy + ny * 0.4f;
-	if (nx != 0) vx = 0;
-	if (ny != 0) vy = 0;
-	// clean up collision events
-	vector<LPGAMEOBJECT> listItem;
-	for (int i = 0; i < listBrick.size(); i++)
+	float b_x, b_y;
+	listBrick.at(0)->GetPosition(b_x, b_y);
+	if (b_y > y)
 	{
-		CTorch* torch = dynamic_cast<CTorch*>(listBrick.at(i));// if e->obj is torch 
-		if (torch->GetState() == TORCH_STATE_EXSIST) {
+		vector<LPCOLLISIONEVENT> coEvents;
+		vector<LPCOLLISIONEVENT> coEventsResult;
 
-		}
-		else
+		coEvents.clear();
+
+		// turn off collision when die 
+
+		CalcPotentialCollisions(&listBrick, coEvents);
+
+		float min_tx, min_ty, nx = 0, ny;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		//// block 
+		if (min_tx <= min_tx0)
+			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		if (min_ty <= min_ty0)
+			y += min_ty * dy + ny * 0.4f;
+		if (nx != 0) vx = 0;
+		if (ny != 0) vy = 0;
+		// clean up collision events
+		vector<LPGAMEOBJECT> listItem;
+		for (int i = 0; i < listBrick.size(); i++)
 		{
-			if (dynamic_cast<CItem*>(torch->GetItem())) // if e->obj->tiem is items 
+			CTorch* torch = dynamic_cast<CTorch*>(listBrick.at(i));// if e->obj is torch 
+			if (torch->GetState() == TORCH_STATE_EXSIST) {
+
+			}
+			else
 			{
-				CItem* item = dynamic_cast<CItem*>(torch->GetItem());
-				listItem.push_back(item);
-				torch->SetState(TORCH_STATE_ITEM_NOT_EXSIST);// item í eated 
+				if (dynamic_cast<CItem*>(torch->GetItem())) // if e->obj->tiem is items 
+				{
+					CItem* item = dynamic_cast<CItem*>(torch->GetItem());
+					listItem.push_back(item);
+					torch->SetState(TORCH_STATE_ITEM_NOT_EXSIST);// item í eated 
+				}
 			}
 		}
+		CollisionWithItem(dt, listItem);
+		// clean up collision events
+		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
-	CollisionWithItem(dt, listItem);
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	else
+	{
+		x += dx;
+		y -= abs(dy);
+	}
 
 }
 void CSimon::CollisionWithTorch(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx0, float min_ty0, int nx0, int ny0)

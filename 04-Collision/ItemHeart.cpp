@@ -6,8 +6,8 @@ void CItemHeart::GetBoundingBox(float& left, float& top, float& right, float& bo
 	if (state == ITEM_STATE_EXSIST)
 	{
 		left = x;
-		right = x + 22;
+		right = x + ITEMHEART_WIDTH;
 		top = y;
-		bottom = y + 25;
+		bottom = y + ITEMHEART_HEIGHT;
 	}
 }

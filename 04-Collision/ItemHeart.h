@@ -9,8 +9,8 @@
 #include "Textures.h"
 #include "Item.h"
 
-#define ITEMDRAGGER_WIDTH 32
-#define ITEMDRAGGER_HEIGHT 32
+#define ITEMHEART_WIDTH 22
+#define ITEMHEART_HEIGHT 25
 
 
 class CItemHeart : public CItem

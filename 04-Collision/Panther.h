@@ -26,12 +26,24 @@ public:
 		AddAnimation(1001);
 		AddAnimation(1002);
 		AddAnimation(800);
+		if (_x < 1460)
+		{
+			LeftLimit = x - 200;
+		}
+		else if (_x < 1810)
+		{
+			LeftLimit = x - 500;
+		}
+		else
+		{
+			LeftLimit = x - 360;
+		}
 	}
 	virtual void Render();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetSpeed(float _vx, float _vy) {
-		vx = -PANTHER_RUNNING_SPEED_X; vy = PANTHER_RUNNING_SPEED_Y; LeftLimit = x - 200;
+		vx = -PANTHER_RUNNING_SPEED_X; vy = PANTHER_RUNNING_SPEED_Y; 
 	}
 //	virtual void SetState(int state);
 };

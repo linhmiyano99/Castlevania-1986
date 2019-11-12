@@ -164,6 +164,9 @@
     <ClInclude Include="ItemChicken.h">
       <Filter>framework\GameObject\item</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>framework\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -267,6 +270,9 @@
     </ClCompile>
     <ClCompile Include="ItemChicken.cpp">
       <Filter>framework\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>framework\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

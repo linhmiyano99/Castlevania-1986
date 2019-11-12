@@ -147,6 +147,7 @@
     <ClInclude Include="Money.h" />
     <ClInclude Include="Panther.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="SmallBall.h" />
     <ClInclude Include="SmallHeart.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Money.cpp" />
     <ClCompile Include="Panther.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="SmallBall.cpp" />
     <ClCompile Include="SmallHeart.cpp" />

@@ -44,7 +44,7 @@
 #define SIMON_HEIGHT_SIT			45
 #define SIMON_WIDTH					40
 
-#define SIMON_UNTOUCHABLE_TIME		4000
+#define SIMON_UNTOUCHABLE_TIME		1300
 #define SIMON_HURT_TIME				300
 
 #define ID_WEAPON_VAMPIREKILLER		0
@@ -71,6 +71,7 @@ class CSimon : public CGameObject
 	int auto_x;
 	int _score;
 	int _lives;
+	int _step;
 public:
 	static CSimon* GetInstance();
 	CSimon();

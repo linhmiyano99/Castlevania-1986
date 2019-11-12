@@ -6,8 +6,8 @@ void CItemMoney::GetBoundingBox(float& left, float& top, float& right, float& bo
 	if (state == ITEM_STATE_EXSIST)
 	{
 		left = x;
-		right = x + 40;
+		right = x + ITEMMONEY_WIDTH;
 		top = y;
-		bottom = y + 20;
+		bottom = y + ITEMMONEY_HEIGHT;
 	}
 }

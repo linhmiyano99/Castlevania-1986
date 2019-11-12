@@ -49,7 +49,7 @@ void CScene::LoadResoure()
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
-		simon->SetPosition(000.0f, 20.0f);
+		simon->SetPosition(1000.0f, 20.0f);
 		objects.push_back(simon);
 		boss = CBoss::GetInstance();
 		boss->SetPosition(5340.0f, 95.0f);
