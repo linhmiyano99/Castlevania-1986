@@ -83,7 +83,7 @@ void CTorch::Render()
 		}
 	}
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 void CTorch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {

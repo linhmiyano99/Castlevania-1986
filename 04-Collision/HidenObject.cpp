@@ -9,7 +9,7 @@ void CHidenObject::GetBoundingBox(float& left, float& top, float& right, float& 
 }
 void CHidenObject::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 void CHidenObject::SetPosition(float _x, float _y)
 {

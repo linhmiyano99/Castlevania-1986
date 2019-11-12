@@ -194,6 +194,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			untouchable_start = 0;
 			untouchable = 0;
 		}
+		else if (GetTickCount() - untouchable_start < SIMON_HURT_TIME && untouchable == 1)
+		{
+			state = SIMON_STATE_HURT;
+		}
+		else
+		{
+			state = SIMON_STATE_IDLE;
+		}
 
 		// No collision occured, proceed normally
 		if (coEvents.size() == 0)
@@ -226,9 +234,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else if (dynamic_cast<CTorch*>(e->obj))
 				{
+
+					CTorch* torch = dynamic_cast<CTorch*>(e->obj);
 					if (untouchable == 0)
 					{
-						CTorch* torch = dynamic_cast<CTorch*>(e->obj);
 						if (dynamic_cast<CEnemy*>(torch))
 						{
 							CEnemy* torch = dynamic_cast<CEnemy*>(e->obj);
@@ -270,6 +279,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							listTorch.clear();
 						}
 					}
+				
 				}
 
 				else if (dynamic_cast<CHidenObject*>(e->obj))
@@ -383,7 +393,6 @@ void CSimon::Render()
 	else if (state == SIMON_STATE_HURT)
 	{
 		id = SIMON_ANI_HURT;
-		nx = - nx;
 	}
 	else {
 		if (vx == 0)
@@ -399,7 +408,7 @@ void CSimon::Render()
 		id = SIMON_ANI_TRANS;
 	}
 	int alpha = 255;
-	if (untouchable) alpha = 128;
+	if (untouchable && GetTickCount() - untouchable_start > SIMON_HURT_TIME ) alpha = 128;
 	animations[id]->Render(x, y, nx, alpha);
 	RenderBoundingBox();
 
@@ -423,6 +432,10 @@ void CSimon::SetState(int state)
 	{
 
 	}
+	else if (untouchable && GetTickCount() - untouchable_start < SIMON_HURT_TIME)
+	{
+
+	}
 	else if (animations[SIMON_ANI_GO_UP]->GetCurrentFrame() > 0 && isOnStair)
 	{
 
@@ -431,14 +444,6 @@ void CSimon::SetState(int state)
 	{
 
 	}
-	/*else if (animations[SIMON_ANI_SITTING_ATTACKING]->GetCurrentFrame() > 0)
-	{
-		
-	}*/
-	/*else if (this->state == SIMON_STATE_SIT_ATTACK)
-	{
-		 this->state = SIMON_STATE_SIT;
-	}*/
 	else
 	{
 		CGameObject::SetState(state);
@@ -774,7 +779,6 @@ void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 		}
 		if (nx != 0) vx = nx * 0.2f;
 		vy = -0.2f;
-		state = SIMON_STATE_HURT;
 		_energy-=2;
 
 		// clean up collision events
