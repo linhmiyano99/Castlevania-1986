@@ -1,10 +1,14 @@
 #pragma once
 #include "GameObject.h"
 
-#define HIDENOBJECT_TYPE_DOOR		0
-#define HIDENOBJECT_TYPE_UPSTAIR	1
-#define HIDENOBJECT_TYPE_DOWNSTAIR  2
-#define HIDENOBJECT_TYPE_FISHMAN    3
+#define HIDENOBJECT_TYPE_DOOR			0
+#define HIDENOBJECT_TYPE_UPSTAIR		1
+#define HIDENOBJECT_TYPE_DOWNSTAIR		2
+#define HIDENOBJECT_TYPE_FISHMAN		3
+#define HIDENOBJECT_TYPE_GHOST_1		4
+#define HIDENOBJECT_TYPE_GHOST_STOP_1   5
+#define HIDENOBJECT_TYPE_GHOST_2	    6
+
 
 class CHidenObject : public CGameObject
 {
@@ -37,8 +41,6 @@ public:
 			break;
 		case HIDENOBJECT_TYPE_DOOR:
 			_autoX = x + 40;
-			break;
-		case HIDENOBJECT_TYPE_FISHMAN:
 			break;
 		default:
 			break;

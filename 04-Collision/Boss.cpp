@@ -1,5 +1,6 @@
-#include"Boss.h"
-#include"Scene.h"
+﻿#include "Boss.h"
+#include "Scene.h"
+#include "SmallBall.h"
 
 CBoss* CBoss::__instance = NULL;
 
@@ -11,65 +12,115 @@ CBoss* CBoss::GetInstance()
 
 void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
-	CScene* scene = CScene::GetInstance();
-	if (scene->GetScene() == 5)
+	if (state == BOSS_STATE_SLEEP)
 	{
-		if (dt_die == 0)
-		{
-			if (state == TORCH_STATE_NOT_EXSIST) {
-				dt_die = GetTickCount();
-				if(item)
+		//start_attack = GetTickCount();
+		return;
+	}
+	if (state == BOSS_STATE_ITEM_NOT_EXSIST)
+		return;
+	
+
+	if (dt_die == 0)
+	{
+		if (state == BOSS_STATE_NOT_EXSIST) {
+			dt_die = GetTickCount();
+			if (item)
 				item->SetPosition(x, y);
-			}
-			else
+		}
+		else
+		{
+			float s_x, s_y;
+			CSimon* simon = CSimon::GetInstance();
+			simon->GetPosition(s_x, s_y);
+			CScene* scene = CScene::GetInstance();
+
+			if (GetTickCount() - start_attack >= BOSS_TIME_ATTACK)
 			{
-				
-				if (CScene::GetInstance()->GetScene() == 5)
-					vx = 0.15f;
-				CGameObject::Update(dt);
-				x += dx;
-				y += dy;
-				if (x <= scene->GetLeft() || x >= scene->GetRight())
-					vx = -vx;
-				if (y <= 80 || y >= SCREEN_HEIGHT - 80)
-					vy = -vy;
+				start_attack = GetTickCount();
+				if (x < s_x)
+				{
+					nx = 1;
+				}
+				else
+				{
+					nx = -1;
+				}
+				state = BOSS_STATE_ATTACK;
+				vx = vy = 0;
+				CSmallBall* smallball = new CSmallBall(x, y, nx);
+				if (s_x == x)
+				{
+					smallball->SetSpeed(0, -0.5f * nx);
+				}
+				else if (s_y == y)
+				{
+					smallball->SetSpeed(-0.5f * nx, 0);
+
+				}
+				else
+				{
+					smallball->SetSpeed(0.25f * nx, 1.0 * (s_y - y) / (s_x - x) * nx);
+				}
+				CScene::GetInstance()->AddSmallBall(smallball);
+				return;
+			}
+			if (state == BOSS_STATE_ATTACK)
+			{
+				if (GetTickCount() - start_attack > TIME_ATTACK)
+				{
+					state = BOSS_STATE_FLY;
+					vx = -0.15f;
+					vy = 0.05f;
+				}
+			}
+			CGameObject::Update(dt);
+			x += dx;
+			y += dy;
+
+			if (x <= CScene::GetInstance()->GetLeft() || x >= CScene::GetInstance()->GetRight() - 100)
+				vx = -vx;
+			if (y <= 80 || y >= SCREEN_HEIGHT - 80)
+				vy = -vy;
+		}
+	}
+	else // đẫ chết
+	{
+		if (item) {//co item
+			if (GetTickCount() - dt_die > 150) // cho 150 mili second
+			{
+				item->Update(dt, coObjects);
+				item->GetPosition(x, y);
+				state = TORCH_STATE_ITEM;
 			}
 		}
 		else
 		{
-			if (item) {//co item
-				if (GetTickCount() - dt_die > 150) // cho 150 mili second
-				{
-					item->Update(dt, coObjects);
-					item->GetPosition(x, y);
-					state = TORCH_STATE_ITEM;
-				}
-			}
-			else
-				state = ITEM_STATE_NOT_EXSIST;
+			state = ITEM_STATE_NOT_EXSIST;
 		}
 	}
-	if (x <= scene->GetLeft() + 20 || x >= scene->GetRight() - 100)
-		vx = -vx;
-	if (y <= 40 || y >= SCREEN_HEIGHT - 100)
-		vy = -vy;
 
 }
+
+
 void CBoss::Render()
 {
-	if (state == TORCH_STATE_EXSIST)
+	if (state != BOSS_STATE_ITEM_NOT_EXSIST)
 	{
-		if (vx == 0)
+		if (state == BOSS_STATE_SLEEP)
 		{
 			animations[BOSS_ANI_SLEEPING]->Render(x,y);
 		}
-		else if (vx != 0)
+		else if (state == BOSS_STATE_ATTACK)
+		{
+			animations[BOSS_ANI_ATTACKING]->Render(x, y, nx, 255);
+		}
+		else if (state == BOSS_STATE_FLY)
 		{
 			animations[BOSS_ANI_FLYING]->Render(x, y, nx, 255);
 		}
 	}
-	else if (state == TORCH_STATE_ITEM)
+	else if (state == BOSS_STATE_ITEM)
 	{
 		if (item != NULL)
 			item->Render();
@@ -88,15 +139,16 @@ void CBoss::Render()
 void CBoss::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 
-	if (state == TORCH_STATE_EXSIST)
+	if (state == BOSS_STATE_ITEM)
+	{
+		item->GetBoundingBox(left, top, right, bottom);
+	}
+	else if (state != BOSS_STATE_ITEM_NOT_EXSIST)
 	{
 		left = x;
 		top = y;
 		right = x + GHOST_BBOX_WIDTH;
 		bottom = y + GHOST_BBOX_HEIGHT;
 	}
-	else if (state == TORCH_STATE_ITEM)
-	{
-		item->GetBoundingBox(left, top, right, bottom);
-	}
+	
 }

@@ -30,7 +30,7 @@ void CItem::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy = SIMON_GRAVITY * dt;
+	vy += ITEM_GRAVITY * dt;
 
 	vector<LPGAMEOBJECT> listBrick;
 	for (int i = 0; i < coObjects->size(); i++)

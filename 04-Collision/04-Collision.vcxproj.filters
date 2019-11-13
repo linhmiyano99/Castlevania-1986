@@ -149,9 +149,6 @@
     <ClInclude Include="Money.h">
       <Filter>framework\GameObject\item</Filter>
     </ClInclude>
-    <ClInclude Include="SmallBall.h">
-      <Filter>framework\GameObject\enemy\Enemy_shot</Filter>
-    </ClInclude>
     <ClInclude Include="Board.h">
       <Filter>framework\Board</Filter>
     </ClInclude>
@@ -166,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallBall.h">
+      <Filter>framework\GameObject\enemy\Enemy_shot</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

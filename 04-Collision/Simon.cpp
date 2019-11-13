@@ -10,6 +10,7 @@
 #include "Scene.h"
 #include "Enemy.h"
 #include "Map.h"
+#include "Boss.h"
 
 
 CSimon* CSimon::__instance = NULL;
@@ -271,7 +272,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						{
 							CEnemy* torch = dynamic_cast<CEnemy*>(e->obj);
 
-							if (torch->GetState() == TORCH_STATE_EXSIST)
+							if ((torch->GetState() == TORCH_STATE_EXSIST) ||
+								((torch->GetState() == BOSS_STATE_ATTACK || torch->GetState() == BOSS_STATE_FLY)) && torch->GetType() == eType::BOSS)
 							{
 								if (untouchable == 0)
 								{
@@ -330,7 +332,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					CollisionWithGate(dt, listGate, min_tx, min_ty, nx, ny);
 					listGate.clear();
 				}
-
+				
 
 			}
 
@@ -440,7 +442,7 @@ void CSimon::Render()
 		id = SIMON_ANI_TRANS;
 	}
 	int alpha = 255;
-	if (isOnStair || (untouchable && GetTickCount() - untouchable_start > SIMON_HURT_TIME)) alpha = 128;
+	if ( untouchable &&( isOnStair || GetTickCount() - untouchable_start > SIMON_HURT_TIME)) alpha = 128;
 	animations[id]->Render(x, y, nx, alpha);
 	RenderBoundingBox();
 
@@ -449,11 +451,11 @@ void CSimon::Render()
 
 void CSimon::SetState(int state)
 {
-	if (animations[SIMON_ANI_STANDING_ATTACKING]->GetCurrentFrame() > 0)
+	if (animations[SIMON_ANI_STANDING_ATTACKING]->GetCurrentFrame() > 0 && this->state == SIMON_STATE_STAND_ATTACK)
 	{
 
 	}
-	else if (animations[SIMON_ANI_SITTING_ATTACKING]->GetCurrentFrame() > 0)
+	else if (animations[SIMON_ANI_SITTING_ATTACKING]->GetCurrentFrame() > 0 && this->state == SIMON_STATE_SIT_ATTACK)
 	{
 
 	}
@@ -781,7 +783,18 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 		{
 			CFishman::Start();
 		}
-
+		else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_1)
+		{
+			CGhost::Start();
+		}
+		else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_STOP_1)
+		{
+			CGhost::Stop();
+		}
+		else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
+		{
+			//CGhost::Start();
+		}
 		if (ohiden->getNx() * ohiden->getNy() > 0)
 		{
 			_stairTrend = 1;

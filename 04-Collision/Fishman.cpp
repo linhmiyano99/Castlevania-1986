@@ -7,7 +7,7 @@ bool CFishman::isStart = false;
 
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (TORCH_STATE_EXSIST)
+	if (state == TORCH_STATE_EXSIST)
 	{
 		if (isJumping) {
 			if (y <= 448)

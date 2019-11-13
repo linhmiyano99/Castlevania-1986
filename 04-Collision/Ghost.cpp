@@ -1,5 +1,7 @@
 #include"Ghost.h"
 
+bool CGhost::isStart = true;
+
 void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 

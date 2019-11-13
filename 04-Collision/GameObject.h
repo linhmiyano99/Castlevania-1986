@@ -51,6 +51,7 @@ public:
 	DWORD dt;
 
 	int _type;
+	int _energy;
 
 	vector<LPANIMATION> animations;
 	LPANIMATION animation;
@@ -91,6 +92,8 @@ public:
 	int GetID() { return id; }
 	void SetID(int id) { this->id = id; }
 
+	int GetEnergy() { return _energy; }
+	void Hurt() { _energy -= 2; }
 	~CGameObject();
 };
 

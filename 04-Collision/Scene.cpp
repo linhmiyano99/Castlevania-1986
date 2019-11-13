@@ -49,7 +49,7 @@ void CScene::LoadResoure()
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
-		simon->SetPosition(3700.0f, 20.0f);
+		simon->SetPosition(5000.0f, 20.0f);
 		objects.push_back(simon);
 		boss = CBoss::GetInstance();
 		boss->SetPosition(5340.0f, 95.0f);
@@ -159,9 +159,12 @@ void CScene::Update(DWORD dt)
 		else if (id == 4 && cx > 5356)
 		{
 			id = 5;
+			boss->SetState(BOSS_STATE_FLY);
 		}
 		else
+		{
 			cy = 0;
+		}
 		
 		// Update camera to follow simon
 		cx -= SCREEN_WIDTH / 2 - 40;

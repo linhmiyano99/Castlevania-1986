@@ -14,7 +14,7 @@
 #define ITEM_STATE_EXSIST 1
 
 #define TYPE_ITEM		 0
-#define ITEM_GRAVITY	 0.05f
+#define ITEM_GRAVITY	 0.02f
 #define TIME_ITEM_EXSIST 5000
 
 

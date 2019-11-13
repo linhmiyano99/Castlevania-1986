@@ -2,6 +2,7 @@
 #include "Torch.h"
 #include "Enemy.h"
 #include "Game.h"
+#include "Boss.h"
 CVampireKiller* CVampireKiller::__instance = NULL;
 
 CVampireKiller* CVampireKiller::GetInstance()
@@ -128,7 +129,7 @@ void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj
 				rect1.bottom = (int)b1;
 				if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 				{
-					torch->SetState(TORCH_STATE_NOT_EXSIST);
+					
 					CSimon* simon = CSimon::GetInstance();
 					if (torch->GetType() == eType::GHOST)
 						simon->SetScore(100);
@@ -138,6 +139,9 @@ void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj
 						simon->SetScore(200);
 					else if (torch->GetType() == eType::FISHMEN)
 						simon->SetScore(300);
+					else if (torch->GetType() == eType::BOSS)
+						torch->Hurt();
+					torch->SetState(TORCH_STATE_NOT_EXSIST);
 				}
 			}
 		}

@@ -288,6 +288,10 @@ CManagementTexture::CManagementTexture()
 	animations->Add(1091, ani); // boss run 
 
 	ani = new CAnimation(100);
+	ani->Add(30015);
+	animations->Add(1092, ani); // boss attack
+
+	ani = new CAnimation(100);
 	ani->Add(70000);
 	animations->Add(1100, ani); // smallball 
 

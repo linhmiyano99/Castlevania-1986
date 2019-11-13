@@ -16,6 +16,7 @@ CGameObject::CGameObject(float _x, float _y, int type)
 	nx = 1;
 	state = 1;
 	_type = type;
+	_energy = 1;
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
