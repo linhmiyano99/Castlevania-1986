@@ -50,7 +50,8 @@
 #define ID_WEAPON_VAMPIREKILLER		0
 #define ID_WEAPON_DAGGER			1
 
-#define ATTACK_TIME			100
+#define ATTACK_TIME			300
+#define ATTACK_TIME_WAIT	500
 #define JUMP_TIME			0
 
 using namespace std;
@@ -59,6 +60,7 @@ class CSimon : public CGameObject
 	int untouchable;
 	DWORD untouchable_start;
 	DWORD trans_start;
+	DWORD attack_start;
 	unordered_map<int, CWeapon*> weapons;
 
 	static CSimon* __instance;

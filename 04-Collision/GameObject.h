@@ -93,7 +93,7 @@ public:
 	void SetID(int id) { this->id = id; }
 
 	int GetEnergy() { return _energy; }
-	void Hurt() { _energy -= 2; }
+	virtual void Hurt() { _energy -= 2; }
 	~CGameObject();
 };
 

@@ -36,7 +36,7 @@ void CScene::LoadResoure()
 	if (id == 0) {
 		map->SetMap(0);
 		
-		grid->LoadObject("map/Obj1.txt");
+		grid->LoadObject("texture/Obj1.txt");
 		simon = CSimon::GetInstance();
 		simon->SetPosition(0.0f, 20.0f);
 		objects.push_back(simon);
@@ -45,7 +45,7 @@ void CScene::LoadResoure()
 	{
 		map->SetMap(1);
 		
-		grid->LoadObject("map/Obj2.txt");
+		grid->LoadObject("texture/Obj2.txt");
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();

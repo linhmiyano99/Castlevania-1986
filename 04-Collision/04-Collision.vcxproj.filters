@@ -167,6 +167,9 @@
     <ClInclude Include="SmallBall.h">
       <Filter>framework\GameObject\enemy\Enemy_shot</Filter>
     </ClInclude>
+    <ClInclude Include="ItemBossball.h">
+      <Filter>framework\GameObject\item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -273,6 +276,9 @@
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBossBall.cpp">
+      <Filter>framework\GameObject\item</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -53,6 +53,20 @@ CSimon::CSimon() : CGameObject()
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (attack_start > 0)
+	{
+		if (GetTickCount() - attack_start < ATTACK_TIME)
+		{
+		}
+		else if (GetTickCount() - attack_start < ATTACK_TIME_WAIT)
+		{
+			state = SIMON_STATE_IDLE;
+		}
+		else
+		{
+			attack_start = 0;
+		}
+	}
 	if (_energy <= 0 || y > 780)
 	{
 		if (_lives > 0)
@@ -451,11 +465,15 @@ void CSimon::Render()
 
 void CSimon::SetState(int state)
 {
-	if (animations[SIMON_ANI_STANDING_ATTACKING]->GetCurrentFrame() > 0 && this->state == SIMON_STATE_STAND_ATTACK)
+	/*if (animations[SIMON_ANI_STANDING_ATTACKING]->GetCurrentFrame() > 0 && this->state == SIMON_STATE_STAND_ATTACK)
 	{
 
 	}
 	else if (animations[SIMON_ANI_SITTING_ATTACKING]->GetCurrentFrame() > 0 && this->state == SIMON_STATE_SIT_ATTACK)
+	{
+
+	}*/
+	if (attack_start > 0)
 	{
 
 	}
@@ -499,6 +517,7 @@ void CSimon::SetState(int state)
 			break;
 
 		case SIMON_STATE_SIT_ATTACK:
+			attack_start = GetTickCount();
 			vx = 0;
 			break;
 		case SIMON_STATE_SIT:
@@ -506,9 +525,11 @@ void CSimon::SetState(int state)
 			vx = 0;
 			break;
 		case SIMON_STATE_STAND_ATTACK:
+			attack_start = GetTickCount();
 			vx = 0;
 			break;
 		case SIMON_STATE_ATTACK_DAGGER:
+			attack_start = GetTickCount();
 			vx = 0;
 			if (_heart > 0 && !(weapons.find(eType::DAGGER) == weapons.end()))
 			{
@@ -590,7 +611,7 @@ void CSimon::CollisionWithItem(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 {
 	for (int i = 0; i < listObj.size(); i++)
 	{
-		if (listObj.at(i)->GetState() == ITEM_STATE_EXSIST)
+		if ((listObj.at(i)->GetState() == ITEM_STATE_EXSIST && listObj.at(i)->GetType() != eType::BOSS) || (listObj.at(i)->GetState() == BOSS_STATE_ITEM && listObj.at(i)->GetType() == eType::BOSS))
 		{
 			if (listObj.at(i)->GetType() == eType::WHIPUPGRADE)
 			{
@@ -627,8 +648,10 @@ void CSimon::CollisionWithItem(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 			{
 				_score += 1000;
 			}
-
-			listObj.at(i)->SetState(ITEM_STATE_NOT_EXSIST);
+			if(listObj.at(i)->GetType() == eType::BOSS)
+				listObj.at(i)->SetState(BOSS_STATE_ITEM_NOT_EXSIST);
+			else
+				listObj.at(i)->SetState(ITEM_STATE_NOT_EXSIST);
 		}
 	}
 }

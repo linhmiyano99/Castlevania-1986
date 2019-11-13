@@ -44,7 +44,7 @@ enum eType
 	OBJECT_HIDDEN_GHOST_1 = 37,
 	OBJECT_HIDDEN_GHOST_STOP_1 = 38,
 	OBJECT_HIDDEN_GHOST_2 = 39,
-	
+
 
 	// weapon
 	VAMPIREKILLER = 41,
@@ -63,6 +63,7 @@ enum eType
 	CLOCK = 60,
 	AXE = 61,
 	CROSS = 62,
+	BOSSBALL = 63,
 
 
 	// other

@@ -29,6 +29,10 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
+			if (GetTickCount() - start_hurt > BOSS_TIME_HURT)
+			{
+				start_hurt = 0;
+			}
 			float s_x, s_y;
 			CSimon* simon = CSimon::GetInstance();
 			simon->GetPosition(s_x, s_y);
@@ -90,12 +94,12 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				item->Update(dt, coObjects);
 				item->GetPosition(x, y);
-				state = TORCH_STATE_ITEM;
+				state = BOSS_STATE_ITEM;
 			}
 		}
 		else
 		{
-			state = ITEM_STATE_NOT_EXSIST;
+			state = BOSS_STATE_ITEM_NOT_EXSIST;
 		}
 	}
 
@@ -121,7 +125,7 @@ void CBoss::Render()
 	}
 	else if (state == BOSS_STATE_ITEM)
 	{
-		if (item != NULL)
+		if (item)
 			item->Render();
 
 	}
@@ -150,4 +154,12 @@ void CBoss::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 		bottom = y + BOSS_BBOX_HEIGHT;
 	}
 	
+}
+void CBoss::Hurt()
+{ 
+	if (start_hurt == 0)
+	{
+		_energy -= 2;
+		start_hurt = GetTickCount();
+	}
 }

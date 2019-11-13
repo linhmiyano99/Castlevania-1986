@@ -8,7 +8,7 @@ CManagementTexture::CManagementTexture()
 {
 	CTextures* textures = CTextures::GetInstance();
 
-	textures->Add(ID_TEX_BBOX, L"map\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_BBOX, L"texture\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX, L"texture\\texture.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	CSprites* sprites = CSprites::GetInstance();
@@ -219,6 +219,11 @@ CManagementTexture::CManagementTexture()
 	ani = new CAnimation(100);
 	ani->Add(13011);
 	animations->Add(711, ani);//cross - item
+
+	ani = new CAnimation(100);
+	ani->Add(13012);
+	ani->Add(13013);
+	animations->Add(712, ani);//boss ball - item
 
 
 #pragma endregion

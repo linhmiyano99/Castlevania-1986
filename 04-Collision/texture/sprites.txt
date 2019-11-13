@@ -334,6 +334,20 @@ right= 502
 bottom= 236
 idTexture= 1
 
+id= 13012
+left= 587
+top= 244
+right= 614
+bottom= 272
+idTexture= 1
+
+id= 13013
+left= 614
+top= 244
+right= 641
+bottom= 272
+idTexture= 1
+
 id= 13100
 left= 318
 top= 156

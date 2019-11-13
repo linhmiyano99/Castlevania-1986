@@ -54,10 +54,10 @@ void CMap::LoadMap()
 	switch (_scene)
 	{
 	case 0:
-		inFile.open("map/map.txt");
+		inFile.open("texture/map.txt");
 		break;
 	case 1:
-		inFile.open("map/map2.txt");
+		inFile.open("texture/map2.txt");
 		break;
 	default:
 		break;
