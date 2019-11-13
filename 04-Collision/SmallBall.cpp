@@ -22,11 +22,11 @@ void CSmallBall::Render()
 }
 void CSmallBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	/*if (x <= CScene::GetInstance()->GetLeft() || x >= CScene::GetInstance()->GetRight())
+	if (x <= CScene::GetInstance()->GetLeft() || x >= CScene::GetInstance()->GetRight())
 	{
 		state = SMALLBALL_NOT_EXSIST;
 		return;
-	}*/
+	}
 	if (state == SMALLBALL_EXSIST)
 	{
 		x += vx * dt;

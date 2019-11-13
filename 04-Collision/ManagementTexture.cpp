@@ -302,8 +302,8 @@ CManagementTexture::CManagementTexture()
 	ani = new CAnimation(2000);
 	ani->Add(40000);
 	ani->Add(40000);
-	ani->Add(40001);
 	ani->Add(40002);
+	ani->Add(40001);
 	ani->Add(40000);
 	ani->Add(40000);
 	ani->Add(40000);

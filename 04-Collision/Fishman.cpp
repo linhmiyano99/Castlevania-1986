@@ -119,7 +119,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else
 			{
-				if (item != NULL) {//co item
+				if (item) {//co item
 					if (GetTickCount() - dt_die > 150) // cho 150 mili second
 					{
 
@@ -128,6 +128,8 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						state = TORCH_STATE_ITEM;
 					}
 				}
+				else
+					state = ITEM_STATE_NOT_EXSIST;
 			}
 		}
 		if (x > 3065 && x < 3505)

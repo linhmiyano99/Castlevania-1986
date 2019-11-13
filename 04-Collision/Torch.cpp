@@ -93,6 +93,8 @@ void CTorch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			dt_die = GetTickCount();
 			if (item)
 				item->SetPosition(x, y);
+			else
+				state = ITEM_STATE_NOT_EXSIST;
 		}
 	}
 	else

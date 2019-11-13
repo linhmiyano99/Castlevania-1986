@@ -63,6 +63,8 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				item->SetPosition(x, y);
 			}
+			else
+				state = ITEM_STATE_NOT_EXSIST;
 		}
 	}
 	else

@@ -440,7 +440,7 @@ void CSimon::Render()
 		id = SIMON_ANI_TRANS;
 	}
 	int alpha = 255;
-	if (untouchable && GetTickCount() - untouchable_start > SIMON_HURT_TIME ) alpha = 128;
+	if (isOnStair || (untouchable && GetTickCount() - untouchable_start > SIMON_HURT_TIME)) alpha = 128;
 	animations[id]->Render(x, y, nx, alpha);
 	RenderBoundingBox();
 
@@ -818,6 +818,8 @@ void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 
 		//// block 
 		if (nx != 0) vx = nx * 0.2f;
+		else
+			vx = nx;
 		vy = -0.2f;
 		_energy -= 2;
 		if ((min_tx <= min_tx0 || min_ty <= min_ty0) && _energy >0)

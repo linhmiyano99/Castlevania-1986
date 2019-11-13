@@ -8,6 +8,10 @@
 #define BOSS_ANI_FLYING	   1
 #define BOSS_ANI_ATTACKING 2
 
+#define BOSS_STATE_SLEPP   0
+#define BOSS_STATE_FLY	   1	
+#define BOSS_STATE_ATTACK  2	
+
 class CBoss : public CEnemy
 {
 	int _energy;
@@ -21,7 +25,7 @@ public:
 		AddAnimation(1090);
 		AddAnimation(1091);
 		AddAnimation(800);
-		vx = 0.0f;
+		vx = 0.2f;
 		vy = 0.1f;
 		_energy = 16;
 	}

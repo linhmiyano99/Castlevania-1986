@@ -482,9 +482,9 @@ bottom= 212
 idTexture= 1
 
 id= 40002
-left= 88
+left= 95
 top= 118
-right= 120
+right= 180
 bottom= 212
 idTexture= 1
 

@@ -38,7 +38,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
-			if (item != NULL) {//co item
+			if (item) {//co item
 				if (GetTickCount() - dt_die > 150) // cho 150 mili second
 				{
 					item->Update(dt, coObjects);
@@ -46,9 +46,14 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					state = TORCH_STATE_ITEM;
 				}
 			}
+			else
+				state = ITEM_STATE_NOT_EXSIST;
 		}
 	}
-	
+	if (x <= scene->GetLeft() + 20 || x >= scene->GetRight() - 100)
+		vx = -vx;
+	if (y <= 40 || y >= SCREEN_HEIGHT - 100)
+		vy = -vy;
 
 }
 void CBoss::Render()
