@@ -1,8 +1,8 @@
 #pragma once
 #include "Enemy.h"
 
-#define GHOST_BBOX_WIDTH  40
-#define GHOST_BBOX_HEIGHT 60
+#define BOSS_BBOX_WIDTH  100
+#define BOSS_BBOX_HEIGHT 50
 
 #define BOSS_ANI_SLEEPING  0
 #define BOSS_ANI_FLYING	   1

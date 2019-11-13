@@ -14,7 +14,6 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (state == BOSS_STATE_SLEEP)
 	{
-		//start_attack = GetTickCount();
 		return;
 	}
 	if (state == BOSS_STATE_ITEM_NOT_EXSIST)
@@ -134,7 +133,7 @@ void CBoss::Render()
 
 		}
 	}
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 void CBoss::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -143,12 +142,12 @@ void CBoss::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	{
 		item->GetBoundingBox(left, top, right, bottom);
 	}
-	else if (state != BOSS_STATE_ITEM_NOT_EXSIST)
+	else if (state == BOSS_STATE_FLY || state == BOSS_STATE_ATTACK)
 	{
 		left = x;
 		top = y;
-		right = x + GHOST_BBOX_WIDTH;
-		bottom = y + GHOST_BBOX_HEIGHT;
+		right = x + BOSS_BBOX_WIDTH;
+		bottom = y + BOSS_BBOX_HEIGHT;
 	}
 	
 }
