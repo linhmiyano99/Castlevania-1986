@@ -4,7 +4,7 @@
 #define GHOST_BBOX_WIDTH 40
 #define GHOST_BBOX_HEIGHT 60
 
-#define FISHMAN_RUNNING_SPEED_X 0.01f;
+#define FISHMAN_RUNNING_SPEED_X 0.15f;
 #define FISHMAN_RUNNING_SPEED_Y 0.5f;
 
 #define FISHMAN_ANI_JUMPING 0
@@ -34,10 +34,9 @@ public:
 		AddAnimation(1006);
 		AddAnimation(1100);
 		isJumping = true;
-		vy = -0.5f;
 		ny = -1;
-		vx =  - 0.15f;
 		nx = -1;
+		vx = vy = 0;
 		start_attack = GetTickCount();
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -46,4 +45,10 @@ public:
 	bool IsAttacking() { return isAttacking; }
 	static void Start() { isStart = true; }
 	static bool IsStart() { return isStart; }
+	void Go() {
+		if (isJumping) {
+			vx = nx * FISHMAN_RUNNING_SPEED_X;
+			vy = ny * FISHMAN_RUNNING_SPEED_Y;
+		}
+	}
 };

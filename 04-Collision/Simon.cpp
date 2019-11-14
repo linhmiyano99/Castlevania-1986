@@ -61,10 +61,19 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else if (GetTickCount() - attack_start < ATTACK_TIME_WAIT)
 		{
-			state = SIMON_STATE_IDLE;
+			if (state == SIMON_STATE_SIT_ATTACK)
+			{
+				y -= 20;
+				state = SIMON_STATE_SIT;
+			}
+			else
+			{
+				state = SIMON_STATE_IDLE;
+			}
 		}
 		else
 		{
+			
 			attack_start = 0;
 		}
 	}

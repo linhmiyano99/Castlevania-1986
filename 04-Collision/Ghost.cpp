@@ -1,10 +1,11 @@
 #include"Ghost.h"
 
-bool CGhost::isStart = true;
+bool CGhost::isStart = false;
 
 void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
+	if (vx == 0 && vy == 0)
+		return;
 	if (dt_die == 0)
 	{
 		if (state == TORCH_STATE_EXSIST)

@@ -94,6 +94,7 @@ public:
 
 	int GetEnergy() { return _energy; }
 	virtual void Hurt() { _energy -= 2; }
+	virtual void Go(){}
 	~CGameObject();
 };
 

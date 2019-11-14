@@ -17,13 +17,13 @@ public:
 		AddAnimation(1000);
 		AddAnimation(800);
 		nx = -1;
-		vx = nx * 0.1f;
+		vx = vy = 0;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	static void Start() { isStart = true; }
 	static void Stop() { isStart = false; }
 	static bool IsStart() { return isStart; }
-		
+	void Go() { vx = nx * GHOST_SPEED; }
 	
 };

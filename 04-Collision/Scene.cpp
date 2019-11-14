@@ -199,6 +199,18 @@ void CScene::Update(DWORD dt)
 
 		for (int i = 0; i < objects.size(); i++)
 		{
+
+			if (CGhost::IsStart())
+			{
+				
+				if (objects[i]->GetType() == eType::GHOST)
+					objects[i]->Go();
+			}
+			else if (CFishman::IsStart())
+			{
+				if (objects[i]->GetType() == eType::FISHMEN )
+					objects[i]->Go();
+			}
 			objects[i]->Update(dt, &coObjects);
 		}
 
