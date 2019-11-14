@@ -251,11 +251,21 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else if (GetTickCount() - untouchable_start < SIMON_HURT_TIME && untouchable == 1)
 		{
-			state = SIMON_STATE_HURT;
+			if(!isOnStair)
+				state = SIMON_STATE_HURT;
 		}
 		else
 		{
-			state = SIMON_STATE_IDLE;
+			if (!isOnStair)
+			{
+				if (attack_start > 0)
+				{
+					animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
+					animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
+					attack_start = 0;
+				}
+				state = SIMON_STATE_IDLE;
+			}
 		}
 
 		// No collision occured, proceed normally
@@ -389,10 +399,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				else if (dynamic_cast<CGate*>(e->obj))
 				{
 					CGate* torch = dynamic_cast<CGate*>(e->obj);
+					if (CBoss::GetInstance()->GetState() == BOSS_STATE_ITEM_NOT_EXSIST && CScene::GetInstance()->GetStage() == 3)
+					{
 
-					listGate.push_back(torch);
-					CollisionWithGate(dt, listGate, min_tx, min_ty, nx, ny);
-					listGate.clear();
+					}
+					else {
+						listGate.push_back(torch);
+						CollisionWithGate(dt, listGate, min_tx, min_ty, nx, ny);
+						listGate.clear();
+					}
 				}
 
 

@@ -30,6 +30,7 @@ void CSmallBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state == SMALLBALL_EXSIST)
 	{
 		x += vx * dt;
+		y += vy * dt;
 		RECT rect, rect1;
 		float l, t, r, b;
 		float l1, t1, r1, b1;

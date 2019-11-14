@@ -67,7 +67,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else
 				{
-					smallball->SetSpeed(0.25f * nx, 1.0 * (s_y - y) / (s_x - x) * nx);
+					smallball->SetSpeed(0.25f * nx, 1.0 * (s_y - y) / (s_x - x) * nx * 0.25f);
 				}
 				CScene::GetInstance()->AddSmallBall(smallball);
 				return;
@@ -85,7 +85,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			x += dx;
 			y += dy;
 
-			if (x <= CScene::GetInstance()->GetLeft() + 50 || x >= CScene::GetInstance()->GetRight() - 100)
+			if (x <= CScene::GetInstance()->GetLeft() + 20 || x >= CScene::GetInstance()->GetRight() - 100)
 				vx = -vx;
 			if (y <= 80 || y >= SCREEN_HEIGHT - 80)
 				vy = -vy;
