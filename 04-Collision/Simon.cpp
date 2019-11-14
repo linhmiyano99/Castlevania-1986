@@ -618,7 +618,6 @@ void CSimon::SetState(int state)
 					CAxe* dagger = CAxe::GetInstance();
 					if (dagger->GetState() == DAGGER_STATE_ATTACK)
 					{
-						dagger->GetAnimation()->ResetFrame();
 						this->state = SIMON_STATE_IDLE;
 					}
 				}

@@ -1,6 +1,8 @@
 ﻿#include "Game.h"
 #include "Dagger.h"
 #include "Torch.h"
+#include "Boss.h"
+
 CDagger* CDagger::__instance = NULL;
 
 CDagger* CDagger::GetInstance()
@@ -77,16 +79,46 @@ void CDagger::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 		{
 			if (dynamic_cast<CTorch*>(listObj.at(i)))
 			{
-				if (listObj.at(i)->GetState() == TORCH_STATE_EXSIST)
+				CTorch* torch = dynamic_cast<CTorch*>(listObj.at(i));
+				if (torch->GetState() == TORCH_STATE_EXSIST ||
+					((torch->GetState() == BOSS_STATE_ATTACK || torch->GetState() == BOSS_STATE_FLY) && torch->GetType() == eType::BOSS))
 				{
-					listObj.at(i)->GetBoundingBox(l1, t1, r1, b1);
+					if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
+						continue;
+					torch->GetBoundingBox(l1, t1, r1, b1);
 					rect1.left = (int)l1;
 					rect1.top = (int)t1;
 					rect1.right = (int)r1;
 					rect1.bottom = (int)b1;
 					if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 					{
-						listObj.at(i)->SetState(TORCH_STATE_NOT_EXSIST);
+						torch->Hurt();
+
+						if (torch->GetEnergy() <= 0)
+						{
+							CSimon* simon = CSimon::GetInstance();
+							if (torch->GetType() == eType::GHOST)
+								simon->SetScore(100);
+							else if (torch->GetType() == eType::PANTHER)
+								simon->SetScore(300);
+							else if (torch->GetType() == eType::BAT)
+								simon->SetScore(200);
+							else if (torch->GetType() == eType::FISHMEN)
+								simon->SetScore(300);
+
+							if (torch->GetEnergy() <= 0)
+							{
+								if (torch->GetType() == eType::BOSS)
+								{
+									torch->SetState(BOSS_STATE_NOT_EXSIST);
+									simon->SetScore(1000);
+								}
+								else
+								{
+									torch->SetState(TORCH_STATE_NOT_EXSIST);
+								}
+							}
+						}
 						this->state = DAGGER_STATE_HIDE;
 						break;
 					}

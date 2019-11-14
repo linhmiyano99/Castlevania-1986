@@ -38,6 +38,7 @@ public:
 	void Update(DWORD dt);
 	void Render();
 	void SetWeapon(int weapon) { _weapon = weapon; }
+	int GetWeapon() { return _weapon; }
 	int GetTime() { return _time; }
 	void TimeDown() {
 		if (GetTickCount() - _count >= 50 && _time > 0)
