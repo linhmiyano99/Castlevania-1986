@@ -403,10 +403,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 
 					}
-					else {
-						listGate.push_back(torch);
-						CollisionWithGate(dt, listGate, min_tx, min_ty, nx, ny);
-						listGate.clear();
+					else{
+					listGate.push_back(torch);
+					CollisionWithGate(dt, listGate, min_tx, min_ty, nx, ny);
+					listGate.clear();
 					}
 				}
 
