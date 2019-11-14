@@ -91,6 +91,27 @@ void CScene::LoadSimon()
 
 void CScene::Update(DWORD dt)
 {
+	if (board->IsStop())
+	{
+		if (simon->GetEnergy() < 16)
+		{
+			simon->UpEnergy();
+		}
+		else if (board->GetTime() > 0)
+		{
+			board->TimeDown();
+		}
+		else if (simon->GetHeart() > 0)
+		{
+			simon->HeartDown();
+		}
+		else
+		{
+			goto A;
+		}
+		return;
+	}
+	A:
 	board->Update(dt);
 	for each (LPGAMEOBJECT var in smallballs)
 	{

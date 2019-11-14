@@ -6,7 +6,7 @@ CBoss* CBoss::__instance = NULL;
 
 CBoss* CBoss::GetInstance()
 {
-	if (__instance == NULL) __instance = new CBoss(5311, 100, 0);
+	if (__instance == NULL) __instance = new CBoss(5311, 100);
 	return __instance;
 }
 
@@ -17,7 +17,9 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 	if (state == BOSS_STATE_ITEM_NOT_EXSIST)
+	{
 		return;
+	}
 	
 
 	if (dt_die == 0)
@@ -26,6 +28,8 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			dt_die = GetTickCount();
 			if (item)
 				item->SetPosition(x, y);
+			else
+				state = BOSS_STATE_ITEM_NOT_EXSIST;
 		}
 		else
 		{
@@ -81,7 +85,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			x += dx;
 			y += dy;
 
-			if (x <= CScene::GetInstance()->GetLeft() || x >= CScene::GetInstance()->GetRight() - 100)
+			if (x <= CScene::GetInstance()->GetLeft() + 50 || x >= CScene::GetInstance()->GetRight() - 100)
 				vx = -vx;
 			if (y <= 80 || y >= SCREEN_HEIGHT - 80)
 				vy = -vy;
@@ -122,12 +126,12 @@ void CBoss::Render()
 		{
 			animations[BOSS_ANI_FLYING]->Render(x, y, nx, 255);
 		}
-	}
-	else if (state == BOSS_STATE_ITEM)
-	{
-		if (item)
-			item->Render();
+		else if (state == BOSS_STATE_ITEM)
+		{
+			if (item)
+				item->Render();
 
+		}
 	}
 	else
 	{

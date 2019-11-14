@@ -56,7 +56,7 @@ CTorch::CTorch(float _x, float _y, int id, int type) : CGameObject(_x, _y, type)
 		break;
 	case ID_BOSSBALL:
 		item = new CItemBossBall(_x, _y);
-
+		break;
 	default:
 		item = NULL;
 		break;

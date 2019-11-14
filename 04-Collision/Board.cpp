@@ -1,6 +1,5 @@
 #include "Board.h"
 #include "Boss.h"
-#include "Simon.h"
 #include "Scene.h"
 
 CBoard* CBoard::__instance = NULL;
@@ -13,6 +12,10 @@ CBoard* CBoard::GetInstance()
 
 void CBoard::Update(DWORD dt)
 {
+	if (isStop)
+	{
+		return;
+	}
 	if (GetTickCount() - _count >= 1000)
 	{
 		_time--;

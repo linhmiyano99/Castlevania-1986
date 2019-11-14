@@ -61,6 +61,7 @@ class CSimon : public CGameObject
 	DWORD untouchable_start;
 	DWORD trans_start;
 	DWORD attack_start;
+	DWORD _count;
 	unordered_map<int, CWeapon*> weapons;
 
 	static CSimon* __instance;
@@ -86,6 +87,15 @@ public:
 	CVampireKiller* getWeapon(int i = 0) { return (CVampireKiller *)(weapons[0]); }
 	int GetHeart() { return _heart; }
 	void SetHeart(int heart) { _heart = heart; }
+	void HeartDown()
+	{
+		if (GetTickCount() - _count >= 50)
+		{
+			_count = GetTickCount();
+			_score += 100;
+			_heart--;
+		}
+	}
 	void CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
 	void CollisionWithTorch(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
 	void CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx, float min_ty, int nx, int ny);
@@ -101,5 +111,13 @@ public:
 	int GetScore() { return _score; }
 	void SetScore(int score) { _score += score; }
 	int GetLives() { return _lives; }
+	void UpEnergy() 
+	{
+		if (GetTickCount() - _count >= 50)
+		{
+			_count = GetTickCount();
+			_energy++;
+		}
+	}
 };
 #endif

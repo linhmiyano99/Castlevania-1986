@@ -28,14 +28,14 @@ class CBoss : public CEnemy
 public:
 	static CBoss* GetInstance();
 
-	CBoss(float _x, float _y, int id = 10) :CEnemy(_x, _y, id, eType::BOSS)
+	CBoss(float _x, float _y) :CEnemy(_x, _y, ID_BOSSBALL, eType::BOSS)
 	{
 		animations.clear();
 		AddAnimation(1090);
 		AddAnimation(1091);
 		AddAnimation(1092);
 		AddAnimation(800);
-		_energy = 16;
+		_energy = 2;
 		start_attack = 0;
 		start_hurt = 0;
 		vx = vy = 0;

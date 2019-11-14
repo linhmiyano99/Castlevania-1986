@@ -36,6 +36,7 @@ CSimon::CSimon() : CGameObject()
 	auto_x = -1;
 	_score = 0;
 	_lives = 3;
+	_count = 0;
 	
 	CSimon::AddAnimation(400);		//0. idle left 
 	CSimon::AddAnimation(401);		//1. walk left
@@ -281,13 +282,50 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 
 					CTorch* torch = dynamic_cast<CTorch*>(e->obj);
-					
-						if (dynamic_cast<CEnemy*>(torch))
-						{
-							CEnemy* torch = dynamic_cast<CEnemy*>(e->obj);
 
-							if ((torch->GetState() == TORCH_STATE_EXSIST) ||
-								((torch->GetState() == BOSS_STATE_ATTACK || torch->GetState() == BOSS_STATE_FLY)) && torch->GetType() == eType::BOSS)
+					if (dynamic_cast<CEnemy*>(torch))
+					{
+						CEnemy* torch = dynamic_cast<CEnemy*>(e->obj);
+						if (dynamic_cast<CBoss*>(torch))
+						{
+							CBoss* boss = dynamic_cast<CBoss*>(e->obj);
+							if (boss->GetState() == BOSS_STATE_ATTACK || boss->GetState() == BOSS_STATE_FLY)
+							{
+								if (untouchable == 0)
+								{
+									listEnemy.push_back(torch);
+									CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
+									if (dynamic_cast<CBat*>(torch))
+									{
+										CBat* bat = dynamic_cast<CBat*>(e->obj);
+										bat->SetState(TORCH_STATE_NOT_EXSIST);
+									}
+									else if (dynamic_cast<CPanther*>(torch))
+									{
+										CPanther* panther = dynamic_cast<CPanther*>(e->obj);
+										float _x, _y;
+										panther->GetPosition(_x, _y);
+										if (_x > x)
+											nx = 1;
+										else
+											nx = -1;
+
+									}
+									StartUntouchable();
+								}
+								listEnemy.clear();
+							}
+							else
+							{
+								if (dynamic_cast<CItem*>(torch->GetItem()))
+								{
+									listEnemy.push_back(torch->GetItem());
+									CollisionWithItem(dt, listEnemy);
+								}
+							}
+						}
+						else {
+							if ((torch->GetState() == TORCH_STATE_EXSIST))
 							{
 								if (untouchable == 0)
 								{
@@ -321,13 +359,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								}
 							}
 						}
-						else {
-							listTorch.push_back(torch);
-							CollisionWithTorch(dt, listTorch, min_tx, min_ty, nx, ny);
-							listTorch.clear();
-						}
-					
-				
+					}
+					else {
+						listTorch.push_back(torch);
+						CollisionWithTorch(dt, listTorch, min_tx, min_ty, nx, ny);
+						listTorch.clear();
+					}
+
+
 				}
 
 				else if (dynamic_cast<CHidenObject*>(e->obj))
@@ -346,7 +385,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					CollisionWithGate(dt, listGate, min_tx, min_ty, nx, ny);
 					listGate.clear();
 				}
-				
+
 
 			}
 
@@ -648,8 +687,15 @@ void CSimon::CollisionWithItem(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 			{
 				_score += 1000;
 			}
-			if(listObj.at(i)->GetType() == eType::BOSS)
+			else if (listObj.at(i)->GetType() == eType::BOSSBALL)
+			{
+				//_score += 10000;
+			}
+			if (listObj.at(i)->GetType() == eType::BOSSBALL)
+			{
 				listObj.at(i)->SetState(BOSS_STATE_ITEM_NOT_EXSIST);
+				CBoard::GetInstance()->Stop();
+			}
 			else
 				listObj.at(i)->SetState(ITEM_STATE_NOT_EXSIST);
 		}

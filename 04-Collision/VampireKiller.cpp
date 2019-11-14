@@ -131,7 +131,6 @@ void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj
 				if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 				{
 					torch->Hurt();
-					CSimon::GetInstance()->Hurt();
 					
 					if (torch->GetEnergy() <= 0)
 					{

@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Code.h"
 #include "Define.h"
+#include "Simon.h"
 
 
 #define SCORE_X 110
@@ -15,6 +16,7 @@ class CBoard
 	int _weapon;
 	DWORD _count;
 	CCode* code;
+	bool isStop;
 	static CBoard* __instance;
 
 public:
@@ -24,6 +26,7 @@ public:
 		_time = 300;
 		_weapon = 0;
 		_count = GetTickCount();
+		isStop = false;
 		code = new CCode();
 	}
 	~CBoard()
@@ -35,4 +38,16 @@ public:
 	void Update(DWORD dt);
 	void Render();
 	void SetWeapon(int weapon) { _weapon = weapon; }
+	int GetTime() { return _time; }
+	void TimeDown() {
+		if (GetTickCount() - _count >= 50 && _time > 0)
+		{
+			_time--;
+			_count = GetTickCount();
+			CSimon::GetInstance()->SetScore(10);
+
+		}
+	}
+	void Stop() { isStop = true; }
+	bool IsStop() { return isStop; }
 };
