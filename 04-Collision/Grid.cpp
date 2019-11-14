@@ -15,6 +15,7 @@
 #include "Boss.h"
 #include "Board.h"
 #include "Scene.h"
+#include "Axe.h"
 
 
 CGrid* CGrid::__instance = NULL;
@@ -59,6 +60,8 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 	ListObj.push_back(simon);
 	CDagger* dagger = CDagger::GetInstance();
 	ListObj.push_back(dagger);
+	CAxe* axe = CAxe::GetInstance();
+	ListObj.push_back(axe);
 	CBoss* boss = CBoss::GetInstance();
 	ListObj.push_back(boss);
 }

@@ -174,7 +174,7 @@ CManagementTexture::CManagementTexture()
 #pragma region Add sprites Axe
 
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(500);
 	ani->Add(12030);
 	ani->Add(12031);
 	ani->Add(12032);

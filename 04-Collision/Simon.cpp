@@ -222,11 +222,19 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			weapons[eType::VAMPIREKILLER]->SetTrend(nx);
 			weapons[eType::VAMPIREKILLER]->CollisionWithObject(dt, *coObjects);
 		}
-		else if (_heart > 0 && state == SIMON_STATE_ATTACK_DAGGER && !(weapons.find(eType::DAGGER) == weapons.end()) && weapons[eType::DAGGER]->GetState() == DAGGER_STATE_HIDE)
+		else if (_heart > 0 && state == SIMON_STATE_ATTACK_DAGGER && CBoard::GetInstance()->GetWeapon() == eType::DAGGER && weapons[eType::DAGGER]->GetState() == DAGGER_STATE_HIDE)
 		{
 			weapons[eType::DAGGER]->SetState(DAGGER_STATE_ATTACK);
 			weapons[eType::DAGGER]->SetPosition(x, y);
 			weapons[eType::DAGGER]->SetTrend(nx);
+			_heart--;
+
+		}
+		else if (_heart > 0 && state == SIMON_STATE_ATTACK_DAGGER && CBoard::GetInstance()->GetWeapon() == eType::ITEMAXE && weapons[eType::AXE]->GetState() == DAGGER_STATE_HIDE)
+		{
+			weapons[eType::AXE]->SetState(DAGGER_STATE_ATTACK);
+			weapons[eType::AXE]->SetPosition(x, y);
+			weapons[eType::AXE]->SetTrend(nx);
 			_heart--;
 
 		}
@@ -595,12 +603,24 @@ void CSimon::SetState(int state)
 		case SIMON_STATE_ATTACK_DAGGER:
 			attack_start = GetTickCount();
 			vx = 0;
-			if (_heart > 0 && !(weapons.find(eType::DAGGER) == weapons.end()))
+			if (_heart > 0 && (CBoard::GetInstance()->GetWeapon() != 0))
 			{
-				CDagger* dagger = CDagger::GetInstance();
-				if (dagger->GetState() == DAGGER_STATE_ATTACK)
+				if (CBoard::GetInstance()->GetWeapon() == eType::DAGGER)
 				{
-					this->state = SIMON_STATE_IDLE;
+					CDagger* dagger = CDagger::GetInstance();
+					if (dagger->GetState() == DAGGER_STATE_ATTACK)
+					{
+						this->state = SIMON_STATE_IDLE;
+					}
+				}
+				else
+				{
+					CAxe* dagger = CAxe::GetInstance();
+					if (dagger->GetState() == DAGGER_STATE_ATTACK)
+					{
+						dagger->GetAnimation()->ResetFrame();
+						this->state = SIMON_STATE_IDLE;
+					}
 				}
 			}
 			else

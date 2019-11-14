@@ -33,6 +33,9 @@ void CScene::LoadResoure()
 
 	dagger = CDagger::GetInstance();
 	objects.push_back(dagger);
+	axe = CAxe::GetInstance();
+	objects.push_back(axe);
+
 	if (id == 0) {
 		map->SetMap(0);
 		

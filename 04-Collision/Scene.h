@@ -32,6 +32,7 @@
 #include "Boss.h"
 #include "Board.h"
 #include "Grid.h"
+#include "Axe.h"
 
 
 class CScene
@@ -41,6 +42,7 @@ class CScene
 	CBoss* boss;
 	CMap* map;
 	CDagger* dagger;
+	CAxe* axe;
 	CGame* game;
 	CHidenObject* hiden;
 	CBoard* board;
