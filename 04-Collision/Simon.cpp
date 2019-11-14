@@ -11,6 +11,7 @@
 #include "Enemy.h"
 #include "Map.h"
 #include "Boss.h"
+#include "Axe.h"
 
 
 CSimon* CSimon::__instance = NULL;
@@ -686,6 +687,12 @@ void CSimon::CollisionWithItem(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 				CDagger* dagger = CDagger::GetInstance();
 				weapons[eType::DAGGER] = dagger;
 				CBoard::GetInstance()->SetWeapon(eType::DAGGER);
+			}
+			else if (listObj.at(i)->GetType() == eType::ITEMAXE)
+			{
+				CAxe* axe = CAxe::GetInstance();
+				weapons[eType::AXE] = axe;
+				CBoard::GetInstance()->SetWeapon(eType::ITEMAXE);
 			}
 			else if (listObj.at(i)->GetType() == eType::HEART)
 			{

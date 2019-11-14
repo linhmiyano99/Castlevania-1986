@@ -122,6 +122,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Axe.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Boss.h" />
@@ -139,6 +140,7 @@
     <ClInclude Include="Code.h" />
     <ClInclude Include="HidenObject.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemAxe.h" />
     <ClInclude Include="ItemBossball.h" />
     <ClInclude Include="ItemChicken.h" />
     <ClInclude Include="ItemDagger.h" />
@@ -160,6 +162,7 @@
     <ClInclude Include="WhipUpgrade.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Axe.cpp" />
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Boss.cpp" />
@@ -175,6 +178,7 @@
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="HidenObject.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemAxe.cpp" />
     <ClCompile Include="ItemBossBall.cpp" />
     <ClCompile Include="ItemChicken.cpp" />
     <ClCompile Include="ItemDagger.cpp" />

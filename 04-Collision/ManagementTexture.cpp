@@ -171,6 +171,19 @@ CManagementTexture::CManagementTexture()
 	
 #pragma endregion
 
+#pragma region Add sprites Axe
+
+
+	ani = new CAnimation(100);
+	ani->Add(12030);
+	ani->Add(12031);
+	ani->Add(12032);
+	ani->Add(12033);
+	animations->Add(603, ani);//lv3
+
+
+#pragma endregion
+
 #pragma region Add sprites items
 	ani = new CAnimation(100);
 	ani->Add(13000);

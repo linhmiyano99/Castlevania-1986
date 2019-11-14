@@ -49,6 +49,7 @@ enum eType
 	// weapon
 	VAMPIREKILLER = 41,
 	DAGGER = 42,
+	AXE = 43,
 
 	// item
 	HEART = 51,
@@ -61,7 +62,7 @@ enum eType
 	MONEY_3 = 58,
 	MONEY_4 = 59,
 	CLOCK = 60,
-	AXE = 61,
+	ITEMAXE = 61,
 	CROSS = 62,
 	BOSSBALL = 63,
 

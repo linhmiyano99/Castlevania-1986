@@ -170,6 +170,12 @@
     <ClInclude Include="ItemBossball.h">
       <Filter>framework\GameObject\item</Filter>
     </ClInclude>
+    <ClInclude Include="Axe.h">
+      <Filter>framework\GameObject\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemAxe.h">
+      <Filter>framework\GameObject\item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -278,6 +284,12 @@
       <Filter>framework\Scene</Filter>
     </ClCompile>
     <ClCompile Include="ItemBossBall.cpp">
+      <Filter>framework\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="Axe.cpp">
+      <Filter>framework\GameObject\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemAxe.cpp">
       <Filter>framework\GameObject\item</Filter>
     </ClCompile>
   </ItemGroup>

@@ -17,6 +17,7 @@
 #include "ItemChicken.h"
 #include "Money.h"
 #include "ItemBossBall.h"
+#include "ItemAxe.h"
 
 #define TORCH_WIDTH 32
 #define TORCH_HEIGHT 64
@@ -39,6 +40,7 @@
 #define ID_MONEY_3		8
 #define ID_MONEY_4		9
 #define ID_BOSSBALL		10
+#define ID_AXE   		11
 
 
 

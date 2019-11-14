@@ -45,5 +45,8 @@ void CBoard::Render()
 	{
 		if (_weapon == eType::DAGGER)
 			sprites->Get(13001)->Draw(cx + 310, cy + 40);
+		else if (_weapon == eType::ITEMAXE)
+			sprites->Get(13010)->Draw(cx + 310, cy + 30);
+
 	}
 }
