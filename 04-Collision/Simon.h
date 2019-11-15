@@ -77,7 +77,6 @@ class CSimon : public CGameObject
 public:
 	static CSimon* GetInstance();
 	CSimon();
-	int getTrend() { return nx; }
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();
 	void SetState(int state);

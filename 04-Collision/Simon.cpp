@@ -224,17 +224,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else if (_heart > 0 && state == SIMON_STATE_ATTACK_DAGGER && CBoard::GetInstance()->GetWeapon() == eType::DAGGER && weapons[eType::DAGGER]->GetState() == DAGGER_STATE_HIDE)
 		{
-			weapons[eType::DAGGER]->SetState(DAGGER_STATE_ATTACK);
 			weapons[eType::DAGGER]->SetPosition(x, y);
 			weapons[eType::DAGGER]->SetTrend(nx);
+			weapons[eType::DAGGER]->SetState(DAGGER_STATE_ATTACK);
 			_heart--;
 
 		}
 		else if (_heart > 0 && state == SIMON_STATE_ATTACK_DAGGER && CBoard::GetInstance()->GetWeapon() == eType::ITEMAXE && weapons[eType::AXE]->GetState() == DAGGER_STATE_HIDE)
 		{
-			weapons[eType::AXE]->SetState(DAGGER_STATE_ATTACK);
 			weapons[eType::AXE]->SetPosition(x, y);
 			weapons[eType::AXE]->SetTrend(nx);
+			weapons[eType::AXE]->SetState(DAGGER_STATE_ATTACK);
 			_heart--;
 
 		}
@@ -408,7 +408,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				else if (dynamic_cast<CGate*>(e->obj))
 				{
 					CGate* torch = dynamic_cast<CGate*>(e->obj);
-					if (CBoss::GetInstance()->GetState() == BOSS_STATE_ITEM_NOT_EXSIST && CScene::GetInstance()->GetStage() == 3)
+					if (CScene::GetInstance()->GetStage() == 3)
 					{
 
 					}

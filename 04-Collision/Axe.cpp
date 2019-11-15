@@ -28,10 +28,7 @@ void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state == AXE_STATE_ATTACK) {
 		if (start_attack == 0)
 			start_attack = GetTickCount();
-		if (nx > 0)
-			x += dt * vx;
-		else
-			x -= dt * vx;
+		x += dt * vx;
 		vy += GRAVITY * dt;
 		y += vy * dt;
 		CollisionWithObject(dt, *coObjects);

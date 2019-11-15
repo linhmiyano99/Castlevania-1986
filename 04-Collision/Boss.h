@@ -35,7 +35,7 @@ public:
 		AddAnimation(1091);
 		AddAnimation(1092);
 		AddAnimation(800);
-		_energy = 2;
+		_energy = 16;
 		start_attack = 0;
 		start_hurt = 0;
 		vx = vy = 0;
