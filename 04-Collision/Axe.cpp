@@ -28,11 +28,13 @@ void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state == AXE_STATE_ATTACK) {
 		if (start_attack == 0)
 			start_attack = GetTickCount();
+		else
+			state = AXE_STATE_HIDE;
 		x += dt * vx;
 		vy += GRAVITY * dt;
 		y += vy * dt;
 		CollisionWithObject(dt, *coObjects);
-		if (GetTickCount() - start_attack > 2000)
+		if (GetTickCount() - start_attack > AXE_TIME_ATTACK)
 		{
 			state = AXE_STATE_HIDE;
 			start_attack = 0;

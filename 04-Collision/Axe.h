@@ -22,6 +22,9 @@
 
 #define GRAVITY 0.002f
 
+#define AXE_TIME_ATTACK 500
+
+
 class CAxe : public CWeapon
 {
 	static CAxe* __instance;
