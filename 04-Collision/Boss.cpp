@@ -55,7 +55,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				state = BOSS_STATE_ATTACK;
 				vx = vy = 0;
-				CSmallBall* smallball = new CSmallBall(x, y, nx);
+				CSmallBall* smallball = new CSmallBall(x + 20, y + 20, nx);
 				if (s_x == x)
 				{
 					smallball->SetSpeed(0, -0.5f * nx);
@@ -67,7 +67,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else
 				{
-					smallball->SetSpeed(0.25f * nx, 1.0 * (s_y - y) / (s_x - x) * nx * 0.25f);
+					smallball->SetSpeed(0.25f * nx, 1.0 * (s_y - y - 20) / (s_x - x - 20) * nx * 0.25f);
 				}
 				CScene::GetInstance()->AddSmallBall(smallball);
 				return;
