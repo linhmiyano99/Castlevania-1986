@@ -100,7 +100,7 @@ void CMap::DrawMap()
 	}
 	else
 	{
-		for (int i = 0; i < 12; i++)
+		for (int i = (int)cam_y / 64 ; i < 12; i++)
 		{
 			for (int j = (int)cam_x / 64; j < (int)(cam_x + 560) / 64 + 3; j++)
 			{

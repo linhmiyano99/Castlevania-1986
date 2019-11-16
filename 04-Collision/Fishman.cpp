@@ -176,6 +176,8 @@ void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bott
 }
 void CFishman::Render()
 {
+	if (vx == 0 && vy == 0  && isJumping)
+		return;
 	if (state == TORCH_STATE_EXSIST)
 	{
 		

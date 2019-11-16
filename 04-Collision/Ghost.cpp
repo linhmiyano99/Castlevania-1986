@@ -84,6 +84,30 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 }
+void CGhost::Render()
+{
+	if (x == 0 && y == 0)
+		return;
+	if (state == TORCH_STATE_EXSIST)
+	{
+		animations[0]->Render(x, y);
+	}
+	else if (state == TORCH_STATE_ITEM)
+	{
+		if (item != NULL)
+			item->Render();
+
+	}
+	else
+	{
+		if (GetTickCount() - dt_die < 150)
+		{
+			animations[1]->Render(x, y);
+		}
+	}
+
+	//RenderBoundingBox();
+}
 void CGhost::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 

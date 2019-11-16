@@ -5,7 +5,7 @@
 
 void CSmallBall::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (SMALLBALL_EXSIST)
+	if (state = SMALLBALL_EXSIST)
 	{
 		left = x;
 		top = y;
