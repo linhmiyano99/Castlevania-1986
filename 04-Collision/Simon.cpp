@@ -260,8 +260,16 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else if (GetTickCount() - untouchable_start < SIMON_HURT_TIME && untouchable == 1)
 		{
-			if(!isOnStair)
+			if (!isOnStair)
+			{
+				if (attack_start > 0)
+				{
+					animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
+					animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
+					attack_start = 0;
+				}
 				state = SIMON_STATE_HURT;
+			}
 		}
 		else
 		{
