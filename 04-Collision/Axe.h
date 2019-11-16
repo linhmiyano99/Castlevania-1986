@@ -22,7 +22,7 @@
 
 #define GRAVITY 0.002f
 
-#define AXE_TIME_ATTACK 500
+#define AXE_TIME_ATTACK 2000
 
 
 class CAxe : public CWeapon

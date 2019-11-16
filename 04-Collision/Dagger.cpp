@@ -33,7 +33,7 @@ void CDagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		else
 			x -= dt * vx;
 		CollisionWithObject(dt, *coObjects);
-		if (GetTickCount() - start_attack > 2000)
+		if (GetTickCount() - start_attack > DAGGER_TIME_ATTACK)
 		{
 			state = DAGGER_STATE_HIDE;
 			start_attack = 0;

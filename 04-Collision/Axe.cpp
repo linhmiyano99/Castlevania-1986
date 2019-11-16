@@ -28,8 +28,7 @@ void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state == AXE_STATE_ATTACK) {
 		if (start_attack == 0)
 			start_attack = GetTickCount();
-		else
-			state = AXE_STATE_HIDE;
+
 		x += dt * vx;
 		vy += GRAVITY * dt;
 		y += vy * dt;
