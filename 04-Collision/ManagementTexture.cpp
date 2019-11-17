@@ -91,6 +91,10 @@ CManagementTexture::CManagementTexture()
 	ani->Add(10102);
 	animations->Add(410, ani);
 
+	ani = new CAnimation(100);//simon die
+	ani->Add(10200);
+	animations->Add(411, ani);
+
 #pragma endregion
 
 #pragma region Add sprites Map

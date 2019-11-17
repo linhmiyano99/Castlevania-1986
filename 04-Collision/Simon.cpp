@@ -32,7 +32,7 @@ CSimon::CSimon() : CGameObject()
 	isCanOnStair = 0;
 	isOnStair = false;
 	_stairTrend = 0;
-	_energy = 16;
+	_energy = 2;
 	isAutoGo = false;
 	auto_x = -1;
 	_score = 0;
@@ -49,12 +49,63 @@ CSimon::CSimon() : CGameObject()
 	CSimon::AddAnimation(406);		//7. go up
 	CSimon::AddAnimation(407);		//8. go down
 	CSimon::AddAnimation(408);		//9. hurt
-	CSimon::AddAnimation(409);		//9. idle up
-	CSimon::AddAnimation(410);		//9. idle down
+	CSimon::AddAnimation(409);		//10. idle up
+	CSimon::AddAnimation(410);		//11. idle down
+	CSimon::AddAnimation(411);		//12. die
 }
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (die_start != 0)
+	{
+		if (GetTickCount() - die_start > DIE_TIME)
+		{
+			if (_lives > 0)
+			{
+				_lives--;
+				_energy = 16;
+
+				if (CScene::GetInstance()->GetStage() == 1)
+				{
+					x = 0.0f;
+					y = 300.0f;
+				}
+				else if (CScene::GetInstance()->GetStage() == 2)
+				{
+					CScene::GetInstance()->SetScene(2);
+					x = 3120.0f;
+					y = 50.0f;
+				}
+				else  if (CScene::GetInstance()->GetStage() == 3)
+				{
+					CScene::GetInstance()->SetScene(4);
+					CBoss* boss = CBoss::GetInstance();
+					boss->SetState(BOSS_STATE_SLEEP);
+					boss->SetSpeed(0, 0);
+					boss->SetPosition(5340.0f, 95.0f);
+					x = 4130.0f;
+					y = 50.0f;
+				}
+				die_start = 0;
+			}
+			else
+			{
+				_energy = 16;
+
+			}
+			state = SIMON_STATE_IDLE;
+			weapons[eType::VAMPIREKILLER]->Reset();
+			return;
+		}
+		else goto B;
+	}
+	if (_energy <= 0 || y > 780)
+	{
+		die_start = GetTickCount();
+		attack_start = 0;
+		trans_start = 0;
+	}
+B:
 	if (attack_start > 0)
 	{
 		if (GetTickCount() - attack_start < ATTACK_TIME)
@@ -73,40 +124,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
-			
+
 			attack_start = 0;
 		}
 	}
-	if (_energy <= 0 || y > 780)
-	{
-		if (_lives > 0)
-		{
-			_lives--;
-			_energy = 16;
-			if (CScene::GetInstance()->GetStage() == 1)
-			{
-				x = 0.0f;
-				y = 300.0f;
-			}
-			else if (CScene::GetInstance()->GetStage() == 2)
-			{
-				x = 3120.0f;
-				y = 50.0f;
-			}
-			else  if (CScene::GetInstance()->GetStage() == 3)
-			{
-				x = 4130.0f;
-				y = 50.0f;
-			}
-		}
-		else
-		{
-			_energy = 16;
 
-		}
-		weapons[eType::VAMPIREKILLER]->Reset();
-		return;
-	}
 	if (isAutoGo && !CScene::GetInstance()->IsTranScene())
 	{
 		AutoGo();
@@ -154,6 +176,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else if (dynamic_cast<CPanther*>(coObjects->at(i)))
 			{
 				listPanther.push_back(coObjects->at(i));
+			}
+			else if (dynamic_cast<CBrick*>(coObjects->at(i)))
+			{
+				listBrick.push_back(coObjects->at(i));
 			}
 		}
 		for (int i = 0; i < listPanther.size(); i++)
@@ -250,6 +276,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		// turn off collision when die 
 		if (state != SIMON_STATE_DIE)
 			CalcPotentialCollisions(coObjects, coEvents);
+		else
+			CalcPotentialCollisions(&listBrick, coEvents);
 
 		// reset untouchable timer if untouchable time has passed
 		if (GetTickCount() - untouchable_start > SIMON_UNTOUCHABLE_TIME)
@@ -267,7 +295,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
 					attack_start = 0;
 				}
-				state = SIMON_STATE_HURT;
+				
+					state = SIMON_STATE_HURT;
 			}
 		}
 		else
@@ -280,8 +309,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
 					attack_start = 0;
 				}
-				state = SIMON_STATE_IDLE;
+					state = SIMON_STATE_IDLE;
 			}
+			if (_energy <= 0)
+				state = SIMON_STATE_DIE;
 		}
 
 		// No collision occured, proceed normally
@@ -427,10 +458,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 
 					}
-					else{
-					listGate.push_back(torch);
-					CollisionWithGate(dt, listGate, min_tx, min_ty, nx, ny);
-					listGate.clear();
+					else {
+						listGate.push_back(torch);
+						CollisionWithGate(dt, listGate, min_tx, min_ty, nx, ny);
+						listGate.clear();
 					}
 				}
 
@@ -476,6 +507,10 @@ void CSimon::Render()
 		}
 		else
 			id = SIMON_ANI_WALKING;
+	}
+	else if (state == SIMON_STATE_DIE)
+	{
+		id = SIMON_ANI_DIE;
 	}
 	else if (state == SIMON_STATE_IDLE_DOWN)
 	{
@@ -543,7 +578,7 @@ void CSimon::Render()
 		id = SIMON_ANI_TRANS;
 	}
 	int alpha = 255;
-	if ( untouchable &&( isOnStair || GetTickCount() - untouchable_start > SIMON_HURT_TIME)) alpha = 128;
+	if ( untouchable &&( isOnStair || GetTickCount() - untouchable_start > SIMON_HURT_TIME) &&(die_start == 0)) alpha = 128;
 	animations[id]->Render(x, y, nx, alpha);
 	RenderBoundingBox();
 
@@ -565,6 +600,9 @@ void CSimon::SetState(int state)
 
 	}
 	else if (trans_start > 0) {
+
+	}
+	else if (die_start > 0) {
 
 	}
 	else if (isAutoGo)
@@ -696,7 +734,12 @@ void CSimon::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	top = this->y;
 	right = this->x + SIMON_WIDTH;
 	bottom = this->y + SIMON_HEIGHT_STAND;
-	if ((state == SIMON_STATE_GO_DOWN && isCanOnStair != -1) 
+	if (state == SIMON_STATE_DIE)
+	{
+		right = this->x + SIMON_WIDTH_DIE;
+		bottom = this->y + SIMON_HEIGHT_DIE;
+	}
+	else if ((state == SIMON_STATE_GO_DOWN && isCanOnStair != -1) 
 		|| state == SIMON_STATE_SIT_ATTACK  
 		||(state == SIMON_STATE_SIT))
 	{
@@ -978,6 +1021,13 @@ void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 
 		// clean up collision events
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	}
+	if (_energy <= 0)
+	{
+		_energy = 0;
+		die_start = GetTickCount();
+		vx = vy = 0;
+		state = SIMON_STATE_DIE;
 	}
 }
 

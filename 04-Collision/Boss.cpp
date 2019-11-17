@@ -58,11 +58,11 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				CSmallBall* smallball = new CSmallBall(x + 20, y + 20, nx);
 				if (s_x == x)
 				{
-					smallball->SetSpeed(0, -0.5f * nx);
+					smallball->SetSpeed(0, -0.3f * nx);
 				}
 				else if (s_y == y)
 				{
-					smallball->SetSpeed(-0.5f * nx, 0);
+					smallball->SetSpeed(-0.3f * nx, 0);
 
 				}
 				else
@@ -165,5 +165,23 @@ void CBoss::Hurt()
 	{
 		_energy -= 2;
 		start_hurt = GetTickCount();
+	}
+}
+void CBoss::AutoFly(float next_x, float next_y)
+{
+	if (next_x == x)
+	{
+		vx = 0;
+		vy = -0.5f * nx;
+	}
+	else if (next_y == y)
+	{
+		vx = -0.5f * nx;
+		vy = 0;
+	}
+	else
+	{
+		vx = 0.5f * nx;
+		vy = 1.0 * (next_x - y - 20) / (next_y - x - 20) * nx * 0.5f;
 	}
 }

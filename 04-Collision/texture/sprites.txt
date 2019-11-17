@@ -47,34 +47,6 @@ right= 890
 bottom= 65
 idTexture= 1
 
-id= 10400
-left= 660
-top= 201
-right= 706
-bottom= 265
-idTexture= 1
-
-id= 10401
-left= 1150
-top= 131
-right= 1190
-bottom= 193
-idTexture= 1
-
-id= 10402
-left= 1190
-top= 131
-right= 1230
-bottom= 193
-idTexture= 1
-
-id= 10403
-left= 1230
-top= 131
-right= 1280
-bottom= 193
-idTexture= 1
-
 id= 10005
 left= 906
 top= 0
@@ -157,6 +129,41 @@ left= 670
 top= 70
 right= 705
 bottom= 131
+idTexture= 1
+
+id= 10200
+left= 1135
+top= 37
+right= 1210
+bottom= 69
+idTexture= 1
+
+id= 10400
+left= 660
+top= 201
+right= 706
+bottom= 265
+idTexture= 1
+
+id= 10401
+left= 1150
+top= 131
+right= 1190
+bottom= 193
+idTexture= 1
+
+id= 10402
+left= 1190
+top= 131
+right= 1230
+bottom= 193
+idTexture= 1
+
+id= 10403
+left= 1230
+top= 131
+right= 1280
+bottom= 193
 idTexture= 1
 
 id= 11000

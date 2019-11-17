@@ -17,7 +17,8 @@
 #define BOSS_STATE_FLY				4	
 #define BOSS_STATE_ATTACK			5
 
-#define BOSS_TIME_ATTACK	4000
+#define BOSS_TIME_ATTACK	10000
+#define BOSS_TIME_CHECK_FLY 5000
 #define BOSS_TIME_HURT		200
 
 class CBoss : public CEnemy
@@ -46,4 +47,5 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 	virtual void Hurt();
+	void AutoFly(float next_x, float next_y);
 };

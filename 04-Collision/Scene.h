@@ -74,5 +74,6 @@ public:
 	void AddSmallBall(LPGAMEOBJECT smallball);
 	void UpStage() { _stage++; }
 	int GetStage() { return _stage; }
+	void SetScene(int scene) { id = scene; }
 };
 #endif // !__SMALLBALL_H__

@@ -26,6 +26,7 @@
 #define SIMON_STATE_IDLE_UP			1002
 #define SIMON_STATE_IDLE_DOWN		1003
 #define SIMON_STATE_HURT			1100
+#define SIMON_STATE_DIE				1101
 
 #define SIMON_ANI_IDLE						0
 #define SIMON_ANI_WALKING					1
@@ -39,10 +40,13 @@
 #define SIMON_ANI_HURT						9
 #define SIMON_ANI_IDLE_UP					10
 #define SIMON_ANI_IDLE_DOWN					11
+#define SIMON_ANI_DIE						12
 
 #define SIMON_HEIGHT_STAND			60
 #define SIMON_HEIGHT_SIT			45
 #define SIMON_WIDTH					40
+#define SIMON_HEIGHT_DIE			30
+#define SIMON_WIDTH_DIE				60
 
 #define SIMON_UNTOUCHABLE_TIME		1300
 #define SIMON_HURT_TIME				300
@@ -53,6 +57,7 @@
 #define ATTACK_TIME			300
 #define ATTACK_TIME_WAIT	500
 #define JUMP_TIME			0
+#define DIE_TIME			2000
 
 using namespace std;
 class CSimon : public CGameObject
@@ -62,6 +67,7 @@ class CSimon : public CGameObject
 	DWORD trans_start;
 	DWORD attack_start;
 	DWORD _count;
+	DWORD die_start;
 	unordered_map<int, CWeapon*> weapons;
 
 	static CSimon* __instance;
