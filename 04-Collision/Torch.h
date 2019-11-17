@@ -42,6 +42,7 @@
 #define ID_BOSSBALL		10
 #define ID_AXE   		11
 
+#define TIME_APPEAR     2000
 
 
 class CTorch : public CGameObject
@@ -49,6 +50,7 @@ class CTorch : public CGameObject
 protected:
 	DWORD dt_die;
 	CItem* item;
+	DWORD dt_appear;
 public:
 
 

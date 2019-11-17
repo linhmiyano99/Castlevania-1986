@@ -1,4 +1,6 @@
 #include "Panther.h"
+#include "Scene.h"
+
 
 void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -80,7 +82,8 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CPanther::Render()
 {
-
+	if (CScene::GetInstance()->IsTranScene())
+		return;
 	if (state == TORCH_STATE_EXSIST)
 	{
 		if (vx == 0)

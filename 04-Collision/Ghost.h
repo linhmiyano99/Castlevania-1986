@@ -18,6 +18,7 @@ public:
 		AddAnimation(800);
 		nx = -1;
 		vx = vy = 0;
+		dt_appear = 0;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

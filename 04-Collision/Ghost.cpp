@@ -1,9 +1,26 @@
 #include"Ghost.h"
+#include"Scene.h"
 
 bool CGhost::isStart = false;
 
 void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (dt_appear > 0)
+	{
+		if (GetTickCount() - dt_appear > TIME_APPEAR)
+		{
+			state = TORCH_STATE_EXSIST;
+			float s_x, s_y;
+			CSimon::GetInstance()->GetPosition(s_x, s_y);
+			x = s_x + 300;
+			if (x > CScene::GetInstance()->GetLeft())
+				x = CScene::GetInstance()->GetLeft();
+			y = s_y + 20;
+			Go();
+		}
+		else
+			return;
+	}
 	if (vx == 0 && vy == 0)
 		return;
 	if (dt_die == 0)
@@ -67,7 +84,10 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				item->SetPosition(x, y);
 			}
 			else
+			{
 				state = ITEM_STATE_NOT_EXSIST;
+				dt_appear = GetTickCount();
+			}
 		}
 	}
 	else
@@ -86,6 +106,8 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void CGhost::Render()
 {
+	if (CScene::GetInstance()->IsTranScene())
+		return;
 	if (x == 0 && y == 0)
 		return;
 	if (state == TORCH_STATE_EXSIST)

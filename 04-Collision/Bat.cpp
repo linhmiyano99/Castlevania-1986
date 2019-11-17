@@ -53,3 +53,27 @@ void CBat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 		item->GetBoundingBox(left, top, right, bottom);
 	}
 }
+void CBat::Render()
+{
+	if (CScene::GetInstance()->IsTranScene())
+		return;
+	if (state == TORCH_STATE_EXSIST)
+	{
+		animations[0]->Render(x, y);
+	}
+	else if (state == TORCH_STATE_ITEM)
+	{
+		if (item != NULL)
+			item->Render();
+
+	}
+	else
+	{
+		if (GetTickCount() - dt_die < 150)
+		{
+			animations[1]->Render(x, y);
+		}
+	}
+
+	//RenderBoundingBox();
+}

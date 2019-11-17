@@ -104,6 +104,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		die_start = GetTickCount();
 		attack_start = 0;
 		trans_start = 0;
+		state = SIMON_STATE_DIE;
+		isOnStair = false;
 	}
 B:
 	if (attack_start > 0)
@@ -278,6 +280,7 @@ B:
 			CalcPotentialCollisions(coObjects, coEvents);
 		else
 			CalcPotentialCollisions(&listBrick, coEvents);
+		listBrick.clear();
 
 		// reset untouchable timer if untouchable time has passed
 		if (GetTickCount() - untouchable_start > SIMON_UNTOUCHABLE_TIME)
@@ -312,7 +315,11 @@ B:
 					state = SIMON_STATE_IDLE;
 			}
 			if (_energy <= 0)
+			{
 				state = SIMON_STATE_DIE;
+				isOnStair = false;
+			}
+
 		}
 
 		// No collision occured, proceed normally
@@ -813,7 +820,7 @@ void CSimon::CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float
 {
 	float b_x, b_y;
 	listBrick.at(0)->GetPosition(b_x, b_y);
-	if (b_y > y)
+	if (b_y + 30 > y)
 	{
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
@@ -1028,6 +1035,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 		die_start = GetTickCount();
 		vx = vy = 0;
 		state = SIMON_STATE_DIE;
+		isOnStair = false;
 	}
 }
 

@@ -86,10 +86,7 @@ void CScene::LoadSimon()
 	{
 		simon->SetPosition(simon_x - 15, simon_y - 65);
 	}
-	else
-	{		
 
-	}
 }
 
 void CScene::Update(DWORD dt)

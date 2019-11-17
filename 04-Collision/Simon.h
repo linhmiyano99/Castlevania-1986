@@ -124,5 +124,6 @@ public:
 			_energy++;
 		}
 	}
+	bool IsAttacking() { if (attack_start > 0)return true; return false; }
 };
 #endif

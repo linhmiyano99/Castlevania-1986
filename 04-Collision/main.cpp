@@ -143,9 +143,15 @@ void CSampleKeyHander::KeyState(BYTE* states)
 
 	}
 	else if (game->IsKeyDown(DIK_RIGHT))
-		simon->SetState(SIMON_STATE_WALKING_RIGHT);
+	{
+		if(!simon->IsAttacking())
+			simon->SetState(SIMON_STATE_WALKING_RIGHT);
+	}
 	else if (game->IsKeyDown(DIK_LEFT))
-		simon->SetState(SIMON_STATE_WALKING_LEFT); 
+	{
+		if (!simon->IsAttacking())
+			simon->SetState(SIMON_STATE_WALKING_LEFT);
+	}
 	else if (game->IsKeyDown(DIK_X))
 	{
 		//simon->SetState(SIMON_STATE_ATTACK_DAGGER);
