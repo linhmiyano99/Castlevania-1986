@@ -116,6 +116,10 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		simon->SetState(SIMON_STATE_ATTACK_DAGGER);
 
 	}
+	else if(game->IsKeyDown(DIK_UP) && game->IsKeyDown(DIK_DOWN))
+	{
+		simon->SetState(SIMON_STATE_SIT);
+	}
 	else  if (game->IsKeyDown(DIK_Z))
 	{
 		if (simon->GetState() == SIMON_STATE_SIT || simon->GetState() == SIMON_STATE_SIT_ATTACK)

@@ -62,9 +62,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else if (GetTickCount() - attack_start < ATTACK_TIME_WAIT)
 		{
-			if (state == SIMON_STATE_SIT_ATTACK)
+			if (state == SIMON_STATE_SIT_ATTACK || state == SIMON_STATE_SIT)
 			{
-				y -= 20;
 				state = SIMON_STATE_SIT;
 			}
 			else
@@ -367,6 +366,14 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								{
 									listEnemy.push_back(torch);
 									CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
+									if (attack_start > 0)
+									{
+										attack_start = 0;
+										if (state == SIMON_STATE_SIT || state == SIMON_STATE_SIT_ATTACK)
+										{
+											y -= 20;
+										}
+									}
 									if (dynamic_cast<CBat*>(torch))
 									{
 										CBat* bat = dynamic_cast<CBat*>(e->obj);
@@ -663,7 +670,7 @@ void CSimon::SetState(int state)
 				break;
 			if (isCanOnStair != -1)
 			{
-				state = SIMON_STATE_SIT;
+				this->state = SIMON_STATE_SIT;
 				vx = 0;
 			}
 			else
@@ -998,7 +1005,7 @@ void CSimon::CollisionWithGate(DWORD dt, vector<LPGAMEOBJECT>& listObj, float mi
 			y += min_ty * dy + ny * 0.4f;
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
-		
+		gate0->ResetGate();
 		TransScene();
 		gate0->SetState(GATE_STATE_OPEN);
 	}
