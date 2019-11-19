@@ -4,15 +4,53 @@
 
 void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (dt_appear > 0)
+	{
+		float cam_x, cam_y;
+		CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+		if (GetTickCount() - dt_appear > TIME_APPEAR && ((start_x > cam_x + 560 && nx < 0) || (start_x < cam_x && nx > 0)))
+		{
+			state = TORCH_STATE_EXSIST;
+			x = start_x;
+			y = start_y;
+			vx = vx = 0;
+			nx = -1;
 
+			if (item)
+				item->SetState(ITEM_STATE_EXSIST);
+			dt_appear = 0;
+			dt_die = 0;
+		}
+		else
+			return;
+	}
 	if (dt_die == 0)
 	{
-		if (state == TORCH_STATE_NOT_EXSIST) {
+		if (state == TORCH_STATE_NOT_EXSIST)
+		{
 			dt_die = GetTickCount();
+			if (item)
+			{
+				item->SetPosition(x, y);
+			}
+			else
+			{
+				state = TORCH_STATE_ITEM_NOT_EXSIST;
+				dt_appear = GetTickCount();
+				return;
+			}
 		}
 		else
 		{
 			CGameObject::Update(dt);
+			float cam_x, cam_y;
+			CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+			if (x < cam_x - 1000)
+			{
+				state = TORCH_STATE_ITEM_NOT_EXSIST;
+				dt_appear = GetTickCount();
+				return;
+			}
 
 			// Simple fall down
 			vy += SIMON_GRAVITY * dt;
@@ -64,15 +102,28 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else
 	{
 		if (item != NULL) {//co item
+
 			if (GetTickCount() - dt_die > 150) // cho 150 mili second
 			{
-
 				item->Update(dt, coObjects);
+				item->GetPosition(x, y);
 				state = TORCH_STATE_ITEM;
+				if (item->GetState() == ITEM_STATE_NOT_EXSIST)
+				{
+					state = TORCH_STATE_ITEM_NOT_EXSIST;
+					dt_appear = GetTickCount();
+					return;
+				}
 			}
 		}
+		else
+		{
+			state = TORCH_STATE_ITEM_NOT_EXSIST;
+			dt_appear = GetTickCount();
+			return;
+		}
 	}
-	if (x <= LeftLimit)
+	if (x < LeftLimit || x > 3020)
 	{
 		nx = - nx;
 		vx = -vx;

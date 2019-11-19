@@ -78,25 +78,25 @@ void CGrid::LoadObject(char* filename)
 	listBrick.clear();
 	ifstream inFile(filename);
 
-	int id, type, trend, id_item, nx, ny;
+	int type, trend, id_item, nx, ny;
 	float x, y, w, h;
 
 	if (inFile)
 	{
-		while (inFile >> id >> type >> trend >> x >> y >> w >> h >> id_item)
+		while (inFile >> type >> trend >> x >> y >> w >> h >> id_item)
 		{
 			if (type == eType::BRICK_1 || type == eType::BRICK_2 || type == eType::BRICK_3)
 			{
 				for (int i = 0; i < w / h; i++)
-					Insert(id, type, trend, x + i * 32, y, w, h, id_item);
+					Insert(type, trend, x + i * 32, y, w, h, id_item);
 			}
 			else
-				Insert(id, type, trend, x, y, w, h, id_item);
+				Insert(type, trend, x, y, w, h, id_item);
 		}
 		inFile.close();
 	}
 }
-void CGrid::Insert(int id, int type, int trend, float x, float y, float w, float h, int id_item)
+void CGrid::Insert(int type, int trend, float x, float y, float w, float h, int id_item)
 {
 
 	int top = (int)(y )/ GRID_CELL_HEIGHT;
@@ -108,7 +108,6 @@ void CGrid::Insert(int id, int type, int trend, float x, float y, float w, float
 	if (obj == NULL)
 		return;
 
-	obj->SetID(id);
 	obj->SetTrend(trend);
 
 	for (int i = top; i <= bottom; i++)
