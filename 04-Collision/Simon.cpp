@@ -126,6 +126,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		trans_start = 0;
 		state = SIMON_STATE_DIE;
 		isOnStair = false;
+		vx = 0;
 	}
 B:
 	if (attack_start > 0)
@@ -297,224 +298,240 @@ B:
 
 		// turn off collision when die 
 		if (state != SIMON_STATE_DIE)
-			CalcPotentialCollisions(coObjects, coEvents);
-		else
 		{
-			coObjects->clear();
-			coObjects = &listBrick;
 			CalcPotentialCollisions(coObjects, coEvents);
-		}
-		listBrick.clear();
 
-		// reset untouchable timer if untouchable time has passed
-		if (GetTickCount() - untouchable_start > SIMON_UNTOUCHABLE_TIME)
-		{
-			untouchable_start = 0;
-			untouchable = 0;
-		}
-		else if (GetTickCount() - untouchable_start < SIMON_HURT_TIME && untouchable == 1)
-		{
-			if (!isOnStair)
+
+			// reset untouchable timer if untouchable time has passed
+			if (GetTickCount() - untouchable_start > SIMON_UNTOUCHABLE_TIME)
 			{
-				if (attack_start > 0)
+				untouchable_start = 0;
+				untouchable = 0;
+			}
+			else if (GetTickCount() - untouchable_start < SIMON_HURT_TIME && untouchable == 1)
+			{
+				if (!isOnStair)
 				{
-					animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
-					animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
-					attack_start = 0;
-				}
-				
+					if (attack_start > 0)
+					{
+						animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
+						animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
+						attack_start = 0;
+					}
+
 					state = SIMON_STATE_HURT;
-			}
-		}
-		else
-		{
-			if (!isOnStair)
-			{
-				if (attack_start > 0)
-				{
-					animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
-					animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
-					attack_start = 0;
 				}
+			}
+			else
+			{
+				if (!isOnStair)
+				{
+					if (attack_start > 0)
+					{
+						animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
+						animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
+						attack_start = 0;
+					}
 					state = SIMON_STATE_IDLE;
-			}
-			if (_energy <= 0)
-			{
-				state = SIMON_STATE_DIE;
-				isOnStair = false;
-			}
-
-		}
-
-		// No collision occured, proceed normally
-		if (coEvents.size() == 0)
-		{
-			x += dx;
-			y += dy;
-		}
-		else
-		{
-			float min_tx, min_ty, nx = 0, ny;
-
-			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-
-			for (UINT i = 0; i < coEventsResult.size(); i++)
-			{
-				LPCOLLISIONEVENT e = coEventsResult[i];
-				if (dynamic_cast<CBrick*>(e->obj))
-				{
-					if (!isOnStair) {
-						CBrick* torch = dynamic_cast<CBrick*>(e->obj);
-						listBrick.push_back(torch);
-						CollisionWithBrick(dt, listBrick, min_tx, min_ty, nx, ny);
-						listBrick.clear();
-					}
-					else
-					{
-						x += dx;
-						y += dy;
-					}
 				}
-				else if (dynamic_cast<CTorch*>(e->obj))
+				if (_energy <= 0)
 				{
+					state = SIMON_STATE_DIE;
+					isOnStair = false;
+				}
 
-					CTorch* torch = dynamic_cast<CTorch*>(e->obj);
+			}
 
-					if (dynamic_cast<CEnemy*>(torch))
+			// No collision occured, proceed normally
+			if (coEvents.size() == 0)
+			{
+				x += dx;
+				y += dy;
+			}
+			else
+			{
+				float min_tx, min_ty, nx = 0, ny;
+
+				FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+				for (UINT i = 0; i < coEventsResult.size(); i++)
+				{
+					LPCOLLISIONEVENT e = coEventsResult[i];
+					if (dynamic_cast<CBrick*>(e->obj))
 					{
-						CEnemy* torch = dynamic_cast<CEnemy*>(e->obj);
-						if (dynamic_cast<CBoss*>(torch))
-						{
-							CBoss* boss = dynamic_cast<CBoss*>(e->obj);
-							if (boss->GetState() == BOSS_STATE_ATTACK || boss->GetState() == BOSS_STATE_FLY)
-							{
-								if (untouchable == 0)
-								{
-									listEnemy.push_back(torch);
-									CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
-									if (dynamic_cast<CBat*>(torch))
-									{
-										CBat* bat = dynamic_cast<CBat*>(e->obj);
-										bat->SetState(TORCH_STATE_NOT_EXSIST);
-									}
-									else if (dynamic_cast<CPanther*>(torch))
-									{
-										CPanther* panther = dynamic_cast<CPanther*>(e->obj);
-										float _x, _y;
-										panther->GetPosition(_x, _y);
-										if (_x > x)
-											nx = 1;
-										else
-											nx = -1;
+						if (!isOnStair) {
+							listBrick.clear();
 
-									}
-									StartUntouchable();
-								}
-								listEnemy.clear();
-							}
-							else
+							CBrick* torch = dynamic_cast<CBrick*>(e->obj);
+							listBrick.push_back(torch);
+							CollisionWithBrick(dt, listBrick, min_tx, min_ty, nx, ny);
+						}
+						else
+						{
+							x += dx;
+							y += dy;
+						}
+					}
+					else if (dynamic_cast<CTorch*>(e->obj))
+					{
+
+						CTorch* torch = dynamic_cast<CTorch*>(e->obj);
+
+						if (dynamic_cast<CEnemy*>(torch))
+						{
+							CEnemy* torch = dynamic_cast<CEnemy*>(e->obj);
+							if (dynamic_cast<CBoss*>(torch))
 							{
-								if (dynamic_cast<CItem*>(torch->GetItem()))
+								CBoss* boss = dynamic_cast<CBoss*>(e->obj);
+								if (boss->GetState() == BOSS_STATE_ATTACK || boss->GetState() == BOSS_STATE_FLY)
 								{
-									listEnemy.push_back(torch->GetItem());
-									CollisionWithItem(dt, listEnemy);
+									listEnemy.clear();
+
+									if (untouchable == 0)
+									{
+										listEnemy.push_back(torch);
+										CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
+										if (dynamic_cast<CBat*>(torch))
+										{
+											CBat* bat = dynamic_cast<CBat*>(e->obj);
+											bat->SetState(TORCH_STATE_NOT_EXSIST);
+										}
+										else if (dynamic_cast<CPanther*>(torch))
+										{
+											CPanther* panther = dynamic_cast<CPanther*>(e->obj);
+											float _x, _y;
+											panther->GetPosition(_x, _y);
+											if (_x > x)
+												nx = 1;
+											else
+												nx = -1;
+
+										}
+										StartUntouchable();
+									}
+								}
+								else
+								{
+									if (dynamic_cast<CItem*>(torch->GetItem()))
+									{
+										listEnemy.push_back(torch->GetItem());
+										CollisionWithItem(dt, listEnemy);
+									}
+								}
+							}
+							else {
+								if ((torch->GetState() == TORCH_STATE_EXSIST))
+								{
+									listEnemy.clear();
+									if (untouchable == 0)
+									{
+										listEnemy.push_back(torch);
+										CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
+										if (attack_start > 0)
+										{
+											attack_start = 0;
+											if (state == SIMON_STATE_SIT || state == SIMON_STATE_SIT_ATTACK)
+											{
+												y -= 20;
+											}
+										}
+										if (dynamic_cast<CBat*>(torch))
+										{
+											CBat* bat = dynamic_cast<CBat*>(e->obj);
+											bat->SetState(TORCH_STATE_NOT_EXSIST);
+										}
+										else if (dynamic_cast<CPanther*>(torch))
+										{
+											CPanther* panther = dynamic_cast<CPanther*>(e->obj);
+											float _x, _y;
+											panther->GetPosition(_x, _y);
+											if (_x > x)
+												nx = 1;
+											else
+												nx = -1;
+
+										}
+										StartUntouchable();
+									}
+								}
+								else {
+									if (dynamic_cast<CItem*>(torch->GetItem()))
+									{
+										listEnemy.push_back(torch->GetItem());
+										CollisionWithItem(dt, listEnemy);
+									}
 								}
 							}
 						}
 						else {
-							if ((torch->GetState() == TORCH_STATE_EXSIST))
-							{
-								if (untouchable == 0)
-								{
-									listEnemy.push_back(torch);
-									CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
-									if (attack_start > 0)
-									{
-										attack_start = 0;
-										if (state == SIMON_STATE_SIT || state == SIMON_STATE_SIT_ATTACK)
-										{
-											y -= 20;
-										}
-									}
-									if (dynamic_cast<CBat*>(torch))
-									{
-										CBat* bat = dynamic_cast<CBat*>(e->obj);
-										bat->SetState(TORCH_STATE_NOT_EXSIST);
-									}
-									else if (dynamic_cast<CPanther*>(torch))
-									{
-										CPanther* panther = dynamic_cast<CPanther*>(e->obj);
-										float _x, _y;
-										panther->GetPosition(_x, _y);
-										if (_x > x)
-											nx = 1;
-										else
-											nx = -1;
+							listTorch.push_back(torch);
+							CollisionWithTorch(dt, listTorch, min_tx, min_ty, nx, ny);
+							listTorch.clear();
+						}
 
-									}
-									StartUntouchable();
-								}
-								listEnemy.clear();
-							}
-							else {
-								if (dynamic_cast<CItem*>(torch->GetItem()))
-								{
-									listEnemy.push_back(torch->GetItem());
-									CollisionWithItem(dt, listEnemy);
-								}
-							}
+
+					}
+
+					else if (dynamic_cast<CHidenObject*>(e->obj))
+					{
+						CHidenObject* torch = dynamic_cast<CHidenObject*>(e->obj);
+
+						listHideObject.push_back(torch);
+						CollisionWithHidenObject(dt, listHideObject, min_tx, min_ty, nx, ny);
+						listHideObject.clear();
+					}
+					else if (dynamic_cast<CGate*>(e->obj))
+					{
+						CGate* torch = dynamic_cast<CGate*>(e->obj);
+						if (CScene::GetInstance()->GetStage() == 3)
+						{
+
+						}
+						else {
+							listGate.clear();
+
+							listGate.push_back(torch);
+							CollisionWithGate(dt, listGate, min_tx, min_ty, nx, ny);
 						}
 					}
-					else {
-						listTorch.push_back(torch);
-						CollisionWithTorch(dt, listTorch, min_tx, min_ty, nx, ny);
-						listTorch.clear();
-					}
-
 
 				}
+			}
+			// clean up collision events
+			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
-				else if (dynamic_cast<CHidenObject*>(e->obj))
-				{
-					CHidenObject* torch = dynamic_cast<CHidenObject*>(e->obj);
-
-					listHideObject.push_back(torch);
-					CollisionWithHidenObject(dt, listHideObject, min_tx, min_ty, nx, ny);
-					listHideObject.clear();
-				}
-				else if (dynamic_cast<CGate*>(e->obj))
-				{
-					CGate* torch = dynamic_cast<CGate*>(e->obj);
-					if (CScene::GetInstance()->GetStage() == 3)
-					{
-
-					}
-					else {
-						listGate.push_back(torch);
-						CollisionWithGate(dt, listGate, min_tx, min_ty, nx, ny);
-						listGate.clear();
-					}
-				}
-
+		}
+		else
+		{
+			CalcPotentialCollisions(&listBrick, coEvents);
+			if (coEvents.size() == 0)
+			{
+				x += dx;
+				y += dy;
+			}
+			else
+			{
+				listBrick.clear();
+				float min_tx, min_ty, nx = 0, ny;
+				FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+				//// block 
+				x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+				y += min_ty * dy + ny * 0.4f;
+				if (nx != 0) vx = 0;
+				if (ny != 0) vy = 0;
 
 			}
+			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 		}
 
+		if (x < CScene::GetInstance()->GetLeft())
+			x = CScene::GetInstance()->GetLeft();
+		if (x > CScene::GetInstance()->GetRight())
+			x = CScene::GetInstance()->GetRight();
 
-
-		// clean up collision events
-		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
-
-	if (x < CScene::GetInstance()->GetLeft())
-		x = CScene::GetInstance()->GetLeft();
-	if (x > CScene::GetInstance()->GetRight())
-		x = CScene::GetInstance()->GetRight();
-
 }
-
-
 void CSimon::Render()
 {
 	int id;
@@ -866,6 +883,10 @@ void CSimon::CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float
 			y += min_ty * dy + ny * 0.4f;
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
+		if (state == SIMON_STATE_DIE)
+		{
+			vy = 0;
+		}
 		// clean up collision events
 		vector<LPGAMEOBJECT> listItem;
 		for (int i = 0; i < listBrick.size(); i++)

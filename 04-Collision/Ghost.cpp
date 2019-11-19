@@ -15,7 +15,6 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			x = start_x;
 			y = start_y;
 			vx = nx * GHOST_SPEED;
-			vy =  0.2f;
 
 			if (item)
 				item->SetState(ITEM_STATE_EXSIST);
@@ -77,7 +76,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				//// block 
 				//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 				x += dx;
-				y += min_ty * dy + ny * 0.4f;
+				//y += min_ty * dy + ny * 0.4f;
 
 				if (ny != 0) vy = 0;
 			}

@@ -73,8 +73,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			coEvents.clear();
 
 			// turn off collision when die 
-			if (state != SIMON_STATE_DIE)
-				CalcPotentialCollisions(&listBrick, coEvents);
+			CalcPotentialCollisions(&listBrick, coEvents);
 
 			// No collision occured, proceed normally
 			if (coEvents.size() == 0)
