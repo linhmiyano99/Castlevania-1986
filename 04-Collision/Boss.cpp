@@ -167,21 +167,21 @@ void CBoss::Hurt()
 		start_hurt = GetTickCount();
 	}
 }
-void CBoss::AutoFly(float next_x, float next_y)
-{
-	if (next_x == x)
-	{
-		vx = 0;
-		vy = -0.5f * nx;
-	}
-	else if (next_y == y)
-	{
-		vx = -0.5f * nx;
-		vy = 0;
-	}
-	else
-	{
-		vx = 0.5f * nx;
-		vy = 1.0 * (next_x - y - 20) / (next_y - x - 20) * nx * 0.5f;
-	}
-}
+//void CBoss::AutoFly(float next_x, float next_y)
+//{
+//	if (next_x == x)
+//	{
+//		vx = 0;
+//		vy = -0.5f * nx;
+//	}
+//	else if (next_y == y)
+//	{
+//		vx = -0.5f * nx;
+//		vy = 0;
+//	}
+//	else
+//	{
+//		vx = 0.5f * nx;
+//		vy = 1.0 * (next_x - y - 20) / (next_y - x - 20) * nx * 0.5f;
+//	}
+//}

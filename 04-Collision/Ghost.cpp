@@ -7,16 +7,20 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (dt_appear > 0)
 	{
-		if (GetTickCount() - dt_appear > TIME_APPEAR)
+		float cam_x, cam_y;
+		CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+		if (GetTickCount() - dt_appear > TIME_APPEAR && ((start_x > cam_x + 560 && nx < 0 ) || (start_x < cam_x && nx > 0)))
 		{
 			state = TORCH_STATE_EXSIST;
-			float s_x, s_y;
-			CSimon::GetInstance()->GetPosition(s_x, s_y);
-			x = s_x + 300;
-			if (x > CScene::GetInstance()->GetLeft())
-				x = CScene::GetInstance()->GetLeft();
-			y = s_y + 20;
-			Go();
+			x = start_x;
+			y = start_y;
+			vx = nx * GHOST_SPEED;
+			vy =  0.2f;
+
+			if (item)
+				item->SetState(ITEM_STATE_EXSIST);
+			dt_appear = 0;
+			dt_die = 0;
 		}
 		else
 			return;
@@ -27,6 +31,12 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (state == TORCH_STATE_EXSIST)
 		{
+			if (x < 0)
+			{
+				state = TORCH_STATE_ITEM_NOT_EXSIST;
+				dt_appear = GetTickCount();
+				return;
+			}
 			CGameObject::Update(dt);
 
 			// Simple fall down
@@ -85,8 +95,9 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else
 			{
-				state = ITEM_STATE_NOT_EXSIST;
+				state = TORCH_STATE_ITEM_NOT_EXSIST;
 				dt_appear = GetTickCount();
+				return;
 			}
 		}
 	}
@@ -99,7 +110,19 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				item->Update(dt, coObjects);
 				item->GetPosition(x, y);
 				state = TORCH_STATE_ITEM;
+				if (item->GetState() == ITEM_STATE_NOT_EXSIST)
+				{
+					state = TORCH_STATE_ITEM_NOT_EXSIST;
+					dt_appear = GetTickCount();
+					return;
+				}
 			}
+		}
+		else
+		{
+			state = TORCH_STATE_ITEM_NOT_EXSIST;
+			dt_appear = GetTickCount();
+			return;
 		}
 	}
 
@@ -112,7 +135,7 @@ void CGhost::Render()
 		return;
 	if (state == TORCH_STATE_EXSIST)
 	{
-		animations[0]->Render(x, y);
+		animations[0]->Render(x, y, nx, 255);
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{
@@ -128,7 +151,7 @@ void CGhost::Render()
 		}
 	}
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 void CGhost::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -142,7 +165,6 @@ void CGhost::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{
-		//item->SetPosition(x,y);
 		item->GetBoundingBox(left, top, right, bottom);
 	}
 }

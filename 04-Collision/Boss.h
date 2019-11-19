@@ -47,5 +47,5 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 	virtual void Hurt();
-	void AutoFly(float next_x, float next_y);
+	//void AutoFly(float next_x, float next_y);
 };

@@ -820,7 +820,7 @@ void CSimon::CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float
 {
 	float b_x, b_y;
 	listBrick.at(0)->GetPosition(b_x, b_y);
-	if (b_y + 30 > y)
+	if (b_y  > y + 40 || listBrick.at(0)->GetState() == TORCH_STATE_ITEM)
 	{
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;

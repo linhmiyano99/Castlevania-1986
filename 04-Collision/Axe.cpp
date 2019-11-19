@@ -84,8 +84,7 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 				if (torch->GetState() == TORCH_STATE_EXSIST ||
 					((torch->GetState() == BOSS_STATE_ATTACK || torch->GetState() == BOSS_STATE_FLY) && torch->GetType() == eType::BOSS))
 				{
-					if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
-						continue;
+					
 					torch->GetBoundingBox(l1, t1, r1, b1);
 					rect1.left = (int)l1;
 					rect1.top = (int)t1;
@@ -93,6 +92,12 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 					rect1.bottom = (int)b1;
 					if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 					{
+						if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
+						{
+							vx = vy = 0;
+							state = AXE_STATE_HIDE;
+							continue;
+						}
 						torch->Hurt();
 
 						if (torch->GetEnergy() <= 0)

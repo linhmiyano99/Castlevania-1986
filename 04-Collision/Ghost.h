@@ -9,9 +9,9 @@
 class CGhost: public CEnemy
 {
 	static bool isStart;
-
+	float start_x, start_y;
 public:
-	CGhost(float _x = 2000, float _y = 0, int id = 0) :CEnemy(_x, _y, id, eType::GHOST)
+	CGhost(float _x , float _y , int id = 0) :CEnemy(_x, _y, id, eType::GHOST)
 	{
 		animations.clear();
 		AddAnimation(1000);
@@ -19,6 +19,8 @@ public:
 		nx = -1;
 		vx = vy = 0;
 		dt_appear = 0;
+		start_x = _x;
+		start_y = _y;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -26,6 +28,5 @@ public:
 	static void Start() { isStart = true; }
 	static void Stop() { isStart = false; }
 	static bool IsStart() { return isStart; }
-	void Go() { vx = nx * GHOST_SPEED; }
 	
 };

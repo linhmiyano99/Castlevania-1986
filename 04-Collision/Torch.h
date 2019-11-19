@@ -42,7 +42,7 @@
 #define ID_BOSSBALL		10
 #define ID_AXE   		11
 
-#define TIME_APPEAR     2000
+
 
 
 class CTorch : public CGameObject

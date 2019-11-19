@@ -204,7 +204,8 @@ void CScene::Update(DWORD dt)
 			{
 				
 				if (objects[i]->GetType() == eType::GHOST)
-					objects[i]->Go();
+					objects[i]->SetSpeed(objects[i]->GetTrend() * GHOST_SPEED, 0.2f);
+
 			}
 			else if (CFishman::IsStart())
 			{
