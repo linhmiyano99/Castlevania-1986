@@ -8,7 +8,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		float cam_x, cam_y;
 		CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-		if (GetTickCount() - dt_appear > TIME_APPEAR && ((start_x > cam_x + 560 && nx < 0) || (start_x < cam_x && nx > 0)))
+		if (GetTickCount() - dt_appear > TIME_APPEAR )
 		{
 			state = TORCH_STATE_EXSIST;
 			x = start_x;

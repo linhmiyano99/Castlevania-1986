@@ -45,5 +45,12 @@ public:
 	virtual void SetSpeed(float _vx, float _vy) {
 		vx = -PANTHER_RUNNING_SPEED_X; vy = PANTHER_RUNNING_SPEED_Y; 
 	}
-//	virtual void SetState(int state);
+	virtual void SetState(int state)
+	{
+		this->state = state;
+		if (state == TORCH_STATE_ITEM_NOT_EXSIST)
+		{
+			dt_appear = GetTickCount();
+		}
+	}
 };

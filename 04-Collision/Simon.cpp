@@ -95,6 +95,26 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			state = SIMON_STATE_IDLE;
 			weapons[eType::VAMPIREKILLER]->Reset();
+			if (CScene::GetInstance()->GetStage() == 1)
+			{
+				for (int i = 0; i < coObjects->size(); i++)
+				{
+					if (dynamic_cast<CPanther*>(coObjects->at(i)))
+					{
+						coObjects->at(i)->SetState(TORCH_STATE_ITEM_NOT_EXSIST);
+					}
+				}
+			}
+			else if (CScene::GetInstance()->GetStage() == 2)
+			{
+				for (int i = 0; i < coObjects->size(); i++)
+				{
+					if (dynamic_cast<CFishman*>(coObjects->at(i)))
+					{
+						coObjects->at(i)->SetState(TORCH_STATE_ITEM_NOT_EXSIST);
+					}
+				}
+			}
 			return;
 		}
 		else goto B;
@@ -279,7 +299,11 @@ B:
 		if (state != SIMON_STATE_DIE)
 			CalcPotentialCollisions(coObjects, coEvents);
 		else
-			CalcPotentialCollisions(&listBrick, coEvents);
+		{
+			coObjects->clear();
+			coObjects = &listBrick;
+			CalcPotentialCollisions(coObjects, coEvents);
+		}
 		listBrick.clear();
 
 		// reset untouchable timer if untouchable time has passed
