@@ -21,10 +21,13 @@ class CEnemy : public CTorch
 {
 protected:
 	int ny;
+	float start_x, start_y;
+
 public:
 	CEnemy(float _x, float _y, int id = 0, int type = 0) : CTorch(_x, _y, id, type)
 	{
-
+		start_x = _x;
+		start_y = _y;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) = 0;

@@ -31,11 +31,10 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (state == TORCH_STATE_EXSIST)
 		{
-			if (x < 0)
+			if ((x < 0 && nx < 0) || (x > 3020 && nx > 0))
 			{
-				state = TORCH_STATE_ITEM_NOT_EXSIST;
-				dt_appear = GetTickCount();
-				return;
+				vx = -vx;
+				nx = -nx;
 			}
 			CGameObject::Update(dt);
 

@@ -7,7 +7,31 @@ bool CFishman::isStart = false;
 
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (state == TORCH_STATE_EXSIST)
+	if (dt_appear > 0)
+	{
+		float cam_x, cam_y;
+		CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+		if (GetTickCount() - dt_appear > TIME_APPEAR)
+		{
+			state = TORCH_STATE_EXSIST;
+			float s_x, s_y;
+			CSimon::GetInstance()->GetPosition(s_x, s_y);
+			x = s_x - 200;
+			y = start_y;
+			ny = -1;
+			vx = nx * FISHMAN_RUNNING_SPEED_X;
+			vy = ny * FISHMAN_RUNNING_SPEED_X;
+			isJumping = true;
+
+			if (item)
+				item->SetState(ITEM_STATE_EXSIST);
+			dt_appear = 0;
+			dt_die = 0;
+		}
+		else
+			return;
+	}
+	if (dt_die == 0)
 	{
 		if (isJumping) {
 			if (y <= 448)
@@ -59,15 +83,36 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
-			if (dt_die == 0)
-			{
-				if (state == TORCH_STATE_NOT_EXSIST) {
+			
+				if (state == TORCH_STATE_NOT_EXSIST)
+				{
 					dt_die = GetTickCount();
 					if (item)
+					{
 						item->SetPosition(x, y);
+					}
+					else
+					{
+						state = TORCH_STATE_ITEM_NOT_EXSIST;
+						dt_appear = GetTickCount();
+						return;
+					}
 				}
 				else
 				{
+					float cam_x, cam_y;
+					CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+					if (x < cam_x)
+					{
+						nx = 1; 
+						vx = abs(vx);
+					}
+					if (y > 800)
+					{
+						state = TORCH_STATE_ITEM_NOT_EXSIST;
+						dt_appear = GetTickCount();
+						return;
+					}
 					CGameObject::Update(dt);
 
 					// Simple fall down
@@ -90,9 +135,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 					coEvents.clear();
 
-					// turn off collision when die 
-					if (state != SIMON_STATE_DIE)
-						CalcPotentialCollisions(&listBrick, coEvents);
+					CalcPotentialCollisions(&listBrick, coEvents);
 
 					// No collision occured, proceed normally
 					if (coEvents.size() == 0)
@@ -116,21 +159,9 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					// clean up collision events
 					for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 				}
-			}
-			else
-			{
-				if (item) {//co item
-					if (GetTickCount() - dt_die > 150) // cho 150 mili second
-					{
+			
 
-						item->Update(dt, coObjects);
-						item->GetPosition(x, y);
-						state = TORCH_STATE_ITEM;
-					}
-				}
-				else
-					state = ITEM_STATE_NOT_EXSIST;
-			}
+
 		}
 		if (x > 3065 && x < 3505)
 		{
@@ -156,6 +187,30 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				nx = -nx;
 			}
 
+		}
+	}
+	else
+	{
+		if (item != NULL) {//co item
+
+			if (GetTickCount() - dt_die > 150) // cho 150 mili second
+			{
+				item->Update(dt, coObjects);
+				item->GetPosition(x, y);
+				state = TORCH_STATE_ITEM;
+				if (item->GetState() == ITEM_STATE_NOT_EXSIST)
+				{
+					state = TORCH_STATE_ITEM_NOT_EXSIST;
+					dt_appear = GetTickCount();
+					return;
+				}
+			}
+		}
+		else
+		{
+			state = TORCH_STATE_ITEM_NOT_EXSIST;
+			dt_appear = GetTickCount();
+			return;
 		}
 	}
 }

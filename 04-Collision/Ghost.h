@@ -9,7 +9,6 @@
 class CGhost: public CEnemy
 {
 	static bool isStart;
-	float start_x, start_y;
 public:
 	CGhost(float _x , float _y , int id = 0) :CEnemy(_x, _y, id, eType::GHOST)
 	{
@@ -19,8 +18,6 @@ public:
 		nx = -1;
 		vx = vy = 0;
 		dt_appear = 0;
-		start_x = _x;
-		start_y = _y;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
