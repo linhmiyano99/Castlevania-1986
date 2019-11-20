@@ -90,7 +90,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 				x += dx;
 				y += dy;
-				vy -= 0.5f;
+				vy -= 0.4f;
 				for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 				return;
 			}
