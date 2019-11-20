@@ -683,7 +683,7 @@ void CSimon::SetState(int state)
 			nx = -1;
 			break;
 		case SIMON_STATE_JUMP:
-			if (vy == 0) {
+			if (y >= _ground) {
 				vy = -SIMON_JUMP_SPEED_Y;
 				vx = 0;
 			}
@@ -882,7 +882,11 @@ void CSimon::CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float
 		if (min_ty <= min_ty0)
 			y += min_ty * dy + ny * 0.4f;
 		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+		if (ny != 0)
+		{
+			vy = 0;
+			_ground = y;
+		}
 		if (state == SIMON_STATE_DIE)
 		{
 			vy = 0;

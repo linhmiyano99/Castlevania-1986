@@ -80,6 +80,7 @@ class CSimon : public CGameObject
 	int _score;
 	int _lives;
 	int _step;
+	float _ground;
 public:
 	static CSimon* GetInstance();
 	CSimon();
