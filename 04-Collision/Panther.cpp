@@ -45,7 +45,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			CGameObject::Update(dt);
 			float cam_x, cam_y;
 			CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-			if (x < cam_x - 1000)
+			if (x < cam_x - 600)
 			{
 				state = TORCH_STATE_ITEM_NOT_EXSIST;
 				dt_appear = GetTickCount();

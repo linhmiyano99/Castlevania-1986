@@ -23,8 +23,8 @@ public:
 	{
 		if (trendX > 1)
 		{
-			_height = trendX;
-			_width = trendY;
+			_height = trendY;
+			_width = trendX;
 			nx = ny = 1;
 		}
 		else {

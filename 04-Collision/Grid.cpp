@@ -85,7 +85,7 @@ void CGrid::LoadObject(char* filename)
 	{
 		while (inFile >> type >> trend >> x >> y >> w >> h >> id_item)
 		{
-			if (type == eType::BRICK_1 || type == eType::BRICK_2 || type == eType::BRICK_3)
+			if (type == eType::BRICK_1 || type == eType::BRICK_2 || type == eType::BRICK_3 || type == eType::BRICK_4)
 			{
 				for (int i = 0; i < w / h; i++)
 					Insert(type, trend, x + i * 32, y, w, h, id_item);
@@ -120,6 +120,7 @@ CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h
 	if (type == eType::BRICK_1) return new CBrick(x, y, 0, eType::BRICK_1);
 	if (type == eType::BRICK_2) return new CBrick(x, y, 0, eType::BRICK_2);
 	if (type == eType::BRICK_3) return new CBrick(x, y, id_item, eType::BRICK_3);
+	if (type == eType::BRICK_4) return new CBrick(x, y, id_item, eType::BRICK_4);
 	if (type == eType::TORCH) return new CTorch(x, y, id_item, eType::TORCH);
 	if (type == eType::CANDLE) return new CTorch(x, y, id_item, eType::CANDLE);
 	if (type == eType::OBJECT_HIDDEN_DOOR) return new CHidenObject(x, y);

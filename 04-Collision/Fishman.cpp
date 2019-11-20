@@ -16,7 +16,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			state = TORCH_STATE_EXSIST;
 			srand((unsigned)time(0));
-			x = cam_x + (rand() % 480) + 20;
+			x = cam_x + (rand() % 12) * 40 + 20;
 			y = start_y;
 			ny = -1;
 			vx = nx * FISHMAN_RUNNING_SPEED_X;
