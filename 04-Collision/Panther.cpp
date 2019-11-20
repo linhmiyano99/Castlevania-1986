@@ -1,6 +1,6 @@
 #include "Panther.h"
 #include "Scene.h"
-
+#include "HidenObject.h"
 
 void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -56,6 +56,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			vy += SIMON_GRAVITY * dt;
 
 			vector<LPGAMEOBJECT> listBrick;
+			vector<LPGAMEOBJECT> listHiden;
 			for (int i = 0; i < coObjects->size(); i++)
 			{
 
@@ -64,7 +65,11 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					CBrick* brick = dynamic_cast<CBrick*>(coObjects->at(i));
 					listBrick.push_back(brick);
 				}
-
+				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_PANTHER_JUMP)
+				{
+					CHidenObject* brick = dynamic_cast<CHidenObject*>(coObjects->at(i));
+					listHiden.push_back(brick);
+				}
 			}
 
 			vector<LPCOLLISIONEVENT> coEvents;
@@ -72,6 +77,27 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			coEvents.clear();
 
+			CalcPotentialCollisions(&listHiden, coEvents);
+
+			// No collision occured, proceed normally
+			if (coEvents.size() != 0)
+			{
+				float min_tx, min_ty, nx = 0, ny;
+
+				FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+				//// block 
+				//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+				x += dx;
+				y += dy;
+				vy -= 0.5f;
+				for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+				return;
+			}
+			// clean up collision events
+
+
+			coEvents.clear();
 			// turn off collision when die 
 			CalcPotentialCollisions(&listBrick, coEvents);
 
@@ -138,9 +164,7 @@ void CPanther::Render()
 	{
 		if (vx == 0)
 		{
-
 			animations[PANTHER_ANI_SIT]->Render(x, y, -1, 255);
-
 		}
 		else
 		{
@@ -154,7 +178,6 @@ void CPanther::Render()
 	{
 		if (item != NULL)
 			item->Render();
-
 	}
 	else
 	{

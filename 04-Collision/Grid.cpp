@@ -128,7 +128,7 @@ CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h
 	if (type == eType::OBJECT_HIDDEN_FISHMAN) return new CHidenObject(x, y, HIDENOBJECT_TYPE_FISHMAN);
 	if (type == eType::OBJECT_HIDDEN_GHOST_1) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_1);
 	if (type == eType::OBJECT_HIDDEN_GHOST_STOP_1) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_STOP_1);
-	if (type == eType::OBJECT_HIDDEN_GHOST_2) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_2);
+	if (type == eType::OBJECT_HIDDEN_PANTHER_JUMP) return new CHidenObject(x, y, HIDENOBJECT_TYPE_PANTHER_JUMP, w, h);
 	if (type == eType::GATE) return new CGate(x, y);
 	if (type == eType::PANTHER) return new CPanther(x, y);
 	if (type == eType::FISHMEN) return new CFishman(x, y);

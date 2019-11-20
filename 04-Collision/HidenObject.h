@@ -8,6 +8,7 @@
 #define HIDENOBJECT_TYPE_GHOST_1		4
 #define HIDENOBJECT_TYPE_GHOST_STOP_1   5
 #define HIDENOBJECT_TYPE_GHOST_2	    6
+#define HIDENOBJECT_TYPE_PANTHER_JUMP   7
 
 
 class CHidenObject : public CGameObject
@@ -20,10 +21,18 @@ private:
 public:
 	CHidenObject(float _x = 0, float _y = 0,int state = 0, int trendX = 0,int trendY = 0) :CGameObject(_x, _y)
 	{
-		_height = 10;
-		_width = 50;
-		nx = trendX;
-		ny = trendY;
+		if (trendX > 1)
+		{
+			_height = trendX;
+			_width = trendY;
+			nx = ny = 1;
+		}
+		else {
+			_height = 10;
+			_width = 50;
+			nx = trendX;
+			ny = trendY;
+		}
 		this->state = state;
 		switch (state)
 		{

@@ -2,6 +2,7 @@
 #include "Simon.h"
 #include "SmallBall.h"
 #include "Scene.h"
+#include <ctime> 
 
 bool CFishman::isStart = false;
 
@@ -16,7 +17,8 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			state = TORCH_STATE_EXSIST;
 			float s_x, s_y;
 			CSimon::GetInstance()->GetPosition(s_x, s_y);
-			x = s_x - 200;
+			srand((unsigned)time(0));
+			x = s_x + (rand() % 480) + 20;
 			y = start_y;
 			ny = -1;
 			vx = nx * FISHMAN_RUNNING_SPEED_X;
@@ -102,17 +104,13 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					float cam_x, cam_y;
 					CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-					if (x < cam_x)
-					{
-						nx = 1; 
-						vx = abs(vx);
-					}
-					if (y > 800)
+					if (x < cam_x - 40 || y > 800)
 					{
 						state = TORCH_STATE_ITEM_NOT_EXSIST;
 						dt_appear = GetTickCount();
 						return;
 					}
+
 					CGameObject::Update(dt);
 
 					// Simple fall down
