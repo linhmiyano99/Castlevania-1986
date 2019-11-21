@@ -92,7 +92,7 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 					rect1.bottom = (int)b1;
 					if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 					{
-						if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2 || torch->GetType() == eType::BRICK_4)
+						if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
 						{
 							vx = vy = 0;
 							state = AXE_STATE_HIDE;

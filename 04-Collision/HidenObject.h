@@ -9,6 +9,7 @@
 #define HIDENOBJECT_TYPE_GHOST_STOP_1   5
 #define HIDENOBJECT_TYPE_GHOST_2	    6
 #define HIDENOBJECT_TYPE_PANTHER_JUMP   7
+#define HIDENOBJECT_TYPE_BRICK          8
 
 
 class CHidenObject : public CGameObject

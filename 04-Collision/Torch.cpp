@@ -22,6 +22,9 @@ CTorch::CTorch(float _x, float _y, int id, int type) : CGameObject(_x, _y, type)
 	case eType::BRICK_3:
 		AddAnimation(498);
 		break;
+	case eType::BRICK_4:
+		AddAnimation(497);
+		break;
 	}
 	AddAnimation(800);
 
@@ -71,11 +74,7 @@ CTorch::CTorch(float _x, float _y, int id, int type) : CGameObject(_x, _y, type)
 
 void CTorch::Render()
 {
-	if (_type == eType::BRICK_4)
-	{
-		RenderBoundingBox();
-		return;
-	}
+
 	if (state == TORCH_STATE_EXSIST)
 	{
 		animations[0]->Render(x, y);

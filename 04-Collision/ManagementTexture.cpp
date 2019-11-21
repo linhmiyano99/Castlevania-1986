@@ -132,6 +132,10 @@ CManagementTexture::CManagementTexture()
 	ani = new CAnimation(100);
 	ani->Add(9998);
 	animations->Add(498, ani); //ground3
+	ani = new CAnimation(100);
+
+	ani->Add(9997);
+	animations->Add(497, ani); //ground4
 
 #pragma endregion
 

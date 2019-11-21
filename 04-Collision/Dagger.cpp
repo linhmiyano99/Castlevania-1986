@@ -83,7 +83,7 @@ void CDagger::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 				if (torch->GetState() == TORCH_STATE_EXSIST ||
 					((torch->GetState() == BOSS_STATE_ATTACK || torch->GetState() == BOSS_STATE_FLY) && torch->GetType() == eType::BOSS))
 				{
-					if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2 || torch->GetType() == eType::BRICK_4)
+					if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
 						continue;
 					torch->GetBoundingBox(l1, t1, r1, b1);
 					rect1.left = (int)l1;

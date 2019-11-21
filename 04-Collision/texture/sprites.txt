@@ -19,6 +19,13 @@ right= 167
 bottom= 292
 idTexture= 1
 
+id= 9997
+left= 156
+top= 221
+right= 189
+bottom= 253
+idTexture= 1
+
 id= 10001
 left= 670
 top= 1

@@ -691,6 +691,7 @@ void CSimon::SetState(int state)
 
 		case SIMON_STATE_SIT_ATTACK:
 			attack_start = GetTickCount();
+			animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
 			vx = 0;
 			break;
 		case SIMON_STATE_SIT:
@@ -699,6 +700,7 @@ void CSimon::SetState(int state)
 			break;
 		case SIMON_STATE_STAND_ATTACK:
 			attack_start = GetTickCount();
+			animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
 			vx = 0;
 			break;
 		case SIMON_STATE_ATTACK_DAGGER:
@@ -722,6 +724,7 @@ void CSimon::SetState(int state)
 						this->state = SIMON_STATE_IDLE;
 					}
 				}
+				animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
 			}
 			else
 			{
@@ -979,19 +982,27 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 	//// block 
-	if (min_tx <= min_tx0)
-		x += dx;
-	if (min_ty <= min_ty0)
-		y += dy;
-	if (nx != 0) vx = 0;
-	if (ny != 0) vy = 0;
+
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-
-	for (int i = 0; i < listObj.size(); i++)
+	CHidenObject* ohiden = dynamic_cast<CHidenObject*>(listObj.at(0));
+	if (ohiden->GetState() == HIDENOBJECT_TYPE_BRICK)
 	{
-		CHidenObject* ohiden = dynamic_cast<CHidenObject*>(listObj.at(i));// if e->obj is torch 
+		if (min_tx <= min_tx0)
+			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		if (min_ty <= min_ty0)
+			y += min_ty * dy + ny * 0.4f;
+		if (nx != 0) vx = 0;
+		if (ny != 0) vy = 0;
+	}
+	else {
+		if (min_tx <= min_tx0)
+			x += dx;
+		if (min_ty <= min_ty0)
+			y += dy;
+		if (nx != 0) vx = 0;
+		if (ny != 0) vy = 0;
 		if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR)
 		{
 			if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR) {
@@ -999,7 +1010,6 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 				scene->SetMap(1);
 				scene->LoadResoure();
 				scene->LoadSimon();
-				break;
 			}
 		}
 		else if (ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR || ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
@@ -1028,6 +1038,7 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 		{
 			//CGhost::Start();
 		}
+
 		if (ohiden->getNx() * ohiden->getNy() > 0)
 		{
 			_stairTrend = 1;
@@ -1036,8 +1047,8 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 		{
 			_stairTrend = 0;
 		}
-
 	}
+
 }
 
 void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float min_tx0, float min_ty0, int nx0, int ny0)
