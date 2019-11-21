@@ -1,5 +1,6 @@
 #include"Ghost.h"
 #include"Scene.h"
+#include"HidenObject.h"
 
 bool CGhost::isStart = false;
 
@@ -35,12 +36,10 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				vx = -vx;
 				nx = -nx;
 			}
-			CGameObject::Update(dt);
-
-			// Simple fall down
-			vy += SIMON_GRAVITY * dt;
+			
 
 			vector<LPGAMEOBJECT> listBrick;
+			vector<LPGAMEOBJECT> listHiden;
 			for (int i = 0; i < coObjects->size(); i++)
 			{
 
@@ -49,36 +48,67 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					CBrick* brick = dynamic_cast<CBrick*>(coObjects->at(i));
 					listBrick.push_back(brick);
 				}
+				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_2)
+				{
+					CHidenObject* brick = dynamic_cast<CHidenObject*>(coObjects->at(i));
+					listHiden.push_back(brick);
+				}
 
 			}
 
+			vy += SIMON_GRAVITY * dt;
+
+			CGameObject::Update(dt);
+
+			// Simple fall down
 			vector<LPCOLLISIONEVENT> coEvents;
 			vector<LPCOLLISIONEVENT> coEventsResult;
 
 			coEvents.clear();
-
-			// turn off collision when die 
-			if (state != SIMON_STATE_DIE)
-				CalcPotentialCollisions(&listBrick, coEvents);
-
-			// No collision occured, proceed normally
-			if (coEvents.size() == 0)
-			{
-				x += dx;
-				y += dy;
-			}
-			else
-			{
+			CalcPotentialCollisions(&listHiden, coEvents);
+			if(coEvents.size() != 0)
+			{ 
 				float min_tx, min_ty, nx = 0, ny;
 
 				FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 				//// block 
 				//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-				x += dx;
-				//y += min_ty * dy + ny * 0.4f;
+				vx = 0;
+				if (vy < 0.3f)
+					vy = 0.3f;
 
-				if (ny != 0) vy = 0;
+				x += min_tx * dx + nx * 0.4f;
+
+				y += vy * dt;
+
+				
+			}
+			else {
+				coEvents.clear();
+
+				// turn off collision when die 
+				CalcPotentialCollisions(&listBrick, coEvents);
+
+				// No collision occured, proceed normally
+				if (coEvents.size() == 0)
+				{
+					y += dy;
+				}
+				else
+				{
+					float min_tx, min_ty, nx = 0, ny;
+
+					FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+					vx = nx * GHOST_SPEED;
+
+					//// block 
+					//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+					x += min_tx * dx + nx * 0.4f;
+					y += min_ty * dy + ny * 0.4f;
+
+					if (ny != 0) vy = 0;
+				}
 			}
 			// clean up collision events
 			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];

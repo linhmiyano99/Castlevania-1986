@@ -5,6 +5,7 @@
 #define GHOST_BBOX_HEIGHT 60
 
 #define GHOST_SPEED 0.07f
+#define GHOST_GRAVITY 0.05f
 
 class CGhost: public CEnemy
 {

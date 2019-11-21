@@ -32,7 +32,7 @@ CSimon::CSimon() : CGameObject()
 	isCanOnStair = 0;
 	isOnStair = false;
 	_stairTrend = 0;
-	_energy = 2;
+	_energy = 16;
 	isAutoGo = false;
 	auto_x = -1;
 	_score = 0;
@@ -1001,8 +1001,7 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 			x += dx;
 		if (min_ty <= min_ty0)
 			y += dy;
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+	
 		if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR)
 		{
 			if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR) {
