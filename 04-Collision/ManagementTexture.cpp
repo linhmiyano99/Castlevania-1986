@@ -259,10 +259,40 @@ CManagementTexture::CManagementTexture()
 
 #pragma region Add sprites broken brick after brick not exsist
 	ani = new CAnimation(100);
-	ani->Add(13100);
-	ani->Add(13101);
-	ani->Add(13102);
-	animations->Add(800, ani); // fire after torch not exsist
+	ani->Add(13110);
+	animations->Add(801, ani); // broken after brick not exsist
+#pragma endregion
+
+
+#pragma region Add sprites appear with fire
+	ani = new CAnimation(100);
+	ani->Add(13120);
+	animations->Add(802, ani); // bright after torch not exsist
+#pragma endregion
+
+#pragma region Add sprites appear with Fisman
+	ani = new CAnimation(100);
+	ani->Add(13130);
+	animations->Add(803, ani); // bright after fishamn not exsist
+#pragma endregion
+
+#pragma region Add sprites appear with money
+	ani = new CAnimation(100);
+	ani->Add(13140);
+	animations->Add(810, ani); // 100 after money not exsist
+	
+	ani = new CAnimation(100);
+	ani->Add(13141);
+	animations->Add(811, ani); // 400 after money not exsist
+
+	ani = new CAnimation(100);
+	ani->Add(13142);
+	animations->Add(812, ani); // 700 after money not exsist
+
+	ani = new CAnimation(100);
+	ani->Add(13143);
+	animations->Add(813, ani); // 1000 after money not exsist
+
 #pragma endregion
 
 #pragma region Add enemies

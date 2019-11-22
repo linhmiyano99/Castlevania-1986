@@ -27,6 +27,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				item->SetState(ITEM_STATE_EXSIST);
 			dt_appear = 0;
 			dt_die = 0;
+			ResetWater(0);
 		}
 		else
 			return;
@@ -39,6 +40,10 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				vy = SIMON_GRAVITY * dt;
 				vx = nx * 0.15f;
 				isJumping = false;
+			}
+			for each (CWaterEffection* var in list)
+			{
+				var->Update(dt);
 			}
 		}
 		if (isJumping)
@@ -102,8 +107,15 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					float cam_x, cam_y;
 					CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-					if (x < cam_x - 40 || y > cam_y + 500)
+					if (x < cam_x - 40)
 					{
+						state = TORCH_STATE_ITEM_NOT_EXSIST;
+						dt_appear = GetTickCount();
+						return;
+					}
+					if (y > cam_y + 300)
+					{
+						ResetWater(1);
 						state = TORCH_STATE_ITEM_NOT_EXSIST;
 						dt_appear = GetTickCount();
 						return;
@@ -227,15 +239,20 @@ void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bott
 }
 void CFishman::Render()
 {
-	if (vx == 0 && vy == 0  && isJumping)
+	if (vx == 0 && vy == 0 && isJumping)
 		return;
 	if (state == TORCH_STATE_EXSIST)
 	{
-		
+
 		if (isJumping)
 		{
 
 			animations[FISHMAN_ANI_JUMPING]->Render(x, y, -1, 255);
+
+			for each (CWaterEffection * var in list)
+			{
+				var->Render();
+			}
 
 		}
 		else if (isAttacking)

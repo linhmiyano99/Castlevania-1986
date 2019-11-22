@@ -173,9 +173,11 @@ void CGhost::Render()
 	}
 	else
 	{
-		if (GetTickCount() - dt_die < 150)
+		if (GetTickCount() - dt_die < 300)
 		{
 			animations[1]->Render(x, y);
+			if (animations[1]->GetCurrentFrame() > 0)
+				animations[2]->Render(x - 2, y - 5);
 		}
 	}
 

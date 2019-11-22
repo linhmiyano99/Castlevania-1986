@@ -26,7 +26,8 @@ CTorch::CTorch(float _x, float _y, int id, int type) : CGameObject(_x, _y, type)
 		AddAnimation(497);
 		break;
 	}
-	AddAnimation(800);
+	AddAnimation(800); // fire
+	AddAnimation(802); // bright
 
 	switch (id)
 	{
@@ -83,13 +84,14 @@ void CTorch::Render()
 	{
 		if (item != NULL)
 			item->Render();
-
 	}
 	else
 	{
-		if (GetTickCount() - dt_die < 150)
+		if (GetTickCount() - dt_die <= 300)
 		{
 			animations[1]->Render(x, y);
+			if(animations[1]->GetCurrentFrame() > 0)
+				animations[2]->Render(x - 2, y - 5);
 		}
 	}
 

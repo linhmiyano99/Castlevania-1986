@@ -22,15 +22,19 @@ public:
 		{
 		case eType::MONEY_1:
 			AddAnimation(705);
+			AddAnimation(810);
 			break;
 		case eType::MONEY_2:
 			AddAnimation(706);
+			AddAnimation(811);
 			break;
 		case eType::MONEY_3:
 			AddAnimation(707);
+			AddAnimation(812);
 			break;
 		case eType::MONEY_4:
 			AddAnimation(708);
+			AddAnimation(813);
 			break;
 		default:
 			break;

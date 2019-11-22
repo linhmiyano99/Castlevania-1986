@@ -127,6 +127,7 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="BrickBreak.h" />
     <ClInclude Include="Dagger.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Define.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="MagagementTexture.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Money.h" />
+    <ClInclude Include="MoneyEffection.h" />
     <ClInclude Include="Panther.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
@@ -158,6 +160,7 @@
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Torch.h" />
     <ClInclude Include="VampireKiller.h" />
+    <ClInclude Include="WaterEffection.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="WhipUpgrade.h" />
   </ItemGroup>
@@ -167,6 +170,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="BrickBreak.cpp" />
     <ClCompile Include="Dagger.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -190,6 +194,7 @@
     <ClCompile Include="Panther.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="MoneyEffection.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="SmallBall.cpp" />
     <ClCompile Include="SmallHeart.cpp" />
@@ -198,6 +203,7 @@
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Torch.cpp" />
     <ClCompile Include="VampireKiller.cpp" />
+    <ClCompile Include="WaterEffection.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="WhipUpgrade.cpp" />
   </ItemGroup>

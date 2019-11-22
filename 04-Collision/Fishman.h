@@ -1,5 +1,6 @@
 #pragma once
 #include "Enemy.h"
+#include "WaterEffection.h"
 
 #define GHOST_BBOX_WIDTH 40
 #define GHOST_BBOX_HEIGHT 60
@@ -24,6 +25,7 @@ class CFishman : public CEnemy
 	bool isJumping;
 	DWORD start_attack;
 	static bool isStart;
+	vector<CWaterEffection*> list;
 
 public:
 	CFishman(float _x = 3300, float _y = 780, int id = 0) :CEnemy(_x, _y, id, eType::FISHMEN)
@@ -38,6 +40,13 @@ public:
 		nx = -1;
 		vx = vy = 0;
 		start_attack = GetTickCount();
+		for (int i = 0; i < 3; i++)
+		{
+			CWaterEffection* water = new CWaterEffection();
+			list.push_back(water);
+		}
+		ResetWater(0);
+	
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -49,6 +58,22 @@ public:
 		if (isJumping) {
 			vx = nx * FISHMAN_RUNNING_SPEED_X;
 			vy = ny * FISHMAN_RUNNING_SPEED_Y;
+		}
+	}
+	void ResetWater(int type = 0)
+	{
+		if (type == 0)
+		{
+			list[0]->SetPosition(x, y + 60);
+			list[1]->SetPosition(x + 10, y + 20);
+			list[2]->SetPosition(x + 20, y + 60);
+		}
+		else
+		{
+			
+				list[0]->SetPosition(x, y + 20);
+				list[1]->SetPosition(x + 10, y + 60);
+				list[2]->SetPosition(x + 20, y + 20);
 		}
 	}
 };

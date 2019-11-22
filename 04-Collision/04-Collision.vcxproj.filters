@@ -60,6 +60,9 @@
     <Filter Include="framework\Grid">
       <UniqueIdentifier>{04e18c47-6852-4157-b556-c893806ca8a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="framework\GameObject\Effection">
+      <UniqueIdentifier>{c5a08262-6dea-490c-8d4b-b4c520be2875}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h">
@@ -176,6 +179,15 @@
     <ClInclude Include="ItemAxe.h">
       <Filter>framework\GameObject\item</Filter>
     </ClInclude>
+    <ClInclude Include="MoneyEffection.h">
+      <Filter>framework\GameObject\Effection</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickBreak.h">
+      <Filter>framework\GameObject\Effection</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterEffection.h">
+      <Filter>framework\GameObject\Effection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -291,6 +303,15 @@
     </ClCompile>
     <ClCompile Include="ItemAxe.cpp">
       <Filter>framework\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyEffection.cpp">
+      <Filter>framework\GameObject\Effection</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickBreak.cpp">
+      <Filter>framework\GameObject\Effection</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterEffection.cpp">
+      <Filter>framework\GameObject\Effection</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

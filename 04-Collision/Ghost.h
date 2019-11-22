@@ -16,6 +16,7 @@ public:
 		animations.clear();
 		AddAnimation(1000);
 		AddAnimation(800);
+		AddAnimation(802);
 		nx = -1;
 		vx = vy = 0;
 		dt_appear = 0;
