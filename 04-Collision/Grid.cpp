@@ -130,6 +130,8 @@ CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h
 	if (type == eType::OBJECT_HIDDEN_GHOST_1) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_1);
 	if (type == eType::OBJECT_HIDDEN_GHOST_STOP_1) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_STOP_1);
 	if (type == eType::OBJECT_HIDDEN_GHOST_2) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_2, w, h);
+	if (type == eType::OBJECT_HIDDEN_GHOST_UP) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_UP, w, h);
+	if (type == eType::OBJECT_HIDDEN_GHOST_DOWN) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_DOWN, w, h);
 	if (type == eType::OBJECT_HIDDEN_PANTHER_JUMP) return new CHidenObject(x, y, HIDENOBJECT_TYPE_PANTHER_JUMP, w, h);
 	if (type == eType::OBJECT_HIDDEN_BRICK) return new CHidenObject(x, y, HIDENOBJECT_TYPE_BRICK, w, h);
 	if (type == eType::GATE) return new CGate(x, y);

@@ -120,7 +120,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						dt_appear = GetTickCount();
 						return;
 					}
-					if (y > 750 && !isFall)
+					if (y > 700 && !isFall)
 					{
 						isFall = true;
 						ResetWater(1);

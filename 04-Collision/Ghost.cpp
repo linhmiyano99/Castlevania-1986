@@ -10,8 +10,16 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		float cam_x, cam_y;
 		CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-		if (GetTickCount() - dt_appear > TIME_APPEAR && ((start_x > cam_x + 560 && nx < 0 ) || (start_x < cam_x && nx > 0)))
+		if (GetTickCount() - dt_appear > TIME_APPEAR && (start_x > cam_x + 560 ) || (start_x < cam_x ))
 		{
+			if(start_x > cam_x + 560)
+			{
+				nx = -1;
+			}
+			else if (start_x < cam_x)
+			{
+				nx = 1;
+			}
 			state = TORCH_STATE_EXSIST;
 			x = start_x;
 			y = start_y;
@@ -31,15 +39,28 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (state == TORCH_STATE_EXSIST)
 		{
-			if ((x < 0 && nx < 0) || (x > 3020 && nx > 0))
+			float _x, _y;
+			CSimon::GetInstance()->GetPosition(_x, _y);
+			if (_x > 4000)
 			{
-				vx = -vx;
-				nx = -nx;
+				if ((x < 4100 && nx < 0) || (x > 5000 && nx > 0))
+				{
+					nx = -nx;
+					vx = -vx;
+				}
 			}
-			
+			else {
+				if ((x < 0 && nx < 0) || (x > 3020 && nx > 0))
+				{
+					vx = -vx;
+					nx = -nx;
+				}
+			}
 
 			vector<LPGAMEOBJECT> listBrick;
 			vector<LPGAMEOBJECT> listHiden;
+			vector<LPGAMEOBJECT> listStairUp;
+			vector<LPGAMEOBJECT> listStairDown;
 			for (int i = 0; i < coObjects->size(); i++)
 			{
 
@@ -53,7 +74,16 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					CHidenObject* brick = dynamic_cast<CHidenObject*>(coObjects->at(i));
 					listHiden.push_back(brick);
 				}
-
+				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_UP)
+				{
+					CHidenObject* brick = dynamic_cast<CHidenObject*>(coObjects->at(i));
+					listStairUp.push_back(brick);
+				}
+				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && (coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_DOWN))
+				{
+					CHidenObject* brick = dynamic_cast<CHidenObject*>(coObjects->at(i));
+					listStairDown.push_back(brick);
+				}
 			}
 
 			vy += SIMON_GRAVITY * dt;
@@ -65,49 +95,80 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			vector<LPCOLLISIONEVENT> coEventsResult;
 
 			coEvents.clear();
-			CalcPotentialCollisions(&listHiden, coEvents);
-			if(coEvents.size() != 0)
-			{ 
-				float min_tx, min_ty, nx = 0, ny;
 
-				FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+			if (!isOnStair)
+			{
+				CalcPotentialCollisions(&listStairUp, coEvents);
 
-				//// block 
-				//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-				vx = 0;
-				if (vy < 0.3f)
-					vy = 0.3f;
-
-				x += min_tx * dx + nx * 0.4f;
-
-				y += vy * dt;
-
-				
-			}
-			else {
-				coEvents.clear();
-
-				// turn off collision when die 
-				CalcPotentialCollisions(&listBrick, coEvents);
-
-				// No collision occured, proceed normally
-				if (coEvents.size() == 0)
+				if (coEvents.size() != 0)
 				{
-					y += dy;
+					isOnStair = true;
+					return;
+				}
+				else {
+					coEvents.clear();
+					CalcPotentialCollisions(&listHiden, coEvents);
+					if (coEvents.size() != 0)
+					{
+						float min_tx, min_ty, nx = 0, ny;
+
+						FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+						//// block 
+						//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+						vx = 0;
+						if (vy < 0.3f)
+							vy = 0.3f;
+
+						x += min_tx * dx + nx * 0.4f;
+
+						y += vy * dt;
+
+
+					}
+					else {
+						coEvents.clear();
+
+						// turn off collision when die 
+						CalcPotentialCollisions(&listBrick, coEvents);
+
+						// No collision occured, proceed normally
+						if (coEvents.size() == 0)
+						{
+							vy += SIMON_GRAVITY * dt;
+							y += dy;
+						}
+						else
+						{
+							float min_tx, min_ty, nx = 0, ny;
+
+							FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+							vx = nx * GHOST_SPEED;
+
+							//// block 
+							//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+							x += min_tx * dx + nx * 0.4f;
+							y += min_ty * dy + ny * 0.4f;
+
+							if (ny != 0) vy = 0;
+						}
+					}
+				}
+			}
+			else
+			{
+				CalcPotentialCollisions(&listStairDown, coEvents);
+
+				if (coEvents.size() != 0)
+				{
+					isOnStair = false;
+					return;
 				}
 				else
 				{
-					float min_tx, min_ty, nx = 0, ny;
-
-					FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-					vx = nx * GHOST_SPEED;
-
-					//// block 
-					//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-					x += min_tx * dx + nx * 0.4f;
-					y += min_ty * dy + ny * 0.4f;
-
-					if (ny != 0) vy = 0;
+					x += 0.5f;
+					y += 0.5f;
+					return;
 				}
 			}
 			// clean up collision events

@@ -191,7 +191,7 @@ B:
 		}
 	}
 	else {
-		if (y > 750 && !isFall)
+		if (y > 700 && !isFall)
 		{
 			isFall = true;
 			ResetWater();
