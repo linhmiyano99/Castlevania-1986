@@ -25,6 +25,15 @@ void CAxe::SetPosition(float simon_x, float simon_y)
 }
 void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (start_attack > 0)
+	{
+		if (GetTickCount() - start_attack > AXE_TIME_ATTACK)
+		{
+			state = AXE_STATE_HIDE;
+			start_attack = 0;
+			vy = -AXE_SPEED_Y;
+		}
+	}
 	if (state == AXE_STATE_ATTACK) {
 		if (start_attack == 0)
 			start_attack = GetTickCount();
@@ -33,12 +42,7 @@ void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vy += GRAVITY * dt;
 		y += vy * dt;
 		CollisionWithObject(dt, *coObjects);
-		if (GetTickCount() - start_attack > AXE_TIME_ATTACK)
-		{
-			state = AXE_STATE_HIDE;
-			start_attack = 0;
-			vy = -AXE_SPEED_Y;
-		}
+		
 
 	}
 }

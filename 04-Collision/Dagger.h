@@ -18,7 +18,7 @@
 #define DAGGER_STATE_HIDE  0
 #define DAGGER_STATE_ATTACK 1
 
-#define DAGGER_TIME_ATTACK 2000
+#define DAGGER_TIME_ATTACK 1000
 
 
 class CDagger : public CWeapon

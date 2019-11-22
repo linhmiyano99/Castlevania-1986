@@ -25,6 +25,15 @@ void CDagger::SetPosition(float simon_x, float simon_y)
 }
 void CDagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (start_attack > 0)
+	{
+		CollisionWithObject(dt, *coObjects);
+		if (GetTickCount() - start_attack > DAGGER_TIME_ATTACK)
+		{
+			state = DAGGER_STATE_HIDE;
+			start_attack = 0;
+		}
+	}
 	if (state == DAGGER_STATE_ATTACK) {
 		if (start_attack == 0)
 			start_attack = GetTickCount();
@@ -32,12 +41,7 @@ void CDagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			x += dt * vx;
 		else
 			x -= dt * vx;
-		CollisionWithObject(dt, *coObjects);
-		if (GetTickCount() - start_attack > DAGGER_TIME_ATTACK)
-		{
-			state = DAGGER_STATE_HIDE;
-			start_attack = 0;
-		}
+		
 
 	}
 }

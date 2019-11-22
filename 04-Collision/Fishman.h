@@ -70,10 +70,9 @@ public:
 		}
 		else
 		{
-			
-				list[0]->SetPosition(x, y + 20);
-				list[1]->SetPosition(x + 10, y + 60);
-				list[2]->SetPosition(x + 20, y + 20);
+			list[0]->SetPosition(x, y + 20);
+			list[1]->SetPosition(x + 10, y + 60);
+			list[2]->SetPosition(x + 20, y + 20);
 		}
 	}
 };
