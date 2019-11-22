@@ -7,6 +7,8 @@
 #include "VampireKiller.h"
 #include "Weapon.h"
 #include "Dagger.h"
+#include "WaterEffection.h"
+
 #define SIMON_WALKING_SPEED		0.2f
 #define SIMON_JUMP_SPEED_Y		0.5f
 #define SIMON_GRAVITY			0.002f
@@ -69,6 +71,8 @@ class CSimon : public CGameObject
 	DWORD _count;
 	DWORD die_start;
 	unordered_map<int, CWeapon*> weapons;
+	vector<CWaterEffection*> list;
+	bool isFall;
 
 	static CSimon* __instance;
 	int _heart;
@@ -126,5 +130,11 @@ public:
 		}
 	}
 	bool IsAttacking() { if (attack_start > 0)return true; return false; }
+	void ResetWater()
+	{
+		list[0]->SetPosition(x, y + 20);
+		list[1]->SetPosition(x + 10, y + 60);
+		list[2]->SetPosition(x + 20, y + 20);
+	}
 };
 #endif

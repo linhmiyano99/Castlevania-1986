@@ -38,6 +38,13 @@ CSimon::CSimon() : CGameObject()
 	_score = 0;
 	_lives = 3;
 	_count = 0;
+
+	isFall = false;
+	for (int i = 0; i < 3; i++)
+	{
+		CWaterEffection* water = new CWaterEffection();
+		list.push_back(water);
+	}
 	
 	CSimon::AddAnimation(400);		//0. idle left 
 	CSimon::AddAnimation(401);		//1. walk left
@@ -87,6 +94,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					y = 50.0f;
 				}
 				die_start = 0;
+				isFall = false;
 			}
 			else
 			{
@@ -183,6 +191,19 @@ B:
 		}
 	}
 	else {
+		if (y > 750 && !isFall)
+		{
+			isFall = true;
+			ResetWater();
+		}
+		if (isFall)
+		{
+			for each (CWaterEffection * var in list)
+			{
+				var->Update(dt);
+			}
+		}
+		
 		vector<LPGAMEOBJECT> listTorch;
 		vector<LPGAMEOBJECT> listBrick;
 		vector<LPGAMEOBJECT> listHideObject;
@@ -629,7 +650,13 @@ void CSimon::Render()
 	if ( untouchable &&( isOnStair || GetTickCount() - untouchable_start > SIMON_HURT_TIME) &&(die_start == 0)) alpha = 128;
 	animations[id]->Render(x, y, nx, alpha);
 	RenderBoundingBox();
-
+	if (isFall)
+	{
+		for each (CWaterEffection * var in list)
+		{
+			var->Render();
+		}
+	}
 	
 }
 

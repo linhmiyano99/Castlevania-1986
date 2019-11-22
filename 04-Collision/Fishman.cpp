@@ -22,7 +22,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			vx = nx * FISHMAN_RUNNING_SPEED_X;
 			vy = ny * FISHMAN_RUNNING_SPEED_X;
 			isJumping = true;
-
+			isFall = false;
 			if (item)
 				item->SetState(ITEM_STATE_EXSIST);
 			dt_appear = 0;
@@ -50,6 +50,13 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			y += vy * dt;
 			return;
+		}
+		if (isFall)
+		{
+			for each (CWaterEffection * var in list)
+			{
+				var->Update(dt);
+			}
 		}
 		float s_x, s_y;
 		CSimon* simon = CSimon::GetInstance();
@@ -107,18 +114,16 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					float cam_x, cam_y;
 					CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-					if (x < cam_x - 40)
+					if (x < cam_x - 40 || y > cam_y + 350)
 					{
 						state = TORCH_STATE_ITEM_NOT_EXSIST;
 						dt_appear = GetTickCount();
 						return;
 					}
-					if (y > cam_y + 300)
+					if (y > 750 && !isFall)
 					{
+						isFall = true;
 						ResetWater(1);
-						state = TORCH_STATE_ITEM_NOT_EXSIST;
-						dt_appear = GetTickCount();
-						return;
 					}
 
 					CGameObject::Update(dt);
@@ -265,6 +270,13 @@ void CFishman::Render()
 				animations[FISHMAN_ANI_WALKING]->Render(x, y, 1, 255);
 			else
 				animations[FISHMAN_ANI_WALKING]->Render(x, y, -1, 255);
+			if (isFall)
+			{
+				for each (CWaterEffection * var in list)
+				{
+					var->Render();
+				}
+			}
 		}
 	}
 	else if (state == TORCH_STATE_ITEM)

@@ -26,6 +26,7 @@ class CFishman : public CEnemy
 	DWORD start_attack;
 	static bool isStart;
 	vector<CWaterEffection*> list;
+	bool isFall;
 
 public:
 	CFishman(float _x = 3300, float _y = 780, int id = 0) :CEnemy(_x, _y, id, eType::FISHMEN)
@@ -36,6 +37,7 @@ public:
 		AddAnimation(1006);
 		AddAnimation(1100);
 		isJumping = true;
+		isFall = false;
 		ny = -1;
 		nx = -1;
 		vx = vy = 0;
