@@ -125,6 +125,13 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						isFall = true;
 						ResetWater(1);
 					}
+					float s_x, s_y;
+					CSimon::GetInstance()->GetPosition(s_x, s_y);
+					if (x < s_x - 200)
+					{
+						nx = 1;
+						vx = abs(vx);
+					}
 
 					CGameObject::Update(dt);
 
