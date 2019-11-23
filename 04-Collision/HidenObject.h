@@ -27,11 +27,10 @@ public:
 		{
 			_height = trendY;
 			_width = trendX;
-			nx = ny = 1;
 		}
 		else {
 			_height = 10;
-			_width = 50;
+			_width = 15;
 			nx = trendX;
 			ny = trendY;
 		}
@@ -40,15 +39,15 @@ public:
 		{
 		case HIDENOBJECT_TYPE_DOWNSTAIR:
 			if (nx > 0)
-				_autoX = x - 10;
+				_autoX = x - 5;
 			else
-				_autoX = x + 20;
+				_autoX = x - 10;
 			break;
 		case HIDENOBJECT_TYPE_UPSTAIR:
 			if (nx < 0)
 				_autoX = x - 30;
 			else
-				_autoX = x + 40;
+				_autoX = x + 10;
 			break;
 		case HIDENOBJECT_TYPE_DOOR:
 			_autoX = x + 40;
@@ -58,7 +57,6 @@ public:
 		}
 
 	}
-	void SetPosition(float x, float y);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void Render();
 	int getNx() { return nx; }

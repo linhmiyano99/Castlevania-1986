@@ -9,10 +9,5 @@ void CHidenObject::GetBoundingBox(float& left, float& top, float& right, float& 
 }
 void CHidenObject::Render()
 {
-	//RenderBoundingBox();
-}
-void CHidenObject::SetPosition(float _x, float _y)
-{
-	CGameObject::SetPosition(_x, _y);
-	
+	RenderBoundingBox();
 }

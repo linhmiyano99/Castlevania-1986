@@ -60,7 +60,7 @@
 #define ATTACK_TIME_WAIT	500
 #define JUMP_TIME			0
 #define DIE_TIME			2000
-#define TIME_FOR_PER_STEP  220
+#define TIME_FOR_PER_STEP  205
 
 using namespace std;
 class CSimon : public CGameObject
@@ -87,6 +87,9 @@ class CSimon : public CGameObject
 	int _lives;
 	int _step;
 	float _ground;
+	float new_x;
+	float new_y;
+	bool isUnder;
 
 public:
 	static CSimon* GetInstance();
@@ -139,5 +142,6 @@ public:
 		list[1]->SetPosition(x + 10, y + 60);
 		list[2]->SetPosition(x + 20, y + 20);
 	}
+	void SetUnder() { isUnder = true; }
 };
 #endif

@@ -52,7 +52,9 @@ void CScene::LoadResoure()
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
-		simon->SetPosition(3000.0f, 20.0f);
+		simon->SetPosition(4200, 20.0f);
+		id = 4;
+		_stage = 3;
 		objects.push_back(simon);
 		boss = CBoss::GetInstance();
 		boss->SetPosition(5340.0f, 95.0f);
@@ -76,15 +78,11 @@ void CScene::LoadSimon()
 		if (simon_y < 190)
 			simon->SetPosition(simon_x, simon_y);
 		else
-			simon->SetPosition(simon_x + 30, simon_y - 65);
+			simon->SetUnder();
 	}
 	else if (id == 3)
 	{
-		simon->SetPosition(simon_x - 20, simon_y + 65);
-	}
-	else if (id == 4)
-	{
-		simon->SetPosition(simon_x + 30, simon_y - 65);
+		simon->SetUnder();
 	}
 
 }
@@ -153,15 +151,16 @@ void CScene::Update(DWORD dt)
 		simon->GetPosition(cx, cy);
 
 
-		if (cy >= 400 && id != 3)
+		if (cy >= 430 && id != 3)
 		{
+			id = 3;
 			SetMap(3);
 			LoadSimon();
-			cy = 430;
+			cy = 410;
 		}
 		else if (id == 3)
 		{
-			if (cy < 400)
+			if (cy < 410)
 			{
 				if ((cx > 3070 && cx < 3290) || (cx > 3740 && cx < 3940) && simon->IsOnStair())
 				{

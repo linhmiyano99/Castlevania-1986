@@ -39,8 +39,8 @@ CSimon::CSimon() : CGameObject()
 	_lives = 3;
 	_count = 0;
 	start_stair = 0;
-
 	isFall = false;
+	isUnder = false;
 	for (int i = 0; i < 3; i++)
 	{
 		CWaterEffection* water = new CWaterEffection();
@@ -188,7 +188,28 @@ B:
 			x += 0.5 * nx;
 		else
 		{
+			
 			isAutoGo = false;
+			if (isCanOnStair == 1)
+			{
+				nx = -nx;
+				new_y = y - 16;
+				if (_stairTrend == 0)
+					new_x = x + 16;
+				else
+					new_x = x - 16;
+			}
+			else
+			{
+				state = SIMON_STATE_GO_DOWN;
+				new_y = y + 16;
+				if (_stairTrend == 0)
+					new_x = x - 16;
+				else
+					new_x = x + 16;
+			}
+			animations[SIMON_ANI_GO_UP]->ResetFrame();
+			animations[SIMON_ANI_GO_DOWN]->ResetFrame();
 		}
 		return;
 	}
@@ -232,9 +253,10 @@ B:
 		vector<LPGAMEOBJECT> listPanther;
 		vector<LPGAMEOBJECT> listGate;
 		vector<LPGAMEOBJECT> listBat;
+		listHideObject.clear();
 		for (int i = 0; i < coObjects->size(); i++)
 		{
-			if (dynamic_cast<CHidenObject*>(coObjects->at(i)))
+			if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && (coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR || coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_UPSTAIR))
 			{
 				listHideObject.push_back(coObjects->at(i));
 			}
@@ -258,7 +280,7 @@ B:
 					listPanther.at(i)->SetSpeed(0.1f, 0.1f);
 			}
 		}
-
+		
 		if (isOnStair)
 		{
 			if (start_stair > 0 && GetTickCount() - start_stair < 200)
@@ -268,14 +290,14 @@ B:
 					if (_stairTrend == 0)
 					{
 						nx = -1;
-						dx = -1.2f;
-						dy = 1.2f;
+						dx = -1.23f;
+						dy = 1.23f;
 					}
 					else
 					{
 						nx = 1;
-						dx = 1.2f;
-						dy = 1.2f;
+						dx = 1.23f;
+						dy = 1.23f;
 					}
 				}
 				else if (state == SIMON_STATE_GO_UP)
@@ -283,31 +305,64 @@ B:
 					if (_stairTrend == 0)
 					{
 						nx = 1;
-						dx = 1.2f;
-						dy = -1.2f;
+						dx = 1.23f;
+						dy = -1.23f;
 					}
 					else
 					{
 						nx = -1;
-						dx = -1.2f;
-						dy = -1.2f;
+						dx = -1.23f;
+						dy = -1.23f;
 					}
+				}
+				else
+				{
+					dx = 0;
+					dy = 0;
 				}
 			}
 			else
 			{
-				dx = 0;
-				dy = 0;
+				
+				if (isCanOnStair == 0)
+				{
+					if (x != new_x || y != new_y)
+					{
+						dx = 0;
+						dy = 0;
+						
+					}
+				}
+				int tem_x = x, tem_y = y;
+				x = new_x;
+				y = new_y;
+				if (listHideObject.size() > 0)
+					IsCanOnStair(listHideObject);
+				if (isCanOnStair != 0)
+				{
+					if (isCanOnStair == 1)
+					{
+						x = tem_x;
+						y = tem_y;
+					}
+					else
+					{
+						
+					}
+					isOnStair = false;
+					vx = vy = 0;
+				}
+			
 			}
-
 		}
 		else {
 			CGameObject::Update(dt);
 			vy += SIMON_GRAVITY * dt;
 		}
+	
 		if (listHideObject.size() > 0)
 			IsCanOnStair(listHideObject);
-		listHideObject.clear();
+
 		if (state == SIMON_STATE_SIT_ATTACK || state == SIMON_STATE_STAND_ATTACK)
 		{
 			weapons[eType::VAMPIREKILLER]->SetPosition(x, y);
@@ -385,6 +440,7 @@ B:
 				}
 
 			}
+			listHideObject.clear();
 
 			// No collision occured, proceed normally
 			if (coEvents.size() == 0)
@@ -798,7 +854,23 @@ void CSimon::SetState(int state)
 			if (isOnStair)
 			{
 				if (start_stair == 0)
+				{
 					start_stair = GetTickCount();
+					if (!isUnder)
+					{
+						new_y = y - 16;
+						if (_stairTrend == 0)
+							new_x = x + 16;
+						else
+							new_x = x - 16;
+					}
+					else
+					{
+						new_y = y;
+						new_x = x + 100;
+						isUnder = false;
+					}
+				}
 				break;
 			}
 			if (isCanOnStair != 1)
@@ -818,7 +890,23 @@ void CSimon::SetState(int state)
 			if (isOnStair)
 			{
 				if (start_stair == 0)
+				{
 					start_stair = GetTickCount();
+					if (!isUnder)
+					{
+						new_y = y + 16;
+						if (_stairTrend == 0)
+							new_x = x - 16;
+						else
+							new_x = x + 16;
+					}
+					else
+					{
+						new_y = y;
+						new_x = x - 100;
+						isUnder = false;
+					}
+				}
 				break;
 			}
 
@@ -1062,23 +1150,29 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 		if (ny != 0) vy = 0;
 	}
 	else {
-		if (min_tx <= min_tx0)
-			x += dx;
-		if (min_ty <= min_ty0)
-			y += dy;
-	
+		
 		if (isOnStair)
 		{
 			if (ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR || ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
 			{	
 				isOnStair = false;
 				state = SIMON_ANI_IDLE;
-				if (ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
-					y -= 5;
+				if (min_tx <= min_tx0)
+					x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+				if (min_ty <= min_ty0)
+					y += min_ty * dy + ny * 0.4f;
+				if (nx != 0) vx = 0;
+				if (ny != 0) vy = 0;
+			
+				y -= 5;
 			}
 			IsCanOnStair(listObj);
 		}
 		else {
+			if (min_tx <= min_tx0)
+				x += dx;
+			if (min_ty <= min_ty0)
+				y += dy;
 			if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR)
 			{
 				if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR) {
@@ -1242,6 +1336,7 @@ int CSimon::IsCanOnStair(vector<LPGAMEOBJECT>& listObj)
 					isCanOnStair = 1;
 					return 1;
 				}
+
 
 			}
 		}
