@@ -38,6 +38,7 @@ CSimon::CSimon() : CGameObject()
 	_score = 0;
 	_lives = 3;
 	_count = 0;
+	start_stair = 0;
 
 	isFall = false;
 	for (int i = 0; i < 3; i++)
@@ -63,8 +64,10 @@ CSimon::CSimon() : CGameObject()
 
 void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+
 	if (die_start != 0)
 	{
+
 		if (GetTickCount() - die_start > DIE_TIME)
 		{
 			if (_lives > 0)
@@ -142,6 +145,19 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx = 0;
 	}
 B:
+	if (start_stair > 0)
+	{
+		if (GetTickCount() - start_stair > TIME_FOR_PER_STEP)
+		{
+			start_stair = 0;
+			if (IsOnStair()) {
+				if ((_stairTrend == 0 && nx == 1) || (_stairTrend == 1 && nx == -1))
+					SetState(SIMON_STATE_IDLE_UP);
+				else
+					SetState(SIMON_STATE_IDLE_DOWN);
+			}
+		}
+	}
 	if (attack_start > 0)
 	{
 		if (GetTickCount() - attack_start < ATTACK_TIME)
@@ -245,35 +261,37 @@ B:
 
 		if (isOnStair)
 		{
-			if (state == SIMON_STATE_GO_DOWN)
+			if (start_stair > 0 && GetTickCount() - start_stair < 200)
 			{
-				if (_stairTrend == 0)
+				if (state == SIMON_STATE_GO_DOWN)
 				{
-					nx = -1;
-					dx = -2.0f;
-					dy = 2.0f;
+					if (_stairTrend == 0)
+					{
+						nx = -1;
+						dx = -1.2f;
+						dy = 1.2f;
+					}
+					else
+					{
+						nx = 1;
+						dx = 1.2f;
+						dy = 1.2f;
+					}
 				}
-				else
+				else if (state == SIMON_STATE_GO_UP)
 				{
-					nx = 1;
-					dx = 2.0f;
-					dy = 2.0f;
-				}
-			}
-
-			else if (state == SIMON_STATE_GO_UP)
-			{
-				if (_stairTrend == 0)
-				{
-					nx = 1;
-					dx = 2.0f;
-					dy = -2.0f;
-				}
-				else
-				{
-					nx = -1;
-					dx = -2.0f;
-					dy = -2.0f;
+					if (_stairTrend == 0)
+					{
+						nx = 1;
+						dx = 1.2f;
+						dy = -1.2f;
+					}
+					else
+					{
+						nx = -1;
+						dx = -1.2f;
+						dy = -1.2f;
+					}
 				}
 			}
 			else
@@ -678,6 +696,8 @@ void CSimon::SetState(int state)
 	{
 
 	}*/
+	
+	
 	if (attack_start > 0)
 	{
 
@@ -704,6 +724,7 @@ void CSimon::SetState(int state)
 	{
 
 	}
+	
 	else
 	{
 		CGameObject::SetState(state);
@@ -775,7 +796,11 @@ void CSimon::SetState(int state)
 			break;
 		case SIMON_STATE_GO_UP:
 			if (isOnStair)
+			{
+				if (start_stair == 0)
+					start_stair = GetTickCount();
 				break;
+			}
 			if (isCanOnStair != 1)
 			{
 				state = SIMON_STATE_IDLE;
@@ -791,7 +816,12 @@ void CSimon::SetState(int state)
 			break;
 		case SIMON_STATE_GO_DOWN:
 			if (isOnStair)
+			{
+				if (start_stair == 0)
+					start_stair = GetTickCount();
 				break;
+			}
+
 			if (isCanOnStair != -1)
 			{
 				this->state = SIMON_STATE_SIT;

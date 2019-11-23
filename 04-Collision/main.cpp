@@ -144,7 +144,14 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	}
 	else if (game->IsKeyDown(DIK_RIGHT))
 	{
-		if (!simon->IsAttacking())
+		simon->SetTrend(1);
+		if (simon->IsOnStair()) {
+			if (simon->GetStairTrend() == 0 )
+				simon->SetState(SIMON_STATE_IDLE_UP);
+			else
+				simon->SetState(SIMON_STATE_IDLE_DOWN);
+		}
+		else if (!simon->IsAttacking())
 		{
 			if (simon->GetState() == SIMON_STATE_SIT)
 			{
@@ -156,7 +163,15 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
 	{
-		if (!simon->IsAttacking())
+		simon->SetTrend(-1);
+		if (simon->IsOnStair()) {
+			if (simon->GetStairTrend() != 0)
+				simon->SetState(SIMON_STATE_IDLE_UP);
+			else
+				simon->SetState(SIMON_STATE_IDLE_DOWN);
+
+		}
+		else if (!simon->IsAttacking())
 		{
 			if (simon->GetState() == SIMON_STATE_SIT)
 			{

@@ -60,6 +60,7 @@
 #define ATTACK_TIME_WAIT	500
 #define JUMP_TIME			0
 #define DIE_TIME			2000
+#define TIME_FOR_PER_STEP  220
 
 using namespace std;
 class CSimon : public CGameObject
@@ -70,6 +71,7 @@ class CSimon : public CGameObject
 	DWORD attack_start;
 	DWORD _count;
 	DWORD die_start;
+	DWORD start_stair;
 	unordered_map<int, CWeapon*> weapons;
 	vector<CWaterEffection*> list;
 	bool isFall;
@@ -85,6 +87,7 @@ class CSimon : public CGameObject
 	int _lives;
 	int _step;
 	float _ground;
+
 public:
 	static CSimon* GetInstance();
 	CSimon();
