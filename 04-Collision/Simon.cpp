@@ -1029,49 +1029,49 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 		if (min_ty <= min_ty0)
 			y += dy;
 	
-		if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR)
+		if (isOnStair)
 		{
-			if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR) {
-				CScene* scene = CScene::GetInstance();
-				scene->SetMap(1);
-				scene->LoadResoure();
-				scene->LoadSimon();
-			}
-		}
-		else if (ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR || ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
-		{
-			if (isOnStair)
-			{
-				isOnStair = false;
-				state = SIMON_ANI_IDLE;
+			if (ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR || ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
+			{	isOnStair = false;
+			state = SIMON_ANI_IDLE;
 			}
 			IsCanOnStair(listObj);
+		}
+		else {
+			if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR)
+			{
+				if (ohiden->GetState() == HIDENOBJECT_TYPE_DOOR) {
+					CScene* scene = CScene::GetInstance();
+					scene->SetMap(1);
+					scene->LoadResoure();
+					scene->LoadSimon();
+				}
+			}
+			else if (ohiden->GetState() == HIDENOBJECT_TYPE_FISHMAN)
+			{
+				CFishman::Start();
+			}
+			else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_1)
+			{
+				CGhost::Start();
+			}
+			else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_STOP_1)
+			{
+				CGhost::Stop();
+			}
+			else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
+			{
+				//CGhost::Start();
+			}
 
-		}
-		else if (ohiden->GetState() == HIDENOBJECT_TYPE_FISHMAN)
-		{
-			CFishman::Start();
-		}
-		else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_1)
-		{
-			CGhost::Start();
-		}
-		else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_STOP_1)
-		{
-			CGhost::Stop();
-		}
-		else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
-		{
-			//CGhost::Start();
-		}
-
-		if (ohiden->getNx() * ohiden->getNy() > 0)
-		{
-			_stairTrend = 1;
-		}
-		else
-		{
-			_stairTrend = 0;
+			if (ohiden->getNx() * ohiden->getNy() > 0)
+			{
+				_stairTrend = 1;
+			}
+			else
+			{
+				_stairTrend = 0;
+			}
 		}
 	}
 

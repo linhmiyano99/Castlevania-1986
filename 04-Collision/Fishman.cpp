@@ -114,7 +114,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					float cam_x, cam_y;
 					CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-					if (x < cam_x - 40 || y > cam_y + 350)
+					if (x < cam_x - 40 || x > cam_x + 560 || y > cam_y + 350 || y < cam_y)
 					{
 						state = TORCH_STATE_ITEM_NOT_EXSIST;
 						dt_appear = GetTickCount();

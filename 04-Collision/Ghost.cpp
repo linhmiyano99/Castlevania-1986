@@ -29,6 +29,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				item->SetState(ITEM_STATE_EXSIST);
 			dt_appear = 0;
 			dt_die = 0;
+			isOnStair = false;
 		}
 		else
 			return;
