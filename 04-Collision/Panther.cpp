@@ -4,7 +4,7 @@
 
 void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (dt_appear > 0)
+	/*if (dt_appear > 0)
 	{
 		float cam_x, cam_y;
 		CGame::GetInstance()->GetCamPos(cam_x, cam_y);
@@ -23,7 +23,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 			return;
-	}
+	}*/
 	if (dt_die == 0)
 	{
 		if (state == TORCH_STATE_NOT_EXSIST)

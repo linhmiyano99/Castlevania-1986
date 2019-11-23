@@ -76,15 +76,15 @@ void CScene::LoadSimon()
 		if (simon_y < 190)
 			simon->SetPosition(simon_x, simon_y);
 		else
-			simon->SetPosition(simon_x - 15, simon_y - 65);
+			simon->SetPosition(simon_x + 30, simon_y - 65);
 	}
 	else if (id == 3)
 	{
-		simon->SetPosition(simon_x + 15, simon_y + 65);
+		simon->SetPosition(simon_x - 20, simon_y + 65);
 	}
 	else if (id == 4)
 	{
-		simon->SetPosition(simon_x - 15, simon_y - 65);
+		simon->SetPosition(simon_x + 30, simon_y - 65);
 	}
 
 }
@@ -153,7 +153,7 @@ void CScene::Update(DWORD dt)
 		simon->GetPosition(cx, cy);
 
 
-		if (cy >= 370 && id != 3)
+		if (cy >= 400 && id != 3)
 		{
 			SetMap(3);
 			LoadSimon();
@@ -161,7 +161,7 @@ void CScene::Update(DWORD dt)
 		}
 		else if (id == 3)
 		{
-			if (cy < 465)
+			if (cy < 400)
 			{
 				if ((cx > 3070 && cx < 3290) || (cx > 3740 && cx < 3940) && simon->IsOnStair())
 				{

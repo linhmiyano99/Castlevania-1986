@@ -95,6 +95,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				die_start = 0;
 				isFall = false;
+				for each (LPGAMEOBJECT var in *coObjects)
+				{
+					if (!dynamic_cast<CBrick*>(var))
+						var->SetState(TORCH_STATE_ITEM_NOT_EXSIST);
+				}
 			}
 			else
 			{
@@ -393,106 +398,6 @@ B:
 							y += dy;
 						}
 					}
-					else if (dynamic_cast<CTorch*>(e->obj))
-					{
-
-						CTorch* torch = dynamic_cast<CTorch*>(e->obj);
-
-						if (dynamic_cast<CEnemy*>(torch))
-						{
-							CEnemy* torch = dynamic_cast<CEnemy*>(e->obj);
-							if (dynamic_cast<CBoss*>(torch))
-							{
-								CBoss* boss = dynamic_cast<CBoss*>(e->obj);
-								if (boss->GetState() == BOSS_STATE_ATTACK || boss->GetState() == BOSS_STATE_FLY)
-								{
-									listEnemy.clear();
-
-									if (untouchable == 0)
-									{
-										listEnemy.push_back(torch);
-										CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
-										if (dynamic_cast<CBat*>(torch))
-										{
-											CBat* bat = dynamic_cast<CBat*>(e->obj);
-											bat->SetState(TORCH_STATE_NOT_EXSIST);
-										}
-										else if (dynamic_cast<CPanther*>(torch))
-										{
-											CPanther* panther = dynamic_cast<CPanther*>(e->obj);
-											float _x, _y;
-											panther->GetPosition(_x, _y);
-											if (_x > x)
-												nx = 1;
-											else
-												nx = -1;
-
-										}
-										StartUntouchable();
-									}
-								}
-								else
-								{
-									if (dynamic_cast<CItem*>(torch->GetItem()))
-									{
-										listEnemy.push_back(torch->GetItem());
-										CollisionWithItem(dt, listEnemy);
-									}
-								}
-							}
-							else {
-								if ((torch->GetState() == TORCH_STATE_EXSIST))
-								{
-									listEnemy.clear();
-									if (untouchable == 0)
-									{
-										listEnemy.push_back(torch);
-										CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
-										if (attack_start > 0)
-										{
-											attack_start = 0;
-											if (state == SIMON_STATE_SIT || state == SIMON_STATE_SIT_ATTACK)
-											{
-												y -= 20;
-											}
-										}
-										if (dynamic_cast<CBat*>(torch))
-										{
-											CBat* bat = dynamic_cast<CBat*>(e->obj);
-											bat->SetState(TORCH_STATE_NOT_EXSIST);
-										}
-										else if (dynamic_cast<CPanther*>(torch))
-										{
-											CPanther* panther = dynamic_cast<CPanther*>(e->obj);
-											float _x, _y;
-											panther->GetPosition(_x, _y);
-											if (_x > x)
-												nx = 1;
-											else
-												nx = -1;
-
-										}
-										StartUntouchable();
-									}
-								}
-								else {
-									if (dynamic_cast<CItem*>(torch->GetItem()))
-									{
-										listEnemy.push_back(torch->GetItem());
-										CollisionWithItem(dt, listEnemy);
-									}
-								}
-							}
-						}
-						else {
-							listTorch.push_back(torch);
-							CollisionWithTorch(dt, listTorch, min_tx, min_ty, nx, ny);
-							listTorch.clear();
-						}
-
-
-					}
-
 					else if (dynamic_cast<CHidenObject*>(e->obj))
 					{
 						CHidenObject* torch = dynamic_cast<CHidenObject*>(e->obj);
@@ -515,6 +420,109 @@ B:
 							CollisionWithGate(dt, listGate, min_tx, min_ty, nx, ny);
 						}
 					}
+					else if(state != SIMON_STATE_HURT)
+					{ 
+						if (dynamic_cast<CTorch*>(e->obj))
+						{
+
+							CTorch* torch = dynamic_cast<CTorch*>(e->obj);
+
+							if (dynamic_cast<CEnemy*>(torch))
+							{
+								CEnemy* torch = dynamic_cast<CEnemy*>(e->obj);
+								if (dynamic_cast<CBoss*>(torch))
+								{
+									CBoss* boss = dynamic_cast<CBoss*>(e->obj);
+									if (boss->GetState() == BOSS_STATE_ATTACK || boss->GetState() == BOSS_STATE_FLY)
+									{
+										listEnemy.clear();
+
+										if (untouchable == 0)
+										{
+											listEnemy.push_back(torch);
+											CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
+											if (dynamic_cast<CBat*>(torch))
+											{
+												CBat* bat = dynamic_cast<CBat*>(e->obj);
+												bat->SetState(TORCH_STATE_NOT_EXSIST);
+											}
+											else if (dynamic_cast<CPanther*>(torch))
+											{
+												CPanther* panther = dynamic_cast<CPanther*>(e->obj);
+												float _x, _y;
+												panther->GetPosition(_x, _y);
+												if (_x > x)
+													nx = 1;
+												else
+													nx = -1;
+
+											}
+											StartUntouchable();
+										}
+									}
+									else
+									{
+										if (dynamic_cast<CItem*>(torch->GetItem()))
+										{
+											listEnemy.push_back(torch->GetItem());
+											CollisionWithItem(dt, listEnemy);
+										}
+									}
+								}
+								else {
+									if ((torch->GetState() == TORCH_STATE_EXSIST))
+									{
+										listEnemy.clear();
+										if (untouchable == 0)
+										{
+											listEnemy.push_back(torch);
+											CollisionWithEnemy(dt, listEnemy, min_tx, min_ty, nx, ny);
+											if (attack_start > 0)
+											{
+												attack_start = 0;
+												if (state == SIMON_STATE_SIT || state == SIMON_STATE_SIT_ATTACK)
+												{
+													y -= 20;
+												}
+											}
+											if (dynamic_cast<CBat*>(torch))
+											{
+												CBat* bat = dynamic_cast<CBat*>(e->obj);
+												bat->SetState(TORCH_STATE_NOT_EXSIST);
+											}
+											else if (dynamic_cast<CPanther*>(torch))
+											{
+												CPanther* panther = dynamic_cast<CPanther*>(e->obj);
+												float _x, _y;
+												panther->GetPosition(_x, _y);
+												if (_x > x)
+													nx = 1;
+												else
+													nx = -1;
+
+											}
+											StartUntouchable();
+										}
+									}
+									else {
+										if (dynamic_cast<CItem*>(torch->GetItem()))
+										{
+											listEnemy.push_back(torch->GetItem());
+											CollisionWithItem(dt, listEnemy);
+										}
+									}
+								}
+							}
+							else {
+								listTorch.push_back(torch);
+								CollisionWithTorch(dt, listTorch, min_tx, min_ty, nx, ny);
+								listTorch.clear();
+							}
+
+						}
+					}
+
+					
 
 				}
 			}
@@ -1032,8 +1040,11 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 		if (isOnStair)
 		{
 			if (ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR || ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
-			{	isOnStair = false;
-			state = SIMON_ANI_IDLE;
+			{	
+				isOnStair = false;
+				state = SIMON_ANI_IDLE;
+				if (ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
+					y -= 5;
 			}
 			IsCanOnStair(listObj);
 		}
