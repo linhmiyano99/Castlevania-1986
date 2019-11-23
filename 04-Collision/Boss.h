@@ -26,6 +26,13 @@ class CBoss : public CEnemy
 	static CBoss* __instance;
 	DWORD start_attack;
 	DWORD start_hurt;
+	float x1;
+	float y1;
+	float x2;
+	float y2;
+	int step;
+	int type;
+	bool isFlying;
 public:
 	static CBoss* GetInstance();
 
@@ -36,16 +43,22 @@ public:
 		AddAnimation(1091);
 		AddAnimation(1092);
 		AddAnimation(800);
+		type = 0;
+		step = 0;
 		_energy = 16;
 		start_attack = 0;
 		start_hurt = 0;
 		vx = vy = 0;
 		state = BOSS_STATE_SLEEP;
 		dt_die = 0;
+		isFlying = false;
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 	virtual void Hurt();
-	//void AutoFly(float next_x, float next_y);
+	void AutoFly(float next_x, float next_y);
+	void AutoAttack(float next_x, float next_y);
+	void FlyStraight(float next_x, float next_y);
+	void FlyCurve(float next_x, float next_y);
 };

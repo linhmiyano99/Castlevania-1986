@@ -1,6 +1,7 @@
 ﻿#include "Boss.h"
 #include "Scene.h"
 #include "SmallBall.h"
+#include <ctime> 
 
 CBoss* CBoss::__instance = NULL;
 
@@ -77,18 +78,163 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (GetTickCount() - start_attack > TIME_ATTACK)
 				{
 					state = BOSS_STATE_FLY;
-					vx = -0.15f;
-					vy = 0.05f;
+					if (vx == 0)
+						vx = 0.15f;
+					if (vy == 0)
+						vy = 0.1f;
 				}
 			}
-			CGameObject::Update(dt);
-			x += dx;
-			y += dy;
+			if (state == BOSS_STATE_FLY)
+			{
+				if (!isFlying)
+				{
+					int _type;
+					srand((unsigned)time(0));
+					_type = rand() % 3;
+					if (_type == 2)
+						type = 1;
+					else
+						type = 0;
+					float c_x, c_y;
+					CGame::GetInstance()->GetCamPos(c_x, c_y);
+					
+					if (type == 0)
+					{
+						/*srand((unsigned)time(0));
+						_type = rand() % 3;
+						if (_type == 0)
+						{
+							if (x < c_x + 100)
+							{
+								AutoFly(x + 100, y);
+							}
+							else
+							{
+								AutoFly(x - 100, y);
+							}
+						}
+						else if (_type == 1)
+						{
+							if (x < c_x + 200)
+							{
+								AutoFly(x + 200, y);
+							}
+							else
+							{
+								AutoFly(x - 200, y);
+							}
+						}
+						else  if (_type == 2)
+						{
+							if (x < c_x + 100)
+							{
+								AutoFly(x + 400, y);
+							}
+							else if (x > c_x + 460)
+							{
+								AutoFly(x - 400, y);
+							}
+							else
+							{
+								AutoFly(x - 100, y);
+							}
+						}*/
+					}
+					else
+					{
+						
+						if( x  < c_x + 200)
+							AutoAttack(x + 50, y);
+						else
+							AutoAttack(x - 50, y);
+						
+					}
+					isFlying = true;
+					if (vy == 0)
+						vy = 0.1f;
+					if (vx == 0)
+						vx = 0.1f;
+					
+				}
+				
+				
 
-			if (x <= CScene::GetInstance()->GetLeft() + 20 || x >= CScene::GetInstance()->GetRight() - 100)
-				vx = -vx;
-			if (y <= 80 || y >= SCREEN_HEIGHT - 80)
-				vy = -vy;
+				if (isFlying) {
+					if (type == 0)
+					{
+						if (step == 0)
+						{
+							if (abs(x - x1) > 10)
+							{
+								FlyCurve(x1, y1);
+							}
+							else
+							{
+								step = 1;
+							}
+						}
+						else if (step == 1)
+						{
+							if (abs(x - x2) > 10)
+							{
+								
+								//FlyCurve(x2, y2);
+							}
+							else
+							{
+								step = 2;
+							}
+						}
+						else
+						{
+							step = 0;
+						}
+					}
+					else
+					{
+
+						if (step == 0)
+						{
+							if (abs(x - x1) > 10)
+							{
+								FlyStraight(x1, y1);
+							}
+							else
+							{
+								step = 1;
+								vy = -vy;
+							}
+						}
+						else if (step == 1)
+						{
+							if (abs(x - x2) > 10)
+							{
+								
+								FlyStraight(x2, y2);
+
+							}
+							else
+							{
+								step = 2;
+							}
+						}
+						else
+						{
+							step = 0;
+							isFlying = false;
+						}
+					}
+				}
+				
+				x += vx * dt;
+				y += vy * dt;
+
+				if ((x <= CScene::GetInstance()->GetLeft() + 20 && vx <0) || (vx > 0 && x >= CScene::GetInstance()->GetRight() - 80))
+					vx = -vx;
+				if ((vy <= 200 && y < 0) || (y >= SCREEN_HEIGHT - 80 && vy > 0))
+					vy = -vy;
+				
+			}
 		}
 	}
 	else // đẫ chết
@@ -185,3 +331,47 @@ void CBoss::Hurt()
 //		vy = 1.0 * (next_x - y - 20) / (next_y - x - 20) * nx * 0.5f;
 //	}
 //}
+
+void CBoss::AutoFly(float next_x, float next_y)
+{
+	x1 = (x + next_x) / 2;
+	y1 = y + 200;
+	if (y1 > 400)
+		y1 = 400;
+	x2 = next_x;
+	y2 = y + 20;
+}
+void CBoss::AutoAttack(float next_x, float next_y)
+{
+	CSimon::GetInstance()->GetPosition(x1, y1);
+	x2 = next_x;
+	y2 = next_y;
+}
+void CBoss::FlyStraight(float next_x, float next_y)
+{
+
+	if (x < next_x)
+	{
+		nx = 1;
+	}
+	else
+	{
+		nx = -1;
+	}
+	if (next_x != x && next_y != y)
+		SetSpeed(0.12f * nx, 1.0 * (next_y - y) / (next_x - x) * nx * 0.12f);
+	
+}
+void CBoss::FlyCurve(float next_x, float next_y)
+{
+	if (x < next_x)
+	{
+		nx = 1;
+	}
+	else
+	{
+		nx = -1;
+	}
+
+	vy -= 0.001f;
+}

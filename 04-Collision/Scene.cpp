@@ -52,7 +52,7 @@ void CScene::LoadResoure()
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
-		simon->SetPosition(4200, 20.0f);
+		simon->SetPosition(5000, 20.0f);
 		id = 4;
 		_stage = 3;
 		objects.push_back(simon);
