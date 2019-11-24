@@ -58,13 +58,9 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CBrick::Render()
 {
-	if (_type == eType::BRICK_2)
+	if (_type == eType::BRICK_2 || _type == eType::BRICK_1)
 		return;
-	if (_type == eType::BRICK_1)
-	{
-		animations[0]->Render(x, y);
-		return;
-	}
+
 	if (state == TORCH_STATE_EXSIST)
 	{
 		animations[0]->Render(x, y);

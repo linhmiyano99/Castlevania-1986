@@ -113,7 +113,11 @@ void CMap::DrawMap()
 			}
 		}
 	}
-
+	if (_scene == 0)
+	{
+		for (int i = (int)cam_x / 64; i <= (int)(cam_x + 560) /32 ; i++)
+			sprites->Get(9999)->Draw(i * 32, 360);
+	}
 }
 
 

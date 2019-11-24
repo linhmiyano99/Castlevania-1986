@@ -8,6 +8,8 @@ bool CFishman::isStart = false;
 
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!CScene::IsGoFishman())
+		return;
 	if (dt_appear > 0)
 	{
 		float cam_x, cam_y;
@@ -251,6 +253,8 @@ void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bott
 }
 void CFishman::Render()
 {
+	if (!CScene::IsGoFishman())
+		return;
 	if (vx == 0 && vy == 0 && isJumping)
 		return;
 	if (state == TORCH_STATE_EXSIST)

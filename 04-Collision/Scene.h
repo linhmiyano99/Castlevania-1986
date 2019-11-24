@@ -49,6 +49,8 @@ class CScene
 	CGrid* grid;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> smallballs;
+	static bool GoGhost;
+	static bool GoFishman;
 
 	int id;
 	int _stage;
@@ -56,7 +58,7 @@ class CScene
 	float auto_tran;
 public:
 	static CScene* GetInstance();
-	CScene(int id = 1);
+	CScene(int id = 0);
 	void LoadResoure();
 	void LoadSimon();
 	void Update(DWORD dt);
@@ -75,5 +77,9 @@ public:
 	void UpStage() { _stage++; }
 	int GetStage() { return _stage; }
 	void SetScene(int scene) { id = scene; }
+	static bool IsGoGhost() { return GoGhost; }
+	static bool IsGoFishman() { return GoFishman; }
+	static void SetGhost(bool can) { GoGhost = can; }
+	static void SetFishman(bool can) { GoFishman = can; }
 };
 #endif // !__SMALLBALL_H__

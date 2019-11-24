@@ -19,6 +19,7 @@
 
 class CEnemy : public CTorch
 {
+	bool isStop;
 protected:
 	int ny;
 	float start_x, start_y;

@@ -4,7 +4,7 @@
 #define PANTHER_BBOX_WIDTH 64
 #define PANTHER_BBOX_HEIGHT 32
 
-#define PANTHER_RUNNING_SPEED_X 0.2f;
+#define PANTHER_RUNNING_SPEED_X 0.22f;
 #define PANTHER_RUNNING_SPEED_Y 0.1f;
 
 #define PANTHER_ANI_SIT 0
@@ -53,4 +53,6 @@ public:
 			dt_appear = GetTickCount();
 		}
 	}
+	void CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float min_tx0, float min_ty0, int nx0, int ny0);
+	void CollisionWithHiden(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float min_tx0, float min_ty0, int nx0, int ny0);
 };

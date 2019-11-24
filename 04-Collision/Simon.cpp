@@ -98,11 +98,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				die_start = 0;
 				isFall = false;
-				for each (LPGAMEOBJECT var in *coObjects)
-				{
-					if (!dynamic_cast<CBrick*>(var))
-						var->SetState(TORCH_STATE_ITEM_NOT_EXSIST);
-				}
 			}
 			else
 			{
@@ -1184,15 +1179,18 @@ void CSimon::CollisionWithHidenObject(DWORD dt, vector<LPGAMEOBJECT>& listObj, f
 			}
 			else if (ohiden->GetState() == HIDENOBJECT_TYPE_FISHMAN)
 			{
-				CFishman::Start();
+				//CFishman::Start();
+				CScene::SetFishman(true);
 			}
 			else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_1)
 			{
-				CGhost::Start();
+				CScene::SetGhost(true);
+				//CGhost::Start();
 			}
 			else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_STOP_1)
 			{
-				CGhost::Stop();
+				//CGhost::Stop();
+				CScene::SetGhost(false);
 			}
 			else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
 			{
@@ -1239,6 +1237,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, vector<LPGAMEOBJECT>& listObj, float m
 		else
 			vx = nx;
 		vy = -0.2f;
+		if(dynamic_cast<CGhost*>(listObj.at(0)))
 		_energy -= 2;
 		if ((min_tx <= min_tx0 || min_ty <= min_ty0) && _energy >0)
 		{

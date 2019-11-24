@@ -32,30 +32,46 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 
 
 	int top = (int)(cam_y + 1) / GRID_CELL_HEIGHT;
-	int bottom = (int)(cam_y + SCREEN_HEIGHT + 1 ) / GRID_CELL_HEIGHT;
+	int bottom = (int)(cam_y + SCREEN_HEIGHT - 1) / GRID_CELL_HEIGHT;
 
 
 	int left = (int)(cam_x + 1) / GRID_CELL_WIDTH;
-	int right = (int)(cam_x + SCREEN_HEIGHT - 1) / GRID_CELL_WIDTH ;
+	int right = (int)(cam_x + SCREEN_HEIGHT - 1) / GRID_CELL_WIDTH;
 
-	for (int i = top - 1; i < bottom + 2; i++)
+	for (int i = top; i <= bottom; i++)
 	{
-		for (int j = left - 1; j < right + 2; j++)
+		for (int j = left; j <= right; j++)
 		{
 			if (i <= GRID_ROW_MAX && j <= GRID_COLUMN_MAX && i >= 0 && j >= 0)
 			{
 				for (UINT k = 0; k < cells[i][j].size(); k++)
 				{
-					
-					{
-						ListObj.push_back(cells[i][j].at(k));
-					}
+					ListObj.push_back(cells[i][j].at(k));
+
 				}
 			}
 		}
 	}
-	
-	
+	/*if (left - 1 > 0)
+	{
+		int l = left - 1;
+		for (UINT k = 0; k < cells[top][l].size(); k++)
+		{
+			if (dynamic_cast<CEnemy*>(cells[top][l].at(k)))
+				ListObj.push_back(cells[top][l].at(k));
+
+		}
+	}
+	if (right + 1 < GRID_COLUMN_MAX)
+	{
+		int l = left - 1;
+		for (UINT k = 0; k < cells[top][l].size(); k++)
+		{
+			if (dynamic_cast<CEnemy*>(cells[top][l].at(k)))
+				ListObj.push_back(cells[top][l].at(k));
+
+		}
+	}*/
 	CSimon* simon = CSimon::GetInstance();
 	ListObj.push_back(simon);
 	CDagger* dagger = CDagger::GetInstance();
@@ -99,7 +115,7 @@ void CGrid::LoadObject(char* filename)
 void CGrid::Insert(int type, int trend, float x, float y, float w, float h, int id_item)
 {
 
-	int top = (int)(y )/ GRID_CELL_HEIGHT;
+	int top = (int)(y) / GRID_CELL_HEIGHT;
 	int bottom = (int)(y + h) / GRID_CELL_HEIGHT;
 	int left = (int)(x) / GRID_CELL_WIDTH;
 	int right = (int)(x + w) / GRID_CELL_WIDTH;

@@ -11,7 +11,8 @@ CScene* CScene::GetInstance()
 	return __instance;
 }
 
-
+bool CScene::GoGhost =false;
+bool CScene::GoFishman = false;
 CScene::CScene(int id)
 {
 	this->id = id;
@@ -22,6 +23,9 @@ CScene::CScene(int id)
 	isAutoTran = false;
 	auto_tran = 0;
 	_stage = 1;
+	GoGhost = false;
+	GoFishman = false;
+
 }
 
 
@@ -52,9 +56,7 @@ void CScene::LoadResoure()
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
-		simon->SetPosition(5000, 20.0f);
-		id = 4;
-		_stage = 3;
+		simon->SetPosition(000, 20.0f);
 		objects.push_back(simon);
 		boss = CBoss::GetInstance();
 		boss->SetPosition(5340.0f, 95.0f);
@@ -125,13 +127,13 @@ void CScene::Update(DWORD dt)
 		if (c_x < auto_tran)
 		{
 			if (c_x < auto_tran - SCREEN_WIDTH / 2)
-				game->SetCamPos(c_x + 1.0f, c_y);
+				game->SetCamPos(c_x + 2.0f, c_y);
 			else
 			{
 				if (simon->IsAutoGo())
 					simon->Update(dt);
 				else
-					game->SetCamPos(c_x + 1.0f, c_y);
+					game->SetCamPos(c_x + 2.0f, c_y);
 			}
 
 		}
@@ -199,7 +201,7 @@ void CScene::Update(DWORD dt)
 		for (int i = 0; i < objects.size(); i++)
 		{
 
-			if (CGhost::IsStart())
+		/*	if (CGhost::IsStart())
 			{
 				
 				if (objects[i]->GetType() == eType::GHOST)
@@ -210,7 +212,7 @@ void CScene::Update(DWORD dt)
 			{
 				if (objects[i]->GetType() == eType::FISHMEN )
 					objects[i]->Go();
-			}
+			}*/
 			objects[i]->Update(dt, &coObjects);
 		}
 

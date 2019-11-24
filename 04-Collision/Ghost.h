@@ -4,7 +4,7 @@
 #define GHOST_BBOX_WIDTH 40
 #define GHOST_BBOX_HEIGHT 60
 
-#define GHOST_SPEED 0.07f
+#define GHOST_SPEED 0.05f
 #define GHOST_GRAVITY 0.05f
 
 class CGhost: public CEnemy
@@ -19,7 +19,7 @@ public:
 		AddAnimation(800);
 		AddAnimation(802);
 		nx = -1;
-		vx = vy = 0;
+		SetSpeed(GetTrend() * GHOST_SPEED, 0);
 		dt_appear = 0;
 		isOnStair = false;
 	}
@@ -29,5 +29,7 @@ public:
 	static void Start() { isStart = true; }
 	static void Stop() { isStart = false; }
 	static bool IsStart() { return isStart; }
+	void CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float min_tx0, float min_ty0, int nx0, int ny0);
+	void CollisionWithHiden(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float min_tx0, float min_ty0, int nx0, int ny0);
 	
 };

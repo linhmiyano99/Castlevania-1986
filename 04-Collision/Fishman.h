@@ -47,6 +47,7 @@ public:
 			CWaterEffection* water = new CWaterEffection();
 			list.push_back(water);
 		}
+		Go();
 		ResetWater(0);
 	
 	}
