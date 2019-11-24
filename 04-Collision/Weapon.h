@@ -15,6 +15,8 @@
 
 class CWeapon : public CGameObject
 {
+protected:
+	bool isRender;
 public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj);

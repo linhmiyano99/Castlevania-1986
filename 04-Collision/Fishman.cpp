@@ -98,7 +98,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		else
 		{
 			
-				if (state == TORCH_STATE_NOT_EXSIST)
+			if (state == TORCH_STATE_NOT_EXSIST)
 				{
 					dt_die = GetTickCount();
 					if (item)
@@ -116,7 +116,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					float cam_x, cam_y;
 					CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-					if (x < cam_x - 40 || x > cam_x + 560 || y > cam_y + 350 || y < cam_y)
+					if (x < cam_x - 40 || x > cam_x + 560 || y > cam_y + 350)
 					{
 						state = TORCH_STATE_ITEM_NOT_EXSIST;
 						dt_appear = GetTickCount();
@@ -185,7 +185,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 		}
-		if (x > 3065 && x < 3505)
+		if (x < 3505)
 		{
 			if (x <= 3076 || x >= 3464)
 			{
@@ -193,7 +193,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				nx = -nx;
 			}
 		}
-		else if (x > 3571 && x < 3631)
+		else if ( x < 3631)
 		{
 			if (x <= 3585 || x >= 3590)
 			{
@@ -201,7 +201,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				nx = -nx;
 			}
 		}
-		else if (x > 3701 && x < 4010)
+		else 
 		{
 			if (x <= 3710 || x >= 3970)
 			{

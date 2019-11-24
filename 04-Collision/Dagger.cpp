@@ -32,11 +32,16 @@ void CDagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			state = DAGGER_STATE_HIDE;
 			start_attack = 0;
+			isRender = false;
+
 		}
 	}
 	if (state == DAGGER_STATE_ATTACK) {
 		if (start_attack == 0)
+		{
 			start_attack = GetTickCount();
+			isRender = true;
+		}
 		if (nx > 0)
 			x += dt * vx;
 		else
@@ -48,7 +53,7 @@ void CDagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CDagger::Render()
 {
-	if (state == DAGGER_STATE_ATTACK) {
+	if (isRender) {
 		animations[0]->Render(x, y, nx, 255);
 		//RenderBoundingBox();
 	}
@@ -123,7 +128,7 @@ void CDagger::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 								}
 							}
 						}
-						this->state = DAGGER_STATE_HIDE;
+						isRender = false;
 						break;
 					}
 				}

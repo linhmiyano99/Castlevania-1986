@@ -32,11 +32,15 @@ void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			state = AXE_STATE_HIDE;
 			start_attack = 0;
 			vy = -AXE_SPEED_Y;
+			isRender = false;
 		}
 	}
 	if (state == AXE_STATE_ATTACK) {
 		if (start_attack == 0)
+		{
 			start_attack = GetTickCount();
+			isRender = true;
+		}
 
 		x += dt * vx;
 		vy += GRAVITY * dt;
@@ -49,7 +53,7 @@ void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CAxe::Render()
 {
-	if (state == AXE_STATE_ATTACK) {
+	if (isRender) {
 		animations[0]->Render(x, y, nx, 255);
 		//RenderBoundingBox();
 	}
@@ -129,7 +133,7 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 								}
 							}
 						}
-						this->state = AXE_STATE_HIDE;
+						isRender = false;
 						break;
 					}
 				}

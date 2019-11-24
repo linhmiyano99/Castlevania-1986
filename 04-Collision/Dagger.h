@@ -34,6 +34,7 @@ public:
 		AddAnimation(701);
 		state = DAGGER_STATE_HIDE;
 		start_attack = 0;
+		isRender = false;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	void SetPosition(float simon_x, float simon_y);

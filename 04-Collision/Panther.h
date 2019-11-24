@@ -28,15 +28,15 @@ public:
 		AddAnimation(800);
 		if (_x < 1460)
 		{
-			LeftLimit = x - 300;
+			LeftLimit = 1230;
 		}
 		else if (_x < 1810)
 		{
-			LeftLimit = x - 600;
+			LeftLimit = 1387;
 		}
 		else
 		{
-			LeftLimit = x - 450;
+			LeftLimit = 1754;
 		}
 	}
 	virtual void Render();

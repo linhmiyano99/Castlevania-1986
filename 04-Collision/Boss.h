@@ -19,7 +19,7 @@
 
 #define BOSS_TIME_ATTACK	10000
 #define BOSS_TIME_CHECK_FLY 2500
-#define BOSS_TIME_HURT		200
+#define BOSS_TIME_HURT		300
 #define BOSS_TIME_ATTACK2 300
 
 class CBoss : public CEnemy

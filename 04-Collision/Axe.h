@@ -35,7 +35,7 @@ public:
 	CAxe() :CWeapon()
 	{
 		AddAnimation(603);
-
+		isRender = false;
 		state = AXE_STATE_HIDE;
 		start_attack = 0;
 	}

@@ -32,7 +32,7 @@ CSimon::CSimon() : CGameObject()
 	isCanOnStair = 0;
 	isOnStair = false;
 	_stairTrend = 0;
-	_energy = 16;
+	_energy = 4;
 	isAutoGo = false;
 	auto_x = -1;
 	_score = 0;

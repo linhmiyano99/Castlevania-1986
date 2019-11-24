@@ -201,21 +201,6 @@ void CPanther::GetBoundingBox(float& left, float& top, float& right, float& bott
 		item->GetBoundingBox(left, top, right, bottom);
 	}
 }
-//
-//void CPanther::SetState(int state)
-//{
-//	CGameObject::SetState(state);
-//	switch (state)
-//	{
-//	case ENEMY_STATE_DIE:
-//
-//		break;
-//	case ENEMY_STATE_WALKING:
-//		vx = -PANTHER_RUNNING_SPEED_X;
-//		vy = -PANTHER_RUNNING_SPEED_Y;
-//	}
-//
-//}
 void CPanther::CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float min_tx0, float min_ty0, int nx0, int ny0)
 {
 	float b_x, b_y;
@@ -237,11 +222,9 @@ void CPanther::CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, flo
 	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 	//// block 
-	if (min_tx <= min_tx0)
-		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+	x += dx;
 	if (min_ty <= min_ty0)
 		y += min_ty * dy + ny * 0.4f;
-	if (nx != 0) vx = 0;
 	if (ny != 0) vy = 0;
 
 }
