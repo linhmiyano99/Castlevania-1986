@@ -10,6 +10,18 @@
 
 #define MAX_FRAME_RATE 120
 
+#define ID_TEX_BBOX -100		// special texture to draw object bounding box
+#define ID_TEX 1
+
+
+
+#define BRICK_ANI					6
+#define TORCH_ANI_FIRE				7
+#define VAMPIREKILLER_1				8
+#define VAMPIREKILLER_2				9
+#define VAMPIREKILLER_3				10
+
+
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(ptr) \
 if(ptr) \

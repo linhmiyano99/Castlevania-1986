@@ -1,6 +1,7 @@
 #include"Ghost.h"
 #include"Scene.h"
 #include"HidenObject.h"
+#include"Torch.h"
 
 bool CGhost::isStart = false;
 
@@ -19,27 +20,25 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!CScene::IsGoGhost())
 		return;
+	float cam_x, cam_y;
+	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+	if (state == TORCH_STATE_EXSIST && (x < cam_x - 100 && vx < 0 || x > cam_x + 600 && vx >0))
+	{
+		state = TORCH_STATE_ITEM_NOT_EXSIST;
+		dt_appear = GetTickCount();
+	}
 	if (dt_appear > 0)
 	{
-		float cam_x, cam_y;
-		CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+		
 		if (start_x > cam_x + 660 || start_x < cam_x - 100)
 			return;
 		if (GetTickCount() - dt_appear > TIME_APPEAR && (start_x > cam_x + 560 ) || (start_x < cam_x ) )
 		{
-			float s_x, s_y;
-			CSimon::GetInstance()->GetPosition(s_x, s_y);
-			if(start_x > s_x)
-			{
-				nx = -1;
-			}
-			else if (start_x < s_x)
-			{
-				nx = 1;
-			}
+			
 			state = TORCH_STATE_EXSIST;
 			x = start_x;
 			y = start_y;
+			nx = -1;
 			vx = nx * GHOST_SPEED;
 
 			if (item)
@@ -75,40 +74,25 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 
-			vector<LPGAMEOBJECT> listBrick;
-			vector<LPGAMEOBJECT> listHiden;
-			vector<LPGAMEOBJECT> listStairUp;
-			vector<LPGAMEOBJECT> listStairDown;
 			vector<LPGAMEOBJECT> list;
 			for (int i = 0; i < coObjects->size(); i++)
 			{
 
 				if (dynamic_cast<CBrick*>(coObjects->at(i)))
 				{
-					CBrick* brick = dynamic_cast<CBrick*>(coObjects->at(i));
-					listBrick.push_back(brick);
-					list.push_back(brick);
+					list.push_back(coObjects->at(i));
 				}
 				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_2)
 				{
-					CHidenObject* brick = dynamic_cast<CHidenObject*>(coObjects->at(i));
-					listHiden.push_back(brick);
-					list.push_back(brick);
-
+					list.push_back(coObjects->at(i));
 				}
 				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_UP)
 				{
-					CHidenObject* brick = dynamic_cast<CHidenObject*>(coObjects->at(i));
-					listStairUp.push_back(brick);
-					list.push_back(brick);
-
+					list.push_back(coObjects->at(i));
 				}
 				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && (coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_DOWN))
 				{
-					CHidenObject* brick = dynamic_cast<CHidenObject*>(coObjects->at(i));
-					listStairDown.push_back(brick);
-					list.push_back(brick);
-
+					list.push_back(coObjects->at(i));
 				}
 			}
 
@@ -140,23 +124,17 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					LPCOLLISIONEVENT e = coEventsResult[i];
 					if (dynamic_cast<CBrick*>(e->obj))
 					{
-						listBrick.clear();
-						CBrick* torch = dynamic_cast<CBrick*>(e->obj);
-						listBrick.push_back(torch);
-						CollisionWithBrick(dt, listBrick, min_tx, min_ty, nx, ny_1);
+						CollisionWithBrick(dt, e->obj, min_tx, min_ty, nx, ny_1);
 					}
 					if (dynamic_cast<CHidenObject*>(e->obj))
 					{
-						listHiden.clear();
-						CHidenObject* torch = dynamic_cast<CHidenObject*>(e->obj);
-						listHiden.push_back(torch);
-						CollisionWithHiden(dt, listHiden, min_tx, min_ty, nx, ny_1);
+						CollisionWithHiden(dt, e->obj, min_tx, min_ty, nx, ny_1);
 					}
 
 				}
 
 			}
-
+			list.clear();
 			// clean up collision events
 			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 		}
@@ -247,19 +225,20 @@ void CGhost::GetBoundingBox(float& left, float& top, float& right, float& bottom
 		item->GetBoundingBox(left, top, right, bottom);
 	}
 }
-void CGhost::CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float min_tx0, float min_ty0, int nx0, int ny0)
+void CGhost::CollisionWithBrick(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, float min_ty0, int nx0, int ny0)
 {
 	float b_x, b_y;
-	listBrick.at(0)->GetPosition(b_x, b_y);
+	obj->GetPosition(b_x, b_y);
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
-
+	vector<LPGAMEOBJECT> list;
+	list.push_back((LPGAMEOBJECT)(obj));
 	// turn off collision when die 
 
-	CalcPotentialCollisions(&listBrick, coEvents);
+	CalcPotentialCollisions(&list, coEvents);
 
 	float min_tx, min_ty, nx = 0, ny;
 
@@ -271,16 +250,18 @@ void CGhost::CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float
 	if (min_ty <= min_ty0)
 		y += min_ty * dy + ny * 0.4f;
 	if (ny != 0) vy = 0;
-
+	list.clear();
 }
 
-void CGhost::CollisionWithHiden(DWORD dt, vector<LPGAMEOBJECT>& list, float min_tx0, float min_ty0, int nx0, int ny0)
+void CGhost::CollisionWithHiden(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, float min_ty0, int nx0, int ny0)
 {
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
 
+	vector<LPGAMEOBJECT> list;
+	list.push_back((LPGAMEOBJECT)(obj));
 	// turn off collision when die 
 
 	CalcPotentialCollisions(&list, coEvents);
@@ -294,7 +275,7 @@ void CGhost::CollisionWithHiden(DWORD dt, vector<LPGAMEOBJECT>& list, float min_
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	CHidenObject* ohiden = dynamic_cast<CHidenObject*>(list.at(0));
+	CHidenObject* ohiden = dynamic_cast<CHidenObject*>(obj);
 	if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
 	{
 		vx = 0;
@@ -325,5 +306,6 @@ void CGhost::CollisionWithHiden(DWORD dt, vector<LPGAMEOBJECT>& list, float min_
 
 		}
 	}
-
+	ohiden = NULL;
+	list.clear();
 }

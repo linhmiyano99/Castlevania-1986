@@ -38,7 +38,6 @@
 
 CGame * game;
 CSimon* simon;
-CManagementTexture* manage;
 CScene* scene;
 
 vector<CGameObject*> objects;

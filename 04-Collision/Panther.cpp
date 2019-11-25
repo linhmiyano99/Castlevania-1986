@@ -22,11 +22,17 @@ CPanther::CPanther(float _x, float _y, int id) :CEnemy(_x, _y, id, eType::PANTHE
 }
 void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	float cam_x, cam_y;
+	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+	if (state == TORCH_STATE_EXSIST && (x < cam_x - 100 && vx < 0 || x > cam_x + 600 && vx >0))
+	{
+		state = TORCH_STATE_ITEM_NOT_EXSIST;
+		dt_appear = GetTickCount();
+	}
 	if (dt_appear > 0)
 	{
-		float cam_x, cam_y;
-		CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-		if (GetTickCount() - dt_appear > TIME_APPEAR && CSimon::GetInstance()->GetState() == SIMON_STATE_DIE)
+		
+		if (GetTickCount() - dt_appear > TIME_APPEAR && x < cam_x - 200)
 		{
 			state = TORCH_STATE_EXSIST;
 			x = start_x;
@@ -60,6 +66,10 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
+			float s_x, s_y;
+			CSimon::GetInstance()->GetPosition(s_x, s_y);
+			if((abs(x - s_x) < 200 && vx ==0 &&(abs(y - s_y) < 40) || abs(x - s_x) < 40))
+				SetSpeed(0.1f, 0.1f);
 			CGameObject::Update(dt);
 			float cam_x, cam_y;
 			CGame::GetInstance()->GetCamPos(cam_x, cam_y);
@@ -73,33 +83,13 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			// Simple fall down
 			vy += SIMON_GRAVITY * dt;
 
-			vector<LPGAMEOBJECT> listBrick;
-			vector<LPGAMEOBJECT> listHiden;
-			vector<LPGAMEOBJECT> list;
-			for (int i = 0; i < coObjects->size(); i++)
-			{
-
-				if (dynamic_cast<CBrick*>(coObjects->at(i)))
-				{
-					CBrick* brick = dynamic_cast<CBrick*>(coObjects->at(i));
-					listBrick.push_back(brick);
-					list.push_back(brick);
-				}
-				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_PANTHER_JUMP)
-				{
-					CHidenObject* brick = dynamic_cast<CHidenObject*>(coObjects->at(i));
-					listHiden.push_back(brick);
-					list.push_back(brick);
-				}
-			}
-
 			vector<LPCOLLISIONEVENT> coEvents;
 			vector<LPCOLLISIONEVENT> coEventsResult;
 
 			coEvents.clear();
 
 
-			CalcPotentialCollisions(&list, coEvents);
+			CalcPotentialCollisions(coObjects, coEvents);
 
 			if (coEvents.size() == 0)
 			{
@@ -116,22 +106,15 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					LPCOLLISIONEVENT e = coEventsResult[i];
 					if (dynamic_cast<CBrick*>(e->obj))
 					{
-						listBrick.clear();
-						CBrick* torch = dynamic_cast<CBrick*>(e->obj);
-						listBrick.push_back(torch);
-						CollisionWithBrick(dt, listBrick, min_tx, min_ty, nx, ny_1);
+						CollisionWithBrick(dt, e->obj, min_tx, min_ty, nx, ny_1);
 					}
 					if (dynamic_cast<CHidenObject*>(e->obj))
 					{
-						listHiden.clear();
-						CHidenObject* torch = dynamic_cast<CHidenObject*>(e->obj);
-						listHiden.push_back(torch);
-						CollisionWithHiden(dt, listHiden, min_tx, min_ty, nx, ny_1);
+						CollisionWithHiden(dt, e->obj, min_tx, min_ty, nx, ny_1);
 					}
 
 				}
 			}
-
 			// clean up collision events
 			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 		}
@@ -219,12 +202,14 @@ void CPanther::GetBoundingBox(float& left, float& top, float& right, float& bott
 		item->GetBoundingBox(left, top, right, bottom);
 	}
 }
-void CPanther::CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float min_tx0, float min_ty0, int nx0, int ny0)
+void CPanther::CollisionWithBrick(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, float min_ty0, int nx0, int ny0)
 {
 	float b_x, b_y;
 
-	listBrick.at(0)->GetPosition(b_x, b_y);
+	obj->GetPosition(b_x, b_y);
 
+	vector<LPGAMEOBJECT> listBrick;
+	listBrick.push_back((LPGAMEOBJECT)(obj));
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -244,13 +229,14 @@ void CPanther::CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, flo
 	if (min_ty <= min_ty0)
 		y += min_ty * dy + ny * 0.4f;
 	if (ny != 0) vy = 0;
+	listBrick.clear();
 
 }
 
-void CPanther::CollisionWithHiden(DWORD dt, vector<LPGAMEOBJECT>& list, float min_tx0, float min_ty0, int nx0, int ny0)
+void CPanther::CollisionWithHiden(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, float min_ty0, int nx0, int ny0)
 {
 	
-	CHidenObject* ohiden = dynamic_cast<CHidenObject*>(list.at(0));
+	CHidenObject* ohiden = dynamic_cast<CHidenObject*>(obj);
 	if (ohiden->GetState() == HIDENOBJECT_TYPE_PANTHER_JUMP)
 	{
 
@@ -260,7 +246,7 @@ void CPanther::CollisionWithHiden(DWORD dt, vector<LPGAMEOBJECT>& list, float mi
 		y += dy;
 		vy -= 0.4f;
 	}
-
+	ohiden = NULL;
 }
 void CPanther::SetSpeed(float _vx, float _vy) {
 	vx = -PANTHER_RUNNING_SPEED_X; vy = PANTHER_RUNNING_SPEED_Y;

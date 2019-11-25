@@ -49,4 +49,9 @@ void CBoard::Render()
 			sprites->Get(13010)->Draw(cx + 310, cy + 30);
 
 	}
+	game = NULL;
+	sprites = NULL;
+	simon = NULL;
+	boss = NULL;
+	scene = NULL;
 }

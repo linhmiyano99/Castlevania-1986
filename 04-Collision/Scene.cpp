@@ -32,6 +32,7 @@ CScene::CScene(int id)
 void CScene::LoadResoure()
 {
 	CManagementTexture* manage = new CManagementTexture();
+	SAFE_DELETE(manage);
 
 	objects.clear();
 
@@ -216,6 +217,7 @@ void CScene::Update(DWORD dt)
 
 		game->SetCamPos(cx, cy);
 		grid->GetListObject(objects, cx , cy);
+		coObjects.clear();
 
 	}
 

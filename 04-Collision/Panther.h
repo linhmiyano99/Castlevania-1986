@@ -26,6 +26,6 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void SetSpeed(float _vx, float _vy);
 	virtual void SetState(int state);
-	void CollisionWithBrick(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float min_tx0, float min_ty0, int nx0, int ny0);
-	void CollisionWithHiden(DWORD dt, vector<LPGAMEOBJECT>& listBrick, float min_tx0, float min_ty0, int nx0, int ny0);
+	void CollisionWithBrick(DWORD dt, LPGAMEOBJECT &listBrick, float min_tx0, float min_ty0, int nx0, int ny0);
+	void CollisionWithHiden(DWORD dt, LPGAMEOBJECT &listBrick, float min_tx0, float min_ty0, int nx0, int ny0);
 };
