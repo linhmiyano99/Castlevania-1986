@@ -1,5 +1,5 @@
 #include "Brick.h"
-CBrick::CBrick(float _x, float _y, int id , int type ) :CTorch(_x, _y, id, type)
+CBrick::CBrick(float _x, float _y, int id , int type, float width, float height) :CTorch(_x, _y, id, type)
 {
 
 	if (type == eType::BRICK_4 || type == eType::BRICK_3)
@@ -10,6 +10,8 @@ CBrick::CBrick(float _x, float _y, int id , int type ) :CTorch(_x, _y, id, type)
 			list.push_back(brick);
 		}
 	}
+	w = width;
+	h = height;
 }
 void CBrick::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -17,8 +19,8 @@ void CBrick::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	{
 		left = x;
 		top = y;
-		right = x + BRICK_WIDTH;
-		bottom = y + BRICK_WIDTH;
+		right = x + w;
+		bottom = y + h;
 
 	}
 	else 

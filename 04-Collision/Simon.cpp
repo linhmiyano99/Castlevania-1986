@@ -970,7 +970,7 @@ void CSimon::CollisionWithBrick(DWORD dt, LPGAMEOBJECT &Obj, float min_tx0, floa
 {
 	float b_x, b_y;
 	Obj->GetPosition(b_x, b_y);
-	if (b_y > y + 40 || Obj->GetState() == TORCH_STATE_ITEM)
+	if (b_y + 32 >= y)
 	{
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
@@ -997,6 +997,7 @@ void CSimon::CollisionWithBrick(DWORD dt, LPGAMEOBJECT &Obj, float min_tx0, floa
 		if (nx != 0) vx = 0;
 		if (ny != 0)
 		{
+
 			vy = 0;
 			_ground = y;
 		}
@@ -1204,7 +1205,6 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 		else
 			vx = nx;
 		vy = -0.2f;
-		if(dynamic_cast<CGhost*>(Obj))
 		_energy -= 2;
 		if ((min_tx <= min_tx0 || min_ty <= min_ty0) && _energy >0)
 		{

@@ -34,11 +34,15 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			return;
 		if (GetTickCount() - dt_appear > TIME_APPEAR && (start_x > cam_x + 560 ) || (start_x < cam_x ) )
 		{
-			
+			float s_x, s_y;
+			CSimon::GetInstance()->GetPosition(s_x, s_y);
 			state = TORCH_STATE_EXSIST;
 			x = start_x;
 			y = start_y;
-			nx = -1;
+			if (x < s_x)
+				nx = 1;
+			else
+				nx = -1;
 			vx = nx * GHOST_SPEED;
 
 			if (item)
@@ -95,7 +99,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					list.push_back(coObjects->at(i));
 				}
 			}
-
+			if(!isOnStair)
 			vy += SIMON_GRAVITY * dt;
 
 			CGameObject::Update(dt);
@@ -229,6 +233,8 @@ void CGhost::CollisionWithBrick(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, floa
 {
 	float b_x, b_y;
 	obj->GetPosition(b_x, b_y);
+	if (vx == 0)
+		vx = -GHOST_SPEED;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -255,28 +261,8 @@ void CGhost::CollisionWithBrick(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, floa
 
 void CGhost::CollisionWithHiden(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, float min_ty0, int nx0, int ny0)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	coEvents.clear();
-
-	vector<LPGAMEOBJECT> list;
-	list.push_back((LPGAMEOBJECT)(obj));
-	// turn off collision when die 
-
-	CalcPotentialCollisions(&list, coEvents);
-
-	float min_tx, min_ty, nx = 0, ny;
-
-	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-
-	//// block 
-
-
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	CHidenObject* ohiden = dynamic_cast<CHidenObject*>(obj);
-	if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
+	if (obj->GetState() == HIDENOBJECT_TYPE_GHOST_2)
 	{
 		vx = 0;
 		vy = GHOST_SPEED * 2;
@@ -284,20 +270,22 @@ void CGhost::CollisionWithHiden(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, floa
 		x += vx * dt;
 	}
 	else {
-		if (ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
+		if (obj->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
 		{
 			isOnStair = true;
-			vx = 0.3f;
-			vx = 0.3f;
 			y += vy * dt;
 			x += vx * dt;
+			vx = 0.3f;
+			vy = 0.3f;
+			
 		}
-		else if (isOnStair && ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
+		else if (isOnStair && obj->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
 		{
 			vx = GHOST_SPEED;
 			vy = 0;
 			y += vy * dt;
 			x += vx * dt;
+			isOnStair = false;
 
 		}
 		else
@@ -306,6 +294,4 @@ void CGhost::CollisionWithHiden(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, floa
 
 		}
 	}
-	ohiden = NULL;
-	list.clear();
 }

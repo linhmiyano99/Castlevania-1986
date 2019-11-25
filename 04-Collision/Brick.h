@@ -19,8 +19,9 @@
 class CBrick : public CTorch
 {
 	vector<CBrickBreak*> list;
+	float w, h;
 public:
-	CBrick(float _x, float _y, int id = 0, int type = 0);
+	CBrick(float _x, float _y, int id = 0, int type = 0, float width = 32, float height = 32);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();

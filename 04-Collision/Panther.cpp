@@ -24,7 +24,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	float cam_x, cam_y;
 	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-	if (state == TORCH_STATE_EXSIST && (x < cam_x - 100 && vx < 0 || x > cam_x + 600 && vx >0))
+	if (state == TORCH_STATE_EXSIST && (x < cam_x - 600 && vx < 0 || x > cam_x + 600 && vx >0))
 	{
 		state = TORCH_STATE_ITEM_NOT_EXSIST;
 		dt_appear = GetTickCount();
@@ -32,7 +32,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (dt_appear > 0)
 	{
 		
-		if (GetTickCount() - dt_appear > TIME_APPEAR && x < cam_x - 200)
+		if (GetTickCount() - dt_appear > TIME_APPEAR && x < cam_x - 1000)
 		{
 			state = TORCH_STATE_EXSIST;
 			x = start_x;
@@ -144,7 +144,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			return;
 		}
 	}
-	if (x < LeftLimit || x > 3020)
+	if (x < LeftLimit)
 	{
 		nx = - nx;
 		vx = -vx;

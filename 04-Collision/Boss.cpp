@@ -400,7 +400,7 @@ void CBoss::FlyCurve(float next_x, float next_y)
 	
 	//vy += 0.001f;
 }
-int CBoss::getPt(int n1, int n2, float perc)
+float CBoss::getPt(int n1, int n2, float perc)
 {
 	int diff = n2 - n1;
 

@@ -52,7 +52,10 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 			}
 		}
 	}
-
+	for each (LPGAMEOBJECT var in listBrick)
+	{
+		ListObj.push_back(var);
+	}
 	CSimon* simon = CSimon::GetInstance();
 	ListObj.push_back(simon);
 	CDagger* dagger = CDagger::GetInstance();
@@ -83,13 +86,7 @@ void CGrid::LoadObject(char* filename)
 	{
 		while (inFile >> type >> trend >> x >> y >> w >> h >> id_item)
 		{
-			if (type == eType::BRICK_1 || type == eType::BRICK_2 || type == eType::BRICK_3 || type == eType::BRICK_4)
-			{
-				for (int i = 0; i < w / h; i++)
-					Insert(type, trend, x + i * 32, y, w, h, id_item);
-			}
-			else
-				Insert(type, trend, x, y, w, h, id_item);
+			Insert(type, trend, x, y, w, h, id_item);
 		}
 		inFile.close();
 	}
@@ -107,7 +104,8 @@ void CGrid::Insert(int type, int trend, float x, float y, float w, float h, int 
 		return;
 
 	obj->SetTrend(trend);
-
+	if (obj->GetType() == eType::BRICK_2)
+		listBrick.push_back(obj);
 	for (int i = top; i <= bottom; i++)
 		for (int j = left; j <= right; j++)
 			cells[i][j].push_back(obj);
@@ -115,28 +113,34 @@ void CGrid::Insert(int type, int trend, float x, float y, float w, float h, int 
 }
 CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item)
 {
-	if (type == eType::BRICK_1) return new CBrick(x, y, 0, eType::BRICK_1);
-	if (type == eType::BRICK_2) return new CBrick(x, y, 0, eType::BRICK_2);
-	if (type == eType::BRICK_3) return new CBrick(x, y, id_item, eType::BRICK_3);
-	if (type == eType::BRICK_4) return new CBrick(x, y, id_item, eType::BRICK_4);
-	if (type == eType::TORCH) return new CTorch(x, y, id_item, eType::TORCH);
-	if (type == eType::CANDLE) return new CTorch(x, y, id_item, eType::CANDLE);
-	if (type == eType::OBJECT_HIDDEN_DOOR) return new CHidenObject(x, y);
-	if (type == eType::STAIR_DOWN) return new CHidenObject(x, y, HIDENOBJECT_TYPE_DOWNSTAIR, trend, -1);
-	if (type == eType::STAIR_UP) return new CHidenObject(x, y, HIDENOBJECT_TYPE_UPSTAIR, trend, 1);
-	if (type == eType::OBJECT_HIDDEN_FISHMAN) return new CHidenObject(x, y, HIDENOBJECT_TYPE_FISHMAN);
-	if (type == eType::OBJECT_HIDDEN_GHOST_1) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_1);
-	if (type == eType::OBJECT_HIDDEN_GHOST_STOP_1) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_STOP_1);
-	if (type == eType::OBJECT_HIDDEN_GHOST_2) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_2, w, h);
-	if (type == eType::OBJECT_HIDDEN_GHOST_UP) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_UP, w, h);
-	if (type == eType::OBJECT_HIDDEN_GHOST_DOWN) return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_DOWN, w, h);
-	if (type == eType::OBJECT_HIDDEN_PANTHER_JUMP) return new CHidenObject(x, y, HIDENOBJECT_TYPE_PANTHER_JUMP, w, h);
-	if (type == eType::OBJECT_HIDDEN_BRICK) return new CHidenObject(x, y, HIDENOBJECT_TYPE_BRICK, w, h);
-	if (type == eType::GATE) return new CGate(x, y);
-	if (type == eType::PANTHER) return new CPanther(x, y);
-	if (type == eType::FISHMEN) return new CFishman(x, y);
-	if (type == eType::GHOST) return new CGhost(x, y, id_item);
-	if (type == eType::BAT) return new CBat(x, y);
+	switch (type)
+	{
+	case eType::BRICK_1: return new CBrick(x, y, 0, eType::BRICK_1);
+	case eType::BRICK_2: return new CBrick(x, y, 0, eType::BRICK_2, w, h);
+	case eType::BRICK_3: return new CBrick(x, y, id_item, eType::BRICK_3);
+	case eType::BRICK_4: return new CBrick(x, y, id_item, eType::BRICK_4);
+	case eType::TORCH: return new CTorch(x, y, id_item, eType::TORCH);
+	case eType::CANDLE: return new CTorch(x, y, id_item, eType::CANDLE);
+	case eType::OBJECT_HIDDEN_DOOR: return new CHidenObject(x, y);
+	case eType::STAIR_DOWN: return new CHidenObject(x, y, HIDENOBJECT_TYPE_DOWNSTAIR, trend, -1);
+	case eType::STAIR_UP: return new CHidenObject(x, y, HIDENOBJECT_TYPE_UPSTAIR, trend, 1);
+	case eType::OBJECT_HIDDEN_FISHMAN: return new CHidenObject(x, y, HIDENOBJECT_TYPE_FISHMAN);
+	case eType::OBJECT_HIDDEN_GHOST_1: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_1);
+	case eType::OBJECT_HIDDEN_GHOST_STOP_1: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_STOP_1);
+	case eType::OBJECT_HIDDEN_GHOST_2: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_2, w, h);
+	case eType::OBJECT_HIDDEN_GHOST_UP: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_UP, w, h);
+	case eType::OBJECT_HIDDEN_GHOST_DOWN: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_DOWN, w, h);
+	case eType::OBJECT_HIDDEN_PANTHER_JUMP: return new CHidenObject(x, y, HIDENOBJECT_TYPE_PANTHER_JUMP, w, h);
+	case eType::OBJECT_HIDDEN_BRICK: return new CHidenObject(x, y, HIDENOBJECT_TYPE_BRICK, w, h);
+	case eType::GATE: return new CGate(x, y);
+	case eType::PANTHER: return new CPanther(x, y);
+	case eType::FISHMEN: return new CFishman(x, y);
+	case eType::GHOST: return new CGhost(x, y, id_item);
+	case eType::BAT: return new CBat(x, y);
+	default:
+		break;
+	}
+	
 
 	return NULL;
 }
