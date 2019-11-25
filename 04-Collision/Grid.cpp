@@ -29,14 +29,18 @@ CGrid* CGrid::GetInstance()
 void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_y)
 {
 	ListObj.clear();
-
+	CScene* scene = CScene::GetInstance();
 
 	int top = (int)(cam_y) / GRID_CELL_HEIGHT;
 	int bottom = (int)(cam_y + SCREEN_HEIGHT) / GRID_CELL_HEIGHT;
-
+	
 
 	int left = (int)(cam_x) / GRID_CELL_WIDTH;
+	if (left > 0 && scene->GetScene() > 0 && scene->GetScene() < 5)
+		left--;
 	int right = (int)(cam_x + SCREEN_HEIGHT) / GRID_CELL_WIDTH;
+	if (right < GRID_COLUMN_MAX && scene->GetScene() > 0 && scene->GetScene() < 5)
+		right++;
 
 	for (int i = top; i <= bottom; i++)
 	{
@@ -57,6 +61,7 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 	ListObj.push_back(axe);
 	CBoss* boss = CBoss::GetInstance();
 	ListObj.push_back(boss);
+	scene = NULL;
 }
 void CGrid::LoadObject(char* filename)
 {

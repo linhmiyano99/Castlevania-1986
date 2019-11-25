@@ -20,18 +20,7 @@ class CBrick : public CTorch
 {
 	vector<CBrickBreak*> list;
 public:
-	CBrick(float _x, float _y, int id = 0, int type = 0) :CTorch(_x, _y, id, type)
-	{
-
-		if (type == eType::BRICK_4 || type == eType::BRICK_3)
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				CBrickBreak* brick = new CBrickBreak(_x, _y, i);
-				list.push_back(brick);
-			}
-		}
-	}
+	CBrick(float _x, float _y, int id = 0, int type = 0);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();

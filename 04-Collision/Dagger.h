@@ -28,14 +28,7 @@ class CDagger : public CWeapon
 public:
 
 	static CDagger* GetInstance();
-	CDagger() :CWeapon()
-	{
-		vx = 0.5f;
-		AddAnimation(701);
-		state = DAGGER_STATE_HIDE;
-		start_attack = 0;
-		isRender = false;
-	}
+	CDagger();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	void SetPosition(float simon_x, float simon_y);
 	void Render();

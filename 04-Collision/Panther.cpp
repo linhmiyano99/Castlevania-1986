@@ -1,7 +1,25 @@
 #include "Panther.h"
 #include "Scene.h"
 #include "HidenObject.h"
-
+CPanther::CPanther(float _x, float _y, int id) :CEnemy(_x, _y, id, eType::PANTHER)
+{
+	animations.clear();
+	AddAnimation(1001);
+	AddAnimation(1002);
+	AddAnimation(800);
+	if (_x < 1460)
+	{
+		LeftLimit = 1230;
+	}
+	else if (_x < 1810)
+	{
+		LeftLimit = 1387;
+	}
+	else
+	{
+		LeftLimit = 1754;
+	}
+}
 void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (dt_appear > 0)
@@ -243,4 +261,15 @@ void CPanther::CollisionWithHiden(DWORD dt, vector<LPGAMEOBJECT>& list, float mi
 		vy -= 0.4f;
 	}
 
+}
+void CPanther::SetSpeed(float _vx, float _vy) {
+	vx = -PANTHER_RUNNING_SPEED_X; vy = PANTHER_RUNNING_SPEED_Y;
+}
+void CPanther::SetState(int state)
+{
+	this->state = state;
+	if (state == TORCH_STATE_ITEM_NOT_EXSIST)
+	{
+		dt_appear = GetTickCount();
+	}
 }

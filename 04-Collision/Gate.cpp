@@ -1,5 +1,10 @@
 #include"Gate.h"
-
+CGate::CGate(float _x, float _y) :CGameObject(_x, _y)
+{
+	state = 0;
+	AddAnimation(1200);
+	AddAnimation(1201);
+}
 void CGate::Render()
 {
 

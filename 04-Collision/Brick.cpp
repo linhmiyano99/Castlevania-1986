@@ -1,5 +1,16 @@
 #include "Brick.h"
+CBrick::CBrick(float _x, float _y, int id , int type ) :CTorch(_x, _y, id, type)
+{
 
+	if (type == eType::BRICK_4 || type == eType::BRICK_3)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			CBrickBreak* brick = new CBrickBreak(_x, _y, i);
+			list.push_back(brick);
+		}
+	}
+}
 void CBrick::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state == TORCH_STATE_EXSIST)
@@ -52,13 +63,28 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 		}
+		else
+		{
+			if (GetTickCount() - dt_die < 600) // cho 300 mili second
+			{
+				if (list.size() > 0)
+				{
+					for each (CBrickBreak * var in list)
+					{
+						var->Update(dt);
+					}
+				}
+			}
+			else
+				state = ITEM_STATE_NOT_EXSIST;
+		}
 	}
 
 }
 
 void CBrick::Render()
 {
-	if (_type == eType::BRICK_2 || _type == eType::BRICK_1)
+	if (_type == eType::BRICK_2)
 		return;
 
 	if (state == TORCH_STATE_EXSIST)

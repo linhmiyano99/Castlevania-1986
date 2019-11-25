@@ -11,12 +11,7 @@ class CGate : public CGameObject
 {
 
 public:
-	CGate(float _x, float _y) :CGameObject(_x, _y)
-	{
-		state = 0;
-		AddAnimation(1200);
-		AddAnimation(1201);
-	}
+	CGate(float _x, float _y);
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);

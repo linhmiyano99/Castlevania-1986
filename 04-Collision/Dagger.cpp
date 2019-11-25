@@ -4,7 +4,14 @@
 #include "Boss.h"
 
 CDagger* CDagger::__instance = NULL;
-
+CDagger::CDagger() :CWeapon()
+{
+	vx = 0.5f;
+	AddAnimation(701);
+	state = DAGGER_STATE_HIDE;
+	start_attack = 0;
+	isRender = false;
+}
 CDagger* CDagger::GetInstance()
 {
 	if (__instance == NULL) __instance = new CDagger();

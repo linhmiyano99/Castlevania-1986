@@ -4,6 +4,17 @@
 
 bool CGhost::isStart = false;
 
+CGhost::CGhost(float _x, float _y, int id) :CEnemy(_x, _y, id, eType::GHOST)
+{
+	animations.clear();
+	AddAnimation(1000);
+	AddAnimation(800);
+	AddAnimation(802);
+	nx = -1;
+	SetSpeed(GetTrend() * GHOST_SPEED, 0);
+	dt_appear = 0;
+	isOnStair = false;
+}
 void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!CScene::IsGoGhost())
@@ -12,6 +23,8 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		float cam_x, cam_y;
 		CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+		if (start_x > cam_x + 660 || start_x < cam_x - 100)
+			return;
 		if (GetTickCount() - dt_appear > TIME_APPEAR && (start_x > cam_x + 560 ) || (start_x < cam_x ) )
 		{
 			float s_x, s_y;

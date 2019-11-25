@@ -32,26 +32,13 @@ class CAxe : public CWeapon
 public:
 
 	static CAxe* GetInstance();
-	CAxe() :CWeapon()
-	{
-		AddAnimation(603);
-		isRender = false;
-		state = AXE_STATE_HIDE;
-		start_attack = 0;
-	}
+	CAxe();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	void SetPosition(float simon_x, float simon_y);
 	void Render();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj);
-	void SetState(int _state) {
-		CGameObject::SetState(_state);
-		if (state == AXE_STATE_ATTACK)
-		{
-			vx = nx * AXE_SPEED;
-			vy = -AXE_SPEED_Y;
-		}
-	}
+	void SetState(int _state);
 
 };
 #endif // !__VAMPIREILLER_H__

@@ -1,6 +1,14 @@
 #include"Bat.h"
 #include"Scene.h"
 
+CBat::CBat(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::BAT)
+{
+	animations.clear();
+	AddAnimation(1003);
+	AddAnimation(800);
+	vx = -0.1f;
+	vy = 0.1f;
+}
 void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CScene* scene = CScene::GetInstance();

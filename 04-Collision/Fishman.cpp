@@ -5,7 +5,28 @@
 #include <ctime> 
 
 bool CFishman::isStart = false;
+CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FISHMEN)
+{
+	animations.clear();
+	AddAnimation(1004);
+	AddAnimation(1005);
+	AddAnimation(1006);
+	AddAnimation(1100);
+	isJumping = true;
+	isFall = false;
+	ny = -1;
+	nx = -1;
+	vx = vy = 0;
+	start_attack = GetTickCount();
+	for (int i = 0; i < 3; i++)
+	{
+		CWaterEffection* water = new CWaterEffection();
+		list.push_back(water);
+	}
+	Go();
+	ResetWater(0);
 
+}
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!CScene::IsGoFishman())
@@ -21,9 +42,8 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			x = cam_x + (rand() % 12) * 40 + 20;
 			y = start_y;
 			ny = -1;
-			vx = nx * FISHMAN_RUNNING_SPEED_X;
-			vy = ny * FISHMAN_RUNNING_SPEED_X;
 			isJumping = true;
+			Go();
 			isFall = false;
 			if (item)
 				item->SetState(ITEM_STATE_EXSIST);
@@ -305,4 +325,25 @@ void CFishman::Render()
 		}
 	}
 	RenderBoundingBox();
+}
+void CFishman::Go() {
+	if (isJumping) {
+		vx = nx * FISHMAN_RUNNING_SPEED_X;
+		vy = ny * FISHMAN_RUNNING_SPEED_Y;
+	}
+}
+void  CFishman::ResetWater(int type)
+{
+	if (type == 0)
+	{
+		list[0]->SetPosition(x, y + 60);
+		list[1]->SetPosition(x + 10, y + 20);
+		list[2]->SetPosition(x + 20, y + 60);
+	}
+	else
+	{
+		list[0]->SetPosition(x, y + 20);
+		list[1]->SetPosition(x + 10, y + 60);
+		list[2]->SetPosition(x + 20, y + 20);
+	}
 }

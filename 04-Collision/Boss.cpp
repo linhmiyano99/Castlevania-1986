@@ -4,7 +4,26 @@
 #include <ctime> 
 
 CBoss* CBoss::__instance = NULL;
-
+CBoss::CBoss(float _x, float _y) :CEnemy(_x, _y, ID_BOSSBALL, eType::BOSS)
+{
+	animations.clear();
+	AddAnimation(1090);
+	AddAnimation(1091);
+	AddAnimation(1092);
+	AddAnimation(800);
+	type = 0;
+	step = 0;
+	_energy = 16;
+	start_attack = 0;
+	start_hurt = 0;
+	vx = vy = 0;
+	state = BOSS_STATE_SLEEP;
+	dt_die = 0;
+	start_fly = 0;
+	x1 = x2 = y1 = y2 = 0;
+	start_fly;
+	start_curve = 0;
+}
 CBoss* CBoss::GetInstance()
 {
 	if (__instance == NULL) __instance = new CBoss(5311, 100);
@@ -175,8 +194,8 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 						else
 						{
-							if (abs(x - 5080) > 2 && abs(y - 240) > 2)
-								FlyStraight(5080, 240);
+							if (abs(x - 5080) > 2 && abs(y - 210) > 2)
+								FlyStraight(5080, 210);
 							else
 								vx = vy = 0;
 						}
@@ -341,15 +360,9 @@ void CBoss::AutoFly(float next_x, float next_y)
 {
 	x0 = x;
 	y0 = y;
-	x1 = (x + next_x) / 2;
 	x2 = next_x;
 	y2 = y;
-	if (x2 - x1 < 300)
-		y1 = y2 + (abs(x1 - x2)) / 2;
-	else
-		y1 = y2 + (abs(x1 - x2)) / 2 + 100;
-	if (y1 > 420)
-		y1 = 420;
+	CSimon::GetInstance()->GetPosition(x1, y1);
 
 	
 }

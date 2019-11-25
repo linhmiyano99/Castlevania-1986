@@ -55,11 +55,7 @@ public:
 
 
 	CTorch(float _x, float _y, int id = 0, int _level = 0);
-	~CTorch()
-	{
-		CGameObject::~CGameObject();
-		SAFE_DELETE(item);
-	}
+	~CTorch();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

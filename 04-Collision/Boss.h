@@ -40,26 +40,7 @@ class CBoss : public CEnemy
 public:
 	static CBoss* GetInstance();
 
-	CBoss(float _x, float _y) :CEnemy(_x, _y, ID_BOSSBALL, eType::BOSS)
-	{
-		animations.clear();
-		AddAnimation(1090);
-		AddAnimation(1091);
-		AddAnimation(1092);
-		AddAnimation(800);
-		type = 0;
-		step = 0;
-		_energy = 16;
-		start_attack = 0;
-		start_hurt = 0;
-		vx = vy = 0;
-		state = BOSS_STATE_SLEEP;
-		dt_die = 0;
-		start_fly = 0;
-		x1 = x2 = y1 = y2 = 0;
-		start_fly;
-		start_curve = 0;
-	}
+	CBoss(float _x, float _y);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();

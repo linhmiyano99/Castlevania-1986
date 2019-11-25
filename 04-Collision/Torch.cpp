@@ -1,5 +1,9 @@
 #include "Torch.h"
-
+CTorch::~CTorch()
+{
+	CGameObject::~CGameObject();
+	SAFE_DELETE(item);
+}
 CTorch::CTorch(float _x, float _y, int id, int type) : CGameObject(_x, _y, type)
 {
 	dt_die = 0;

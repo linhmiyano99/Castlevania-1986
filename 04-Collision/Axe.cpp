@@ -4,7 +4,13 @@
 #include "Boss.h"
 
 CAxe* CAxe::__instance = NULL;
-
+CAxe::CAxe() :CWeapon()
+{
+	AddAnimation(603);
+	isRender = false;
+	state = AXE_STATE_HIDE;
+	start_attack = 0;
+}
 CAxe* CAxe::GetInstance()
 {
 	if (__instance == NULL) __instance = new CAxe();
@@ -143,3 +149,11 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 }
 
 
+void CAxe::SetState(int _state) {
+	CGameObject::SetState(_state);
+	if (state == AXE_STATE_ATTACK)
+	{
+		vx = nx * AXE_SPEED;
+		vy = -AXE_SPEED_Y;
+	}
+}
