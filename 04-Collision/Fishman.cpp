@@ -119,7 +119,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			
 			if (state == TORCH_STATE_NOT_EXSIST)
-				{
+			{
 					dt_die = GetTickCount();
 					if (item)
 					{
@@ -131,76 +131,76 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						dt_appear = GetTickCount();
 						return;
 					}
+			}
+			else
+			{
+				float cam_x, cam_y;
+				CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+				if (x < cam_x - 40 || x > cam_x + 560 || y > cam_y + 350 || y < cam_y)
+				{
+					state = TORCH_STATE_ITEM_NOT_EXSIST;
+					dt_appear = GetTickCount();
+					return;
+				}
+				if (y > 700 && !isFall)
+				{
+					isFall = true;
+					ResetWater(1);
+				}
+				float s_x, s_y;
+				CSimon::GetInstance()->GetPosition(s_x, s_y);
+				if (x < s_x - 200)
+				{
+					nx = 1;
+					vx = abs(vx);
+				}
+
+				CGameObject::Update(dt);
+
+				// Simple fall down
+				vy += SIMON_GRAVITY * dt;
+
+				vector<LPGAMEOBJECT> listBrick;
+				for (int i = 0; i < coObjects->size(); i++)
+				{
+
+					if (dynamic_cast<CBrick*>(coObjects->at(i)))
+					{
+						CBrick* brick = dynamic_cast<CBrick*>(coObjects->at(i));
+						listBrick.push_back(brick);
+					}
+
+				}
+
+				vector<LPCOLLISIONEVENT> coEvents;
+				vector<LPCOLLISIONEVENT> coEventsResult;
+
+				coEvents.clear();
+
+				CalcPotentialCollisions(&listBrick, coEvents);
+
+				// No collision occured, proceed normally
+				if (coEvents.size() == 0)
+				{
+					x += dx;
+					y += dy;
 				}
 				else
 				{
-					float cam_x, cam_y;
-					CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-					if (x < cam_x - 40 || x > cam_x + 560 || y > cam_y + 350)
-					{
-						state = TORCH_STATE_ITEM_NOT_EXSIST;
-						dt_appear = GetTickCount();
-						return;
-					}
-					if (y > 700 && !isFall)
-					{
-						isFall = true;
-						ResetWater(1);
-					}
-					float s_x, s_y;
-					CSimon::GetInstance()->GetPosition(s_x, s_y);
-					if (x < s_x - 200)
-					{
-						nx = 1;
-						vx = abs(vx);
-					}
+					float min_tx, min_ty, nx = 0, ny;
 
-					CGameObject::Update(dt);
+					FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-					// Simple fall down
-					vy += SIMON_GRAVITY * dt;
+					//// block 
+					//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+					x += dx;
+					y += min_ty * dy + ny * 0.4f;
 
-					vector<LPGAMEOBJECT> listBrick;
-					for (int i = 0; i < coObjects->size(); i++)
-					{
-
-						if (dynamic_cast<CBrick*>(coObjects->at(i)))
-						{
-							CBrick* brick = dynamic_cast<CBrick*>(coObjects->at(i));
-							listBrick.push_back(brick);
-						}
-
-					}
-
-					vector<LPCOLLISIONEVENT> coEvents;
-					vector<LPCOLLISIONEVENT> coEventsResult;
-
-					coEvents.clear();
-
-					CalcPotentialCollisions(&listBrick, coEvents);
-
-					// No collision occured, proceed normally
-					if (coEvents.size() == 0)
-					{
-						x += dx;
-						y += dy;
-					}
-					else
-					{
-						float min_tx, min_ty, nx = 0, ny;
-
-						FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-
-						//// block 
-						//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-						x += dx;
-						y += min_ty * dy + ny * 0.4f;
-
-						if (ny != 0) vy = 0;
-					}
-					// clean up collision events
-					for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+					if (ny != 0) vy = 0;
 				}
+				// clean up collision events
+				for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+			}
 			
 
 

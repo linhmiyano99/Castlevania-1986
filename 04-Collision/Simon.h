@@ -46,7 +46,7 @@
 
 #define SIMON_HEIGHT_STAND			60
 #define SIMON_HEIGHT_SIT			45
-#define SIMON_WIDTH					30
+#define SIMON_WIDTH					40
 #define SIMON_HEIGHT_DIE			30
 #define SIMON_WIDTH_DIE				60
 

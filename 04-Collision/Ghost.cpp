@@ -34,15 +34,16 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			return;
 		if (GetTickCount() - dt_appear > TIME_APPEAR && (start_x > cam_x + 560 ) || (start_x < cam_x ) )
 		{
+		
 			float s_x, s_y;
 			CSimon::GetInstance()->GetPosition(s_x, s_y);
 			state = TORCH_STATE_EXSIST;
 			x = start_x;
 			y = start_y;
-			if (x < s_x)
-				nx = 1;
-			else
+			if (x > s_x)
 				nx = -1;
+			else
+				nx = 1;
 			vx = nx * GHOST_SPEED;
 
 			if (item)
@@ -86,20 +87,13 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					list.push_back(coObjects->at(i));
 				}
-				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_2)
+				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)))
 				{
-					list.push_back(coObjects->at(i));
-				}
-				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_UP)
-				{
-					list.push_back(coObjects->at(i));
-				}
-				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && (coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_DOWN))
-				{
+					if(coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_2 || coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_UP || coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_DOWN)
 					list.push_back(coObjects->at(i));
 				}
 			}
-			if(!isOnStair)
+
 			vy += SIMON_GRAVITY * dt;
 
 			CGameObject::Update(dt);
@@ -212,7 +206,7 @@ void CGhost::Render()
 		}
 	}
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 void CGhost::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -231,10 +225,6 @@ void CGhost::GetBoundingBox(float& left, float& top, float& right, float& bottom
 }
 void CGhost::CollisionWithBrick(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, float min_ty0, int nx0, int ny0)
 {
-	float b_x, b_y;
-	obj->GetPosition(b_x, b_y);
-	if (vx == 0)
-		vx = -GHOST_SPEED;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -256,37 +246,60 @@ void CGhost::CollisionWithBrick(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, floa
 	if (min_ty <= min_ty0)
 		y += min_ty * dy + ny * 0.4f;
 	if (ny != 0) vy = 0;
+	if (vx == 0)
+		vx = -GHOST_SPEED;
 	list.clear();
 }
 
 void CGhost::CollisionWithHiden(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, float min_ty0, int nx0, int ny0)
 {
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	if (obj->GetState() == HIDENOBJECT_TYPE_GHOST_2)
+	coEvents.clear();
+
+	vector<LPGAMEOBJECT> list;
+	list.push_back((LPGAMEOBJECT)(obj));
+	// turn off collision when die 
+
+	CalcPotentialCollisions(&list, coEvents);
+
+	float min_tx, min_ty, nx = 0, ny;
+
+	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+	//// block 
+
+
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	CHidenObject* ohiden = dynamic_cast<CHidenObject*>(obj);
+	if (isOnStair)
 	{
-		vx = 0;
-		vy = GHOST_SPEED * 2;
-		y += vy * dt;
-		x += vx * dt;
-	}
-	else {
-		if (obj->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
-		{
-			isOnStair = true;
-			y += vy * dt;
-			x += vx * dt;
-			vx = 0.3f;
-			vy = 0.3f;
-			
-		}
-		else if (isOnStair && obj->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
+		if (ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
 		{
 			vx = GHOST_SPEED;
 			vy = 0;
 			y += vy * dt;
 			x += vx * dt;
-			isOnStair = false;
-
+		}
+	}
+	else
+	{
+		if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
+		{
+			vx = 0;
+			vy = GHOST_SPEED * 2;
+			y += vy * dt;
+			x += vx * dt;
+		}
+		else if(ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
+		{
+			isOnStair = true;
+			vx = 0.3f;
+			vx = 0.3f;
+			y += vy * dt;
+			x += vx * dt;
 		}
 		else
 		{
@@ -294,4 +307,7 @@ void CGhost::CollisionWithHiden(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, floa
 
 		}
 	}
+		
+	ohiden = NULL;
+	list.clear();
 }
