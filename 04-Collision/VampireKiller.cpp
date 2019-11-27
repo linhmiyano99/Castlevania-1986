@@ -78,7 +78,8 @@ void CVampireKiller::setDefaultLevel()
 }
 void CVampireKiller::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	
+	if (animation->GetCurrentFrame() < 2)
+		return;
 	if (_level == 1 || _level == 2)
 	{
 		left = x;

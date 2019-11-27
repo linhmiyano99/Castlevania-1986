@@ -624,13 +624,11 @@ void CSimon::Render()
 	else if (state == SIMON_STATE_SIT_ATTACK)
 	{
 		id = SIMON_ANI_SITTING_ATTACKING;
-		weapons[eType::VAMPIREKILLER]->GetAnimation()->SetFrame(animations[SIMON_ANI_SITTING_ATTACKING]->GetCurrentFrame());
 		weapons[eType::VAMPIREKILLER]->Render();
 	}
 	else if (state == SIMON_STATE_STAND_ATTACK)
 	{
 		id = SIMON_ANI_STANDING_ATTACKING;
-		weapons[eType::VAMPIREKILLER]->GetAnimation()->SetFrame(animations[SIMON_ANI_STANDING_ATTACKING]->GetCurrentFrame());
 		weapons[eType::VAMPIREKILLER]->Render();
 
 	}
@@ -763,6 +761,7 @@ void CSimon::SetState(int state)
 		case SIMON_STATE_STAND_ATTACK:
 			attack_start = GetTickCount();
 			animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
+			weapons[eType::VAMPIREKILLER]->GetAnimation()->ResetFrame();
 			vx = 0;
 			break;
 		case SIMON_STATE_ATTACK_DAGGER:

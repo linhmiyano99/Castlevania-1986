@@ -26,6 +26,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		state = TORCH_STATE_ITEM_NOT_EXSIST;
 		dt_appear = GetTickCount();
+		isOnStair = false;
 	}
 	if (dt_appear > 0)
 	{
