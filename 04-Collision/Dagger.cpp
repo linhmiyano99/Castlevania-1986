@@ -68,7 +68,7 @@ void CDagger::Render()
 
 void CDagger::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == DAGGER_STATE_ATTACK)
+	if (state == DAGGER_STATE_ATTACK && isRender)
 	{
 		left = x;
 		right = x + 40;

@@ -7,6 +7,8 @@
 bool CFishman::isStart = false;
 CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FISHMEN)
 {
+	start_x = _x;
+	start_y = _y;
 	animations.clear();
 	AddAnimation(1004);
 	AddAnimation(1005);
@@ -25,6 +27,7 @@ CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FIS
 	}
 	Go();
 	ResetWater(0);
+	
 
 }
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -38,8 +41,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (GetTickCount() - dt_appear > TIME_APPEAR)
 		{
 			state = TORCH_STATE_EXSIST;
-			srand((unsigned)time(0));
-			x = cam_x + (rand() % 12) * 40 + 20;
+			x = cam_x + start_x - CScene::GetInstance()->GetLeft();
 			y = start_y;
 			ny = -1;
 			isJumping = true;
@@ -136,17 +138,18 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				float cam_x, cam_y;
 				CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+				if (y > 700 && !isFall)
+				{
+					isFall = true;
+					ResetWater(1);
+				}
 				if (x < cam_x - 40 || x > cam_x + 560 || y > cam_y + 350 || y < cam_y)
 				{
 					state = TORCH_STATE_ITEM_NOT_EXSIST;
 					dt_appear = GetTickCount();
 					return;
 				}
-				if (y > 700 && !isFall)
-				{
-					isFall = true;
-					ResetWater(1);
-				}
+			
 				float s_x, s_y;
 				CSimon::GetInstance()->GetPosition(s_x, s_y);
 				if (x < s_x - 200)
