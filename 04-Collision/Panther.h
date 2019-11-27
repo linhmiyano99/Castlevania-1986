@@ -19,6 +19,8 @@
 class CPanther : public CEnemy
 {
 	float LeftLimit;
+	bool isJump;
+	bool isStart;
 public:
 	CPanther(float _x = 1419, float _y = 230, int id = 0);
 	virtual void Render();

@@ -19,6 +19,8 @@ CPanther::CPanther(float _x, float _y, int id) :CEnemy(_x, _y, id, eType::PANTHE
 	{
 		LeftLimit = 1754;
 	}
+	isStart = false;
+	isJump = false;
 }
 void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -44,6 +46,8 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				item->SetState(ITEM_STATE_EXSIST);
 			dt_appear = 0;
 			dt_die = 0;
+			isJump = false;
+			isStart = false;
 		}
 		else
 			return;
@@ -68,8 +72,15 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			float s_x, s_y;
 			CSimon::GetInstance()->GetPosition(s_x, s_y);
-			if((abs(x - s_x) < 200 && vx ==0 &&(abs(y - s_y) < 40) || abs(x - s_x) < 40))
-				SetSpeed(0.1f, -0.1f);
+			if (!isStart)
+			{
+				if (abs(x - s_x) < 40)
+				{
+					SetSpeed(-0.1f, -0.1f);
+					isStart = true;
+				}
+				return;
+			}
 			CGameObject::Update(dt);
 			float cam_x, cam_y;
 			CGame::GetInstance()->GetCamPos(cam_x, cam_y);
@@ -247,11 +258,13 @@ void CPanther::CollisionWithBrick(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, fl
 
 void CPanther::CollisionWithHiden(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, float min_ty0, int nx0, int ny0)
 {
-
-	x += dx - 10;
-	vy = -0.3f;
-	y += vy * dt;
-
+	if (!isJump)
+	{
+		x += dx - 10;
+		vy = -0.3f;
+		y += vy * dt;
+		isJump = true;
+	}
 }
 void CPanther::SetSpeed(float _vx, float _vy) {
 	vx = -PANTHER_RUNNING_SPEED_X; vy = PANTHER_RUNNING_SPEED_Y;
