@@ -502,7 +502,7 @@ B:
 												attack_start = 0;
 												if (state == SIMON_STATE_SIT || state == SIMON_STATE_SIT_ATTACK)
 												{
-													y -= 10;
+													y -= 15;
 												}
 											}
 											if (dynamic_cast<CBat*>(torch))
@@ -796,7 +796,7 @@ void CSimon::SetState(int state)
 			}
 			break;
 		case SIMON_STATE_UP:
-			y -= 10;
+			y -= 15;
 
 		case SIMON_STATE_IDLE:
 			vx = 0;

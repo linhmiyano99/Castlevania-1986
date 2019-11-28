@@ -34,7 +34,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (dt_appear > 0)
 	{
 		
-		if (GetTickCount() - dt_appear > TIME_APPEAR && (x < cam_x - 200 || x < cam_x + 700))
+		if (GetTickCount() - dt_appear > TIME_APPEAR && (x < cam_x - 600 || x > cam_x + 700))
 		{
 			state = TORCH_STATE_EXSIST;
 			x = start_x;

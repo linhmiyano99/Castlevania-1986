@@ -86,7 +86,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		CSimon* simon = CSimon::GetInstance();
 		simon->GetPosition(s_x, s_y);
 
-		if (GetTickCount() - start_attack > TIME_START_ATTACK)
+		if (GetTickCount() - start_attack > TIME_START_ATTACK && abs(y - 590) <5)
 		{
 			start_attack = GetTickCount();
 			if (x < s_x)

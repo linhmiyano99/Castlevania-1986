@@ -30,8 +30,7 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 {
 	ListObj.clear();
 	CScene* scene = CScene::GetInstance();
-	CSimon* simon = CSimon::GetInstance();
-	ListObj.push_back(simon);
+
 	int top = (int)(cam_y) / GRID_CELL_HEIGHT;
 	int bottom = (int)(cam_y + SCREEN_HEIGHT) / GRID_CELL_HEIGHT;
 	
@@ -57,13 +56,17 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 	{
 		ListObj.push_back(var);
 	}
-	
+	CSimon* simon = CSimon::GetInstance();
+	ListObj.push_back(simon);
 	CDagger* dagger = CDagger::GetInstance();
 	ListObj.push_back(dagger);
 	CAxe* axe = CAxe::GetInstance();
 	ListObj.push_back(axe);
 	CBoss* boss = CBoss::GetInstance();
 	ListObj.push_back(boss);
+	simon = NULL;
+	dagger = NULL;
+	axe = NULL;
 	scene = NULL;
 }
 void CGrid::LoadObject(char* filename)
@@ -109,6 +112,7 @@ void CGrid::Insert(int type, int trend, float x, float y, float w, float h, int 
 	for (int i = top; i <= bottom; i++)
 		for (int j = left; j <= right; j++)
 			cells[i][j].push_back(obj);
+	obj = NULL;
 
 }
 CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item)
