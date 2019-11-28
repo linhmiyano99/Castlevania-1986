@@ -48,7 +48,7 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else
 	{
 		if (item != NULL) {//co item
-			if (GetTickCount() - dt_die > 600) // cho 300 mili second
+			if (GetTickCount() - dt_die > 400) // cho 300 mili second
 			{
 				item->Update(dt, coObjects);
 				item->GetPosition(x, y);
@@ -67,7 +67,7 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
-			if (GetTickCount() - dt_die < 600) // cho 300 mili second
+			if (GetTickCount() - dt_die < 400) // cho 300 mili second
 			{
 				if (list.size() > 0)
 				{
