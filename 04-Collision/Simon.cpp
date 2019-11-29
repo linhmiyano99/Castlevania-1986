@@ -387,7 +387,7 @@ B:
 						animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
 						attack_start = 0;
 					}
-					state = SIMON_STATE_IDLE;
+					//state = SIMON_STATE_IDLE;
 				}
 				if (_energy <= 0)
 				{
@@ -474,6 +474,11 @@ B:
 											}
 											StartUntouchable();
 										}
+										else
+										{
+											x += dx;
+											y += dy;
+										}
 									}
 									else
 									{
@@ -519,6 +524,12 @@ B:
 
 											}
 											StartUntouchable();
+										}
+										else
+										{
+											x += dx;
+											if (y < _ground)
+												y += dy;
 										}
 									}
 									else {
@@ -1180,6 +1191,12 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 
 	}
 	else {
+		if (attack_start > 0)
+		{
+			animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
+			animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
+			attack_start = 0;
+		} 
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -1212,12 +1229,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 			y -= 50.0f;
 		}
 		
-		if (attack_start > 0)
-		{
-			animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
-			animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
-			attack_start = 0;
-		} 
+		
 
 		state = SIMON_STATE_HURT;
 		// clean up collision events
