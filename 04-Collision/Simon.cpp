@@ -760,7 +760,7 @@ void CSimon::SetState(int state)
 			nx = -1;
 			break;
 		case SIMON_STATE_JUMP:
-			if (y >= _ground) {
+			if (y == _ground) {
 				vy = -SIMON_JUMP_SPEED_Y;
 				vx = 0;
 			}
@@ -795,7 +795,7 @@ void CSimon::SetState(int state)
 					}
 					dagger = NULL;
 				}
-				else
+				else if((CBoard::GetInstance()->GetWeapon() == eType::ITEMAXE))
 				{
 					CAxe* dagger = CAxe::GetInstance();
 					if (dagger->GetState() == DAGGER_STATE_ATTACK)
@@ -803,6 +803,10 @@ void CSimon::SetState(int state)
 						this->state = SIMON_STATE_IDLE;
 					}
 					dagger = NULL;
+				}
+				else
+				{
+					this->state = SIMON_STATE_IDLE;
 				}
 				animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
 			}
