@@ -14,6 +14,7 @@ CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FIS
 	AddAnimation(1005);
 	AddAnimation(1006);
 	AddAnimation(1100);
+	AddAnimation(800);
 	isJumping = true;
 	isFall = false;
 	ny = -1;
@@ -329,11 +330,11 @@ void CFishman::Render()
 	{
 		if (GetTickCount() - dt_die < 150)
 		{
-			animations[1]->Render(x, y);
+			animations[4]->Render(x, y);
 
 		}
 	}
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 void CFishman::Go() {
 	if (isJumping) {

@@ -83,6 +83,7 @@ enum eType
 	ITEMAXE = 61,
 	CROSS = 62,
 	BOSSBALL = 63,
+	ITEMII = 64,
 
 
 	// other
