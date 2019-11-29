@@ -24,6 +24,7 @@ CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FIS
 	{
 		CWaterEffection* water = new CWaterEffection();
 		list.push_back(water);
+		water = NULL;
 	}
 	Go();
 	ResetWater(0);

@@ -123,6 +123,7 @@ CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h
 	case eType::BRICK_2: return new CBrick(x, y, 0, eType::BRICK_2, w, h);
 	case eType::BRICK_3: return new CBrick(x, y, id_item, eType::BRICK_3);
 	case eType::BRICK_4: return new CBrick(x, y, id_item, eType::BRICK_4);
+	case eType::BRICK_5: return new CBrick(x, y, id_item, eType::BRICK_5);
 	case eType::TORCH: return new CTorch(x, y, id_item, eType::TORCH);
 	case eType::CANDLE: return new CTorch(x, y, id_item, eType::CANDLE);
 	case eType::OBJECT_HIDDEN_DOOR: return new CHidenObject(x, y);

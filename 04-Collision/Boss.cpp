@@ -282,7 +282,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else // đẫ chết
 	{
 		if (item) {//co item
-			if (GetTickCount() - dt_die > 150) // cho 150 mili second
+			if (GetTickCount() - dt_die > 500) // cho 150 mili second
 			{
 				item->Update(dt, coObjects);
 				item->GetPosition(x, y);
@@ -314,18 +314,23 @@ void CBoss::Render()
 		{
 			animations[BOSS_ANI_FLYING]->Render(x, y, nx, 255);
 		}
+		else if (state == BOSS_STATE_NOT_EXSIST)
+		{
+			if (GetTickCount() - dt_die < 500)
+			{
+				animations[3]->Render(x, y + 25);
+				animations[3]->Render(x + 35, y + 25);
+				animations[3]->Render(x + 70, y + 25);
+				animations[3]->Render(x, y + 50);
+				animations[3]->Render(x + 35, y + 50);
+				animations[3]->Render(x + 70, y + 50);
+
+			}
+		}
 		else if (state == BOSS_STATE_ITEM)
 		{
 			if (item)
 				item->Render();
-
-		}
-	}
-	else
-	{
-		if (GetTickCount() - dt_die < 150)
-		{
-			animations[1]->Render(x, y);
 
 		}
 	}
@@ -361,7 +366,7 @@ void CBoss::AutoFly(float next_x, float next_y)
 	x0 = x;
 	y0 = y;
 	x2 = next_x;
-	y2 = y;
+	y2 = next_y;
 	CSimon::GetInstance()->GetPosition(x1, y1);
 
 	
@@ -370,7 +375,7 @@ void CBoss::AutoAttack(float next_x, float next_y)
 {
 	CSimon::GetInstance()->GetPosition(x1, y1);
 	x2 = next_x;
-	y2 = next_y + 50;
+	y2 = next_y + 20;
 }
 void CBoss::FlyStraight(float next_x, float next_y)
 {
@@ -384,7 +389,7 @@ void CBoss::FlyStraight(float next_x, float next_y)
 		nx = -1;
 	}
 	if (next_x != x && next_y != y)
-		SetSpeed(0.3f * nx, 1.0 * (next_y - y) / (next_x - 30 - x) * nx * 0.3f);
+		SetSpeed(0.3f * nx, 1.0 * (next_y - y) / (next_x - x) * nx * 0.3f);
 	
 }
 void CBoss::FlyCurve(float next_x, float next_y)

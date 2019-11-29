@@ -79,7 +79,12 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					nx = -nx;
 				}
 			}
-
+			if (x < cam_x - 300 || x > cam_x + 800)
+			{
+				state = TORCH_STATE_ITEM_NOT_EXSIST;
+				dt_appear = GetTickCount();
+				isOnStair = false;
+			}
 			vector<LPGAMEOBJECT> list;
 			for (int i = 0; i < coObjects->size(); i++)
 			{

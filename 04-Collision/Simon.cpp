@@ -1191,7 +1191,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 
 	}
 	else {
-		if (attack_start > 0)
+		//if (attack_start > 0)
 		{
 			animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
 			animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();

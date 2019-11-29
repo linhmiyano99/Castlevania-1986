@@ -2,7 +2,7 @@
 CBrick::CBrick(float _x, float _y, int id , int type, float width, float height) :CTorch(_x, _y, id, type)
 {
 
-	if (type == eType::BRICK_4 || type == eType::BRICK_3)
+	if (type == eType::BRICK_4 || type == eType::BRICK_3 || type == eType::BRICK_5)
 	{
 		for (int i = 0; i < 4; i++)
 		{
@@ -21,6 +21,10 @@ void CBrick::GetBoundingBox(float& left, float& top, float& right, float& bottom
 		top = y;
 		right = x + w;
 		bottom = y + h;
+		if (_type == eType::BRICK_5)
+		{
+			right = x + 28;
+		}
 
 	}
 	else 
