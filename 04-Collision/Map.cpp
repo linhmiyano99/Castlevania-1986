@@ -1,6 +1,7 @@
 ﻿#include "Map.h"
 #include "fstream"
 #include "Game.h"
+#include "Define.h"
 
 CMap* CMap::__instance = NULL;
 
@@ -89,9 +90,9 @@ void CMap::DrawMap()
 	game->GetCamPos(cam_x, cam_y);
 	if (cam_y == 0)
 	{
-		for (int i = (int)cam_y / 64; i < (int)(cam_y + 560) / 64 + 3; i++)
+		for (int i = (int)cam_y / 64; i < (int)(cam_y + SCREEN_HEIGHT) / 64 + 3; i++)
 		{
-			for (int j = (int)cam_x / 64; j < (int)(cam_x + 560) / 64 + 3; j++)
+			for (int j = (int)cam_x / 64; j < (int)(cam_x + SCREEN_WIDTH) / 64 + 3; j++)
 			{
 				if (!(i < 0 || j >= _column))
 					sprites->Get(getTile(i, j))->Draw(64 * j, 64 * i + 40);
@@ -102,7 +103,7 @@ void CMap::DrawMap()
 	{
 		for (int i = (int)cam_y / 64 ; i < 12; i++)
 		{
-			for (int j = (int)cam_x / 64; j < (int)(cam_x + 560) / 64 + 3; j++)
+			for (int j = (int)cam_x / 64; j < (int)(cam_x + SCREEN_WIDTH) / 64 + 3; j++)
 			{
 				if (!(i < 0 || j >= _column))
 				{
@@ -115,7 +116,7 @@ void CMap::DrawMap()
 	}
 	if (_scene == 0)
 	{
-		for (int i = (int)cam_x / 64; i <= (int)(cam_x + 560) /32 ; i++)
+		for (int i = (int)cam_x / 64; i <= (int)(cam_x + SCREEN_WIDTH) /32 ; i++)
 			sprites->Get(9999)->Draw(i * 32, 360);
 	}
 }

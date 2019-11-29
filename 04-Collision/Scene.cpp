@@ -57,7 +57,9 @@ void CScene::LoadResoure()
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
-		simon->SetPosition(0, 20.0f);
+		simon->SetPosition(000, 20.0f);
+		id = 1;
+		_stage = 1;
 		objects.push_back(simon);
 		boss = CBoss::GetInstance();
 		boss->SetPosition(5340.0f, 95.0f);
@@ -239,6 +241,13 @@ void CScene::Render()
 	CGame::GetInstance()->GetCamPos(cx, cy);
 	CSprites* sprites = CSprites::GetInstance();
 	board->Render();
+	float s_x, s_y;
+	simon->GetPosition(s_x, s_y);
+	if (simon->IsOnStair() && (s_y > 410 && s_y < 460) && simon->GetState() != SIMON_STATE_DIE)
+	{
+		CSprites* sprites = CSprites::GetInstance();
+		sprites->Get(70001)->Draw(cx, cy);
+	}
 }
 void CScene::SetMap(int id)
 {

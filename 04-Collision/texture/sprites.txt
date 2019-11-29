@@ -704,3 +704,10 @@ top= 332
 right= 450
 bottom= 344
 idTexture= 1
+
+id= 70001
+left= 19
+top= 1238
+right= 537
+bottom= 1686
+idTexture= 1
