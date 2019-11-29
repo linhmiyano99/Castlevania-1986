@@ -47,6 +47,13 @@ void CBoard::Render()
 			sprites->Get(13001)->Draw(cx + 310, cy + 40);
 		else if (_weapon == eType::ITEMAXE)
 			sprites->Get(13010)->Draw(cx + 310, cy + 30);
+		if (_numberOfWeapon != 0)
+		{
+			if (_numberOfWeapon == 2)
+			{
+				sprites->Get(13014)->Draw(cx + 440, cy + 40);
+			}
+		}
 
 	}
 	game = NULL;

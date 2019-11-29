@@ -146,6 +146,7 @@
     <ClInclude Include="ItemChicken.h" />
     <ClInclude Include="ItemDagger.h" />
     <ClInclude Include="ItemHeart.h" />
+    <ClInclude Include="ItemII.h" />
     <ClInclude Include="MagagementTexture.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Money.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="ItemChicken.cpp" />
     <ClCompile Include="ItemDagger.cpp" />
     <ClCompile Include="ItemHeart.cpp" />
+    <ClCompile Include="ItemII.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ManagementTexture.cpp" />
     <ClCompile Include="Map.cpp" />

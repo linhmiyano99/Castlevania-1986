@@ -18,16 +18,17 @@ class CBoard
 	CCode* code;
 	bool isStop;
 	static CBoard* __instance;
-
+	int _numberOfWeapon;
 public:
 	static CBoard* GetInstance();
 	CBoard()
 	{
 		_time = 300;
-		_weapon = 0;
+		_weapon = eType::DAGGER;
 		_count = GetTickCount();
 		isStop = false;
 		code = new CCode();
+		_numberOfWeapon = 0;
 	}
 	~CBoard()
 	{
@@ -49,6 +50,8 @@ public:
 
 		}
 	}
+	void SetNumberOfWeapon(int i) { _numberOfWeapon = i; }
+	int GetNumberOfWeapon() { return _numberOfWeapon; }
 	void Stop() { isStop = true; }
 	bool IsStop() { return isStop; }
 };

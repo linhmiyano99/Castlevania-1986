@@ -188,6 +188,9 @@
     <ClInclude Include="WaterEffection.h">
       <Filter>framework\GameObject\Effection</Filter>
     </ClInclude>
+    <ClInclude Include="ItemII.h">
+      <Filter>framework\GameObject\item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -312,6 +315,9 @@
     </ClCompile>
     <ClCompile Include="WaterEffection.cpp">
       <Filter>framework\GameObject\Effection</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemII.cpp">
+      <Filter>framework\GameObject\item</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

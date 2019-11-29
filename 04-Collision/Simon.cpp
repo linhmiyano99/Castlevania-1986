@@ -98,6 +98,17 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				die_start = 0;
 				isFall = false;
+				if (CBoard::GetInstance()->GetWeapon() != 0)
+				{
+					if (CBoard::GetInstance()->GetNumberOfWeapon() != 0)
+					{
+						CBoard::GetInstance()->SetWeapon(0);
+					}
+					else
+					{
+						CBoard::GetInstance()->SetWeapon(0);
+					}
+				}
 			}
 			else
 			{
@@ -960,6 +971,10 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 		else if (Obj->GetType() == eType::BOSSBALL)
 		{
 			//_score += 10000;
+		}
+		else if (Obj->GetType() == eType::ITEMII)
+		{
+			CBoard::GetInstance()->SetNumberOfWeapon(2);
 		}
 		if (Obj->GetType() == eType::BOSSBALL)
 		{

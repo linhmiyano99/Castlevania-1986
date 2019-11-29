@@ -206,7 +206,7 @@ void CPanther::Render()
 			animations[2]->Render(x, y);
 		}
 	}
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CPanther::GetBoundingBox(float& left, float& top, float& right, float& bottom)
