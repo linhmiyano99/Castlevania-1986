@@ -466,16 +466,11 @@ B:
 												CBat* bat = dynamic_cast<CBat*>(e->obj);
 												bat->SetState(TORCH_STATE_NOT_EXSIST);
 											}
-											else if (dynamic_cast<CPanther*>(torch))
-											{
-												CPanther* panther = dynamic_cast<CPanther*>(e->obj);
-												float _x, _y;
-												panther->GetPosition(_x, _y);
-												if (_x > x)
-													nx = 1;
-												else
-													nx = -1;
+											
 
+											if (state == SIMON_STATE_SIT || state == SIMON_STATE_SIT_ATTACK)
+											{
+												y -= 15;
 											}
 											StartUntouchable();
 										}
@@ -1195,23 +1190,36 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 
 		CalcPotentialCollisions(&listObj, coEvents);
 
-		float min_tx, min_ty, nx = 0, ny;
+		float min_tx, min_ty, nx1 = 0, ny1;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx1, ny1);
 
+		float _x, _y;
+		Obj->GetPosition(_x, _y);
+		if (_x > x)
+			nx = -1;
+		else
+			nx = 1;
 		//// block 
 		if (nx != 0) vx = nx * 0.2f;
 		else
-			vx = nx;
+			vx = 0;
 		vy = -0.2f;
 		_energy -= 2;
 		if ((min_tx <= min_tx0 || min_ty <= min_ty0) && _energy >0)
 		{
-			x += min_tx * dx + nx * 50.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+			x += nx * 30.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 			y -= 50.0f;
 		}
 		
+		if (attack_start > 0)
+		{
+			animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
+			animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
+			attack_start = 0;
+		} 
 
+		state = SIMON_STATE_HURT;
 		// clean up collision events
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
