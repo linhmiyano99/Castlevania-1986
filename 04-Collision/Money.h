@@ -15,6 +15,7 @@
 
 class CItemMoney : public CItem
 {
+	DWORD start_effection;
 public:
 	CItemMoney(float _x, float _y, int type) : CItem(_x, _y)
 	{
@@ -40,8 +41,22 @@ public:
 			break;
 		}
 		_type = type;
+		start_effection = 0;
 	}
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	void Render();
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
+	void SetState(int _state)
+	{
+		if (_state != ITEM_STATE_NOT_EXSIST)
+		{
+			this->state = _state;
+		}
+		else
+		{
+			start_effection = GetTickCount();
+		}
+	}
 
 };
 #endif // !__DAGGER_H_
