@@ -27,7 +27,8 @@ CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FIS
 	}
 	Go();
 	ResetWater(0);
-	
+	isCanAttack = false;
+
 
 }
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -52,6 +53,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			dt_appear = 0;
 			dt_die = 0;
 			ResetWater(0);
+			isCanAttack = false;
 		}
 		else
 			return;
@@ -86,7 +88,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		CSimon* simon = CSimon::GetInstance();
 		simon->GetPosition(s_x, s_y);
 
-		if (GetTickCount() - start_attack > TIME_START_ATTACK && abs(y - 590) <5)
+		if (GetTickCount() - start_attack > TIME_START_ATTACK && isCanAttack)
 		{
 			start_attack = GetTickCount();
 			if (x < s_x)
@@ -187,6 +189,8 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					x += dx;
 					y += dy;
+					isCanAttack = false;
+
 				}
 				else
 				{
@@ -200,6 +204,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					y += min_ty * dy + ny * 0.4f;
 
 					if (ny != 0) vy = 0;
+					isCanAttack = true;
 				}
 				// clean up collision events
 				for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];

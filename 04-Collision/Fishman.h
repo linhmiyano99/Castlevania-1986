@@ -27,6 +27,7 @@ class CFishman : public CEnemy
 	static bool isStart;
 	vector<CWaterEffection*> list;
 	bool isFall;
+	bool isCanAttack;
 
 public:
 	CFishman(float _x = 3300, float _y = 780, int id = 0);

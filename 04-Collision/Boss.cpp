@@ -223,7 +223,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								yb = getPt(y1, y2, t * 0.0005f);
 
 								// The Black Dot
-								x = getPt(xa, xb, t * 0.0005f);
+								x = 30 + getPt(xa, xb, t * 0.0005f);
 								y = getPt(ya, yb, t * 0.0005f);
 
 							}
@@ -384,7 +384,7 @@ void CBoss::FlyStraight(float next_x, float next_y)
 		nx = -1;
 	}
 	if (next_x != x && next_y != y)
-		SetSpeed(0.3f * nx, 1.0 * (next_y - y) / (next_x - x) * nx * 0.3f);
+		SetSpeed(0.3f * nx, 1.0 * (next_y - y) / (next_x - 30 - x) * nx * 0.3f);
 	
 }
 void CBoss::FlyCurve(float next_x, float next_y)
