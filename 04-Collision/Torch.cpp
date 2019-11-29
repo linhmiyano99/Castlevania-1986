@@ -29,6 +29,9 @@ CTorch::CTorch(float _x, float _y, int id, int type) : CGameObject(_x, _y, type)
 	case eType::BRICK_4:
 		AddAnimation(497);
 		break;
+	case eType::BRICK_5:
+		AddAnimation(500);
+		break;
 	}
 	AddAnimation(800); // fire
 	AddAnimation(802); // bright
