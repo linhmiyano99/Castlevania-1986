@@ -227,6 +227,11 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								// The Black Dot
 								x = 30 + getPt(xa, xb, t * 0.0005f);
 								y = getPt(ya, yb, t * 0.0005f);
+								if (vy > 0)
+								{
+									if (abs(x - x1) < 2.0f)
+										vy = -0.4f;
+								}
 
 							}
 							else
@@ -371,13 +376,10 @@ void CBoss::AutoFly(float next_x, float next_y)
 	y2 = next_y;
 	CSimon::GetInstance()->GetPosition(x1, y1);
 	if (x < next_x)
-		vx = 0.1f;
+		vx = 0.3f;
 	else
-		vx = -0.1f;
-	if (y < next_y)
-		vy = 0.1f;
-	else
-		vy = -0.1f;
+		vx = -0.3f;
+	vy = 0.4f;
 	
 }
 void CBoss::AutoAttack(float next_x, float next_y)
