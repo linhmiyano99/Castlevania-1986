@@ -19,6 +19,9 @@
 #define TIME_START_ATTACK 5000
 #define TIME_ATTACK 800
 
+
+#define FISHMAN_MAX_HEIGHT 448
+#define FISHMAN_MAX_DISTANCE_WITH_SIMON 200
 class CFishman : public CEnemy
 {
 	bool isAttacking;
@@ -28,6 +31,8 @@ class CFishman : public CEnemy
 	vector<CWaterEffection*> list;
 	bool isFall;
 	bool isCanAttack;
+	float _leftLimit;
+	float _rightLimit;
 
 public:
 	CFishman(float _x = 3300, float _y = 780, int id = 0);

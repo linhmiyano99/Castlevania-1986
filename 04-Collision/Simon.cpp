@@ -36,7 +36,7 @@ CSimon::CSimon() : CGameObject()
 	isAutoGo = false;
 	auto_x = -1;
 	_score = 0;
-	_lives = 3;
+	_lives = 99;
 	_count = 0;
 	start_stair = 0;
 	isFall = false;
@@ -73,29 +73,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (_lives > 0)
 			{
 				_lives--;
-				_energy = 16;
-
-				if (CScene::GetInstance()->GetStage() == 1)
-				{
-					x = 0.0f;
-					y = 300.0f;
-				}
-				else if (CScene::GetInstance()->GetStage() == 2)
-				{
-					CScene::GetInstance()->SetScene(2);
-					x = 3120.0f;
-					y = 50.0f;
-				}
-				else  if (CScene::GetInstance()->GetStage() == 3)
-				{
-					CScene::GetInstance()->SetScene(4);
-					CBoss* boss = CBoss::GetInstance();
-					boss->SetState(BOSS_STATE_SLEEP);
-					boss->SetSpeed(0, 0);
-					boss->SetPosition(5340.0f, 95.0f);
-					x = 4130.0f;
-					y = 50.0f;
-				}
+				_energy = SIMON_MAX_ENERGY;
+			
+				CScene::GetInstance()->ResetScene();
+				untouchable_start = 0;
+				untouchable = 0;
 				die_start = 0;
 				isFall = false;
 				if (CBoard::GetInstance()->GetWeapon() != 0)
@@ -109,10 +91,20 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						CBoard::GetInstance()->SetWeapon(0);
 					}
 				}
+				x = start_x;
+				y = start_y;
 			}
 			else
 			{
-				_energy = 16;
+				//_energy = SIMON_MAX_ENERGY;
+				//x = start_x;
+				//y = start_y;
+				//CScene::GetInstance()->ResetScene();
+				//untouchable_start = 0;
+				//untouchable = 0;
+				//die_start = 0;
+				//isFall = false;
+				return;
 
 			}
 			state = SIMON_STATE_IDLE;
@@ -120,9 +112,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			return;
 		}
-		else goto B;
 	}
-	if (_energy <= 0 || y > 780)
+	if (die_start == 0 &&(_energy <= 0 || y > WATTER_Y))
 	{
 		die_start = GetTickCount();
 		attack_start = 0;
@@ -180,20 +171,20 @@ B:
 			if (isCanOnStair == 1)
 			{
 				nx = -nx;
-				new_y = y - 16;
+				new_y = y - PER_STEP;
 				if (_stairTrend == 0)
-					new_x = x + 16;
+					new_x = x + PER_STEP;
 				else
-					new_x = x - 16;
+					new_x = x - PER_STEP;
 			}
 			else
 			{
 				state = SIMON_STATE_GO_DOWN;
-				new_y = y + 16;
+				new_y = y + PER_STEP;
 				if (_stairTrend == 0)
-					new_x = x - 16;
+					new_x = x - PER_STEP;
 				else
-					new_x = x + 16;
+					new_x = x + PER_STEP;
 			}
 			animations[SIMON_ANI_GO_UP]->ResetFrame();
 			animations[SIMON_ANI_GO_DOWN]->ResetFrame();
@@ -214,13 +205,13 @@ B:
 	else if (trans_start > 0)
 	{
 		vx = 0;
-		if (GetTickCount() - trans_start > 400)
+		if (GetTickCount() - trans_start > SIMON_STRANS_TIME)
 		{
 			trans_start = 0;
 		}
 	}
 	else {
-		if (y > 700 && !isFall)
+		if (y > WATTER_Y && !isFall)
 		{
 			isFall = true;
 			ResetWater();
@@ -762,7 +753,6 @@ void CSimon::SetState(int state)
 		case SIMON_STATE_JUMP:
 			if (y == _ground) {
 				vy = -SIMON_JUMP_SPEED_Y;
-				vx = 0;
 			}
 			break;
 
@@ -830,11 +820,11 @@ void CSimon::SetState(int state)
 					start_stair = GetTickCount();
 					if (!isUnder)
 					{
-						new_y = y - 16;
+						new_y = y - PER_STEP;
 						if (_stairTrend == 0)
-							new_x = x + 16;
+							new_x = x + PER_STEP;
 						else
-							new_x = x - 16;
+							new_x = x - PER_STEP;
 					}
 					else
 					{
@@ -866,11 +856,11 @@ void CSimon::SetState(int state)
 					start_stair = GetTickCount();
 					if (!isUnder)
 					{
-						new_y = y + 16;
+						new_y = y + PER_STEP;
 						if (_stairTrend == 0)
-							new_x = x - 16;
+							new_x = x - PER_STEP;
 						else
-							new_x = x + 16;
+							new_x = x + PER_STEP;
 					}
 					else
 					{
@@ -979,6 +969,10 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 		else if (Obj->GetType() == eType::ITEMII)
 		{
 			CBoard::GetInstance()->SetNumberOfWeapon(2);
+		}
+		else if (Obj->GetType() == eType::CHICKEN)
+		{
+			_energy = SIMON_MAX_ENERGY;
 		}
 		if (Obj->GetType() == eType::BOSSBALL)
 		{
@@ -1294,6 +1288,7 @@ void CSimon::CollisionWithGate(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, float
 		gate0->ResetGate();
 		TransScene();
 		gate0->SetState(GATE_STATE_OPEN);
+		SetStart(CScene::GetInstance()->GetLeft(), 0);
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	gate0 = NULL;
@@ -1367,16 +1362,10 @@ void CSimon::AutoGo()
 void CSimon::TransScene()
 {
 	CScene* scene = CScene::GetInstance();
-	CScene* scene2 = new CScene();
-	if(scene->GetScene() == 1)
-		scene2->SetMap(2);
-	else
-		scene2->SetMap(4);
-	scene->TranScene(scene2->GetLeft());
+	scene->TranScene();
 	isAutoGo = true;
 	auto_x = x + 100;
 	scene = NULL;
-	SAFE_DELETE(scene2);
 }
 void CSimon::HeartDown()
 {
@@ -1400,4 +1389,38 @@ void CSimon::ResetWater()
 	list[0]->SetPosition(x, y + 20);
 	list[1]->SetPosition(x + 10, y + 60);
 	list[2]->SetPosition(x + 20, y + 20);
+}
+void CSimon::StartHurt(float _x, float _y)
+{
+	if (untouchable_start > 0)
+		return;
+	_energy -= 2;
+	if (!isOnStair)
+	{
+		if (_x > x)
+			nx = -1;
+		else
+			nx = 1;
+		//// block 
+		if (nx != 0) vx = nx * 0.2f;
+		else
+			vx = 0;
+		vy = -0.2f;
+		if (_energy > 0)
+		{
+			x += nx * 30.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+			y -= 50.0f;
+		}
+		state = SIMON_STATE_HURT;
+	}
+	if (_energy <= 0)
+	{
+		_energy = 0;
+		die_start = GetTickCount();
+		vx = vy = 0;
+		state = SIMON_STATE_DIE;
+		isOnStair = false;
+	}
+
+	StartUntouchable();
 }

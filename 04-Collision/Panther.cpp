@@ -26,15 +26,10 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	float cam_x, cam_y;
 	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-	if (state == TORCH_STATE_EXSIST && (x < cam_x - 600 && vx < 0 || x > cam_x + 600 && vx >0))
-	{
-		state = TORCH_STATE_ITEM_NOT_EXSIST;
-		dt_appear = GetTickCount();
-	}
 	if (dt_appear > 0)
 	{
 		
-		if (GetTickCount() - dt_appear > TIME_APPEAR && (x < cam_x - 600 || x > cam_x + 700))
+		if (GetTickCount() - dt_appear > TIME_APPEAR && (x < cam_x  || x > cam_x + SCREEN_WIDTH))
 		{
 			state = TORCH_STATE_EXSIST;
 			x = start_x;
@@ -74,7 +69,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			CSimon::GetInstance()->GetPosition(s_x, s_y);
 			if (!isStart)
 			{
-				if (abs(x - s_x) < 40)
+				if (abs(x - s_x) < DISTANCE_TO_START)
 				{
 					SetSpeed(-0.1f, -0.1f);
 					isStart = true;
@@ -147,7 +142,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (item != NULL) {//co item
 
-			if (GetTickCount() - dt_die > 150) // cho 150 mili second
+			if (GetTickCount() - dt_die > TIME_ENEMY_DIE) // cho 150 mili second
 			{
 				item->Update(dt, coObjects);
 				item->GetPosition(x, y);
@@ -201,7 +196,7 @@ void CPanther::Render()
 	}
 	else
 	{
-		if (GetTickCount() - dt_die < 300)
+		if (GetTickCount() - dt_die < TIME_ENEMY_DIE)
 		{
 			animations[2]->Render(x, y);
 		}

@@ -31,6 +31,22 @@ CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FIS
 	ResetWater(0);
 	isCanAttack = false;
 
+	if (x < 3505)
+	{
+
+		_leftLimit = 3076;
+		_rightLimit = 3464;
+	}
+	else if (x < 3631)
+	{
+		_leftLimit = 3585;
+		_rightLimit = 3590;
+	}
+	else
+	{
+		_leftLimit = 3710;
+		_rightLimit = 3970;
+	}
 
 }
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -44,7 +60,9 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (GetTickCount() - dt_appear > TIME_APPEAR)
 		{
 			state = TORCH_STATE_EXSIST;
-			x = cam_x + start_x - CScene::GetInstance()->GetLeft();
+			srand((unsigned)time(0));
+			int _d = (rand() % 5) * 20 - 100;
+			x = cam_x + start_x - CScene::GetInstance()->GetLeft() + _d;
 			y = start_y;
 			ny = -1;
 			isJumping = true;
@@ -63,7 +81,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (dt_die == 0)
 	{
 		if (isJumping) {
-			if (y <= 448)
+			if (y <= FISHMAN_MAX_HEIGHT)
 			{
 				vy = SIMON_GRAVITY * dt;
 				vx = nx * 0.15f;
@@ -142,12 +160,12 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				float cam_x, cam_y;
 				CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-				if (y > 700 && !isFall)
+				if (y > WATTER_Y && !isFall)
 				{
 					isFall = true;
 					ResetWater(1);
 				}
-				if (x < cam_x - 40 || x > cam_x + 560 || y > cam_y + 350 || y < cam_y)
+				if (x < cam_x - 40 || x > cam_x + SCREEN_WIDTH || y > cam_y + SCREEN_HEIGHT || y < cam_y)
 				{
 					state = TORCH_STATE_ITEM_NOT_EXSIST;
 					dt_appear = GetTickCount();
@@ -156,7 +174,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			
 				float s_x, s_y;
 				CSimon::GetInstance()->GetPosition(s_x, s_y);
-				if (x < s_x - 200)
+				if (x < s_x - FISHMAN_MAX_DISTANCE_WITH_SIMON)
 				{
 					nx = 1;
 					vx = abs(vx);
@@ -215,37 +233,19 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 		}
-		if (x < 3505)
-		{
-			if (x <= 3076 || x >= 3464)
-			{
-				vx = -vx;
-				nx = -nx;
-			}
-		}
-		else if ( x < 3631)
-		{
-			if (x <= 3585 || x >= 3590)
-			{
-				vx = -vx;
-				nx = -nx;
-			}
-		}
-		else 
-		{
-			if (x <= 3710 || x >= 3970)
-			{
-				vx = -vx;
-				nx = -nx;
-			}
 
+		if (x <= _leftLimit || x >= _rightLimit)
+		{
+			vx = -vx;
+			nx = -nx;
 		}
+
 	}
 	else
 	{
 		if (item != NULL) {//co item
 
-			if (GetTickCount() - dt_die > 150) // cho 150 mili second
+			if (GetTickCount() - dt_die > TIME_ENEMY_DIE) // cho 150 mili second
 			{
 				item->Update(dt, coObjects);
 				item->GetPosition(x, y);
@@ -307,10 +307,7 @@ void CFishman::Render()
 		}
 		else
 		{
-			if (vx > 0)
-				animations[FISHMAN_ANI_WALKING]->Render(x, y, 1, 255);
-			else
-				animations[FISHMAN_ANI_WALKING]->Render(x, y, -1, 255);
+			animations[FISHMAN_ANI_WALKING]->Render(x, y, nx, 255);
 			if (isFall)
 			{
 				for each (CWaterEffection * var in list)
@@ -328,7 +325,7 @@ void CFishman::Render()
 	}
 	else
 	{
-		if (GetTickCount() - dt_die < 150)
+		if (GetTickCount() - dt_die < TIME_ENEMY_DIE)
 		{
 			animations[4]->Render(x, y);
 

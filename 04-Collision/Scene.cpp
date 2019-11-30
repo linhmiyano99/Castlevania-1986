@@ -46,7 +46,7 @@ void CScene::LoadResoure()
 		
 		grid->LoadObject("texture/Obj1.txt");
 		simon = CSimon::GetInstance();
-		simon->SetPosition(0.0f, 20.0f);
+		simon->SetPosition(SIMON_POSITION_0);
 		objects.push_back(simon);
 	}
 	else
@@ -57,12 +57,10 @@ void CScene::LoadResoure()
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
-		simon->SetPosition(000, 20.0f);
-		id = 1;
-		_stage = 1;
+		simon->SetPosition(SIMON_POSITION_0);
 		objects.push_back(simon);
 		boss = CBoss::GetInstance();
-		boss->SetPosition(5340.0f, 95.0f);
+		boss->SetPosition(BOSS_POSITION);
 		objects.push_back(boss);
 
 	}
@@ -76,11 +74,11 @@ void CScene::LoadSimon()
 	smallballs.clear();
 	if (id == 1)
 	{
-		simon->SetPosition(0.0f, 20.0f);		
+		simon->SetPosition(SIMON_POSITION_0);
 	}
 	else if (id == 2)
 	{
-		if (simon_y < 190)
+		if (simon_y < SIMON_Y_UPPER)
 			simon->SetPosition(simon_x, simon_y);
 		else
 			simon->SetUnder();
@@ -96,25 +94,22 @@ void CScene::Update(DWORD dt)
 {
 	if (board->IsStop())
 	{
-		if (simon->GetEnergy() < 16)
+		if (simon->GetEnergy() < SIMON_MAX_ENERGY)
 		{
 			simon->UpEnergy();
+			return;
 		}
 		else if (board->GetTime() > 0)
 		{
 			board->TimeDown();
+			return;
 		}
 		else if (simon->GetHeart() > 0)
 		{
 			simon->HeartDown();
+			return;
 		}
-		else
-		{
-			goto A;
-		}
-		return;
 	}
-	A:
 	board->Update(dt);
 	for each (LPGAMEOBJECT var in smallballs)
 	{
@@ -152,22 +147,24 @@ void CScene::Update(DWORD dt)
 	}
 	else
 	{
-		float cx, cy;
+		float cx, cy, cam_x, cam_y;
 		simon->GetPosition(cx, cy);
+		CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+		grid->GetListObject(objects, cam_x, cam_y);
 
 
-		if (cy >= 430 && id != 3)
+		if (cy >= CAM_Y_DOWN && id != 3)
 		{
 			id = 3;
 			SetMap(3);
 			LoadSimon();
-			cy = 410;
+			cy = CAM_Y_DOWN;
 		}
 		else if (id == 3)
 		{
-			if (cy < 410)
+			if (cy < CAM_Y_DOWN)
 			{
-				if ((cx > 3070 && cx < 3290) || (cx > 3740 && cx < 3940) && simon->IsOnStair())
+				if (simon->IsOnStair())
 				{
 					id = 2;
 					SetMap(2);
@@ -175,13 +172,13 @@ void CScene::Update(DWORD dt)
 					cy = 0;
 				}
 				else
-					cy = 430;
+					cy = CAM_Y_DOWN;
 
 			}
 			else
-				cy = 430;
+				cy = CAM_Y_DOWN;
 		}
-		else if (id == 4 && cx > 5356)
+		else if (id == 4 && cx > POSITION_START_BOSS)
 		{
 			id = 5;
 			boss->SetState(BOSS_STATE_FLY);
@@ -212,13 +209,12 @@ void CScene::Update(DWORD dt)
 			cx = GetLeft();
 		if (id != 4)
 		{
-			if (cx > GetRight() - SCREEN_WIDTH + 10)
-				cx = GetRight() - SCREEN_WIDTH + 10;
+			if (cx > GetRight() - SCREEN_WIDTH)
+				cx = GetRight() - SCREEN_WIDTH;
 		}
 
 
 		game->SetCamPos(cx, cy);
-		grid->GetListObject(objects, cx , cy);
 		coObjects.clear();
 
 	}
@@ -243,7 +239,7 @@ void CScene::Render()
 	board->Render();
 	float s_x, s_y;
 	simon->GetPosition(s_x, s_y);
-	if (simon->IsOnStair() && (s_y > 410 && s_y < 460) && simon->GetState() != SIMON_STATE_DIE)
+	if (simon->IsOnStair() && (s_y > START_DOWN&& s_y < DONE_DOWN) && simon->GetState() != SIMON_STATE_DIE)
 	{
 		CSprites* sprites = CSprites::GetInstance();
 		sprites->Get(70001)->Draw(cx, cy);
@@ -252,6 +248,7 @@ void CScene::Render()
 void CScene::SetMap(int id)
 {
 	this->id = id;
+
 }
 int CScene::GetLeft()
 {
@@ -264,17 +261,17 @@ int CScene::GetLeft()
 	switch (id)
 	{
 	case 0:
-		return 0;
+		return SCENCE_0_LEFT;
 	case 1:
-		return 0;
+		return SCENCE_1_LEFT;
 	case 2:
-		return 3074;
+		return SCENCE_2_LEFT;
 	case 3:
-		return 3074;
+		return SCENCE_3_LEFT;
 	case 4:
-		return 4096;
+		return SCENCE_4_LEFT;
 	case 5:
-		return 5086;
+		return SCENCE_5_LEFT;
 	default:
 		return 0;
 	}
@@ -288,9 +285,9 @@ int CScene::GetTop()
 	case 2:
 	case 4:
 	case 5:
-		return 40;
+		return SCENCE_0_TOP;
 	case 3:
-		return 430;
+		return SCENCE_1_TOP;
 	default:
 		return 0;
 	}
@@ -306,15 +303,15 @@ int CScene::GetRight()
 	switch (id)
 	{
 	case 0:
-		return 1536;
+		return SCENCE_0_RIGHT;
 	case 1:
-		return 3074;
+		return SCENCE_1_RIGHT;
 	case 2:
 	case 3:
-		return 4097;
+		return SCENCE_3_RIGHT;
 	case 4:
 	case 5:
-		return 5632;
+		return SCENCE_5_RIGHT;
 	default:
 		return 0;
 	}
@@ -328,17 +325,17 @@ int CScene::GetBottom()
 	case 2:
 	case 4:
 	case 5:
-		return 384;
+		return SCENCE_0_BOTTOM;
 	case 3:
-		return 768;
+		return SCENCE_1_BOTTOM;
 	default:
-		return 384;
+		return SCENCE_0_BOTTOM;
 	}
 }
 
-void CScene::TranScene(float _x)
+void CScene::TranScene()
 {
-	auto_tran = _x;
+	auto_tran = GetRight();
 	isAutoTran = true;
 
 }
@@ -347,3 +344,19 @@ void CScene::AddSmallBall(LPGAMEOBJECT smallball)
 	smallballs.push_back(smallball);
 }
 
+void CScene::UpStage()
+{ 
+	_stage++;
+}
+void CScene::ResetScene()
+{
+	if (id == 3)
+		id = 2;
+	else if (id == 5)
+	{
+		id = 4;
+		CBoss* boss = CBoss::GetInstance();
+		boss->ResetBoss();
+		boss = NULL;
+	}
+}

@@ -11,7 +11,7 @@
 
 #define SIMON_WALKING_SPEED		0.16f
 #define SIMON_JUMP_SPEED_Y		0.5f
-#define SIMON_GRAVITY			0.002f
+#define SIMON_GRAVITY			0.0005f
 
 #define SIMON_STATE_IDLE			0
 #define SIMON_STATE_WALKING_RIGHT	100
@@ -62,6 +62,10 @@
 #define DIE_TIME			2000
 #define TIME_FOR_PER_STEP  205
 
+#define SIMON_STRANS_TIME 400
+#define SIMON_TIME_PER_STEP 200
+#define SIMON_STRANS_TIME 400
+
 using namespace std;
 class CSimon : public CGameObject
 {
@@ -90,6 +94,7 @@ class CSimon : public CGameObject
 	float new_x;
 	float new_y;
 	bool isUnder;
+	float start_x, start_y;
 
 public:
 	static CSimon* GetInstance();
@@ -123,5 +128,7 @@ public:
 	bool IsAttacking() { if (attack_start > 0)return true; return false; }
 	void ResetWater();
 	void SetUnder() { isUnder = true; }
+	void StartHurt(float _x, float _y);
+	void SetStart(float _x, float _y) { start_x = _x; start_y = y; }
 };
 #endif

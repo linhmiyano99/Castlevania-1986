@@ -7,10 +7,14 @@
 #define GHOST_SPEED 0.05f
 #define GHOST_GRAVITY 0.05f
 
+#define GHOST_DISTANCE_TOO_FAR 300
+
 class CGhost: public CEnemy
 {
 	static bool isStart;
 	bool isOnStair;
+	float _leftLimit;
+	float _rightLimit;
 public:
 	CGhost(float _x, float _y, int id = 0);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

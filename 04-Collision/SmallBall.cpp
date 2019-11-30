@@ -52,7 +52,8 @@ void CSmallBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			rect1.bottom = (int)b1;
 			if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 			{
-				simon->Hurt();
+				//simon->Hurt();
+				simon->StartHurt(x, y);
 				state = SMALLBALL_NOT_EXSIST;
 			}
 		}

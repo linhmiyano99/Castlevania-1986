@@ -24,7 +24,7 @@ public:
 	CBoard()
 	{
 		_time = 300;
-		_weapon = eType::DAGGER;
+		//_weapon = eType::DAGGER;
 		_count = GetTickCount();
 		isStop = false;
 		code = new CCode();

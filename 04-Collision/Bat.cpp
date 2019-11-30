@@ -33,7 +33,7 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else
 	{
 		if (item != NULL) {//co item
-			if (GetTickCount() - dt_die > 150) // cho 150 mili second
+			if (GetTickCount() - dt_die > TIME_ENEMY_DIE) // cho 150 mili second
 			{
 				item->Update(dt, coObjects);
 				item->GetPosition(x, y);
@@ -42,9 +42,15 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 	if (x <= scene->GetLeft() || x >= scene->GetRight())
+	{
 		vx = -vx;
+		nx = -nx;
+	}
 	if (y <= 40 || y >= SCREEN_HEIGHT)
+	{
 		vy = -vy;
+		ny = -ny;
+	}
 }
 void CBat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -67,7 +73,7 @@ void CBat::Render()
 		return;
 	if (state == TORCH_STATE_EXSIST)
 	{
-		animations[0]->Render(x, y);
+		animations[0]->Render(x, y, nx, 255);
 	}
 	else if (state == TORCH_STATE_ITEM)
 	{
@@ -77,7 +83,7 @@ void CBat::Render()
 	}
 	else
 	{
-		if (GetTickCount() - dt_die < 150)
+		if (GetTickCount() - dt_die < TIME_ENEMY_DIE)
 		{
 			animations[1]->Render(x, y);
 		}

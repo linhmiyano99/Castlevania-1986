@@ -23,6 +23,8 @@ CBoss::CBoss(float _x, float _y) :CEnemy(_x, _y, ID_BOSSBALL, eType::BOSS)
 	x1 = x2 = y1 = y2 = 0;
 	start_fly;
 	start_curve = 0;
+	start_x = x;
+	start_y = y;
 }
 CBoss* CBoss::GetInstance()
 {
@@ -187,14 +189,14 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 						if (x > 5340)
 						{
-							if (abs(x - 5537) > 2 && abs(y - 210) > 2)
+							if (abs(x - BOSS_RANDOM_X1) > 2 && abs(y -BOSS_RANDOM_Y1) > 2)
 								FlyStraight(5537, 210);
 							else
 								vx = vy = 0;
 						}
 						else
 						{
-							if (abs(x - 5080) > 2 && abs(y - 210) > 2)
+							if (abs(x - BOSS_RANDOM_X2) > 2 && abs(y- BOSS_RANDOM_Y2) > 2)
 								FlyStraight(5080, 210);
 							else
 								vx = vy = 0;
@@ -268,9 +270,9 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							step = 0;
 							start_fly = GetTickCount();
 						}
-						if ((x <= CScene::GetInstance()->GetLeft()  && vx < 0) || (vx > 0 && x >= CScene::GetInstance()->GetRight() - 80))
+						if ((x <= CScene::GetInstance()->GetLeft()  && vx < 0) || (vx > 0 && x >= CScene::GetInstance()->GetRight() - BOSS_BBOX_WIDTH))
 							vx = -vx;
-						if ((y <= 80 && vy < 0) || (y >= SCREEN_HEIGHT - 80 && vy > 0))
+						if ((y <= BOSS_BBOX_WIDTH && vy < 0) || (y >= SCREEN_HEIGHT - BOSS_BBOX_WIDTH && vy > 0))
 							vy = -vy;
 						x += vx * dt;
 						y += vy * dt;
@@ -282,7 +284,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else // đẫ chết
 	{
 		if (item) {//co item
-			if (GetTickCount() - dt_die > 500) // cho 150 mili second
+			if (GetTickCount() - dt_die > TIME_BOSS_DIE) // cho 150 mili second
 			{
 				item->Update(dt, coObjects);
 				item->GetPosition(x, y);
@@ -316,7 +318,7 @@ void CBoss::Render()
 		}
 		else if (state == BOSS_STATE_NOT_EXSIST)
 		{
-			if (GetTickCount() - dt_die < 500)
+			if (GetTickCount() - dt_die < TIME_BOSS_DIE)
 			{
 				animations[3]->Render(x, y + 25);
 				animations[3]->Render(x + 35, y + 25);
@@ -368,7 +370,14 @@ void CBoss::AutoFly(float next_x, float next_y)
 	x2 = next_x;
 	y2 = next_y;
 	CSimon::GetInstance()->GetPosition(x1, y1);
-
+	if (x < next_x)
+		vx = 0.1f;
+	else
+		vx = -0.1f;
+	if (y < next_y)
+		vy = 0.1f;
+	else
+		vy = -0.1f;
 	
 }
 void CBoss::AutoAttack(float next_x, float next_y)
@@ -410,4 +419,10 @@ float CBoss::getPt(int n1, int n2, float perc)
 	int diff = n2 - n1;
 
 	return n1 + (diff * perc);
+}
+void CBoss::ResetBoss()
+{
+	SetState(BOSS_STATE_SLEEP);
+	SetSpeed(0, 0);
+	SetPosition(start_x, start_y);
 }

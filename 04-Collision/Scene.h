@@ -58,7 +58,7 @@ class CScene
 	float auto_tran;
 public:
 	static CScene* GetInstance();
-	CScene(int id = 1);
+	CScene(int id = 0);
 	void LoadResoure();
 	void LoadSimon();
 	void Update(DWORD dt);
@@ -71,15 +71,16 @@ public:
 	int GetRight();
 	int GetBottom();
 
-	void TranScene(float _x);
+	void TranScene();
 	bool IsTranScene() { return isAutoTran; }
 	void AddSmallBall(LPGAMEOBJECT smallball);
-	void UpStage() { _stage++; }
+	void UpStage();
 	int GetStage() { return _stage; }
 	void SetScene(int scene) { id = scene; }
 	static bool IsGoGhost() { return GoGhost; }
 	static bool IsGoFishman() { return GoFishman; }
 	static void SetGhost(bool can) { GoGhost = can; }
 	static void SetFishman(bool can) { GoFishman = can; }
+	void ResetScene();
 };
 #endif // !__SMALLBALL_H__

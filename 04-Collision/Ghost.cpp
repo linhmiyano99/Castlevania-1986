@@ -15,6 +15,17 @@ CGhost::CGhost(float _x, float _y, int id) :CEnemy(_x, _y, id, eType::GHOST)
 	SetSpeed(GetTrend() * GHOST_SPEED, 0);
 	dt_appear = 0;
 	isOnStair = false;
+	if (x > 4000)
+	{
+		_leftLimit = 4100;
+		_rightLimit = 5000;
+	}
+	else
+	{
+		_leftLimit = 0;
+		_rightLimit = 3020;
+	}
+
 }
 void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -22,18 +33,12 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	float cam_x, cam_y;
 	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
-	if (state == TORCH_STATE_EXSIST && (x < cam_x - 100 && vx < 0 || x > cam_x + 600 && vx >0))
-	{
-		state = TORCH_STATE_ITEM_NOT_EXSIST;
-		dt_appear = GetTickCount();
-		isOnStair = false;
-	}
 	if (dt_appear > 0)
 	{
 		
 		if (start_x > cam_x + 660 || start_x < cam_x - 100)
 			return;
-		if (GetTickCount() - dt_appear > TIME_APPEAR && (start_x > cam_x + 560 ) || (start_x < cam_x ) )
+		if (GetTickCount() - dt_appear > TIME_APPEAR && (start_x > cam_x + SCREEN_WIDTH ) || (start_x < cam_x ) )
 		{
 		
 			float s_x, s_y;
@@ -64,22 +69,13 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			float _x, _y;
 			CSimon::GetInstance()->GetPosition(_x, _y);
-			if (_x > 4000)
+			if ((x < _leftLimit && nx < 0) || (x > _rightLimit && nx > 0))
 			{
-				if ((x < 4100 && nx < 0) || (x > 5000 && nx > 0))
-				{
-					nx = -nx;
-					vx = -vx;
-				}
+				nx = -nx;
+				vx = -vx;
 			}
-			else {
-				if ((x < 0 && nx < 0) || (x > 3020 && nx > 0))
-				{
-					vx = -vx;
-					nx = -nx;
-				}
-			}
-			if (x < cam_x - 300 || x > cam_x + 800)
+
+			if (x < cam_x - GHOST_DISTANCE_TOO_FAR || x > cam_x + SCREEN_WIDTH + GHOST_DISTANCE_TOO_FAR)
 			{
 				state = TORCH_STATE_ITEM_NOT_EXSIST;
 				dt_appear = GetTickCount();
@@ -162,7 +158,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (item != NULL) {//co item
 
-			if (GetTickCount() - dt_die > 150) // cho 150 mili second
+			if (GetTickCount() - dt_die > TIME_ENEMY_DIE) // cho 150 mili second
 			{
 				item->Update(dt, coObjects);
 				item->GetPosition(x, y);
@@ -204,7 +200,7 @@ void CGhost::Render()
 	}
 	else
 	{
-		if (GetTickCount() - dt_die < 300)
+		if (GetTickCount() - dt_die < TIME_ENEMY_DIE)
 		{
 			animations[1]->Render(x, y);
 			if (animations[1]->GetCurrentFrame() > 0)

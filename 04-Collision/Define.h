@@ -12,6 +12,11 @@
 
 #define ID_TEX_BBOX -100		// special texture to draw object bounding box
 #define ID_TEX 1
+#define TIME_ENEMY_DIE 150
+#define TIME_BOSS_DIE 500
+#define BOSS_POSITION 5340.0f, 95.0f
+#define SIMON_POSITION_0 0.0f, 20.0f
+#define SIMON_POSITION_1 2800.0f, 20.0f
 
 
 
@@ -21,6 +26,43 @@
 #define VAMPIREKILLER_2				9
 #define VAMPIREKILLER_3				10
 
+#define SCENCE_0_LEFT 0
+#define SCENCE_1_LEFT 0
+#define SCENCE_2_LEFT 3074
+#define SCENCE_3_LEFT 3074
+#define SCENCE_4_LEFT 4096
+#define SCENCE_5_LEFT 5112
+
+#define SCENCE_0_RIGHT 1546
+#define SCENCE_1_RIGHT 3084
+#define SCENCE_2_RIGHT 4107
+#define SCENCE_3_RIGHT 4107
+#define SCENCE_4_RIGHT 5632
+#define SCENCE_5_RIGHT 5632
+
+#define SCENCE_0_TOP 40
+#define SCENCE_1_TOP 430
+
+#define SCENCE_0_BOTTOM 384
+#define SCENCE_1_BOTTOM 768
+
+#define SIMON_Y_UPPER 190
+
+#define SIMON_MAX_ENERGY 16
+#define PER_STEP 16
+#define TIME_RATE_END_GAME 50
+
+#define CAM_Y_UP 40  
+#define CAM_Y_DOWN 430  
+
+#define POSITION_START_BOSS 5356
+
+#define WATTER_Y 700
+
+#define START_DOWN 410
+#define DONE_DOWN 460
+
+#define START_X 50.0f
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(ptr) \
