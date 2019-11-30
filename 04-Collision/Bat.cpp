@@ -22,12 +22,9 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
-			if (scene->GetScene() == 2)
-			{
-				CGameObject::Update(dt);
-				x += dx;
-				y += dy;
-			}
+			CGameObject::Update(dt);
+			x += dx;
+			y += dy;
 		}
 	}
 	else
@@ -41,12 +38,12 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 	}
-	if (x <= scene->GetLeft() || x >= scene->GetRight())
+	if (x <= BAT_LEFT_LIMIT || x >= BAT_RIGHT_LIMIT)
 	{
 		vx = -vx;
 		nx = -nx;
 	}
-	if (y <= 40 || y >= SCREEN_HEIGHT)
+	if (y <= BAT_TOP_LIMIT || y >= SCREEN_HEIGHT - BAT_BBOX_HEIGHT)
 	{
 		vy = -vy;
 		ny = -ny;

@@ -4,6 +4,11 @@
 #define BAT_BBOX_WIDTH 32
 #define BAT_BBOX_HEIGHT 32
 
+#define BAT_LEFT_LIMIT 3080
+#define BAT_TOP_LIMIT 40
+#define BAT_RIGHT_LIMIT 4028
+#define BAT_BOTTOM_LIMIT 500
+
 class CBat : public CEnemy
 {
 public:
