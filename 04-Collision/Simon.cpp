@@ -41,6 +41,7 @@ CSimon::CSimon() : CGameObject()
 	start_stair = 0;
 	isFall = false;
 	isUnder = false;
+	start_jump = 0;
 	for (int i = 0; i < 3; i++)
 	{
 		CWaterEffection* water = new CWaterEffection();
@@ -216,6 +217,28 @@ B:
 				var->Update(dt);
 			}
 		}
+		if (start_jump > 0)
+		{
+			if (state == SIMON_STATE_ATTACK_DAGGER || state == SIMON_STATE_STAND_ATTACK)
+			{
+				start_jump = 0;
+
+			}
+			else if (GetTickCount() - start_jump > SIMON_TIME_START_JUMP)
+			{
+				start_jump = 0;
+			}
+			else if (GetTickCount() - start_jump > SIMON_TIME_STATE_JUMP)
+			{
+				state = SIMON_STATE_IDLE;
+
+			}
+			else
+			{
+				state = SIMON_STATE_JUMP;
+			}
+		}
+
 		
 		vector<LPGAMEOBJECT> listBrick;
 		vector<LPGAMEOBJECT> listHideObject;
@@ -308,7 +331,15 @@ B:
 		}
 		else {
 			CGameObject::Update(dt);
-			vy += SIMON_GRAVITY * dt;
+			if (state == SIMON_STATE_JUMP)
+			{
+				vy += 0.3 * SIMON_GRAVITY * dt;
+			}
+			else
+			{
+				vy += SIMON_GRAVITY * dt;
+
+			}
 		}
 	
 		if (listHideObject.size() > 0)
@@ -396,11 +427,27 @@ B:
 			// No collision occured, proceed normally
 			if (coEvents.size() == 0)
 			{
-				x += dx;
+				if (state == SIMON_STATE_JUMP)
+				{
+					x += dx * 1.1;
+				}
+				else
+				{
+					x += dx;
+				}
 				y += dy;
+
 			}
 			else
 			{
+				/*if (state == SIMON_STATE_JUMP)
+				{
+					if (GetTickCount() - start_jump > SIMON_TIME_STATE_JUMP)
+					{
+						start_jump = 0;
+						state = SIMON_STATE_IDLE;
+					}
+				}*/
 				float min_tx, min_ty, nx = 0, ny;
 
 				FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
@@ -655,7 +702,7 @@ void CSimon::Render()
 	}
 	else if (state == SIMON_STATE_JUMP)
 	{
-		if (vy < 0)
+		if (start_jump > 0)
 			id = SIMON_ANI_JUMPING;
 		else
 			id = SIMON_ANI_IDLE;
@@ -729,7 +776,16 @@ void CSimon::SetState(int state)
 	{
 
 	}
-	
+	else if (state == SIMON_STATE_JUMP)
+	{
+		if (GetTickCount() - start_jump > SIMON_TIME_START_JUMP)
+		{
+			if (y == _ground) {
+				vy = -SIMON_JUMP_SPEED_Y;
+				start_jump = GetTickCount();
+			}
+		}
+	}
 	else
 	{
 		CGameObject::SetState(state);
@@ -743,12 +799,6 @@ void CSimon::SetState(int state)
 			vx = -SIMON_WALKING_SPEED;
 			nx = -1;
 			break;
-		case SIMON_STATE_JUMP:
-			if (y == _ground) {
-				vy = -SIMON_JUMP_SPEED_Y;
-			}
-			break;
-
 		case SIMON_STATE_SIT_ATTACK:
 			attack_start = GetTickCount();
 			animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
@@ -900,7 +950,7 @@ void CSimon::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	}
 	else if ((state == SIMON_STATE_GO_DOWN && isCanOnStair != -1) 
 		|| state == SIMON_STATE_SIT_ATTACK  
-		||(state == SIMON_STATE_SIT))
+		||(state == SIMON_STATE_SIT) || (start_jump > 0 && GetTickCount() - start_jump <= SIMON_TIME_STATE_JUMP))
 	{
 		bottom = this->y + SIMON_HEIGHT_SIT;
 	}

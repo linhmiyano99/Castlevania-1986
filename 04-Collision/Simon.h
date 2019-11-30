@@ -10,8 +10,8 @@
 #include "WaterEffection.h"
 
 #define SIMON_WALKING_SPEED		0.12f
-#define SIMON_JUMP_SPEED_Y		0.5f
-#define SIMON_GRAVITY			0.0005f
+#define SIMON_JUMP_SPEED_Y		0.3f
+#define SIMON_GRAVITY			0.005f
 
 #define SIMON_STATE_IDLE			0
 #define SIMON_STATE_WALKING_RIGHT	100
@@ -65,6 +65,8 @@
 #define SIMON_STRANS_TIME 400
 #define SIMON_TIME_PER_STEP 200
 #define SIMON_STRANS_TIME 400
+#define SIMON_TIME_STATE_JUMP 300
+#define SIMON_TIME_START_JUMP 1000
 
 using namespace std;
 class CSimon : public CGameObject
@@ -76,6 +78,7 @@ class CSimon : public CGameObject
 	DWORD _count;
 	DWORD die_start;
 	DWORD start_stair;
+	DWORD start_jump;
 	unordered_map<int, CWeapon*> weapons;
 	vector<CWaterEffection*> list;
 	bool isFall;

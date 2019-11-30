@@ -57,13 +57,13 @@ CManagementTexture::CManagementTexture()
 	ani->Add(10005);
 	animations->Add(403, ani);
 
-	ani = new CAnimation(70);// simon stand attack
+	ani = new CAnimation(80);// simon stand attack
 	ani->Add(10011);
 	ani->Add(10012);
 	ani->Add(10013);
 	animations->Add(404, ani);
 
-	ani = new CAnimation(70);//simon sit attack
+	ani = new CAnimation(80);//simon sit attack
 	ani->Add(10016);
 	ani->Add(10014);
 	ani->Add(10015);
@@ -158,19 +158,19 @@ CManagementTexture::CManagementTexture()
 #pragma region Add sprites Vampire Killer
 	
 
-	ani = new CAnimation(70);
+	ani = new CAnimation(80);
 	ani->Add(12000);
 	ani->Add(12001);
 	ani->Add(12002);
 	animations->Add(600, ani); // lv1
 	
-	ani = new CAnimation(70);
+	ani = new CAnimation(80);
 	ani->Add(12010);
 	ani->Add(12011);
 	ani->Add(12012);
 	animations->Add(601, ani);//lv2
 	
-	ani = new CAnimation(70);
+	ani = new CAnimation(80);
 	ani->Add(12020);
 	ani->Add(12021);
 	ani->Add(12022);
