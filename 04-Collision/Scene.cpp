@@ -362,3 +362,23 @@ void CScene::ResetScene()
 		boss = NULL;
 	}
 }
+void CScene::TestStage(int stage)
+{
+	_stage = stage;
+	if (stage == 1)
+	{
+		id = 1;
+		simon->SetPosition(SCENCE_1_LEFT, 0.0f);
+	}
+	else if (stage == 2)
+	{
+		id = 2;
+		simon->SetPosition(SCENCE_2_LEFT, 0.0f);
+	}
+	else if (stage == 3)
+	{
+		id = 4;
+		simon->SetPosition(SCENCE_4_LEFT, 0.0f);
+	}
+	LoadResoure();
+}

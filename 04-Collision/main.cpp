@@ -104,7 +104,20 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE* states)
 {
-	if (game->IsKeyDown(DIK_Z) && game->IsKeyDown(DIK_DOWN))
+	if(game->IsKeyDown(DIK_1))
+	{
+		scene->TestStage(1);
+	}
+	else if (game->IsKeyDown(DIK_2))
+	{
+		scene->TestStage(2);
+
+	}
+	else if (game->IsKeyDown(DIK_3))
+	{
+		scene->TestStage(3);
+	}
+	else if (game->IsKeyDown(DIK_Z) && game->IsKeyDown(DIK_DOWN))
 	{
 		simon->SetState(SIMON_STATE_SIT_ATTACK);
 	}

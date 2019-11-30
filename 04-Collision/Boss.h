@@ -27,6 +27,11 @@
 #define BOSS_RANDOM_X2 5080
 #define BOSS_RANDOM_Y2 210
 
+#define BOSS_SPEED_AUTO_FLY_X 0.4
+#define BOSS_SPEED_AUTO_FLY_Y 0.3
+
+#define TIME_RATE 0.00005f
+
 class CBoss : public CEnemy
 {
 	static CBoss* __instance;

@@ -64,6 +64,10 @@
 
 #define START_X 50.0f
 
+#define SMALLBALL_SPEED 0.3f
+
+
+
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(ptr) \
 if(ptr) \

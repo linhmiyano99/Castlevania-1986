@@ -190,14 +190,14 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						if (x > 5340)
 						{
 							if (abs(x - BOSS_RANDOM_X1) > 2 && abs(y -BOSS_RANDOM_Y1) > 2)
-								FlyStraight(5537, 210);
+								FlyStraight(BOSS_RANDOM_X1, BOSS_RANDOM_Y1);
 							else
 								vx = vy = 0;
 						}
 						else
 						{
 							if (abs(x - BOSS_RANDOM_X2) > 2 && abs(y- BOSS_RANDOM_Y2) > 2)
-								FlyStraight(5080, 210);
+								FlyStraight(BOSS_RANDOM_X2, BOSS_RANDOM_Y2);
 							else
 								vx = vy = 0;
 						}
@@ -219,14 +219,14 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								// The Green Line
 							{
 								float xa, xb, ya, yb;
-								xa = getPt(x0, x1, t * 0.0005f);
-								ya = getPt(y0, y1, t * 0.0005f);
-								xb = getPt(x1, x2, t * 0.0005f);
-								yb = getPt(y1, y2, t * 0.0005f);
+								xa = getPt(x0, x1, t * TIME_RATE);
+								ya = getPt(y0, y1, t * TIME_RATE);
+								xb = getPt(x1, x2, t * TIME_RATE);
+								yb = getPt(y1, y2, t * TIME_RATE);
 
 								// The Black Dot
-								x = 30 + getPt(xa, xb, t * 0.0005f);
-								y = getPt(ya, yb, t * 0.0005f);
+								x = 30 + getPt(xa, xb, t * TIME_RATE);
+								y = getPt(ya, yb, t * TIME_RATE);
 								if (vy > 0)
 								{
 									if (abs(x - x1) < 2.0f)
@@ -325,12 +325,13 @@ void CBoss::Render()
 		{
 			if (GetTickCount() - dt_die < TIME_BOSS_DIE)
 			{
-				animations[3]->Render(x, y + 25);
-				animations[3]->Render(x + 35, y + 25);
-				animations[3]->Render(x + 70, y + 25);
-				animations[3]->Render(x, y + 50);
-				animations[3]->Render(x + 35, y + 50);
-				animations[3]->Render(x + 70, y + 50);
+				animations[3]->Render(x, y + BOSS_BBOX_HEIGHT / 2);
+				animations[3]->Render(x + BOSS_BBOX_WIDTH / 3, y + BOSS_BBOX_HEIGHT / 2);
+				animations[3]->Render(x + BOSS_BBOX_WIDTH / 3 * 2, y + BOSS_BBOX_HEIGHT / 2);
+				animations[3]->Render(x, y + BOSS_BBOX_HEIGHT);
+				animations[3]->Render(x + BOSS_BBOX_WIDTH / 3, y + BOSS_BBOX_HEIGHT);
+				animations[3]->Render(x + BOSS_BBOX_WIDTH / 3 * 2, y + BOSS_BBOX_HEIGHT);
+
 
 			}
 		}

@@ -82,5 +82,6 @@ public:
 	static void SetGhost(bool can) { GoGhost = can; }
 	static void SetFishman(bool can) { GoFishman = can; }
 	void ResetScene();
+	void TestStage(int stage);
 };
 #endif // !__SMALLBALL_H__

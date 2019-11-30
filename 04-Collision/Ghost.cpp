@@ -14,16 +14,15 @@ CGhost::CGhost(float _x, float _y, int id) :CEnemy(_x, _y, id, eType::GHOST)
 	nx = -1;
 	SetSpeed(GetTrend() * GHOST_SPEED, 0);
 	dt_appear = 0;
-	isOnStair = false;
 	if (x > 4000)
 	{
-		_leftLimit = 4100;
-		_rightLimit = 5000;
+		_leftLimit = SCENCE_4_LEFT;
+		_rightLimit = SCENCE_4_RIGHT - SCREEN_WIDTH;
 	}
 	else
 	{
-		_leftLimit = 0;
-		_rightLimit = 3020;
+		_leftLimit = SCENCE_1_LEFT;
+		_rightLimit = SCENCE_1_RIGHT - GHOST_BBOX_WIDTH * 3/2;
 	}
 
 }
@@ -56,7 +55,6 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				item->SetState(ITEM_STATE_EXSIST);
 			dt_appear = 0;
 			dt_die = 0;
-			isOnStair = false;
 		}
 		else
 			return;
@@ -79,7 +77,6 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				state = TORCH_STATE_ITEM_NOT_EXSIST;
 				dt_appear = GetTickCount();
-				isOnStair = false;
 			}
 			vector<LPGAMEOBJECT> list;
 			for (int i = 0; i < coObjects->size(); i++)
@@ -91,7 +88,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)))
 				{
-					if(coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_2 || coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_UP || coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_DOWN)
+					if(coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_2 )
 					list.push_back(coObjects->at(i));
 				}
 			}
@@ -272,44 +269,22 @@ void CGhost::CollisionWithHiden(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, floa
 
 	//// block 
 
-
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	CHidenObject* ohiden = dynamic_cast<CHidenObject*>(obj);
-	if (isOnStair)
+	if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
 	{
-		if (ohiden->GetState() == HIDENOBJECT_TYPE_DOWNSTAIR)
-		{
-			vx = GHOST_SPEED;
-			vy = 0;
-			y += vy * dt;
-			x += vx * dt;
-		}
+		vx = 0;
+		vy = GHOST_SPEED * 2;
+		y += vy * dt;
+		x += vx * dt;
 	}
 	else
 	{
-		if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
-		{
-			vx = 0;
-			vy = GHOST_SPEED * 2;
-			y += vy * dt;
-			x += vx * dt;
-		}
-		else if(ohiden->GetState() == HIDENOBJECT_TYPE_UPSTAIR)
-		{
-			isOnStair = true;
-			vx = 0.3f;
-			vx = 0.3f;
-			y += vy * dt;
-			x += vx * dt;
-		}
-		else
-		{
-			x += vx * dt;
+		x += vx * dt;
 
-		}
 	}
-		
+
 	ohiden = NULL;
 	list.clear();
 }

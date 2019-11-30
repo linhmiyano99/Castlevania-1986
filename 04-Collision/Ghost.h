@@ -12,7 +12,6 @@
 class CGhost: public CEnemy
 {
 	static bool isStart;
-	bool isOnStair;
 	float _leftLimit;
 	float _rightLimit;
 public:
