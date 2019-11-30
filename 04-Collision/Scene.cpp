@@ -143,6 +143,8 @@ void CScene::Update(DWORD dt)
 				id = 4;
 			isAutoTran = false;
 			_stage++;
+			simon->SetStart(GetLeft(), 0);
+			simon->SetTrend(1);
 		}
 	}
 	else

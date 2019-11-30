@@ -30,24 +30,7 @@ CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FIS
 	Go();
 	ResetWater(0);
 	isCanAttack = false;
-
-	if (x < 3505)
-	{
-
-		_leftLimit = 3076;
-		_rightLimit = 3464;
-	}
-	else if (x < 3631)
-	{
-		_leftLimit = 3585;
-		_rightLimit = 3590;
-	}
-	else
-	{
-		_leftLimit = 3710;
-		_rightLimit = 3970;
-	}
-
+	GetLimit();
 }
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -74,6 +57,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			dt_die = 0;
 			ResetWater(0);
 			isCanAttack = false;
+			GetLimit();
 		}
 		else
 			return;
@@ -268,7 +252,8 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-
+	if (!CScene::IsGoFishman())
+		return;
 	if (state == TORCH_STATE_EXSIST)
 	{
 		left = x;
@@ -352,5 +337,24 @@ void  CFishman::ResetWater(int type)
 		list[0]->SetPosition(x, y + 20);
 		list[1]->SetPosition(x + 10, y + 60);
 		list[2]->SetPosition(x + 20, y + 20);
+	}
+}
+void CFishman::GetLimit()
+{
+	if (x < 3505)
+	{
+
+		_leftLimit = 3076;
+		_rightLimit = 3464;
+	}
+	else if (x < 3631)
+	{
+		_leftLimit = 3585;
+		_rightLimit = 3590;
+	}
+	else
+	{
+		_leftLimit = 3710;
+		_rightLimit = 3970;
 	}
 }

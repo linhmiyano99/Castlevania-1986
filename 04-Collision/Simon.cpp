@@ -96,14 +96,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else
 			{
-				//_energy = SIMON_MAX_ENERGY;
-				//x = start_x;
-				//y = start_y;
-				//CScene::GetInstance()->ResetScene();
-				//untouchable_start = 0;
-				//untouchable = 0;
-				//die_start = 0;
-				//isFall = false;
+
 				return;
 
 			}
@@ -113,7 +106,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			return;
 		}
 	}
-	if (die_start == 0 &&(_energy <= 0 || y > WATTER_Y))
+	if (die_start == 0 &&(_energy <= 0 || (y > WATTER_Y + 80)))
 	{
 		die_start = GetTickCount();
 		attack_start = 0;
@@ -1175,6 +1168,7 @@ void CSimon::CollisionWithHidenObject(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0
 			{
 				//CGhost::Stop();
 				CScene::SetGhost(false);
+				CScene::SetFishman(false);
 			}
 			else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
 			{
@@ -1288,7 +1282,7 @@ void CSimon::CollisionWithGate(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, float
 		gate0->ResetGate();
 		TransScene();
 		gate0->SetState(GATE_STATE_OPEN);
-		SetStart(CScene::GetInstance()->GetLeft(), 0);
+		//SetStart(CScene::GetInstance()->GetLeft(), 0);
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	gate0 = NULL;
@@ -1409,7 +1403,7 @@ void CSimon::StartHurt(float _x, float _y)
 		if (_energy > 0)
 		{
 			x += nx * 30.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-			y -= 50.0f;
+			y -= 30.0f;
 		}
 		state = SIMON_STATE_HURT;
 	}

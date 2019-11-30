@@ -44,4 +44,5 @@ public:
 	static bool IsStart() { return isStart; }
 	void Go();
 	void ResetWater(int type = 0);
+	void GetLimit();
 };

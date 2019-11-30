@@ -36,7 +36,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (dt_appear > 0)
 	{
 		
-		if (start_x > cam_x + 660 || start_x < cam_x - 100)
+		if (start_x > cam_x + SCREEN_WIDTH + GHOST_DISTANCE_TOO_FAR || start_x < cam_x - GHOST_DISTANCE_TOO_FAR)
 			return;
 		if (GetTickCount() - dt_appear > TIME_APPEAR && (start_x > cam_x + SCREEN_WIDTH ) || (start_x < cam_x ) )
 		{
