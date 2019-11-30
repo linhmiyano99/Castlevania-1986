@@ -116,7 +116,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isOnStair = false;
 		vx = 0;
 	}
-B:
 	if (start_stair > 0)
 	{
 		if (GetTickCount() - start_stair > TIME_FOR_PER_STEP)
@@ -333,7 +332,7 @@ B:
 			CGameObject::Update(dt);
 			if (state == SIMON_STATE_JUMP)
 			{
-				vy += 0.3 * SIMON_GRAVITY * dt;
+				vy += 0.2f * SIMON_GRAVITY * dt;
 			}
 			else
 			{

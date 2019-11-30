@@ -252,7 +252,7 @@ void CScene::SetMap(int id)
 	this->id = id;
 
 }
-int CScene::GetLeft()
+float CScene::GetLeft()
 {
 	if (isAutoTran)
 	{
@@ -278,7 +278,7 @@ int CScene::GetLeft()
 		return 0;
 	}
 }
-int CScene::GetTop()
+float CScene::GetTop()
 {
 	switch (id)
 	{
@@ -294,7 +294,7 @@ int CScene::GetTop()
 		return 0;
 	}
 }
-int CScene::GetRight()
+float CScene::GetRight()
 {
 	if (isAutoTran)
 	{
@@ -318,7 +318,7 @@ int CScene::GetRight()
 		return 0;
 	}
 }
-int CScene::GetBottom()
+float CScene::GetBottom()
 {
 	switch (id)
 	{

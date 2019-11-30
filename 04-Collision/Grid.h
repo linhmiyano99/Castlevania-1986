@@ -20,7 +20,7 @@ public:
 	static CGrid* GetInstance();
 	void LoadObject(char* filename);
 	void Insert(int type, int trend, float x, float y, float w, float h, int id_item);
-	CGameObject* GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item);
+	CGameObject* GetNewObject(int type, int trend, float x, float y, float w, float h, int id_item);
 	void GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_y);
 
 };

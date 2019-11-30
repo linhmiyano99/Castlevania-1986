@@ -95,7 +95,7 @@ void CMap::DrawMap()
 			for (int j = (int)cam_x / 64; j < (int)(cam_x + SCREEN_WIDTH) / 64 + 3; j++)
 			{
 				if (!(i < 0 || j >= _column))
-					sprites->Get(getTile(i, j))->Draw(64 * j, 64 * i + 40);
+					sprites->Get(getTile(i, j))->Draw(64.0f * j, 64.0f * i + 40.0f);
 			}
 		}
 	}
@@ -107,7 +107,7 @@ void CMap::DrawMap()
 			{
 				if (!(i < 0 || j >= _column))
 				{
-					sprites->Get(getTile(i, j))->Draw(64 * j, 64 * i + 80);
+					sprites->Get(getTile(i, j))->Draw(64.0f * j, 64.0f * i + 80.0f);
 
 				}
 

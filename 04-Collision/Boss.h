@@ -62,6 +62,6 @@ public:
 	void FlyStraight(float next_x, float next_y);
 	void FlyCurve(float next_x, float next_y);
 	//https://stackoverflow.com/questions/785097/how-do-i-implement-a-b%C3%A9zier-curve-in-c
-	float getPt(int n1, int n2, float perc);
+	float getPt(float n1, float n2, float perc);
 	void ResetBoss();
 };

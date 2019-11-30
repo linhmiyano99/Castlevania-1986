@@ -14,7 +14,6 @@
 #define ENEMY_ANI_WALKING 0
 #define ENEMY_ANI_DIE 1
 
-#define SIMON_GRAVITY			0.002f
 #define TIME_APPEAR     1000
 
 class CEnemy : public CTorch

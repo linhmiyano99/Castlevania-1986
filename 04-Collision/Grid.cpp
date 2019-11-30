@@ -82,7 +82,7 @@ void CGrid::LoadObject(char* filename)
 	listBrick.clear();
 	ifstream inFile(filename);
 
-	int type, trend, id_item, nx, ny;
+	int type, trend, id_item;
 	float x, y, w, h;
 
 	if (inFile)
@@ -115,7 +115,7 @@ void CGrid::Insert(int type, int trend, float x, float y, float w, float h, int 
 	obj = NULL;
 
 }
-CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item)
+CGameObject* CGrid::GetNewObject(int type, int trend, float x, float y, float w, float h, int id_item)
 {
 	switch (type)
 	{

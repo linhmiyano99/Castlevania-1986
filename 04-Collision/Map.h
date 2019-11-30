@@ -24,8 +24,8 @@ public:
 	int getTile(int x, int y);
 	void LoadMap();
 	void DrawMap();
-	float GetWidth() { return 64 * _column; }
-	float GetHeight() { return 64 * _row; }
+	float GetWidth() { return 64.0f * _column; }
+	float GetHeight() { return 64.0f * _row; }
 	void SetMap(int id);
 };
 #endif // !__CMAP_H__

@@ -214,7 +214,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						if (start_curve > 0)
 						{
 							step = 1;
-							float t = GetTickCount() - start_curve;
+							int t = GetTickCount() - start_curve;
 							if (t < 2000)
 								// The Green Line
 							{
@@ -417,9 +417,9 @@ void CBoss::FlyCurve(float next_x, float next_y)
 	
 	//vy += 0.001f;
 }
-float CBoss::getPt(int n1, int n2, float perc)
+float CBoss::getPt(float n1, float n2, float perc)
 {
-	int diff = n2 - n1;
+	float diff = n2 - n1;
 
 	return n1 + (diff * perc);
 }

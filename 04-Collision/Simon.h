@@ -10,7 +10,7 @@
 #include "WaterEffection.h"
 
 #define SIMON_WALKING_SPEED		0.12f
-#define SIMON_JUMP_SPEED_Y		0.3f
+#define SIMON_JUMP_SPEED_Y		0.38f
 #define SIMON_GRAVITY			0.005f
 
 #define SIMON_STATE_IDLE			0
@@ -108,15 +108,15 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj);
-	CVampireKiller* getWeapon(int i = 0) { return (CVampireKiller *)(weapons[0]); }
+	CVampireKiller* getWeapon(int i = 0) { return (CVampireKiller*)(weapons[0]); }
 	int GetHeart() { return _heart; }
 	void SetHeart(int heart) { _heart = heart; }
 	void HeartDown();
-	void CollisionWithBrick(DWORD dt, LPGAMEOBJECT &listObj, float min_tx, float min_ty, int nx, int ny);
-	void CollisionWithTorch(DWORD dt, LPGAMEOBJECT &listObj, float min_tx, float min_ty, int nx, int ny);
-	void CollisionWithHidenObject(DWORD dt, LPGAMEOBJECT &listObj, float min_tx, float min_ty, int nx, int ny);
-	void CollisionWithEnemy(DWORD dt, LPGAMEOBJECT &listObj, float min_tx, float min_ty, int nx, int ny);
-	void CollisionWithGate(DWORD dt,LPGAMEOBJECT &listObj, float min_tx, float min_ty, int nx, int ny);
+	void CollisionWithBrick(DWORD dt, LPGAMEOBJECT& listObj, float min_tx, float min_ty, int nx, int ny);
+	void CollisionWithTorch(DWORD dt, LPGAMEOBJECT& listObj, float min_tx, float min_ty, int nx, int ny);
+	void CollisionWithHidenObject(DWORD dt, LPGAMEOBJECT& listObj, float min_tx, float min_ty, int nx, int ny);
+	void CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& listObj, float min_tx, float min_ty, int nx, int ny);
+	void CollisionWithGate(DWORD dt, LPGAMEOBJECT& listObj, float min_tx, float min_ty, int nx, int ny);
 	int IsCanOnStair(vector<LPGAMEOBJECT>& listObj);
 	bool IsOnStair() { return isOnStair; }
 	int GetStairTrend() { return _stairTrend; }

@@ -18,7 +18,7 @@ class CHidenObject : public CGameObject
 private:
 	int _height;
 	int _width;
-	int _autoX;
+	float _autoX;
 	int ny;
 public:
 	CHidenObject(float _x = 0, float _y = 0,int state = 0, int trendX = 0,int trendY = 0) :CGameObject(_x, _y)
@@ -39,18 +39,18 @@ public:
 		{
 		case HIDENOBJECT_TYPE_DOWNSTAIR:
 			if (nx > 0)
-				_autoX = x - 5;
+				_autoX = x - 5.0f;
 			else
-				_autoX = x - 10;
+				_autoX = x - 10.0f;
 			break;
 		case HIDENOBJECT_TYPE_UPSTAIR:
 			if (nx < 0)
-				_autoX = x - 30;
+				_autoX = x - 30.0f;
 			else
-				_autoX = x + 10;
+				_autoX = x + 10.0f;
 			break;
 		case HIDENOBJECT_TYPE_DOOR:
-			_autoX = x + 40;
+			_autoX = x + 40.0f;
 			break;
 		default:
 			break;
@@ -61,5 +61,5 @@ public:
 	void Render();
 	int getNx() { return nx; }
 	int getNy() { return ny; }
-	int GetAutoX() { return _autoX; }
+	float GetAutoX() { return _autoX; }
 };
