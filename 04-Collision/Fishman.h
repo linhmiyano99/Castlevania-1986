@@ -2,8 +2,8 @@
 #include "Enemy.h"
 #include "WaterEffection.h"
 
-#define GHOST_BBOX_WIDTH 40
-#define GHOST_BBOX_HEIGHT 60
+#define FISHMAN_BBOX_WIDTH 40
+#define FISHMAN_BBOX_HEIGHT 60
 
 #define FISHMAN_RUNNING_SPEED_X 0.15f;
 #define FISHMAN_RUNNING_SPEED_Y 0.5f;
@@ -41,6 +41,7 @@ public:
 	virtual void Render();
 	bool IsAttacking() { return isAttacking; }
 	static void Start() { isStart = true; }
+	static void Stop() { isStart = false; }
 	static bool IsStart() { return isStart; }
 	void Go();
 	void ResetWater(int type = 0);

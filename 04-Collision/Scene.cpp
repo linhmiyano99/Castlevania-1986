@@ -11,8 +11,8 @@ CScene* CScene::GetInstance()
 	return __instance;
 }
 
-bool CScene::GoGhost =false;
-bool CScene::GoFishman = false;
+//bool CScene::GoGhost =false;
+//bool CScene::GoFishman = false;
 CScene::CScene(int id)
 {
 	this->id = id;
@@ -23,8 +23,8 @@ CScene::CScene(int id)
 	isAutoTran = false;
 	auto_tran = 0;
 	_stage = 1;
-	GoGhost = false;
-	GoFishman = false;
+	//GoGhost = false;
+	//GoFishman = false;
 
 }
 
@@ -360,6 +360,7 @@ void CScene::ResetScene()
 		CBoss* boss = CBoss::GetInstance();
 		boss->ResetBoss();
 		boss = NULL;
+		CGate::Stop();
 	}
 }
 void CScene::TestStage(int stage)

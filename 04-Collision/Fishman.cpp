@@ -34,7 +34,7 @@ CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FIS
 }
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (!CScene::IsGoFishman())
+	if (!CFishman::IsStart())
 		return;
 	if (dt_appear > 0)
 	{
@@ -252,7 +252,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (!CScene::IsGoFishman())
+	if (!CFishman::IsStart())
 		return;
 	if (state == TORCH_STATE_EXSIST)
 	{
@@ -268,7 +268,7 @@ void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bott
 }
 void CFishman::Render()
 {
-	if (!CScene::IsGoFishman())
+	if (!CFishman::IsStart())
 		return;
 	if (vx == 0 && vy == 0 && isJumping)
 		return;
@@ -343,18 +343,17 @@ void CFishman::GetLimit()
 {
 	if (x < 3505)
 	{
-
 		_leftLimit = 3076;
 		_rightLimit = 3464;
 	}
 	else if (x < 3631)
 	{
-		_leftLimit = 3585;
-		_rightLimit = 3590;
+		_leftLimit = 3592;
+		_rightLimit = 3624;
 	}
 	else
 	{
-		_leftLimit = 3710;
-		_rightLimit = 3970;
+		_leftLimit = 3720;
+		_rightLimit = 3969;
 	}
 }

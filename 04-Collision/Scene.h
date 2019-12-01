@@ -49,8 +49,9 @@ class CScene
 	CGrid* grid;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> smallballs;
-	static bool GoGhost;
-	static bool GoFishman;
+	//static bool GoGhost;
+	//static bool GoFishman;
+	//static bool GateOpen;
 
 	int id;
 	int _stage;
@@ -77,10 +78,12 @@ public:
 	void UpStage();
 	int GetStage() { return _stage; }
 	void SetScene(int scene) { id = scene; }
-	static bool IsGoGhost() { return GoGhost; }
+	/*static bool IsGoGhost() { return GoGhost; }
 	static bool IsGoFishman() { return GoFishman; }
+	static bool IsCanOpenGate() { return GateOpen; }
 	static void SetGhost(bool can) { GoGhost = can; }
 	static void SetFishman(bool can) { GoFishman = can; }
+	static void SetStateGate(bool can) { GateOpen = can; }*/
 	void ResetScene();
 	void TestStage(int stage);
 };

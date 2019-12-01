@@ -17,18 +17,18 @@ CGhost::CGhost(float _x, float _y, int id) :CEnemy(_x, _y, id, eType::GHOST)
 	if (x > 4000)
 	{
 		_leftLimit = SCENCE_4_LEFT;
-		_rightLimit = SCENCE_4_RIGHT - SCREEN_WIDTH;
+		_rightLimit = SCENCE_4_RIGHT - SCREEN_WIDTH * 3 / 2;
 	}
 	else
 	{
 		_leftLimit = SCENCE_1_LEFT;
-		_rightLimit = SCENCE_1_RIGHT - GHOST_BBOX_WIDTH * 3/2;
+		_rightLimit = SCENCE_1_RIGHT - GHOST_BBOX_WIDTH;
 	}
 
 }
 void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (!CScene::IsGoGhost())
+	if (!CGhost::IsStart())
 		return;
 	float cam_x, cam_y;
 	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
@@ -179,7 +179,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void CGhost::Render()
 {
-	if (!CScene::IsGoGhost())
+	if (!CGhost::IsStart())
 		return;
 	if (CScene::GetInstance()->IsTranScene())
 		return;

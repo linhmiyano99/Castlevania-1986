@@ -473,16 +473,10 @@ B:
 					}
 					else if (dynamic_cast<CGate*>(e->obj))
 					{
-						CGate* torch = dynamic_cast<CGate*>(e->obj);
-						if (CScene::GetInstance()->GetStage() == 3)
+						if (CGate::IsStart())
 						{
-
-						}
-						else {
-
 							CollisionWithGate(dt, e->obj, min_tx, min_ty, nx, ny);
 						}
-						torch = NULL;
 					}
 					else if(state != SIMON_STATE_HURT)
 					{ 
@@ -1021,6 +1015,7 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 		{
 			Obj->SetState(BOSS_STATE_ITEM_NOT_EXSIST);
 			CBoard::GetInstance()->Stop();
+			CGate::Start();
 		}
 		else
 			Obj->SetState(ITEM_STATE_NOT_EXSIST);
@@ -1206,19 +1201,16 @@ void CSimon::CollisionWithHidenObject(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0
 			}
 			else if (ohiden->GetState() == HIDENOBJECT_TYPE_FISHMAN)
 			{
-				//CFishman::Start();
-				CScene::SetFishman(true);
+				CFishman::Start();
 			}
 			else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_1)
 			{
-				CScene::SetGhost(true);
-				//CGhost::Start();
+				CGhost::Start();
 			}
 			else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_STOP_1)
 			{
-				//CGhost::Stop();
-				CScene::SetGhost(false);
-				CScene::SetFishman(false);
+				CGhost::Stop();
+				CFishman::Stop();
 			}
 			else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
 			{
