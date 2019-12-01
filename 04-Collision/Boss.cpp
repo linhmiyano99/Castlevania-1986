@@ -111,13 +111,12 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (x1 == 0 && x2 == 0 && y1 == 0 && y2 == 0)
 				{
-					goto A;
+					start_fly = GetTickCount();
 				}
 				if (start_fly > 0)
 				{
 					if (GetTickCount() - start_fly > BOSS_TIME_CHECK_FLY)
 					{
-					A:
 						start_fly = 0;
 						int _type;
 						srand((unsigned)time(0));
@@ -187,7 +186,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					else
 					{
 
-						if (x > 5340)
+						if (x > start_x)
 						{
 							if (abs(x - BOSS_RANDOM_X1) > 2 && abs(y -BOSS_RANDOM_Y1) > 2)
 								FlyStraight(BOSS_RANDOM_X1, BOSS_RANDOM_Y1);
@@ -201,8 +200,8 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							else
 								vx = vy = 0;
 						}
-						x += vx * dt * 0.3f;
-						y += vy * dt * 0.3f;
+						x += vx * dt * BOSS_SPEED_AUTO_FLY_X;
+						y += vy * dt * BOSS_SPEED_AUTO_FLY_Y;
 
 					}
 				}
@@ -215,7 +214,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						{
 							step = 1;
 							float t = GetTickCount() - start_curve;
-							if (t < 2000)
+							if (t < BOSS_TIME_CURVE)
 								// The Green Line
 							{
 								float xa, xb, ya, yb;
@@ -230,7 +229,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								if (vy > 0)
 								{
 									if (abs(x - x1) < 2.0f)
-										vy = -0.4f;
+										vy = -BOSS_SPEED_AUTO_FLY_Y;
 								}
 
 							}
@@ -377,10 +376,10 @@ void CBoss::AutoFly(float next_x, float next_y)
 	y2 = next_y;
 	CSimon::GetInstance()->GetPosition(x1, y1);
 	if (x < next_x)
-		vx = 0.3f;
+		vx = BOSS_SPEED_AUTO_FLY_X;
 	else
-		vx = -0.3f;
-	vy = 0.4f;
+		vx = -BOSS_SPEED_AUTO_FLY_X;
+	vy = BOSS_SPEED_AUTO_FLY_Y;
 	
 }
 void CBoss::AutoAttack(float next_x, float next_y)
@@ -401,7 +400,7 @@ void CBoss::FlyStraight(float next_x, float next_y)
 		nx = -1;
 	}
 	if (next_x != x && next_y != y)
-		SetSpeed(0.3f * nx, 1.0 * (next_y - y) / (next_x - x) * nx * 0.3f);
+		SetSpeed(BOSS_SPEED_AUTO_FLY_X * nx, 1.0 * (next_y - y) / (next_x - x) * nx * BOSS_SPEED_AUTO_FLY_X);
 	
 }
 void CBoss::FlyCurve(float next_x, float next_y)
