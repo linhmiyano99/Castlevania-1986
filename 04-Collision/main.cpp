@@ -104,16 +104,16 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE* states)
 {
-	if(game->IsKeyDown(DIK_1))
+	if(game->IsKeyDown(DIK_Q))
 	{
 		scene->TestStage(1);
 	}
-	else if (game->IsKeyDown(DIK_2))
+	else if (game->IsKeyDown(DIK_W))
 	{
 		scene->TestStage(2);
 
 	}
-	else if (game->IsKeyDown(DIK_3))
+	else if (game->IsKeyDown(DIK_E))
 	{
 		scene->TestStage(3);
 	}

@@ -46,7 +46,7 @@ void CScene::LoadResoure()
 		
 		grid->LoadObject("texture/Obj1.txt");
 		simon = CSimon::GetInstance();
-		simon->SetPosition(SIMON_POSITION_0);
+		//simon->SetPosition(SIMON_POSITION_0);
 		objects.push_back(simon);
 	}
 	else
@@ -58,9 +58,9 @@ void CScene::LoadResoure()
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
 		//simon->SetPosition(SIMON_POSITION_0);
-		simon->SetPosition(4200.0f, 20.0f);
-		id = 4;
-		_stage = 3;
+		//simon->SetPosition(4200.0f, 20.0f);
+		//id = 4;
+		//_stage = 3;
 		objects.push_back(simon);
 		boss = CBoss::GetInstance();
 		boss->SetPosition(BOSS_POSITION);
@@ -374,17 +374,20 @@ void CScene::TestStage(int stage)
 	if (stage == 1)
 	{
 		id = 1;
-		simon->SetPosition(SCENCE_1_LEFT, 0.0f);
+		LoadResoure();
+		simon->SetPosition(SCENCE_1_LEFT , 300.0f);
 	}
 	else if (stage == 2)
 	{
 		id = 2;
-		simon->SetPosition(SCENCE_2_LEFT, 0.0f);
+		LoadResoure();
+		simon->SetPosition(SCENCE_2_LEFT , 100.0f);
 	}
 	else if (stage == 3)
 	{
 		id = 4;
-		simon->SetPosition(SCENCE_4_LEFT, 0.0f);
+		LoadResoure();
+		simon->SetPosition(SCENCE_4_LEFT , 100.0f);
 	}
 	LoadResoure();
 }
