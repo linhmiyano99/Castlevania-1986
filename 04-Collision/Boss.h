@@ -22,9 +22,9 @@
 #define BOSS_TIME_HURT		300
 #define BOSS_TIME_ATTACK2 300
 
-#define BOSS_RANDOM_X1 5537
+#define BOSS_RANDOM_X1 5500
 #define BOSS_RANDOM_Y1 210
-#define BOSS_RANDOM_X2 5080
+#define BOSS_RANDOM_X2 5150
 #define BOSS_RANDOM_Y2 210
 
 #define BOSS_SPEED_AUTO_FLY_X 0.4f
@@ -66,4 +66,5 @@ public:
 	//https://stackoverflow.com/questions/785097/how-do-i-implement-a-b%C3%A9zier-curve-in-c
 	float getPt(int n1, int n2, float perc);
 	void ResetBoss();
+	void SetFly();
 };

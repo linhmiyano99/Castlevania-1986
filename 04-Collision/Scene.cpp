@@ -57,7 +57,10 @@ void CScene::LoadResoure()
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
-		simon->SetPosition(SIMON_POSITION_0);
+		//simon->SetPosition(SIMON_POSITION_0);
+		simon->SetPosition(4200.0f, 20.0f);
+		id = 4;
+		_stage = 3;
 		objects.push_back(simon);
 		boss = CBoss::GetInstance();
 		boss->SetPosition(BOSS_POSITION);
@@ -140,7 +143,10 @@ void CScene::Update(DWORD dt)
 			if (id == 1)
 				id = 2;
 			else
+			{
 				id = 4;
+				CGate::Stop();
+			}
 			isAutoTran = false;
 			_stage++;
 			simon->SetStart(GetLeft(), 0);
@@ -360,7 +366,6 @@ void CScene::ResetScene()
 		CBoss* boss = CBoss::GetInstance();
 		boss->ResetBoss();
 		boss = NULL;
-		CGate::Stop();
 	}
 }
 void CScene::TestStage(int stage)
