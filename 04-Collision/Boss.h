@@ -47,8 +47,6 @@ class CBoss : public CEnemy
 	float y2;
 	int step;
 	int type;
-	float start_x;
-	float start_y;
 public:
 	static CBoss* GetInstance();
 

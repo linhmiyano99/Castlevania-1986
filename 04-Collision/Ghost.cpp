@@ -28,7 +28,9 @@ CGhost::CGhost(float _x, float _y, int id) :CEnemy(_x, _y, id, eType::GHOST)
 }
 void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (!CScene::IsGoGhost())
+	/*if (!CScene::IsGoGhost())
+		return;*/
+	if (!CGhost::IsStart())
 		return;
 	float cam_x, cam_y;
 	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
@@ -179,7 +181,9 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void CGhost::Render()
 {
-	if (!CScene::IsGoGhost())
+	/*if (!CScene::IsGoGhost())
+		return;*/
+	if (!CGhost::IsStart())
 		return;
 	if (CScene::GetInstance()->IsTranScene())
 		return;

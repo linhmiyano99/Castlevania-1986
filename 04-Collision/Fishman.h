@@ -41,6 +41,7 @@ public:
 	virtual void Render();
 	bool IsAttacking() { return isAttacking; }
 	static void Start() { isStart = true; }
+	static void Stop() { isStart = false; }
 	static bool IsStart() { return isStart; }
 	void Go();
 	void ResetWater(int type = 0);

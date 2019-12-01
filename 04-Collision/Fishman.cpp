@@ -34,7 +34,9 @@ CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FIS
 }
 void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (!CScene::IsGoFishman())
+	//if (!CScene::IsGoFishman())
+	//	return;
+	if (!CFishman::IsStart())
 		return;
 	if (dt_appear > 0)
 	{
@@ -252,7 +254,10 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (!CScene::IsGoFishman())
+	/*if (!CScene::IsGoFishman())
+		return;*/
+
+	if (!CFishman::IsStart())
 		return;
 	if (state == TORCH_STATE_EXSIST)
 	{
@@ -268,7 +273,9 @@ void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bott
 }
 void CFishman::Render()
 {
-	if (!CScene::IsGoFishman())
+	/*if (!CScene::IsGoFishman())
+		return;*/
+	if (!CFishman::IsStart())
 		return;
 	if (vx == 0 && vy == 0 && isJumping)
 		return;

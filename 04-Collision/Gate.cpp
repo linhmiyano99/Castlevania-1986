@@ -1,4 +1,7 @@
 #include"Gate.h"
+
+bool CGate::isCanOpen =true;
+
 CGate::CGate(float _x, float _y) :CGameObject(_x, _y)
 {
 	state = 0;

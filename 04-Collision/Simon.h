@@ -97,7 +97,8 @@ class CSimon : public CGameObject
 	float new_x;
 	float new_y;
 	bool isUnder;
-	float start_x, start_y;
+	float start_x;
+	float start_y;
 
 public:
 	static CSimon* GetInstance();
