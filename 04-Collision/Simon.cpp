@@ -264,14 +264,14 @@ B:
 					if (_stairTrend == 0)
 					{
 						nx = -1;
-						dx = -1.23f;
-						dy = 1.23f;
+						dx = -SIMON_SPEED_ON_STAIR;
+						dy = SIMON_SPEED_ON_STAIR;
 					}
 					else
 					{
 						nx = 1;
-						dx = 1.23f;
-						dy = 1.23f;
+						dx = SIMON_SPEED_ON_STAIR;
+						dy = SIMON_SPEED_ON_STAIR;
 					}
 				}
 				else if (state == SIMON_STATE_GO_UP)
@@ -279,14 +279,14 @@ B:
 					if (_stairTrend == 0)
 					{
 						nx = 1;
-						dx = 1.23f;
-						dy = -1.23f;
+						dx = SIMON_SPEED_ON_STAIR;
+						dy = -SIMON_SPEED_ON_STAIR;
 					}
 					else
 					{
 						nx = -1;
-						dx = -1.23f;
-						dy = -1.23f;
+						dx = -SIMON_SPEED_ON_STAIR;
+						dy = -SIMON_SPEED_ON_STAIR;
 					}
 				}
 				else
@@ -638,7 +638,20 @@ void CSimon::Render()
 			CGame* game = CGame::GetInstance();
 			game->GetCamPos(c_x, c_y);
 			CScene* scene = CScene::GetInstance();
+			
+			/*
+				int id = nextScenceObj->getID()
+				CScence *s = CSceneManager::GetScene(id);
+				int left = s->getStartX();
+
+			*/
+			
+			
+			
 			CScene* scene2 = new CScene();
+
+
+
 			if (scene->GetScene() == 1)
 				scene2->SetMap(2);
 			else
@@ -1026,7 +1039,7 @@ void CSimon::CollisionWithBrick(DWORD dt, LPGAMEOBJECT &Obj, float min_tx0, floa
 {
 	float b_x, b_y;
 	Obj->GetPosition(b_x, b_y);
-	if (b_y + 32 >= y)
+	if (b_y + BRICK_WIDTH >= y)
 	{
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
@@ -1236,7 +1249,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 
 	if (isOnStair || state == SIMON_STATE_STAND_ATTACK || state == SIMON_STATE_SIT_ATTACK)
 	{
-		_energy -= 2;
+		_energy -= ONE_HIT;
 
 	}
 	else {
@@ -1271,7 +1284,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 		else
 			vx = 0;
 		vy = -0.2f;
-		_energy -= 2;
+		_energy -= ONE_HIT;
 		if ((min_tx <= min_tx0 || min_ty <= min_ty0) && _energy >0)
 		{
 			x += nx * 30.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
@@ -1405,7 +1418,7 @@ void CSimon::TransScene()
 }
 void CSimon::HeartDown()
 {
-	if (GetTickCount() - _count >= 50)
+	if (GetTickCount() - _count >= TIME_RATE_END_GAME)
 	{
 		_count = GetTickCount();
 		_score += 100;
@@ -1414,7 +1427,7 @@ void CSimon::HeartDown()
 }
 void CSimon::UpEnergy()
 {
-	if (GetTickCount() - _count >= 50)
+	if (GetTickCount() - _count >= TIME_RATE_END_GAME)
 	{
 		_count = GetTickCount();
 		_energy++;
@@ -1430,7 +1443,7 @@ void CSimon::StartHurt(float _x, float _y)
 {
 	if (untouchable_start > 0)
 		return;
-	_energy -= 2;
+	_energy -= ONE_HIT;
 	if (!isOnStair)
 	{
 		if (_x > x)
@@ -1459,4 +1472,10 @@ void CSimon::StartHurt(float _x, float _y)
 	}
 
 	StartUntouchable();
+}
+void CSimon::SetDownEnerGy()
+{
+	if (_energy == SIMON_MAX_ENERGY)
+		_energy = 2; 
+	else _energy = SIMON_MAX_ENERGY;
 }

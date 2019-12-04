@@ -141,15 +141,18 @@ void CScene::Update(DWORD dt)
 		else
 		{
 			if (id == 1)
+			{
 				id = 2;
+				simon->SetStart(SCENCE_2_LEFT, 100.0f);
+			}
 			else
 			{
 				id = 4;
 				CGate::Stop();
+				simon->SetStart(SCENCE_4_LEFT, 100.0f);
 			}
 			isAutoTran = false;
 			_stage++;
-			simon->SetStart(GetLeft(), 0);
 			simon->SetTrend(1);
 		}
 	}
@@ -358,9 +361,9 @@ void CScene::UpStage()
 }
 void CScene::ResetScene()
 {
-	if (id == 3)
+	if (id == 3 || id == 2)
 		id = 2;
-	else if (id == 5)
+	else if (id == 5 || id == 4)
 	{
 		id = 4;
 		CBoss* boss = CBoss::GetInstance();
@@ -376,18 +379,23 @@ void CScene::TestStage(int stage)
 		id = 1;
 		LoadResoure();
 		simon->SetPosition(SCENCE_1_LEFT , 300.0f);
+		simon->SetStart(SCENCE_1_LEFT, 300.0f);
 	}
 	else if (stage == 2)
 	{
 		id = 2;
 		LoadResoure();
 		simon->SetPosition(SCENCE_2_LEFT , 100.0f);
+		simon->SetStart(SCENCE_2_LEFT, 100.0f);
+
 	}
 	else if (stage == 3)
 	{
 		id = 4;
 		LoadResoure();
 		simon->SetPosition(SCENCE_4_LEFT , 100.0f);
+		simon->SetStart(SCENCE_4_LEFT, 100.0f);
+		CGate::Stop();
 	}
 	LoadResoure();
 }

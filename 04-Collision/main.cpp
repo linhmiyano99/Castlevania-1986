@@ -39,6 +39,8 @@
 CGame * game;
 CSimon* simon;
 CScene* scene;
+CBoard* board;
+CBoss* boss;
 
 vector<CGameObject*> objects;
 
@@ -77,6 +79,28 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_UP:
 		simon->SetState(SIMON_STATE_GO_UP);
 		break;
+	case DIK_Q://test stage 1
+		scene->TestStage(1);
+		break;
+	case DIK_W://test stage 2
+		scene->TestStage(2);
+		break;
+	case DIK_E://test stage 3
+		scene->TestStage(3);
+		break;
+	case DIK_O://change weapon
+		board->ChangeWeapon();
+		break;
+	case DIK_P: // change energy
+		simon->SetDownEnerGy();
+		break;
+	case DIK_I: // up 10 heart
+		simon->UpHeart();
+		break;
+	case DIK_U: // boss die
+		boss->Die();
+		boss->SetState(BOSS_STATE_NOT_EXSIST);
+		break;
 	}
 }
 
@@ -104,20 +128,8 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE* states)
 {
-	if(game->IsKeyDown(DIK_Q))
-	{
-		scene->TestStage(1);
-	}
-	else if (game->IsKeyDown(DIK_W))
-	{
-		scene->TestStage(2);
 
-	}
-	else if (game->IsKeyDown(DIK_E))
-	{
-		scene->TestStage(3);
-	}
-	else if (game->IsKeyDown(DIK_Z) && game->IsKeyDown(DIK_DOWN))
+	if (game->IsKeyDown(DIK_Z) && game->IsKeyDown(DIK_DOWN))
 	{
 		simon->SetState(SIMON_STATE_SIT_ATTACK);
 	}
@@ -233,7 +245,8 @@ void LoadResources()
 
 	scene->LoadResoure();
 	simon = CSimon::GetInstance();
-
+	board = CBoard::GetInstance();
+	boss = CBoss::GetInstance();
 }
 
 /*

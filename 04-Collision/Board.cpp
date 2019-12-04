@@ -62,3 +62,20 @@ void CBoard::Render()
 	boss = NULL;
 	scene = NULL;
 }
+void CBoard::ChangeWeapon()
+{
+	if (_weapon == 0)
+	{
+		CDagger::GetInstance();
+		SetWeapon(eType::DAGGER);
+	}
+	else if (_weapon == eType::DAGGER)
+	{
+		CAxe::GetInstance();
+		SetWeapon(eType::ITEMAXE);
+	}
+	else if (_weapon == eType::ITEMAXE)
+	{
+		SetWeapon(eType::DAGGER);
+	}
+}

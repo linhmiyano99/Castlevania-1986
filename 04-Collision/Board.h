@@ -29,6 +29,7 @@ public:
 		isStop = false;
 		code = new CCode();
 		_numberOfWeapon = 0;
+		_weapon = 0;
 	}
 	~CBoard()
 	{
@@ -54,4 +55,5 @@ public:
 	int GetNumberOfWeapon() { return _numberOfWeapon; }
 	void Stop() { isStop = true; }
 	bool IsStop() { return isStop; }
+	void ChangeWeapon();
 };

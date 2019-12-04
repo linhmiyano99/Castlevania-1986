@@ -51,7 +51,7 @@
 #define SIMON_WIDTH_DIE				60
 
 #define SIMON_UNTOUCHABLE_TIME		1300
-#define SIMON_HURT_TIME				300
+#define SIMON_HURT_TIME				200
 
 #define ID_WEAPON_VAMPIREKILLER		0
 #define ID_WEAPON_DAGGER			1
@@ -65,8 +65,13 @@
 #define SIMON_STRANS_TIME 400
 #define SIMON_TIME_PER_STEP 200
 #define SIMON_STRANS_TIME 400
-#define SIMON_TIME_STATE_JUMP 300
+#define SIMON_TIME_STATE_JUMP 400
 #define SIMON_TIME_START_JUMP 1000
+#define SIMON_SPEED_ON_STAIR 1.23f
+
+#define TIME_RATE_END_GAME 30
+
+#define ONE_HIT 2
 
 using namespace std;
 class CSimon : public CGameObject
@@ -133,5 +138,7 @@ public:
 	void SetUnder() { isUnder = true; }
 	void StartHurt(float _x, float _y);
 	void SetStart(float _x, float _y) { start_x = _x; start_y = y; }
+	void SetDownEnerGy();
+	void UpHeart() { _heart += 10; }
 };
 #endif

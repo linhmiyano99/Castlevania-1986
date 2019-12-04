@@ -15,7 +15,7 @@
 #define TIME_ENEMY_DIE 150
 #define TIME_BOSS_DIE 500
 #define BOSS_POSITION 5340.0f, 95.0f
-#define SIMON_POSITION_0 0.0f, 20.0f
+#define SIMON_POSITION_0 0.0f, 300.0f
 #define SIMON_POSITION_1 2800.0f, 20.0f
 
 

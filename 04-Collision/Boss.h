@@ -67,4 +67,5 @@ public:
 	float getPt(int n1, int n2, float perc);
 	void ResetBoss();
 	void SetFly();
+	void Die() { _energy = 0; }
 };
