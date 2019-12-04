@@ -19,6 +19,13 @@
 #include "ItemBossBall.h"
 #include "ItemAxe.h"
 #include "ItemII.h"
+#include "ItemBoongmerang.h"
+#include "ItemClock.h"
+#include "ItemCross.h"
+#include "ItemHollyWatter.h"
+#include "ItemIII.h"
+#include "ItemVase.h"
+
 
 #define TORCH_WIDTH 32
 #define TORCH_HEIGHT 64
@@ -43,6 +50,12 @@
 #define ID_BOSSBALL		10
 #define ID_AXE   		11
 #define ID_II			12
+#define ID_CLOCK		13
+#define ID_CROSS		14
+#define ID_HOLLYWATTER	15
+#define ID_BOONGMERANG	16
+#define ID_VASE			17
+#define ID_III			18
 
 
 

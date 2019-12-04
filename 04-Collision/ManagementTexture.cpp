@@ -187,7 +187,23 @@ CManagementTexture::CManagementTexture()
 	ani->Add(12031);
 	ani->Add(12032);
 	ani->Add(12033);
-	animations->Add(603, ani);//lv3
+	animations->Add(603, ani);//axe
+#pragma endregion
+
+
+#pragma region Add sprites Holly watter 
+	ani = new CAnimation(500);
+	ani->Add(12040);
+	animations->Add(604, ani);//holly watter 
+#pragma endregion
+
+
+#pragma region Add sprites Bonmerang
+	ani = new CAnimation(500);
+	ani->Add(12050);
+	ani->Add(12051);
+	ani->Add(12052);
+	animations->Add(605, ani);//bonmerang  
 
 
 #pragma endregion
@@ -248,7 +264,31 @@ CManagementTexture::CManagementTexture()
 
 	ani = new CAnimation(100);
 	ani->Add(13014);
-	animations->Add(713, ani);//boss ball - item
+	animations->Add(713, ani);//II- item
+
+	ani = new CAnimation(100);
+	ani->Add(13015);
+	animations->Add(714, ani);//holly watter - item
+
+	ani = new CAnimation(100);
+	ani->Add(13016);
+	animations->Add(715, ani);//cross - item
+
+	ani = new CAnimation(100);
+	ani->Add(13017);
+	animations->Add(716, ani);//III - item
+
+	ani = new CAnimation(100);
+	ani->Add(13018);
+	animations->Add(717, ani);//vase - item
+
+	ani = new CAnimation(100);
+	ani->Add(13019);
+	animations->Add(718, ani);//clock - item
+
+	ani = new CAnimation(100);
+	ani->Add(12052);
+	animations->Add(719, ani);//bomerang - item
 
 
 #pragma endregion
@@ -297,6 +337,13 @@ CManagementTexture::CManagementTexture()
 	ani->Add(13143);
 	animations->Add(813, ani); // 1000 after money not exsist
 
+#pragma endregion
+
+#pragma region Add sprites appear with holly watter
+	ani = new CAnimation(100);
+	ani->Add(13150);
+	ani->Add(13151);
+	animations->Add(820, ani); // fire holly
 #pragma endregion
 
 #pragma region Add enemies

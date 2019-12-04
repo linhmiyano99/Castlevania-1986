@@ -74,6 +74,25 @@ CTorch::CTorch(float _x, float _y, int id, int type) : CGameObject(_x, _y, type)
 	case ID_II:
 		item = new CItemII(_x, _y);
 		break;
+	case ID_CLOCK:
+		item = new CItemClock(_x, _y);
+		break;
+	case ID_CROSS:
+		item = new CItemCross(_x, _y);
+		break;
+	case ID_HOLLYWATTER:
+		item = new CItemHollyWatter(_x, _y);
+		break;
+	case ID_BOONGMERANG:
+		item = new CItemBoongmerang(_x, _y);
+		break;
+	case ID_VASE:
+		item = new CItemVase(_x, _y);
+		break;
+	case ID_III:
+		item = new CItemIII(_x, _y);
+		break;
+
 	default:
 		item = NULL;
 		break;

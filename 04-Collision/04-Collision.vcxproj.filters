@@ -191,6 +191,30 @@
     <ClInclude Include="ItemII.h">
       <Filter>framework\GameObject\item</Filter>
     </ClInclude>
+    <ClInclude Include="HolyWater.h">
+      <Filter>framework\GameObject\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemHollyWatter.h">
+      <Filter>framework\GameObject\item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemCross.h">
+      <Filter>framework\GameObject\item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemIII.h">
+      <Filter>framework\GameObject\item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemVase.h">
+      <Filter>framework\GameObject\item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemClock.h">
+      <Filter>framework\GameObject\item</Filter>
+    </ClInclude>
+    <ClInclude Include="Boongmerang.h">
+      <Filter>framework\GameObject\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBoongmerang.h">
+      <Filter>framework\GameObject\item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -317,6 +341,30 @@
       <Filter>framework\GameObject\Effection</Filter>
     </ClCompile>
     <ClCompile Include="ItemII.cpp">
+      <Filter>framework\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyWater.cpp">
+      <Filter>framework\GameObject\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemHollyWatter.cpp">
+      <Filter>framework\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemCross.cpp">
+      <Filter>framework\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemIII.cpp">
+      <Filter>framework\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemVase.cpp">
+      <Filter>framework\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemClock.cpp">
+      <Filter>framework\GameObject\item</Filter>
+    </ClCompile>
+    <ClCompile Include="Boongmerang.cpp">
+      <Filter>framework\GameObject\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBoongmerang.cpp">
       <Filter>framework\GameObject\item</Filter>
     </ClCompile>
   </ItemGroup>

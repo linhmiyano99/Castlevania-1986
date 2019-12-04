@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __ITEMAXE_H_
-#define __ITEMAXE_H_
+#ifndef __ITEM_AXE_H_
+#define __ITEM_AXE_H_
 
 
 
@@ -9,8 +9,8 @@
 #include "Textures.h"
 #include "Item.h"
 
-#define ITEMAXE_WIDTH 32
-#define ITEMAXE_HEIGHT 32
+#define ITEM_AXE_WATTER_WIDTH 32
+#define ITEM_AXE_WATTER_HEIGHT 32
 
 
 class CItemAxe : public CItem
