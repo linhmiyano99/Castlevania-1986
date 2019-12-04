@@ -137,6 +137,7 @@ CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h
 	case eType::OBJECT_HIDDEN_GHOST_DOWN: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_DOWN, w, h);
 	case eType::OBJECT_HIDDEN_PANTHER_JUMP: return new CHidenObject(x, y, HIDENOBJECT_TYPE_PANTHER_JUMP, w, h);
 	case eType::OBJECT_HIDDEN_BRICK: return new CHidenObject(x, y, HIDENOBJECT_TYPE_BRICK, w, h);
+	case eType::OBJECT_HIDDEN_GATE_OPEN: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GATE_OPEN, w, h);
 	case eType::GATE: return new CGate(x, y);
 	case eType::PANTHER: return new CPanther(x, y);
 	case eType::FISHMEN: return new CFishman(x, y);

@@ -154,6 +154,7 @@ void CScene::Update(DWORD dt)
 			isAutoTran = false;
 			_stage++;
 			simon->SetTrend(1);
+			CGate::Stop();
 		}
 	}
 	else
@@ -395,7 +396,6 @@ void CScene::TestStage(int stage)
 		LoadResoure();
 		simon->SetPosition(SCENCE_4_LEFT , 100.0f);
 		simon->SetStart(SCENCE_4_LEFT, 100.0f);
-		CGate::Stop();
 	}
-	LoadResoure();
+	CGate::Stop();
 }

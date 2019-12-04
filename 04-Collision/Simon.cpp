@@ -188,6 +188,7 @@ B:
 	else if (isAutoGo && CScene::GetInstance()->IsTranScene())
 	{
 		AutoGo();
+		state = SIMON_STATE_WALKING_RIGHT;
 		if (abs(auto_x - x) > 0.5f)
 			x += 0.5 * nx;
 		else
@@ -634,32 +635,16 @@ void CSimon::Render()
 	{
 		if (CScene::GetInstance()->IsTranScene())
 		{
-			float c_x, c_y;
-			CGame* game = CGame::GetInstance();
-			game->GetCamPos(c_x, c_y);
-			CScene* scene = CScene::GetInstance();
-			
 			/*
 				int id = nextScenceObj->getID()
 				CScence *s = CSceneManager::GetScene(id);
 				int left = s->getStartX();
 
 			*/
-			
-			
-			
-			CScene* scene2 = new CScene();
-
-
-
-			if (scene->GetScene() == 1)
-				scene2->SetMap(2);
-			else
-				scene2->SetMap(4);
-			if (c_x < scene2->GetLeft() - SCREEN_WIDTH / 2)
-				id = SIMON_ANI_IDLE;
-			else
+			if(state == SIMON_STATE_WALKING_RIGHT)
 				id = SIMON_ANI_WALKING;
+			else
+				id = SIMON_ANI_IDLE;
 		}
 		else
 			id = SIMON_ANI_WALKING;
@@ -1212,6 +1197,10 @@ void CSimon::CollisionWithHidenObject(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0
 					scene->LoadSimon();
 				}
 			}
+			else if (ohiden->GetState() == HIDENOBJECT_TYPE_GATE_OPEN)
+			{
+				CGate::Start();
+			}
 			else if (ohiden->GetState() == HIDENOBJECT_TYPE_FISHMAN)
 			{
 				CFishman::Start();
@@ -1341,6 +1330,7 @@ void CSimon::CollisionWithGate(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, float
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	gate0 = NULL;
+	state = SIMON_STATE_IDLE;
 }
 int CSimon::IsCanOnStair(vector<LPGAMEOBJECT>& listObj)
 {
