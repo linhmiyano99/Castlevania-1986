@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+  <Texture>
+    <!--SIMON-->
+    <Animation animationID ="399" frameTime ="30">
+      <sprite id="10400"/>
+      <sprite id="10401"/>
+      <sprite id="10402"/>
+      <sprite id="10403"/>
+    </Animation>
+
+    <Animation animationID ="400" frameTime ="100" >
+      <sprite id="10001"/>
+    </Animation>
+
+    <!--SIMON_WALKING-->
+    <Animation animationID ="401" frameTime ="100" >
+      <sprite id="10001"/>
+      <sprite id="10002"/>
+      <sprite id="10003"/>
+      <sprite id="10004"/>
+    </Animation>
+
+    <!--SIMON_JUMP-->
+    <Animation animationID ="402" frameTime ="100">
+      <sprite id="10005"/>
+    </Animation>
+
+    <!--SIMON_SIT-->
+    <Animation animationID ="403" frameTime ="100">
+      <sprite id="10005"/>
+    </Animation>
+
+    <!--SIMON_STAND_ATTACK-->
+    <Animation animationID ="404" frameTime ="80">
+      <sprite id="10011"/>
+      <sprite id="10012"/>
+      <sprite id="10013"/>
+    </Animation>
+    <!--SIMON_SIT_ATTACK-->
+    <Animation animationID ="405" frameTime ="80">
+      <sprite id="10016"/>
+      <sprite id="10014"/>
+      <sprite id="10015"/>
+    </Animation>
+
+    <!--SIMON_GO_UP-->
+    <Animation animationID ="406" frameTime ="100" >
+      <sprite id="10100"/>
+      <sprite id="10101"/>
+    </Animation>
+
+    <!--SIMON_GO_DOWN-->
+    <Animation animationID ="407" frameTime ="100" >
+      <sprite id="10102"/>
+      <sprite id="10103"/>
+    </Animation>
+
+    <!--SIMON_HURT-->
+    <Animation animationID ="408" frameTime ="100">
+      <sprite id="10104"/>
+    </Animation>
+
+    <!--SIMON_IDLE_UP-->
+    <Animation animationID ="409" frameTime ="100">
+      <sprite id="10100"/>
+    </Animation>
+
+    <!--SIMON_IDLE_DOWN-->
+    <Animation animationID ="410" frameTime ="100" >
+      <sprite id="10102"/>
+    </Animation>
+
+    <!--SIMON_DIE-->
+    <Animation animationID ="411" frameTime ="100" >
+      <sprite id="10200"/>
+    </Animation>
+
+    <!--GROUND-->
+    <Animation animationID ="499" frameTime ="100">
+      <sprite id="9999"/>
+    </Animation>
+    <Animation animationID ="500" frameTime ="100">
+      <sprite id="10000"/>
+    </Animation>
+    <Animation animationID ="498" frameTime ="100">
+      <sprite id="9998"/>
+    </Animation>
+    <Animation animationID ="497" frameTime ="100">
+      <sprite id="9997"/>
+    </Animation>
+
+    <!--TORCH-->
+    <Animation animationID ="501" frameTime ="100">
+      <sprite id="11000"/>
+      <sprite id="11001"/>
+    </Animation>
+
+    <!--CANDLE-->
+    <Animation animationID ="502" frameTime ="100" >
+      <sprite id="11002"/>
+      <sprite id="11003"/>
+    </Animation>
+
+    <!--VAMPIREKILLER-->
+    <Animation animationID ="600" frameTime ="80" >
+      <sprite id="12000"/>
+      <sprite id="12001"/>
+      <sprite id="12002"/>
+    </Animation>
+
+    <Animation animationID ="601" frameTime ="80" >
+      <sprite id="12010"/>
+      <sprite id="12011"/>
+      <sprite id="12012"/>
+    </Animation>
+
+    <Animation animationID ="602" frameTime ="80" >
+      <sprite id="12020"/>
+      <sprite id="12021"/>
+      <sprite id="12022"/>
+    </Animation>
+
+    <!--AXE-->
+    <Animation animationID ="603" frameTime ="500" >
+      <sprite id="12030"/>
+      <sprite id="12031"/>
+      <sprite id="12032"/>
+      <sprite id="12033"/>
+    </Animation>
+
+    <!--HOLLYWATTER-->
+    <Animation animationID ="604" frameTime ="500" >
+      <sprite id="12040"/>
+    </Animation>
+
+    <!--BOONGMERANG-->
+    <Animation animationID ="605" frameTime ="500" >
+      <sprite id="12050"/>
+      <sprite id="12051"/>
+      <sprite id="12052"/>
+    </Animation>
+
+    <!--WHIP_ITEM-->
+    <Animation animationID ="700" frameTime ="500">
+      <sprite id="13000"/>
+    </Animation>
+
+    <!--DAGGER_ITEM-->
+    <Animation animationID ="701" frameTime ="500">
+      <sprite id="13001"/>
+    </Animation>
+
+    <!--HEART_ITEM-->
+    <Animation animationID ="702" frameTime ="500">
+      <sprite id="13002"/>
+    </Animation>
+
+    <!--SMALLHEART_ITEM-->
+    <Animation animationID ="703" frameTime ="500">
+      <sprite id="13003"/>
+    </Animation>
+
+    <!--CHICKEN_ITEM-->
+    <Animation animationID ="704" frameTime ="500">
+      <sprite id="13004"/>
+    </Animation>
+
+    <!--MONEY_ITEM-->
+    <Animation animationID ="705" frameTime ="500">
+      <sprite id="13005"/>
+    </Animation>
+
+    <Animation animationID ="706" frameTime ="500">
+      <sprite id="13006"/>
+    </Animation>
+
+    <Animation animationID ="707" frameTime ="500">
+      <sprite id="13007"/>
+    </Animation>
+
+    <Animation animationID ="708" frameTime ="500">
+      <sprite id="13008"/>
+    </Animation>
+
+    <!--CLOCK_ITEM-->
+    <Animation animationID ="709" frameTime ="500">
+      <sprite id="13009"/>
+    </Animation>
+
+    <!--AXE_ITEM-->
+    <Animation animationID ="710" frameTime ="500">
+      <sprite id="13010"/>
+    </Animation>
+    <!--CROSS_ITEM-->
+    <Animation animationID ="711" frameTime ="100">
+      <sprite id="13011"/>
+    </Animation>
+
+    <!--BOSSBALL_ITEM-->
+    <Animation animationID ="712" frameTime ="100">
+      <sprite id="13012"/>
+      <sprite id="13013"/>
+    </Animation>
+
+    <!--II_ITEM-->
+    <Animation animationID ="713" frameTime ="100">
+      <sprite id="13014"/>
+    </Animation>
+
+    <!--HOLLYWATTER_ITEM-->
+    <Animation animationID ="714" frameTime ="100">
+      <sprite id="13015"/>
+    </Animation>
+
+    <!--CROSS_ITEM-->
+    <Animation animationID ="715" frameTime ="100">
+      <sprite id="13016"/>
+    </Animation>
+
+    <!--III_ITEM-->
+    <Animation animationID ="716" frameTime ="100">
+      <sprite id="13017"/>
+    </Animation>
+
+    <!--VASE_ITEM-->
+    <Animation animationID ="717" frameTime ="100">
+      <sprite id="13018"/>
+    </Animation>
+
+    <!--CLOCK_ITEM-->
+    <Animation animationID ="718" frameTime ="100">
+      <sprite id="13019"/>
+    </Animation>
+
+    <!--BOONGMERANG_ITEM-->
+    <Animation animationID ="719" frameTime ="100">
+      <sprite id="12052"/>
+    </Animation>
+
+    <!--FIRE after torch not exist-->
+    <Animation animationID ="800" frameTime ="100">
+      <sprite id="13100"/>
+      <sprite id="13101"/>
+      <sprite id="13102"/>
+    </Animation>
+
+    <!--sprites broken brick after brick not exsist-->
+    <Animation animationID ="801" frameTime ="100">
+      <sprite id="13110" />
+    </Animation>
+
+    <!--bright after torch not exsist-->
+    <Animation animationID ="802" frameTime ="100">
+      <sprite id="13120"/>
+    </Animation>
+
+    <!--sprites appear with Fisman-->
+    <Animation animationID ="803" frameTime ="100">
+      <sprite id="13130"/>
+    </Animation>
+
+    <!--Add sprites appear with money 100-->
+    <Animation animationID ="810" frameTime ="100">
+      <sprite id="13140"/>
+    </Animation>
+
+    <!--Add sprites appear with money 400-->
+    <Animation animationID ="811" frameTime ="100">
+      <sprite id="13141"/>
+    </Animation>
+
+    <!-- 700 after money not exsist-->
+    <Animation animationID ="812" frameTime ="100">
+      <sprite id="13142" />
+    </Animation>
+
+    <!-- 1000 after money not exsist-->
+    <Animation animationID ="813" frameTime ="100">
+      <sprite id="13143"/>
+    </Animation>
+
+    <!-- sprites appear with holly watter-->
+    <Animation animationID ="820" frameTime ="100">
+      <sprite id="13150"/>
+      <sprite id="13151"/>
+    </Animation>
+
+    <!-- sprites appear with holly watter-->
+    <Animation animationID ="820" frameTime ="100">
+      <sprite id="13150"/>
+      <sprite id="13151"/>
+    </Animation>
+
+    <!-- ghost go-->
+    <Animation animationID ="1000" frameTime ="100">
+      <sprite id="30000"/>
+      <sprite id="30001"/>
+    </Animation>
+
+    <!--panther sit-->
+    <Animation animationID ="1001" frameTime ="100">
+      <sprite id="30002"/>
+    </Animation>
+
+    <!--panther run-->
+    <Animation animationID ="1002" frameTime ="100">
+      <sprite id="30003"/>
+      <sprite id="30004"/>
+      <sprite id="30005"/>
+    </Animation>
+
+    <!--bat run-->
+    <Animation animationID ="1003" frameTime ="100">
+      <sprite id="30006"/>
+      <sprite id="30007"/>
+      <sprite id="30008"/>
+      <sprite id="30009"/>
+    </Animation>
+
+    <!--fishman jump-->
+    <Animation animationID ="1004" frameTime ="100">
+      <sprite id="30012"/>
+    </Animation>
+
+    <!--fishman walking-->
+    <Animation animationID ="1005" frameTime ="100">
+      <sprite id="30011"/>
+      <sprite id="30012"/>
+    </Animation>
+
+    <!--fishman attack-->
+    <Animation animationID ="1006" frameTime ="100">
+      <sprite id="30010"/>
+      <sprite id="30012"/>
+    </Animation>
+
+    <!--boss sleep-->
+    <Animation animationID ="1090" frameTime ="100">
+      <sprite id="30013"/>
+    </Animation>
+
+    <!--boss run-->
+    <Animation animationID ="1091" frameTime ="100">
+      <sprite id="30014" />
+      <sprite id="30015"/>
+    </Animation>
+
+    <!--boss attack-->
+    <Animation animationID ="1092" frameTime ="100">
+      <sprite id="30015"/>
+    </Animation>
+
+    <!--smallball-->
+    <Animation animationID ="1100" frameTime ="100">
+      <sprite id="70000"/>
+    </Animation>
+
+    <!-- door close-->
+    <Animation animationID="1200" frameTime="100">
+      <sprite id="40000" />
+    </Animation>
+
+    <!-- door open-->
+    <Animation animationID="1201" frameTime="100">
+      <sprite id="40000"/>
+      <sprite id="40001" />
+      <sprite id="40002" />
+      <sprite id="40000" />
+      <sprite id="40000"/>
+    </Animation>
+
+</Texture>
+
+
+
+
+
+

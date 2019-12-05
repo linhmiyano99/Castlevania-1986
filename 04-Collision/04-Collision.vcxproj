@@ -172,6 +172,8 @@
     <ClInclude Include="WaterEffection.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="WhipUpgrade.h" />
+    <ClInclude Include="XML\tinystr.h" />
+    <ClInclude Include="XML\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Axe.cpp" />
@@ -224,6 +226,14 @@
     <ClCompile Include="WaterEffection.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="WhipUpgrade.cpp" />
+    <ClCompile Include="XML\tinystr.cpp" />
+    <ClCompile Include="XML\tinyxml.cpp" />
+    <ClCompile Include="XML\tinyxmlerror.cpp" />
+    <ClCompile Include="XML\tinyxmlparser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Animations.xml" />
+    <Xml Include="Sprites.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="framework">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
@@ -62,6 +58,10 @@
     </Filter>
     <Filter Include="framework\GameObject\Effection">
       <UniqueIdentifier>{c5a08262-6dea-490c-8d4b-b4c520be2875}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="framework\ManagementTexture\XML">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -215,11 +215,14 @@
     <ClInclude Include="ItemBoongmerang.h">
       <Filter>framework\GameObject\item</Filter>
     </ClInclude>
+    <ClInclude Include="XML\tinystr.h">
+      <Filter>framework\ManagementTexture\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="XML\tinyxml.h">
+      <Filter>framework\ManagementTexture\XML</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>framework\GameObject\staticobject</Filter>
     </ClCompile>
@@ -367,5 +370,28 @@
     <ClCompile Include="ItemBoongmerang.cpp">
       <Filter>framework\GameObject\item</Filter>
     </ClCompile>
+    <ClCompile Include="XML\tinystr.cpp">
+      <Filter>framework\ManagementTexture\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="XML\tinyxml.cpp">
+      <Filter>framework\ManagementTexture\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="XML\tinyxmlerror.cpp">
+      <Filter>framework\ManagementTexture\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="XML\tinyxmlparser.cpp">
+      <Filter>framework\ManagementTexture\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Sprites.xml">
+      <Filter>framework\ManagementTexture\XML</Filter>
+    </Xml>
+    <Xml Include="Animations.xml">
+      <Filter>framework\ManagementTexture\XML</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
