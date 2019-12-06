@@ -79,7 +79,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					start_curve += BOSS_TIME_ATTACK2;
 				state = BOSS_STATE_ATTACK;
 				vx = vy = 0;
-				CSmallBall* smallball = new CSmallBall(x + 20, y + 20, nx);
+				CSmallBall* smallball = new CSmallBall(x + BOSS_BBOX_WIDTH / 2, y + BOSS_BBOX_HEIGHT / 2, nx);
 				if (s_x == x)
 				{
 					smallball->SetSpeed(0, -0.3f * nx);
@@ -117,7 +117,6 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					if (GetTickCount() - start_fly > BOSS_TIME_CHECK_FLY)
 					{
-					A:
 						
 						SetFly();
 
@@ -125,17 +124,17 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					else
 					{
 
-						if (x > 5340)
+						if (x > start_x)
 						{
 							if (abs(x - BOSS_RANDOM_X1) > 2 && abs(y - BOSS_RANDOM_Y1) > 2)
-								FlyStraight(5537, 210);
+								FlyStraight(BOSS_RANDOM_X1, BOSS_RANDOM_Y1);
 							else
 								vx = vy = 0;
 						}
 						else
 						{
 							if (abs(x - BOSS_RANDOM_X2) > 2 && abs(y - BOSS_RANDOM_Y2) > 2)
-								FlyStraight(5080, 210);
+								FlyStraight(BOSS_RANDOM_X2, BOSS_RANDOM_Y2);
 							else
 								vx = vy = 0;
 						}
@@ -264,11 +263,11 @@ void CBoss::Render()
 			if (GetTickCount() - dt_die < TIME_BOSS_DIE)
 			{
 				animations[3]->Render(x, y + 25);
-				animations[3]->Render(x + 35, y + 25);
-				animations[3]->Render(x + 70, y + 25);
+				animations[3]->Render(x + BOSS_BBOX_WIDTH / 3, y + BOSS_BBOX_HEIGHT/2);
+				animations[3]->Render(x + BOSS_BBOX_WIDTH * 2 / 3, y + BOSS_BBOX_HEIGHT/2);
 				animations[3]->Render(x, y + 50);
-				animations[3]->Render(x + 35, y + 50);
-				animations[3]->Render(x + 70, y + 50);
+				animations[3]->Render(x + BOSS_BBOX_WIDTH / 3, y + BOSS_BBOX_HEIGHT);
+				animations[3]->Render(x + BOSS_BBOX_WIDTH * 2 / 3, y + BOSS_BBOX_HEIGHT);
 
 			}
 		}
@@ -313,7 +312,7 @@ void CBoss::AutoFly(float next_x, float next_y)
 	x2 = next_x;
 	y2 = next_y;
 	CSimon::GetInstance()->GetPosition(x1, y1);
-	y1 += 20;
+	y1 += SIMON_HEIGHT_STAND / 2;
 	if (x < next_x)
 		vx = 0.3f;
 	else
@@ -325,7 +324,7 @@ void CBoss::AutoAttack(float next_x, float next_y)
 {
 	CSimon::GetInstance()->GetPosition(x1, y1);
 	x2 = next_x;
-	y2 = next_y + 20;
+	y2 = next_y + SIMON_HEIGHT_STAND / 2;
 }
 void CBoss::FlyStraight(float next_x, float next_y)
 {
@@ -390,47 +389,47 @@ void CBoss::SetFly()
 		float s_x, s_y;
 		if (_type == 0)
 		{
-			if (x < c_x + 150)
-				s_x = x + 150;
+			if (x < c_x + BOSS_BBOX_WIDTH * 3 / 2)
+				s_x = x + BOSS_BBOX_WIDTH * 3 / 2;
 			else
-				s_x = x - 150;
+				s_x = x - BOSS_BBOX_WIDTH * 3 / 2;
 		}
 		else
 		{
 			if (x < c_x + 50)
-				s_x = x + 400;
-			else if (x > c_x + 430)
-				s_x = x - 400;
-			else if (x < c_x + 150)
-				s_x = x + 150;
+				s_x = x + SCREEN_WIDTH - BOSS_BBOX_WIDTH - 50;
+			else if (x > c_x + SCREEN_WIDTH - BOSS_BBOX_WIDTH)
+				s_x = x - (SCREEN_WIDTH - BOSS_BBOX_WIDTH);
+			else if (x < c_x + BOSS_BBOX_WIDTH * 3 / 2)
+				s_x = x + BOSS_BBOX_WIDTH * 3 / 2;
 			else
-				s_x = x - 150;
+				s_x = x - BOSS_BBOX_WIDTH * 3 / 2;
 		}
 		srand((unsigned)time(0));
 		_type = rand() % 2;
 		if (_type == 0)
 		{
-			if (y < c_y + 150)
-				s_y = y + 50;
+			if (y < c_y + BOSS_BBOX_WIDTH * 3 / 2)
+				s_y = y + BOSS_BBOX_WIDTH / 2;
 			else
-				s_y = y - 50;
+				s_y = y - BOSS_BBOX_WIDTH / 2;
 		}
 		else
 		{
-			if (y > c_y + 400)
-				s_y = y - 100;
+			if (y > c_y + SCREEN_WIDTH - BOSS_BBOX_WIDTH)
+				s_y = y - BOSS_BBOX_WIDTH;
 			else
-				s_y = y + 100;
+				s_y = y + BOSS_BBOX_WIDTH;
 		}
 		AutoFly(s_x, y);
 	}
 	else
 	{
 
-		if (x < c_x + 200)
-			AutoAttack(x + 50, y);
+		if (x < c_x + BOSS_BBOX_WIDTH * 2)
+			AutoAttack(x + BOSS_BBOX_WIDTH / 2, y);
 		else
-			AutoAttack(x - 50, y);
+			AutoAttack(x - BOSS_BBOX_WIDTH / 2, y);
 
 	}
 }
