@@ -11,9 +11,15 @@
 
 class CBat : public CEnemy
 {
+	float topLimit;
+	float bottomLimit;
+	static bool isStart;
 public:
 	CBat(float _x = 3500, float _y = 200, int id = 0);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
+	static void Start() { isStart = true; }
+	static void Stop() { isStart = false; }
+	static bool IsStart() { return isStart; }
 };
