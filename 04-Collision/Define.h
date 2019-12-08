@@ -18,6 +18,9 @@
 #define SIMON_POSITION_0 0.0f, 300.0f
 #define SIMON_POSITION_1 2800.0f, 20.0f
 
+#define SIMON_START_HIGH 100.0f
+#define SIMON_START_LOW 300.0f
+
 
 
 #define BRICK_ANI					6

@@ -37,6 +37,8 @@
 #include "Boongmerang.h"
 
 
+#define TIME_KILL_ALL_ENEMY 100
+
 class CScene
 {
 	static CScene* __instance;
@@ -57,7 +59,7 @@ class CScene
 	int _stage;
 	bool isAutoTran;
 	float auto_tran;
-	static bool isKillAllEnemy;
+	DWORD start_killAllEnemy;
 public:
 	static CScene* GetInstance();
 	CScene(int id = 0);
@@ -81,6 +83,7 @@ public:
 	void SetScene(int scene) { id = scene; }
 	void ResetScene();
 	void TestStage(int stage);
-	static bool IsKillAllEnemy() { return isKillAllEnemy; }
+	bool IsKillAllEnemy();
+	void KillAllEnemy() { start_killAllEnemy = GetTickCount(); }
 };
 #endif // !__SMALLBALL_H__

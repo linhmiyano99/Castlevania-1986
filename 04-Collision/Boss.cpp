@@ -300,7 +300,7 @@ void CBoss::Hurt()
 {
 	if (start_hurt == 0)
 	{
-		_energy -= 2;
+		_energy -= ONE_HIT;
 		start_hurt = GetTickCount();
 	}
 }
@@ -396,8 +396,8 @@ void CBoss::SetFly()
 		}
 		else
 		{
-			if (x < c_x + 50)
-				s_x = x + SCREEN_WIDTH - BOSS_BBOX_WIDTH - 50;
+			if (x < c_x + BOSS_BBOX_WIDTH / 2)
+				s_x = x + SCREEN_WIDTH - BOSS_BBOX_WIDTH * 3 / 2;
 			else if (x > c_x + SCREEN_WIDTH - BOSS_BBOX_WIDTH)
 				s_x = x - (SCREEN_WIDTH - BOSS_BBOX_WIDTH);
 			else if (x < c_x + BOSS_BBOX_WIDTH * 3 / 2)

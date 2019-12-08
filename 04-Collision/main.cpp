@@ -108,6 +108,9 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_D: // simon disappear
 		simon->Disappear();
 		break;
+	case DIK_K: // kill all enemies
+		scene->KillAllEnemy();
+		break;
 	}
 }
 

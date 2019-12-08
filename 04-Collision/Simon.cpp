@@ -1052,6 +1052,9 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 		case eType::ITEMVASE:
 			Disappear();
 			break;
+		case eType::ITEMCROSS:
+			CScene::GetInstance()->KillAllEnemy();
+			break;
 		case eType::HEART:
 			_heart += 5;
 			break;
@@ -1074,6 +1077,9 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 			break;
 		case eType::ITEMII:
 			CBoard::GetInstance()->SetNumberOfWeapon(2);
+			break;
+		case eType::ITEMIII:
+			CBoard::GetInstance()->SetNumberOfWeapon(3);
 			break;
 		case eType::CHICKEN:
 			_energy = SIMON_MAX_ENERGY;

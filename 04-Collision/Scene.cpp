@@ -107,7 +107,15 @@ void CScene::Update(DWORD dt)
 			simon->HeartDown();
 			return;
 		}
+	}	
+	if (start_killAllEnemy > 0)
+	{
+		if (GetTickCount() - start_killAllEnemy > TIME_KILL_ALL_ENEMY)
+		{
+			start_killAllEnemy = 0;
+		}
 	}
+
 	board->Update(dt);
 	for each (LPGAMEOBJECT var in smallballs)
 	{
@@ -138,14 +146,14 @@ void CScene::Update(DWORD dt)
 			if (id == 1)
 			{
 				id = 2;
-				simon->SetStart(SCENCE_2_LEFT, 100.0f);
+				simon->SetStart(SCENCE_2_LEFT, SIMON_START_HIGH);
 				CBat::Start();
 			}
 			else
 			{
 				id = 4;
 				CGate::Stop();
-				simon->SetStart(SCENCE_4_LEFT, 100.0f);
+				simon->SetStart(SCENCE_4_LEFT, SIMON_START_HIGH);
 				CBat::Stop();
 			}
 			isAutoTran = false;
@@ -376,23 +384,29 @@ void CScene::TestStage(int stage)
 	{
 		id = 1;
 		LoadResoure();
-		simon->SetPosition(SCENCE_1_LEFT , 300.0f);
-		simon->SetStart(SCENCE_1_LEFT, 300.0f);
+		simon->SetPosition(SCENCE_1_LEFT , SIMON_START_LOW);
+		simon->SetStart(SCENCE_1_LEFT, SIMON_START_LOW);
 	}
 	else if (stage == 2)
 	{
 		id = 2;
 		LoadResoure();
-		simon->SetPosition(SCENCE_2_LEFT , 100.0f);
-		simon->SetStart(SCENCE_2_LEFT, 100.0f);
+		simon->SetPosition(SCENCE_2_LEFT , SIMON_START_HIGH);
+		simon->SetStart(SCENCE_2_LEFT, SIMON_START_HIGH);
 		CBat::Start();
 	}
 	else if (stage == 3)
 	{
 		id = 4;
 		LoadResoure();
-		simon->SetPosition(SCENCE_4_LEFT , 100.0f);
-		simon->SetStart(SCENCE_4_LEFT, 100.0f);
+		simon->SetPosition(SCENCE_4_LEFT , SIMON_START_HIGH);
+		simon->SetStart(SCENCE_4_LEFT, SIMON_START_HIGH);
 	}
 	CGate::Stop();
+}
+bool CScene::IsKillAllEnemy()
+{
+	if (start_killAllEnemy > 0)
+		return true;
+	return false;
 }

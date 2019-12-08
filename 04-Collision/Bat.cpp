@@ -21,6 +21,10 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!CBat::IsStart())
 		return;
+	float c_x, c_y;
+	CGame::GetInstance()->GetCamPos(c_x, c_y);
+	if (CScene::GetInstance()->IsKillAllEnemy() && x > c_x && x < c_x + SCREEN_WIDTH)
+		Dead();
 	CScene* scene = CScene::GetInstance();
 
 	if (dt_die == 0)
@@ -32,8 +36,7 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
-			float c_x, c_y;
-			CGame::GetInstance()->GetCamPos(c_x, c_y);
+			
 			CSimon::GetInstance()->GetPosition(bottomLimit, topLimit);
 			bottomLimit = topLimit + 2 * SIMON_HEIGHT_STAND;
 			topLimit -= SIMON_HEIGHT_STAND;

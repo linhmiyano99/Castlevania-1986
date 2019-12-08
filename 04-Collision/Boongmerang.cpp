@@ -118,7 +118,6 @@ void CBoongmerang::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 					{
 						if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
 						{
-							vx = vy = 0;
 							continue;
 						}
 						torch->Hurt();

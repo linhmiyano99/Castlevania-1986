@@ -36,6 +36,12 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!CFishman::IsStart())
 		return;
+	float c_x, c_y;
+	CGame::GetInstance()->GetCamPos(c_x, c_y);
+	if (CScene::GetInstance()->IsKillAllEnemy() && x > c_x&& x < c_x + SCREEN_WIDTH)
+	{
+		Dead();
+	}
 	if (dt_appear > 0)
 	{
 		float cam_x, cam_y;

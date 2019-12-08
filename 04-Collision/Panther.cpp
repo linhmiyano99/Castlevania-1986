@@ -24,8 +24,13 @@ CPanther::CPanther(float _x, float _y, int id) :CEnemy(_x, _y, id, eType::PANTHE
 }
 void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+
 	float cam_x, cam_y;
 	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+	if (CScene::GetInstance()->IsKillAllEnemy() && x > cam_x&& x < cam_x + SCREEN_WIDTH)
+	{
+		Dead();
+	}
 	if (dt_appear > 0)
 	{
 		
