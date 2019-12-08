@@ -41,6 +41,7 @@ CSimon* simon;
 CScene* scene;
 CBoard* board;
 CBoss* boss;
+CVampireKiller* vampirekiller;
 
 vector<CGameObject*> objects;
 
@@ -100,6 +101,12 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_U: // boss die
 		boss->Die();
 		boss->SetState(BOSS_STATE_NOT_EXSIST);
+		break;
+	case DIK_V: // up vampirekiller
+		vampirekiller->setUpLevel();
+		break;
+	case DIK_D: // simon disappear
+		simon->Disappear();
 		break;
 	}
 }
@@ -247,6 +254,7 @@ void LoadResources()
 	simon = CSimon::GetInstance();
 	board = CBoard::GetInstance();
 	boss = CBoss::GetInstance();
+	vampirekiller = CVampireKiller::GetInstance();
 }
 
 /*

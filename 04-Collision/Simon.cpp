@@ -42,6 +42,7 @@ CSimon::CSimon() : CGameObject()
 	start_stair = 0;
 	isFall = false;
 	isUnder = false;
+	start_disappear = 0;
 	start_jump = 0;
 	for (int i = 0; i < 3; i++)
 	{
@@ -93,9 +94,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				start_stair = 0;
 				if (CBoard::GetInstance()->GetWeapon() != 0)
 				{
-					if (CBoard::GetInstance()->GetNumberOfWeapon() != 0)
+					if (CBoard::GetInstance()->GetNumberOfWeapon() == 2)
 					{
 						CBoard::GetInstance()->SetWeapon(0);
+					}
+					else if (CBoard::GetInstance()->GetNumberOfWeapon() == 3)
+					{
+						CBoard::GetInstance()->SetWeapon(2);
 					}
 					else
 					{
@@ -126,7 +131,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isOnStair = false;
 		vx = 0;
 	}
-B:
 	if (start_stair > 0)
 	{
 		if (GetTickCount() - start_stair > TIME_FOR_PER_STEP)
@@ -160,6 +164,13 @@ B:
 		{
 
 			attack_start = 0;
+		}
+	}
+	if (start_disappear > 0)
+	{
+		if (GetTickCount() - start_disappear > SIMON_DISAPPEAR_TIME)
+		{
+			start_disappear = 0;
 		}
 	}
 
@@ -520,7 +531,7 @@ B:
 							CollisionWithGate(dt, e->obj, min_tx, min_ty, nx, ny);
 						}
 					}
-					else if(state != SIMON_STATE_HURT)
+					else if(state != SIMON_STATE_HURT || !start_disappear)
 					{ 
 						if (dynamic_cast<CTorch*>(e->obj))
 						{
@@ -676,6 +687,7 @@ B:
 void CSimon::Render()
 {
 	int id;
+	
 	if (isAutoGo)
 	{
 		if (CScene::GetInstance()->IsTranScene())
@@ -763,6 +775,8 @@ void CSimon::Render()
 	}
 	int alpha = 255;
 	if ( untouchable &&( isOnStair || GetTickCount() - untouchable_start > SIMON_HURT_TIME) &&(die_start == 0)) alpha = 128;
+	if (start_disappear)
+		alpha = 0;
 	animations[id]->Render(x, y, nx, alpha);
 	RenderBoundingBox();
 	if (isFall)
@@ -858,45 +872,36 @@ void CSimon::SetState(int state)
 			vx = 0;
 			if (_heart > 0 && (CBoard::GetInstance()->GetWeapon() != 0))
 			{
-				if (CBoard::GetInstance()->GetWeapon() == eType::DAGGER)
+				switch (CBoard::GetInstance()->GetWeapon())
 				{
-					CDagger* dagger = CDagger::GetInstance();
-					if (dagger->GetState() == DAGGER_STATE_ATTACK)
+				case eType::DAGGER:
+					if (CDagger::GetInstance()->GetState() == DAGGER_STATE_ATTACK)
 					{
 						this->state = SIMON_STATE_IDLE;
 					}
-					dagger = NULL;
-				}
-				else if((CBoard::GetInstance()->GetWeapon() == eType::ITEMAXE))
-				{
-					CAxe* dagger = CAxe::GetInstance();
-					if (dagger->GetState() == DAGGER_STATE_ATTACK)
+					break;	
+				case eType::ITEMAXE:
+					if (CAxe::GetInstance()->GetState() == DAGGER_STATE_ATTACK)
 					{
 						this->state = SIMON_STATE_IDLE;
 					}
-					dagger = NULL;
-				}
-				else if ((CBoard::GetInstance()->GetWeapon() == eType::ITEMHOLLYWATTER))
-				{
-					CHollyWatter* dagger = CHollyWatter::GetInstance();
-					if (dagger->GetState() == DAGGER_STATE_ATTACK)
+					break;
+				case eType::ITEMHOLLYWATTER:
+					if (CHollyWatter::GetInstance()->GetState() == DAGGER_STATE_ATTACK)
 					{
 						this->state = SIMON_STATE_IDLE;
 					}
-					dagger = NULL;
-				}
-				else if ((CBoard::GetInstance()->GetWeapon() == eType::ITEMBOONGMERANG))
-				{
-					CBoongmerang* dagger = CBoongmerang::GetInstance();
-					if (dagger->GetState() == DAGGER_STATE_ATTACK)
+					break;
+				case eType::ITEMBOONGMERANG:
+					if (CBoongmerang::GetInstance()->GetState() == DAGGER_STATE_ATTACK)
 					{
 						this->state = SIMON_STATE_IDLE;
 					}
-					dagger = NULL;
-				}
-				else
-				{
+					break;
+
+				default:
 					this->state = SIMON_STATE_IDLE;
+					break;
 				}
 				animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
 			}
@@ -1022,75 +1027,61 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 
 	if ((Obj->GetState() == ITEM_STATE_EXSIST && Obj->GetType() != eType::BOSS) || (Obj->GetState() == BOSS_STATE_ITEM && Obj->GetType() == eType::BOSS))
 	{
-		if (Obj->GetType() == eType::WHIPUPGRADE)
+		switch (Obj->GetType())
 		{
+		case eType::WHIPUPGRADE:
 			CVampireKiller::GetInstance()->setUpLevel();
 			trans_start = GetTickCount();
-		}
-		else if (Obj->GetType() == eType::DAGGER)
-		{
-			CDagger* dagger = CDagger::GetInstance();
-			weapons[eType::DAGGER] = dagger;
+			break;
+		case eType::DAGGER:
+			weapons[eType::DAGGER] = CDagger::GetInstance();
 			CBoard::GetInstance()->SetWeapon(eType::DAGGER);
-			dagger = NULL;
-		}
-		else if (Obj->GetType() == eType::ITEMAXE)
-		{
-			CAxe* axe = CAxe::GetInstance();
-			weapons[eType::AXE] = axe;
+			break;
+		case eType::ITEMAXE:
+			weapons[eType::AXE] = CAxe::GetInstance();
 			CBoard::GetInstance()->SetWeapon(eType::ITEMAXE);
-			axe = NULL;
-		}
-		else if (Obj->GetType() == eType::ITEMHOLLYWATTER)
-		{
-			CHollyWatter* axe = CHollyWatter::GetInstance();
-			weapons[eType::HOLLYWATTER] = axe;
+			break;
+		case  eType::ITEMHOLLYWATTER:
+			weapons[eType::HOLLYWATTER] = CHollyWatter::GetInstance();
 			CBoard::GetInstance()->SetWeapon(eType::ITEMHOLLYWATTER);
-			axe = NULL;
-		}
-		else if (Obj->GetType() == eType::ITEMBOONGMERANG)
-		{
-			CBoongmerang* axe = CBoongmerang::GetInstance();
-			weapons[eType::HOLLYWATTER] = axe;
+			break;
+		case  eType::ITEMBOONGMERANG:
+			weapons[eType::HOLLYWATTER] = CBoongmerang::GetInstance();
 			CBoard::GetInstance()->SetWeapon(eType::ITEMBOONGMERANG);
-			axe = NULL;
-		}
-		else if (Obj->GetType() == eType::HEART)
-		{
+			break;
+		case eType::ITEMVASE:
+			Disappear();
+			break;
+		case eType::HEART:
 			_heart += 5;
-		}
-		else if (Obj->GetType() == eType::SMALLHEART)
-		{
+			break;
+		case 0:
+			break;
+		case eType::SMALLHEART:
 			_heart++;
-		}
-		else if (Obj->GetType() == eType::MONEY_1)
-		{
+			break;
+		case eType::MONEY_1:
 			_score += 100;
-		}
-		else if (Obj->GetType() == eType::MONEY_2)
-		{
+			break;
+		case eType::MONEY_2:
 			_score += 400;
-		}
-		else if (Obj->GetType() == eType::MONEY_3)
-		{
+			break;
+		case eType::MONEY_3:
 			_score += 700;
-		}
-		else if (Obj->GetType() == eType::MONEY_4)
-		{
+			break;
+		case eType::MONEY_4:
 			_score += 1000;
-		}
-		else if (Obj->GetType() == eType::BOSSBALL)
-		{
-			//_score += 10000;
-		}
-		else if (Obj->GetType() == eType::ITEMII)
-		{
+			break;
+		case eType::ITEMII:
 			CBoard::GetInstance()->SetNumberOfWeapon(2);
-		}
-		else if (Obj->GetType() == eType::CHICKEN)
-		{
+			break;
+		case eType::CHICKEN:
 			_energy = SIMON_MAX_ENERGY;
+			break;
+		default:
+			break;
 		}
+
 		if (Obj->GetType() == eType::BOSSBALL)
 		{
 			Obj->SetState(BOSS_STATE_ITEM_NOT_EXSIST);

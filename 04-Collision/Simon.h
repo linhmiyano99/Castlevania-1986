@@ -70,6 +70,7 @@
 #define SIMON_TIME_STATE_JUMP 400
 #define SIMON_TIME_START_JUMP 1000
 #define SIMON_SPEED_ON_STAIR 1.23f
+#define SIMON_DISAPPEAR_TIME 5000
 
 #define TIME_RATE_END_GAME 30
 
@@ -86,6 +87,7 @@ class CSimon : public CGameObject
 	DWORD die_start;
 	DWORD start_stair;
 	DWORD start_jump;
+	DWORD start_disappear;
 	unordered_map<int, CWeapon*> weapons;
 	vector<CWaterEffection*> list;
 	bool isFall;
@@ -142,5 +144,6 @@ public:
 	void SetStart(float _x, float _y) { start_x = _x; start_y = y; }
 	void SetDownEnerGy();
 	void UpHeart() { _heart += 10; }
+	void Disappear() { start_disappear = GetTickCount(); }
 };
 #endif

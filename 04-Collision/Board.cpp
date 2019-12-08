@@ -56,7 +56,7 @@ void CBoard::Render()
 			sprites->Get(13015)->Draw(cx + 310, cy + 27);
 			break;
 		case eType::ITEMBOONGMERANG:
-			sprites->Get(12052)->Draw(cx + 310, cy + 27);
+			sprites->Get(13020)->Draw(cx + 310, cy + 27);
 			break;
 		default:
 			break;
@@ -66,6 +66,10 @@ void CBoard::Render()
 			if (_numberOfWeapon == 2)
 			{
 				sprites->Get(13014)->Draw(cx + 440, cy + 40);
+			}
+			else if (_numberOfWeapon == 3)
+			{
+				sprites->Get(13017)->Draw(cx + 440, cy + 40);
 			}
 		}
 

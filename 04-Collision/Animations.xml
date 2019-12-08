@@ -235,7 +235,7 @@
 
     <!--BOONGMERANG_ITEM-->
     <Animation animationID ="719" frameTime ="100">
-      <sprite id="12052"/>
+      <sprite id="13020"/>
     </Animation>
 
     <!--FIRE after torch not exist-->
@@ -362,7 +362,7 @@
     </Animation>
 
     <!-- door open-->
-    <Animation animationID="1201" frameTime="1000">
+    <Animation animationID="1201" frameTime="2000">
       <sprite id="40000"/>
       <sprite id="40001"/>
       <sprite id="40002"/>

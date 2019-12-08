@@ -69,7 +69,11 @@ void CHollyWatter::Render()
 	}
 	else if(state == HOLLY_WATTER_STATE_FIRE)
 	{
-		animations[1]->Render(x, y, nx, 255);
+		
+		if(animations[1]->GetCurrentFrame() == 0)
+			animations[1]->Render(x, y, nx, 255);
+		else
+			animations[1]->Render(x - 10, y, nx, 255);
 		RenderBoundingBox();
 
 	}
@@ -128,7 +132,7 @@ void CHollyWatter::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 						{
 							vx = vy = 0;
 							state = HOLLY_WATTER_STATE_FIRE;
-							y -= 5;
+							y -= 1;
 							continue;
 						}
 						torch->Hurt();
