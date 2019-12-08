@@ -39,6 +39,7 @@ void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			start_attack = 0;
 			vy = -AXE_SPEED_Y;
 			isRender = false;
+			animations[0]->ResetFrame();
 		}
 	}
 	if (state == AXE_STATE_ATTACK) {
@@ -59,7 +60,7 @@ void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CAxe::Render()
 {
-	if (isRender) {
+	if (state == AXE_STATE_ATTACK) {
 		animations[0]->Render(x, y, nx, 255);
 		//RenderBoundingBox();
 	}

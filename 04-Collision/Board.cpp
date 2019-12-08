@@ -55,6 +55,9 @@ void CBoard::Render()
 		case eType::ITEMHOLLYWATTER:
 			sprites->Get(13015)->Draw(cx + 310, cy + 27);
 			break;
+		case eType::ITEMBOONGMERANG:
+			sprites->Get(12052)->Draw(cx + 310, cy + 27);
+			break;
 		default:
 			break;
 		}
@@ -75,20 +78,24 @@ void CBoard::Render()
 }
 void CBoard::ChangeWeapon()
 {
-	if (_weapon == 0)
+	switch (_weapon)
 	{
+	case 0:
 		SetWeapon(eType::DAGGER);
-	}
-	else if (_weapon == eType::DAGGER)
-	{
+		break;
+	case eType::DAGGER:
 		SetWeapon(eType::ITEMAXE);
-	}
-	else if (_weapon == eType::ITEMAXE)
-	{
+		break;
+	case eType::ITEMAXE:
 		SetWeapon(eType::ITEMHOLLYWATTER);
-	}
-	else if (_weapon == eType::ITEMHOLLYWATTER)
-	{
+		break;
+	case eType::ITEMHOLLYWATTER:
+		SetWeapon(eType::ITEMBOONGMERANG);
+		break;
+	case eType::ITEMBOONGMERANG:
 		SetWeapon(eType::DAGGER);
+		break;
+	default:
+		break;
 	}
 }

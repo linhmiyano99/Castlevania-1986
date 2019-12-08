@@ -10,6 +10,7 @@ CBoongmerang::CBoongmerang() :CWeapon()
 	isRender = false;
 	state = BOONGMERANG_STATE_HIDE;
 	start_attack = 0;
+	turn = 0;
 }
 CBoongmerang* CBoongmerang::GetInstance()
 {
@@ -37,8 +38,12 @@ void CBoongmerang::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			state = BOONGMERANG_STATE_HIDE;
 			start_attack = 0;
-			vy = -BOONGMERANG_SPEED_Y;
 			isRender = false;
+			float c_y;
+			CGame::GetInstance()->GetCamPos(leftLimit, c_y);
+			rightLimit = leftLimit + SCREEN_WIDTH;
+			vx = nx * BOONGMERANG_SPEED;
+			turn = 0;
 		}
 	}
 	if (state == BOONGMERANG_STATE_ATTACK) {
@@ -49,9 +54,14 @@ void CBoongmerang::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 
 		x += dt * vx;
-		vy += GRAVITY * dt;
-		y += vy * dt;
-		CollisionWithObject(dt, *coObjects);
+		if ((x < leftLimit && vx < 0) || (x > rightLimit&& vx > 0))
+		{
+			vx = -vx;
+			nx = -nx;
+			turn++;
+		}
+		if(turn < 2)
+			CollisionWithObject(dt, *coObjects);
 
 
 	}
@@ -59,7 +69,7 @@ void CBoongmerang::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CBoongmerang::Render()
 {
-	if (isRender) {
+	if (state == BOONGMERANG_STATE_ATTACK && turn < 2) {
 		animations[0]->Render(x, y, nx, 255);
 		//RenderBoundingBox();
 	}
@@ -109,7 +119,6 @@ void CBoongmerang::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 						if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
 						{
 							vx = vy = 0;
-							state = BOONGMERANG_STATE_HIDE;
 							continue;
 						}
 						torch->Hurt();
@@ -154,6 +163,10 @@ void CBoongmerang::SetState(int _state) {
 	if (state == BOONGMERANG_STATE_ATTACK)
 	{
 		vx = nx * BOONGMERANG_SPEED;
-		vy = -BOONGMERANG_SPEED_Y;
+		if (!start_attack)
+			start_attack = GetTickCount();
+		float c_y;
+		CGame::GetInstance()->GetCamPos(leftLimit, c_y);
+		rightLimit = leftLimit + SCREEN_WIDTH;
 	}
 }

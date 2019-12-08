@@ -34,6 +34,7 @@
 #include "Grid.h"
 #include "Axe.h"
 #include "HolyWater.h"
+#include "Boongmerang.h"
 
 
 class CScene
@@ -45,6 +46,7 @@ class CScene
 	CDagger* dagger;
 	CAxe* axe;
 	CHollyWatter* holly;
+	CBoongmerang* boongmerang;
 	CGame* game;
 	CHidenObject* hiden;
 	CBoard* board;

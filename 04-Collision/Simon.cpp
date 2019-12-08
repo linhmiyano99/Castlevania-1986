@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "Boss.h"
 #include "Axe.h"
+#include "Boongmerang.h"
 
 
 CSimon* CSimon::__instance = NULL;
@@ -50,6 +51,7 @@ CSimon::CSimon() : CGameObject()
 	weapons[eType::DAGGER] = CDagger::GetInstance();
 	weapons[eType::AXE] = CAxe::GetInstance(); 
 	weapons[eType::HOLLYWATTER] = CHollyWatter::GetInstance();
+	weapons[eType::BOONGMERANG] = CBoongmerang::GetInstance();
 	
 	CSimon::AddAnimation(400);		//0. idle left 
 	CSimon::AddAnimation(401);		//1. walk left
@@ -389,6 +391,15 @@ B:
 					weapons[eType::HOLLYWATTER]->SetPosition(x, y);
 					weapons[eType::HOLLYWATTER]->SetTrend(nx);
 					weapons[eType::HOLLYWATTER]->SetState(DAGGER_STATE_ATTACK);
+					_heart--;
+				}
+				break;
+			case eType::ITEMBOONGMERANG:
+				if (weapons[eType::BOONGMERANG]->GetState() == DAGGER_STATE_HIDE)
+				{
+					weapons[eType::BOONGMERANG]->SetPosition(x, y);
+					weapons[eType::BOONGMERANG]->SetTrend(nx);
+					weapons[eType::BOONGMERANG]->SetState(DAGGER_STATE_ATTACK);
 					_heart--;
 				}
 				break;
@@ -874,6 +885,15 @@ void CSimon::SetState(int state)
 					}
 					dagger = NULL;
 				}
+				else if ((CBoard::GetInstance()->GetWeapon() == eType::ITEMBOONGMERANG))
+				{
+					CBoongmerang* dagger = CBoongmerang::GetInstance();
+					if (dagger->GetState() == DAGGER_STATE_ATTACK)
+					{
+						this->state = SIMON_STATE_IDLE;
+					}
+					dagger = NULL;
+				}
 				else
 				{
 					this->state = SIMON_STATE_IDLE;
@@ -1026,6 +1046,13 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 			CHollyWatter* axe = CHollyWatter::GetInstance();
 			weapons[eType::HOLLYWATTER] = axe;
 			CBoard::GetInstance()->SetWeapon(eType::ITEMHOLLYWATTER);
+			axe = NULL;
+		}
+		else if (Obj->GetType() == eType::ITEMBOONGMERANG)
+		{
+			CBoongmerang* axe = CBoongmerang::GetInstance();
+			weapons[eType::HOLLYWATTER] = axe;
+			CBoard::GetInstance()->SetWeapon(eType::ITEMBOONGMERANG);
 			axe = NULL;
 		}
 		else if (Obj->GetType() == eType::HEART)

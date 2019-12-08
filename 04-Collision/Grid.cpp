@@ -17,6 +17,7 @@
 #include "Scene.h"
 #include "Axe.h"
 #include "HolyWater.h"
+#include "Boongmerang.h"
 
 
 CGrid* CGrid::__instance = NULL;
@@ -67,6 +68,8 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 	ListObj.push_back(holly);
 	CBoss* boss = CBoss::GetInstance();
 	ListObj.push_back(boss);
+	CBoongmerang *boongmerang = CBoongmerang::GetInstance();
+	ListObj.push_back(boongmerang);
 	simon = NULL;
 	dagger = NULL;
 	axe = NULL;

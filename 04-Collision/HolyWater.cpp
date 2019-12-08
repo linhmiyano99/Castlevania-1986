@@ -41,6 +41,7 @@ void CHollyWatter::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			start_attack = 0;
 			vy = -HOLLY_WATTER_SPEED_Y;
 			isRender = false;
+			animations[0]->ResetFrame();
 		}
 	}
 	if (state == HOLLY_WATTER_STATE_ATTACK || state == HOLLY_WATTER_STATE_FIRE) {

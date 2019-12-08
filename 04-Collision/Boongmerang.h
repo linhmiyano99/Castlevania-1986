@@ -15,7 +15,6 @@
 #define BOONGMERANG_EXSIST 1 
 
 #define BOONGMERANG_SPEED 0.5f
-#define BOONGMERANG_SPEED_Y 0.4f
 
 #define BOONGMERANG_STATE_HIDE  0
 #define BOONGMERANG_STATE_ATTACK 1
@@ -29,6 +28,9 @@ class CBoongmerang : public CWeapon
 {
 	static CBoongmerang* __instance;
 	DWORD start_attack;
+	float leftLimit;
+	float rightLimit;
+	int turn;
 public:
 
 	static CBoongmerang* GetInstance();

@@ -14,8 +14,8 @@
 #define AXE_NOT_EXSIST 0
 #define AXE_EXSIST 1 
 
-#define AXE_SPEED 0.5f
-#define AXE_SPEED_Y 0.4f
+#define AXE_SPEED 0.4f
+#define AXE_SPEED_Y 0.5f
 
 #define AXE_STATE_HIDE  0
 #define AXE_STATE_ATTACK 1

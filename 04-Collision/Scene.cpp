@@ -38,7 +38,8 @@ void CScene::LoadResoure()
 	objects.push_back(axe);
 	holly = CHollyWatter::GetInstance();
 	objects.push_back(holly);
-
+	boongmerang = CBoongmerang::GetInstance();
+	objects.push_back(boongmerang);
 	if (id == 0) {
 		map->SetMap(0);
 		
