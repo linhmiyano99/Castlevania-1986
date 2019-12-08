@@ -60,7 +60,7 @@ void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CAxe::Render()
 {
-	if (state == AXE_STATE_ATTACK) {
+	if (isRender) {
 		animations[0]->Render(x, y, nx, 255);
 		//RenderBoundingBox();
 	}
@@ -111,7 +111,8 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 						{
 							vx = vy = 0;
 							state = AXE_STATE_HIDE;
-							continue;
+							isRender = false;
+							break;
 						}
 						torch->Hurt();
 

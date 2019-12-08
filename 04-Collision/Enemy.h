@@ -2,6 +2,7 @@
 #include"GameObject.h"
 #include"Torch.h"
 #include "Brick.h"
+#include "Sound.h"
 
 #define ENEMY_WALKING_SPEED 0.05f;
 
@@ -20,15 +21,18 @@
 class CEnemy : public CTorch
 {
 	bool isStop;
+
 protected:
 	int ny;
 	float start_x, start_y;
+	Sound* sound;
 
 public:
 	CEnemy(float _x, float _y, int id = 0, int type = 0) : CTorch(_x, _y, id, type)
 	{
 		start_x = _x;
 		start_y = _y;
+		sound = new Sound();
 	}
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) = 0;

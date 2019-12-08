@@ -41,6 +41,7 @@ void CScene::LoadResoure()
 	boongmerang = CBoongmerang::GetInstance();
 	objects.push_back(boongmerang);
 	sound = Sound::GetInstance();
+	sound->Play(eSound::musicStage1);
 	if (id == 0) {
 		map->SetMap(0);
 		
@@ -93,6 +94,8 @@ void CScene::Update(DWORD dt)
 {
 	if (board->IsStop())
 	{
+
+		sound->Stop(eSound::music_Boss);
 		if (simon->GetEnergy() < SIMON_MAX_ENERGY)
 		{
 			simon->UpEnergy();
@@ -167,6 +170,11 @@ void CScene::Update(DWORD dt)
 	}
 	else
 	{
+		if (id == 5)
+		{
+			sound->Stop(eSound::musicStage1);
+			sound->Play(eSound::music_Boss);
+		}
 		float cx, cy, cam_x, cam_y;
 		simon->GetPosition(cx, cy);
 		CGame::GetInstance()->GetCamPos(cam_x, cam_y);
@@ -379,6 +387,8 @@ void CScene::ResetScene()
 		CBoss* boss = CBoss::GetInstance();
 		boss->ResetBoss();
 		boss = NULL;
+		sound->Play(eSound::musicStage1);
+		sound->Stop(eSound::music_Boss);
 	}
 }
 void CScene::TestStage(int stage)

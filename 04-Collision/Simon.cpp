@@ -131,6 +131,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		state = SIMON_STATE_DIE;
 		isOnStair = false;
 		vx = 0;
+		if ((y > WATTER_Y + 80))
+			sound->Play(eSound::soundFallingDownWaterSurface);
 	}
 	if (start_stair > 0)
 	{
@@ -1424,6 +1426,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 
 void CSimon::CollisionWithGate(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, float min_ty0, int nx0, int ny0)
 {
+	sound->Play(eSound::soundOpenDoor);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 

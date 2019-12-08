@@ -29,7 +29,7 @@ enum eSound
 	soundHolyCross = 20,
 	soundBoomerang = 21,
 
-	musicState1 = 31,
+	musicStage1 = 31,
 	musicLifeLost = 32,
 	music_Boss = 33,
 	musicStateClear = 34,

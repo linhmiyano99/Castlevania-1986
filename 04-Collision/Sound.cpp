@@ -42,12 +42,12 @@ void Sound::LoadResourceSound()
 
 
 
-	AddSound(eSound::musicState1, L"Resources/music/Stage_01_Vampire_Killer.wav");
-	AddSound(eSound::musicLifeLost, L"Resources/music/Life_Lost.wav");
+	AddSound(eSound::musicStage1, L"Resources/sound/Stage_01_Vampire_Killer.wav");
+	AddSound(eSound::musicLifeLost, L"Resources/sound/Life_Lost.wav");
 
-	AddSound(eSound::music_Boss, L"Resources/music/Boss_Battle_Poison_Mind.wav");
-	AddSound(eSound::musicStateClear, L"Resources/music/Stage_Clear.wav");
-	AddSound(eSound::musicGame_Start_Prologue, L"Resources/music/Game_Start_Prologue.wav");
+	AddSound(eSound::music_Boss, L"Resources/sound/Boss_Battle_Poison_Mind.wav");
+	AddSound(eSound::musicStateClear, L"Resources/sound/Stage_Clear.wav");
+	AddSound(eSound::musicGame_Start_Prologue, L"Resources/sound/Game_Start_Prologue.wav");
 
 }
 
