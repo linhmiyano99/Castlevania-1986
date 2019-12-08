@@ -78,6 +78,7 @@ public:
 
 	bool isCollision(RECT r1, RECT r2);
 
+	HWND GetWindowHandle(){ return hWnd; }
 	~CGame();
 };
 

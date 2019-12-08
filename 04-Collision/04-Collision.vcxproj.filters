@@ -63,6 +63,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="framework\Sound">
+      <UniqueIdentifier>{c9a10ddc-1602-4a2b-a399-bfbe52a09fea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h">
@@ -220,6 +223,15 @@
     </ClInclude>
     <ClInclude Include="XML\tinyxml.h">
       <Filter>framework\ManagementTexture\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="DSutil.h">
+      <Filter>framework\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="dxutil.h">
+      <Filter>framework\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>framework\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -384,6 +396,15 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="DSutil.cpp">
+      <Filter>framework\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="dxutil.cpp">
+      <Filter>framework\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>framework\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -140,6 +140,7 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 								}
 							}
 						}
+						sound->Play(eSound::soundHurting);
 						isRender = false;
 						break;
 					}

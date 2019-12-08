@@ -9,6 +9,7 @@
 #include "Dagger.h"
 #include "WaterEffection.h"
 #include "HolyWater.h"
+#include "Sound.h"
 
 
 #define SIMON_WALKING_SPEED		0.12f
@@ -88,6 +89,7 @@ class CSimon : public CGameObject
 	DWORD start_stair;
 	DWORD start_jump;
 	DWORD start_disappear;
+	Sound* sound;
 	unordered_map<int, CWeapon*> weapons;
 	vector<CWaterEffection*> list;
 	bool isFall;

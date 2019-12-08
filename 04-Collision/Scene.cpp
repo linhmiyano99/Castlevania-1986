@@ -40,6 +40,7 @@ void CScene::LoadResoure()
 	objects.push_back(holly);
 	boongmerang = CBoongmerang::GetInstance();
 	objects.push_back(boongmerang);
+	sound = Sound::GetInstance();
 	if (id == 0) {
 		map->SetMap(0);
 		
@@ -99,11 +100,13 @@ void CScene::Update(DWORD dt)
 		}
 		else if (board->GetTime() > 0)
 		{
+			sound->Play(eSound::soundGetScoreTimer);
 			board->TimeDown();
 			return;
 		}
 		else if (simon->GetHeart() > 0)
 		{
+			sound->Play(eSound::soundGetScoreHeart);
 			simon->HeartDown();
 			return;
 		}
@@ -204,6 +207,7 @@ void CScene::Update(DWORD dt)
 		{
 			cy = 0;
 		}
+
 		
 		// Update camera to follow simon
 		cx -= SCREEN_WIDTH / 2 - 40;

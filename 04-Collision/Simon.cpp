@@ -44,6 +44,7 @@ CSimon::CSimon() : CGameObject()
 	isUnder = false;
 	start_disappear = 0;
 	start_jump = 0;
+	sound = Sound::GetInstance();
 	for (int i = 0; i < 3; i++)
 	{
 		CWaterEffection* water = new CWaterEffection();
@@ -863,6 +864,7 @@ void CSimon::SetState(int state)
 			break;
 		case SIMON_STATE_STAND_ATTACK:
 			attack_start = GetTickCount();
+			sound->Play(eSound::soundWhip);
 			animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
 			weapons[eType::VAMPIREKILLER]->GetAnimation()->ResetFrame();
 			vx = 0;
@@ -879,11 +881,19 @@ void CSimon::SetState(int state)
 					{
 						this->state = SIMON_STATE_IDLE;
 					}
+					else
+					{
+						sound->Play(eSound::soundDagger);
+					}
 					break;	
 				case eType::ITEMAXE:
 					if (CAxe::GetInstance()->GetState() == DAGGER_STATE_ATTACK)
 					{
 						this->state = SIMON_STATE_IDLE;
+					}
+					else
+					{
+						sound->Play(eSound::soundAxe);
 					}
 					break;
 				case eType::ITEMHOLLYWATTER:
@@ -891,11 +901,19 @@ void CSimon::SetState(int state)
 					{
 						this->state = SIMON_STATE_IDLE;
 					}
+					else
+					{
+						sound->Play(eSound::soundHolyWater);
+					}
 					break;
 				case eType::ITEMBOONGMERANG:
 					if (CBoongmerang::GetInstance()->GetState() == DAGGER_STATE_ATTACK)
 					{
 						this->state = SIMON_STATE_IDLE;
+					}
+					else
+					{
+						sound->Play(eSound::soundBoomerang);
 					}
 					break;
 
@@ -1030,58 +1048,72 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 		switch (Obj->GetType())
 		{
 		case eType::WHIPUPGRADE:
+			sound->Play(eSound::soundCollectWeapon);
 			CVampireKiller::GetInstance()->setUpLevel();
 			trans_start = GetTickCount();
 			break;
 		case eType::DAGGER:
+			sound->Play(eSound::soundCollectWeapon);
 			weapons[eType::DAGGER] = CDagger::GetInstance();
 			CBoard::GetInstance()->SetWeapon(eType::DAGGER);
 			break;
 		case eType::ITEMAXE:
+			sound->Play(eSound::soundCollectWeapon);
 			weapons[eType::AXE] = CAxe::GetInstance();
 			CBoard::GetInstance()->SetWeapon(eType::ITEMAXE);
 			break;
 		case  eType::ITEMHOLLYWATTER:
+			sound->Play(eSound::soundCollectWeapon);
 			weapons[eType::HOLLYWATTER] = CHollyWatter::GetInstance();
 			CBoard::GetInstance()->SetWeapon(eType::ITEMHOLLYWATTER);
 			break;
 		case  eType::ITEMBOONGMERANG:
+			sound->Play(eSound::soundCollectWeapon);
 			weapons[eType::HOLLYWATTER] = CBoongmerang::GetInstance();
 			CBoard::GetInstance()->SetWeapon(eType::ITEMBOONGMERANG);
 			break;
 		case eType::ITEMVASE:
+			sound->Play(eSound::soundCollectItem);
 			Disappear();
 			break;
 		case eType::ITEMCROSS:
 			CScene::GetInstance()->KillAllEnemy();
+			sound->Play(eSound::soundCollectItem);
 			break;
 		case eType::HEART:
+			sound->Play(eSound::soundCollectItem);
 			_heart += 5;
 			break;
-		case 0:
-			break;
 		case eType::SMALLHEART:
+			sound->Play(eSound::soundCollectItem);
 			_heart++;
 			break;
 		case eType::MONEY_1:
+			sound->Play(eSound::soundCollectItem);
 			_score += 100;
 			break;
 		case eType::MONEY_2:
+			sound->Play(eSound::soundCollectItem);
 			_score += 400;
 			break;
 		case eType::MONEY_3:
+			sound->Play(eSound::soundCollectItem);
 			_score += 700;
 			break;
 		case eType::MONEY_4:
+			sound->Play(eSound::soundCollectItem);
 			_score += 1000;
 			break;
 		case eType::ITEMII:
+			sound->Play(eSound::soundCollectItem);
 			CBoard::GetInstance()->SetNumberOfWeapon(2);
 			break;
 		case eType::ITEMIII:
+			sound->Play(eSound::soundCollectItem);
 			CBoard::GetInstance()->SetNumberOfWeapon(3);
 			break;
 		case eType::CHICKEN:
+			sound->Play(eSound::soundCollectItem);
 			_energy = SIMON_MAX_ENERGY;
 			break;
 		default:
