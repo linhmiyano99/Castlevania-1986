@@ -16,6 +16,7 @@
 #include "Board.h"
 #include "Scene.h"
 #include "Axe.h"
+#include "HolyWater.h"
 
 
 CGrid* CGrid::__instance = NULL;
@@ -62,6 +63,8 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 	ListObj.push_back(dagger);
 	CAxe* axe = CAxe::GetInstance();
 	ListObj.push_back(axe);
+	CHollyWatter *holly = CHollyWatter::GetInstance();
+	ListObj.push_back(holly);
 	CBoss* boss = CBoss::GetInstance();
 	ListObj.push_back(boss);
 	simon = NULL;

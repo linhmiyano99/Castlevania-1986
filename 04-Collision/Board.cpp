@@ -43,10 +43,21 @@ void CBoard::Render()
 	code->DrawEnergyBar(cx + 110, cy + 50, 1, boss->GetEnergy());
 	if (_weapon != 0)
 	{
-		if (_weapon == eType::DAGGER)
-			sprites->Get(13001)->Draw(cx + 310, cy + 40);
-		else if (_weapon == eType::ITEMAXE)
+			
+		switch (_weapon)
+		{
+		case eType::DAGGER:
+			sprites->Get(13001)->Draw(cx + 310, cy + 40);;
+			break;
+		case eType::ITEMAXE:
 			sprites->Get(13010)->Draw(cx + 310, cy + 30);
+			break;
+		case eType::ITEMHOLLYWATTER:
+			sprites->Get(13015)->Draw(cx + 310, cy + 27);
+			break;
+		default:
+			break;
+		}
 		if (_numberOfWeapon != 0)
 		{
 			if (_numberOfWeapon == 2)
@@ -66,15 +77,17 @@ void CBoard::ChangeWeapon()
 {
 	if (_weapon == 0)
 	{
-		CDagger::GetInstance();
 		SetWeapon(eType::DAGGER);
 	}
 	else if (_weapon == eType::DAGGER)
 	{
-		CAxe::GetInstance();
 		SetWeapon(eType::ITEMAXE);
 	}
 	else if (_weapon == eType::ITEMAXE)
+	{
+		SetWeapon(eType::ITEMHOLLYWATTER);
+	}
+	else if (_weapon == eType::ITEMHOLLYWATTER)
 	{
 		SetWeapon(eType::DAGGER);
 	}

@@ -47,6 +47,9 @@ CSimon::CSimon() : CGameObject()
 		CWaterEffection* water = new CWaterEffection();
 		list.push_back(water);
 	}
+	weapons[eType::DAGGER] = CDagger::GetInstance();
+	weapons[eType::AXE] = CAxe::GetInstance(); 
+	weapons[eType::HOLLYWATTER] = CHollyWatter::GetInstance();
 	
 	CSimon::AddAnimation(400);		//0. idle left 
 	CSimon::AddAnimation(401);		//1. walk left
@@ -81,6 +84,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				untouchable = 0;
 				die_start = 0;
 				isFall = false;
+				isUnder = false;
+				isAutoGo = false;
+				isOnStair = false;
+				start_jump = 0;
+				start_stair = 0;
 				if (CBoard::GetInstance()->GetWeapon() != 0)
 				{
 					if (CBoard::GetInstance()->GetNumberOfWeapon() != 0)
@@ -157,7 +165,9 @@ B:
 	{
 		AutoGo();
 		if (abs(auto_x - x) > 0.5f)
+		{
 			x += 0.5 * nx;
+		}
 		else
 		{
 			
@@ -183,7 +193,7 @@ B:
 			animations[SIMON_ANI_GO_UP]->ResetFrame();
 			animations[SIMON_ANI_GO_DOWN]->ResetFrame();
 		}
-		return;
+		//return;
 	}
 	else if (isAutoGo && CScene::GetInstance()->IsTranScene())
 	{
@@ -332,7 +342,7 @@ B:
 		}
 		else {
 			CGameObject::Update(dt);
-			if (state == SIMON_STATE_JUMP)
+			if (state == SIMON_STATE_JUMP && start_jump > 0)
 			{
 				vy += 0.3 * SIMON_GRAVITY * dt;
 			}
@@ -352,22 +362,41 @@ B:
 			weapons[eType::VAMPIREKILLER]->SetTrend(nx);
 			weapons[eType::VAMPIREKILLER]->CollisionWithObject(dt, *coObjects);
 		}
-		else if (_heart > 0 && state == SIMON_STATE_ATTACK_DAGGER && CBoard::GetInstance()->GetWeapon() == eType::DAGGER && weapons[eType::DAGGER]->GetState() == DAGGER_STATE_HIDE)
-		{
-			weapons[eType::DAGGER]->SetPosition(x, y);
-			weapons[eType::DAGGER]->SetTrend(nx);
-			weapons[eType::DAGGER]->SetState(DAGGER_STATE_ATTACK);
-			_heart--;
+		else if (_heart > 0 && state == SIMON_STATE_ATTACK_DAGGER )
+			switch ( CBoard::GetInstance()->GetWeapon())
+			{
+			case  eType::DAGGER:
+				if (weapons[eType::DAGGER]->GetState() == DAGGER_STATE_HIDE) 
+				{
+					weapons[eType::DAGGER]->SetPosition(x, y);
+					weapons[eType::DAGGER]->SetTrend(nx);
+					weapons[eType::DAGGER]->SetState(DAGGER_STATE_ATTACK);
+					_heart--;
+				}
+				break;
+			case eType::ITEMAXE:
+				if (weapons[eType::AXE]->GetState() == DAGGER_STATE_HIDE)
+				{
+					weapons[eType::AXE]->SetPosition(x, y);
+					weapons[eType::AXE]->SetTrend(nx);
+					weapons[eType::AXE]->SetState(DAGGER_STATE_ATTACK);
+					_heart--;
+				}
+				break;
+			case eType::ITEMHOLLYWATTER:
+				if (weapons[eType::HOLLYWATTER]->GetState() == DAGGER_STATE_HIDE)
+				{
+					weapons[eType::HOLLYWATTER]->SetPosition(x, y);
+					weapons[eType::HOLLYWATTER]->SetTrend(nx);
+					weapons[eType::HOLLYWATTER]->SetState(DAGGER_STATE_ATTACK);
+					_heart--;
+				}
+				break;
+			default:
+				break;
+			}
+			
 
-		}
-		else if (_heart > 0 && state == SIMON_STATE_ATTACK_DAGGER && CBoard::GetInstance()->GetWeapon() == eType::ITEMAXE && weapons[eType::AXE]->GetState() == DAGGER_STATE_HIDE)
-		{
-			weapons[eType::AXE]->SetPosition(x, y);
-			weapons[eType::AXE]->SetTrend(nx);
-			weapons[eType::AXE]->SetState(DAGGER_STATE_ATTACK);
-			_heart--;
-
-		}
 
 		// Calculate dx, dy 
 
@@ -385,7 +414,8 @@ B:
 
 
 			// reset untouchable timer if untouchable time has passed
-			if (GetTickCount() - untouchable_start > SIMON_UNTOUCHABLE_TIME)
+			if(untouchable_start)
+			{if (GetTickCount() - untouchable_start > SIMON_UNTOUCHABLE_TIME)
 			{
 				untouchable_start = 0;
 				untouchable = 0;
@@ -414,14 +444,14 @@ B:
 						animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
 						attack_start = 0;
 					}
-					//state = SIMON_STATE_IDLE;
+					vy += SIMON_GRAVITY * dt;
 				}
 				if (_energy <= 0)
 				{
 					state = SIMON_STATE_DIE;
 					isOnStair = false;
 				}
-
+			}
 			}
 			listHideObject.clear();
 
@@ -509,6 +539,10 @@ B:
 											{
 												y -= 15;
 											}
+											if (attack_start > 0)
+											{
+												y -= 50;
+											}
 											StartUntouchable();
 										}
 										else
@@ -534,14 +568,6 @@ B:
 										if (untouchable == 0)
 										{
 											CollisionWithEnemy(dt, e->obj, min_tx, min_ty, nx, ny);
-											if (attack_start > 0)
-											{
-												attack_start = 0;
-												if (state == SIMON_STATE_SIT || state == SIMON_STATE_SIT_ATTACK)
-												{
-													y -= 15;
-												}
-											}
 											if (dynamic_cast<CBat*>(torch))
 											{
 												CBat* bat = dynamic_cast<CBat*>(e->obj);
@@ -559,6 +585,14 @@ B:
 													nx = -1;
 												panther = NULL;
 
+											}
+											if (state == SIMON_STATE_SIT || state == SIMON_STATE_SIT_ATTACK)
+											{
+												y -= 15;
+											}
+											if (attack_start > 0)
+											{
+												y -= 50;
 											}
 											StartUntouchable();
 										}
@@ -770,11 +804,13 @@ void CSimon::SetState(int state)
 	}
 	else if (state == SIMON_STATE_JUMP)
 	{
-		if (GetTickCount() - start_jump > SIMON_TIME_START_JUMP)
+		if (!start_jump)
 		{
-			if (y == _ground) {
+			if (y == _ground && !untouchable) {
 				vy = -SIMON_JUMP_SPEED_Y;
 				start_jump = GetTickCount();
+				if (this->state == SIMON_STATE_IDLE)
+					vx = 0;
 			}
 		}
 	}
@@ -829,6 +865,15 @@ void CSimon::SetState(int state)
 					}
 					dagger = NULL;
 				}
+				else if ((CBoard::GetInstance()->GetWeapon() == eType::ITEMHOLLYWATTER))
+				{
+					CHollyWatter* dagger = CHollyWatter::GetInstance();
+					if (dagger->GetState() == DAGGER_STATE_ATTACK)
+					{
+						this->state = SIMON_STATE_IDLE;
+					}
+					dagger = NULL;
+				}
 				else
 				{
 					this->state = SIMON_STATE_IDLE;
@@ -866,6 +911,7 @@ void CSimon::SetState(int state)
 						new_y = y;
 						new_x = x + 100;
 						isUnder = false;
+						CBat::Start();
 					}
 				}
 				break;
@@ -902,6 +948,7 @@ void CSimon::SetState(int state)
 						new_y = y;
 						new_x = x - 100;
 						isUnder = false;
+						CBat::Stop();
 					}
 				}
 				break;
@@ -942,7 +989,8 @@ void CSimon::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	}
 	else if ((state == SIMON_STATE_GO_DOWN && isCanOnStair != -1) 
 		|| state == SIMON_STATE_SIT_ATTACK  
-		||(state == SIMON_STATE_SIT) || (start_jump > 0 && GetTickCount() - start_jump <= SIMON_TIME_STATE_JUMP))
+		||(state == SIMON_STATE_SIT) 
+		|| (start_jump > 0 && GetTickCount() - start_jump <= SIMON_TIME_STATE_JUMP))
 	{
 		bottom = this->y + SIMON_HEIGHT_SIT;
 	}
@@ -971,6 +1019,13 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 			CAxe* axe = CAxe::GetInstance();
 			weapons[eType::AXE] = axe;
 			CBoard::GetInstance()->SetWeapon(eType::ITEMAXE);
+			axe = NULL;
+		}
+		else if (Obj->GetType() == eType::ITEMHOLLYWATTER)
+		{
+			CHollyWatter* axe = CHollyWatter::GetInstance();
+			weapons[eType::HOLLYWATTER] = axe;
+			CBoard::GetInstance()->SetWeapon(eType::ITEMHOLLYWATTER);
 			axe = NULL;
 		}
 		else if (Obj->GetType() == eType::HEART)
@@ -1049,11 +1104,17 @@ void CSimon::CollisionWithBrick(DWORD dt, LPGAMEOBJECT &Obj, float min_tx0, floa
 		if (min_ty <= min_ty0)
 			y += min_ty * dy + ny * 0.4f;
 		if (nx != 0) vx = 0;
-		if (ny != 0)
+		if (ny < 0)
 		{
-
 			vy = 0;
 			_ground = y;
+
+			if (start_jump > 0)
+			{
+				start_jump = 0;
+				
+			}
+			
 		}
 		if (state == SIMON_STATE_DIE)
 		{
@@ -1078,12 +1139,21 @@ void CSimon::CollisionWithBrick(DWORD dt, LPGAMEOBJECT &Obj, float min_tx0, floa
 	
 		// clean up collision events
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+		/*if ((state == SIMON_STATE_JUMP || state == SIMON_STATE_SIT || state == SIMON_STATE_SIT_ATTACK) && untouchable == 1)
+		{
+			y -= 15;
+		}*/
 	}
 	else
 	{
 		x += dx;
 		y -= abs(dy);
 	}
+	//if (start_jump > 0)
+	//{
+	//	start_jump = 0;
+	//	state = SIMON_STATE_IDLE;
+	//}
 
 }
 void CSimon::CollisionWithTorch(DWORD dt, LPGAMEOBJECT &Obj, float min_tx0, float min_ty0, int nx0, int ny0)
@@ -1213,6 +1283,7 @@ void CSimon::CollisionWithHidenObject(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0
 			{
 				CGhost::Stop();
 				CFishman::Stop();
+				CBat::Start();
 			}
 			else if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
 			{
@@ -1242,10 +1313,11 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 
 	}
 	else {
-		//if (attack_start > 0)
+		if (attack_start > 0)
 		{
 			animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
 			animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
+			weapons[eType::VAMPIREKILLER]->GetAnimation()->ResetFrame();
 			attack_start = 0;
 		} 
 		vector<LPCOLLISIONEVENT> coEvents;
@@ -1269,9 +1341,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 		else
 			nx = 1;
 		//// block 
-		if (nx != 0) vx = nx * 0.2f;
-		else
-			vx = 0;
+		vx = nx * 0.2f;
 		vy = -0.2f;
 		_energy -= ONE_HIT;
 		if ((min_tx <= min_tx0 || min_ty <= min_ty0) && _energy >0)

@@ -33,6 +33,7 @@
 #include "Board.h"
 #include "Grid.h"
 #include "Axe.h"
+#include "HolyWater.h"
 
 
 class CScene
@@ -43,20 +44,18 @@ class CScene
 	CMap* map;
 	CDagger* dagger;
 	CAxe* axe;
+	CHollyWatter* holly;
 	CGame* game;
 	CHidenObject* hiden;
 	CBoard* board;
 	CGrid* grid;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> smallballs;
-	//static bool GoGhost;
-	//static bool GoFishman;
-	//static bool GateOpen;
-
 	int id;
 	int _stage;
 	bool isAutoTran;
 	float auto_tran;
+	static bool isKillAllEnemy;
 public:
 	static CScene* GetInstance();
 	CScene(int id = 0);
@@ -78,13 +77,8 @@ public:
 	void UpStage();
 	int GetStage() { return _stage; }
 	void SetScene(int scene) { id = scene; }
-	/*static bool IsGoGhost() { return GoGhost; }
-	static bool IsGoFishman() { return GoFishman; }
-	static bool IsCanOpenGate() { return GateOpen; }
-	static void SetGhost(bool can) { GoGhost = can; }
-	static void SetFishman(bool can) { GoFishman = can; }
-	static void SetStateGate(bool can) { GateOpen = can; }*/
 	void ResetScene();
 	void TestStage(int stage);
+	static bool IsKillAllEnemy() { return isKillAllEnemy; }
 };
 #endif // !__SMALLBALL_H__

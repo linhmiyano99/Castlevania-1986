@@ -33,4 +33,5 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) = 0;
 	virtual void Reset() {}
+	virtual void Dead() { state = TORCH_STATE_NOT_EXSIST; }
 };

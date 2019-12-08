@@ -4,15 +4,13 @@
 
 
 CScene* CScene::__instance = NULL;
+static bool isKillAllEnemy = false;
 
 CScene* CScene::GetInstance()
 {
 	if (__instance == NULL) __instance = new CScene();
 	return __instance;
 }
-
-//bool CScene::GoGhost =false;
-//bool CScene::GoFishman = false;
 CScene::CScene(int id)
 {
 	this->id = id;
@@ -23,8 +21,6 @@ CScene::CScene(int id)
 	isAutoTran = false;
 	auto_tran = 0;
 	_stage = 1;
-	//GoGhost = false;
-	//GoFishman = false;
 
 }
 
@@ -40,6 +36,8 @@ void CScene::LoadResoure()
 	objects.push_back(dagger);
 	axe = CAxe::GetInstance();
 	objects.push_back(axe);
+	holly = CHollyWatter::GetInstance();
+	objects.push_back(holly);
 
 	if (id == 0) {
 		map->SetMap(0);
@@ -57,10 +55,6 @@ void CScene::LoadResoure()
 		dagger = CDagger::GetInstance();
 		objects.push_back(dagger);
 		simon = CSimon::GetInstance();
-		//simon->SetPosition(SIMON_POSITION_0);
-		//simon->SetPosition(4200.0f, 20.0f);
-		//id = 4;
-		//_stage = 3;
 		objects.push_back(simon);
 		boss = CBoss::GetInstance();
 		boss->SetPosition(BOSS_POSITION);
@@ -144,12 +138,14 @@ void CScene::Update(DWORD dt)
 			{
 				id = 2;
 				simon->SetStart(SCENCE_2_LEFT, 100.0f);
+				CBat::Start();
 			}
 			else
 			{
 				id = 4;
 				CGate::Stop();
 				simon->SetStart(SCENCE_4_LEFT, 100.0f);
+				CBat::Stop();
 			}
 			isAutoTran = false;
 			_stage++;
@@ -388,7 +384,7 @@ void CScene::TestStage(int stage)
 		LoadResoure();
 		simon->SetPosition(SCENCE_2_LEFT , 100.0f);
 		simon->SetStart(SCENCE_2_LEFT, 100.0f);
-
+		CBat::Start();
 	}
 	else if (stage == 3)
 	{

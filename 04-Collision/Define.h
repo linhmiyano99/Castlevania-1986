@@ -115,6 +115,7 @@ enum eType
 	VAMPIREKILLER = 41,
 	DAGGER = 42,
 	AXE = 43,
+	HOLLYWATTER = 44,
 
 	// item
 	HEART = 51,

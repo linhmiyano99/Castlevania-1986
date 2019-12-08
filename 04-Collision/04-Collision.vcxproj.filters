@@ -393,5 +393,8 @@
     <Xml Include="Animations.xml">
       <Filter>framework\ManagementTexture\XML</Filter>
     </Xml>
+    <Xml Include="Enemies.xml">
+      <Filter>framework\ManagementTexture\XML</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

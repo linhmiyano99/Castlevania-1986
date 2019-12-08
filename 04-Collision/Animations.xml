@@ -362,11 +362,13 @@
     </Animation>
 
     <!-- door open-->
-    <Animation animationID="1201" frameTime="100">
+    <Animation animationID="1201" frameTime="1000">
       <sprite id="40000"/>
-      <sprite id="40001" />
-      <sprite id="40002" />
-      <sprite id="40000" />
+      <sprite id="40001"/>
+      <sprite id="40002"/>
+      <sprite id="40000"/>
+      <sprite id="40000"/>
+      <sprite id="40000"/>
       <sprite id="40000"/>
     </Animation>
 

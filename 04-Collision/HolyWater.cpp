@@ -43,28 +43,36 @@ void CHollyWatter::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			isRender = false;
 		}
 	}
-	if (state == HOLLY_WATTER_STATE_ATTACK) {
+	if (state == HOLLY_WATTER_STATE_ATTACK || state == HOLLY_WATTER_STATE_FIRE) {
 		if (start_attack == 0)
 		{
 			start_attack = GetTickCount();
 			isRender = true;
 		}
-
-		x += dt * vx;
-		vy += GRAVITY * dt;
-		y += vy * dt;
+		if (state == HOLLY_WATTER_STATE_ATTACK)
+		{
+			x += dt * vx;
+			vy += GRAVITY * dt;
+			y += vy * dt;
+		}
 		CollisionWithObject(dt, *coObjects);
-
-
 	}
 }
 
 void CHollyWatter::Render()
 {
-	if (isRender) {
+	if (state == HOLLY_WATTER_STATE_ATTACK) 
+	{
 		animations[0]->Render(x, y, nx, 255);
-		//RenderBoundingBox();
+		RenderBoundingBox();
 	}
+	else if(state == HOLLY_WATTER_STATE_FIRE)
+	{
+		animations[1]->Render(x, y, nx, 255);
+		RenderBoundingBox();
+
+	}
+
 }
 
 void CHollyWatter::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -72,15 +80,22 @@ void CHollyWatter::GetBoundingBox(float& left, float& top, float& right, float& 
 	if (state == HOLLY_WATTER_STATE_ATTACK)
 	{
 		left = x;
-		right = x + 40;
+		right = x + 15;
 		top = y;
-		bottom = y + 20;
+		bottom = y + 15;
+	}
+	else if (state == HOLLY_WATTER_STATE_FIRE)
+	{
+		left = x;
+		right = x + 30;
+		top = y;
+		bottom = y + 25;
 	}
 
 }
 void CHollyWatter::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 {
-	if (state == HOLLY_WATTER_STATE_ATTACK)
+	if (state != HOLLY_WATTER_STATE_HIDE)
 	{
 		RECT rect, rect1;
 		float l, t, r, b;
@@ -111,7 +126,8 @@ void CHollyWatter::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 						if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
 						{
 							vx = vy = 0;
-							state = HOLLY_WATTER_STATE_HIDE;
+							state = HOLLY_WATTER_STATE_FIRE;
+							y -= 5;
 							continue;
 						}
 						torch->Hurt();
@@ -141,6 +157,7 @@ void CHollyWatter::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 								}
 							}
 						}
+						state = HOLLY_WATTER_STATE_HIDE;
 						isRender = false;
 						break;
 					}

@@ -8,6 +8,8 @@
 #include "Weapon.h"
 #include "Dagger.h"
 #include "WaterEffection.h"
+#include "HolyWater.h"
+
 
 #define SIMON_WALKING_SPEED		0.12f
 #define SIMON_JUMP_SPEED_Y		0.3f
@@ -51,7 +53,7 @@
 #define SIMON_WIDTH_DIE				60
 
 #define SIMON_UNTOUCHABLE_TIME		1300
-#define SIMON_HURT_TIME				200
+#define SIMON_HURT_TIME				500
 
 #define ID_WEAPON_VAMPIREKILLER		0
 #define ID_WEAPON_DAGGER			1
