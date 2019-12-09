@@ -557,6 +557,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 											{
 												CBat* bat = dynamic_cast<CBat*>(e->obj);
 												bat->SetState(TORCH_STATE_NOT_EXSIST);
+												sound->Play(eSound::soundHurting);
 											}
 											
 
@@ -1159,8 +1160,7 @@ void CSimon::CollisionWithBrick(DWORD dt, LPGAMEOBJECT &Obj, float min_tx0, floa
 		//// block 
 		if (min_tx <= min_tx0)
 			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		if (min_ty <= min_ty0)
-			y += min_ty * dy + ny * 0.4f;
+		
 		if (nx != 0) vx = 0;
 		if (ny < 0)
 		{
@@ -1172,7 +1172,8 @@ void CSimon::CollisionWithBrick(DWORD dt, LPGAMEOBJECT &Obj, float min_tx0, floa
 				start_jump = 0;
 				
 			}
-			
+			if (min_ty <= min_ty0)
+				y += min_ty * dy + ny * 0.4f;
 		}
 		if (state == SIMON_STATE_DIE)
 		{
@@ -1400,12 +1401,12 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 			nx = 1;
 		//// block 
 		vx = nx * 0.2f;
-		vy = -0.2f;
+		vy = -0.25f;
 		_energy -= ONE_HIT;
 		if ((min_tx <= min_tx0 || min_ty <= min_ty0) && _energy >0)
 		{
 			x += nx * 30.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-			y -= 50.0f;
+			y -= 30.0f;
 		}
 		
 		
@@ -1573,7 +1574,7 @@ void CSimon::StartHurt(float _x, float _y)
 		if (nx != 0) vx = nx * 0.2f;
 		else
 			vx = 0;
-		vy = -0.2f;
+		vy = -0.25f;
 		if (_energy > 0)
 		{
 			x += nx * 30.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
