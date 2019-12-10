@@ -534,7 +534,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							CollisionWithGate(dt, e->obj, min_tx, min_ty, nx, ny);
 						}
 					}
-					else if(state != SIMON_STATE_HURT || !start_disappear)
+					else if(!untouchable || !start_disappear)
 					{ 
 						if (dynamic_cast<CTorch*>(e->obj))
 						{
@@ -553,13 +553,6 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 										if (untouchable == 0)
 										{
 											CollisionWithEnemy(dt, e->obj, min_tx, min_ty, nx, ny);
-											if (dynamic_cast<CBat*>(torch))
-											{
-												CBat* bat = dynamic_cast<CBat*>(e->obj);
-												bat->SetState(TORCH_STATE_NOT_EXSIST);
-												sound->Play(eSound::soundHurting);
-											}
-											
 
 											if (state == SIMON_STATE_SIT || state == SIMON_STATE_SIT_ATTACK)
 											{
@@ -571,11 +564,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 											}
 											StartUntouchable();
 										}
-										else
+										/*else
 										{
 											x += dx;
 											y += dy;
-										}
+										}*/
 									}
 									else
 									{
@@ -622,12 +615,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 											}
 											StartUntouchable();
 										}
-										else
+										/*else
 										{
 											x += dx;
 											if (y < _ground)
 												y += dy;
-										}
+										}*/
 									}
 									else {
 										if (dynamic_cast<CItem*>(torch->GetItem()))
@@ -646,7 +639,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 						}
 					}
-
+					else 
+					{
+						x += dx;
+						y += dy;
+					}
 					
 
 				}
@@ -1164,7 +1161,10 @@ void CSimon::CollisionWithBrick(DWORD dt, LPGAMEOBJECT &Obj, float min_tx0, floa
 		if (nx != 0) vx = 0;
 		if (ny < 0)
 		{
-			vy = 0;
+			if (!untouchable)
+			{
+				vy = 0;
+			}
 			_ground = y;
 
 			if (start_jump > 0)
@@ -1400,14 +1400,9 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 		else
 			nx = 1;
 		//// block 
-		vx = nx * 0.2f;
-		vy = -0.25f;
+		vx = nx * SIMON_WALKING_SPEED * 1.7f;
+		vy = -SIMON_JUMP_SPEED_Y * 2.0f;
 		_energy -= ONE_HIT;
-		if ((min_tx <= min_tx0 || min_ty <= min_ty0) && _energy >0)
-		{
-			x += nx * 30.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-			y -= 30.0f;
-		}
 		
 		
 
@@ -1570,16 +1565,8 @@ void CSimon::StartHurt(float _x, float _y)
 			nx = -1;
 		else
 			nx = 1;
-		//// block 
-		if (nx != 0) vx = nx * 0.2f;
-		else
-			vx = 0;
-		vy = -0.25f;
-		if (_energy > 0)
-		{
-			x += nx * 30.0f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-			y -= 30.0f;
-		}
+		vx = nx * SIMON_WALKING_SPEED * 1.7f;
+		vy = -SIMON_JUMP_SPEED_Y * 2.0f;
 		state = SIMON_STATE_HURT;
 	}
 	if (_energy <= 0)
