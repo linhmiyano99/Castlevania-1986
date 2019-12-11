@@ -832,7 +832,7 @@ void CSimon::SetState(int state)
 	{
 		if (!start_jump)
 		{
-			if (y == _ground && !untouchable) {
+			if (y < _ground + 1 && y > _ground -1 && !untouchable) {
 				vy = -SIMON_JUMP_SPEED_Y;
 				start_jump = GetTickCount();
 				if (this->state == SIMON_STATE_IDLE)

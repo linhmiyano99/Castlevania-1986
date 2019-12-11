@@ -91,7 +91,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else
 				{
-					smallball->SetSpeed(0.25f * nx, 1.0 * (s_y - y - 20) / (s_x - x - 20) * nx * 0.25f);
+					smallball->SetSpeed(0.25f * nx, 1.0 * (s_y - y - BOSS_BBOX_WIDTH / 2) / (s_x - x - BOSS_BBOX_HEIGHT / 2) * nx * 0.25f);
 				}
 				CScene::GetInstance()->AddSmallBall(smallball);
 				return;
@@ -126,14 +126,14 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 						if (x > start_x)
 						{
-							if (abs(x - BOSS_RANDOM_X1) > 2 && abs(y - BOSS_RANDOM_Y1) > 2)
+							if (abs(x - BOSS_RANDOM_X1) > 2 && abs(y - BOSS_RANDOM_Y1) > 2) // cho phép sai số 2 pixel
 								FlyStraight(BOSS_RANDOM_X1, BOSS_RANDOM_Y1);
 							else
 								vx = vy = 0;
 						}
 						else
 						{
-							if (abs(x - BOSS_RANDOM_X2) > 2 && abs(y - BOSS_RANDOM_Y2) > 2)
+							if (abs(x - BOSS_RANDOM_X2) > 2 && abs(y - BOSS_RANDOM_Y2) > 2) // cho phép sai số 2 pixel
 								FlyStraight(BOSS_RANDOM_X2, BOSS_RANDOM_Y2);
 							else
 								vx = vy = 0;
@@ -184,7 +184,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 						if (step == 0)
 						{
-							if (abs(x - x1) > 2 && abs(y - y1) > 2)
+							if (abs(x - x1) > 2 && abs(y - y1) > 2) // cho phép sai số 2 pixel
 							{
 								FlyStraight(x1, y1);
 							}
@@ -196,7 +196,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 						else if (step == 1)
 						{
-							if (abs(x - x2) > 2 && abs(y - y2) > 2)
+							if (abs(x - x2) > 2 && abs(y - y2) > 2) // cho phép sai số 2 pixel
 							{
 
 								FlyStraight(x2, y2);
@@ -262,10 +262,10 @@ void CBoss::Render()
 		{
 			if (GetTickCount() - dt_die < TIME_BOSS_DIE)
 			{
-				animations[3]->Render(x, y + 25);
+				animations[3]->Render(x, y + BOSS_BBOX_HEIGHT / 2);
 				animations[3]->Render(x + BOSS_BBOX_WIDTH / 3, y + BOSS_BBOX_HEIGHT/2);
 				animations[3]->Render(x + BOSS_BBOX_WIDTH * 2 / 3, y + BOSS_BBOX_HEIGHT/2);
-				animations[3]->Render(x, y + 50);
+				animations[3]->Render(x, y + BOSS_BBOX_HEIGHT);
 				animations[3]->Render(x + BOSS_BBOX_WIDTH / 3, y + BOSS_BBOX_HEIGHT);
 				animations[3]->Render(x + BOSS_BBOX_WIDTH * 2 / 3, y + BOSS_BBOX_HEIGHT);
 
@@ -369,9 +369,10 @@ void CBoss::ResetBoss()
 void CBoss::SetFly()
 {
 	start_fly = 0;
-	int _type;
+	int _type; // kiểu bay > thẳng hoặc lượn
 	srand((unsigned)time(0));
 	_type = rand() % 3;
+	// xác xuất bay thẳng là 1/3, lượn là 2/3
 	if (_type == 2)
 		type = 1;
 	else

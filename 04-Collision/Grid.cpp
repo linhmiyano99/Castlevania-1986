@@ -88,26 +88,20 @@ void CGrid::LoadObject(char* filename)
 	listBrick.clear();
 	ifstream inFile(filename);
 
-	int type, trend, id_item, nx, ny;
+	int grid_x, grid_y, type, trend, id_item, nx, ny;
 	float x, y, w, h;
 
 	if (inFile)
 	{
-		while (inFile >> type >> trend >> x >> y >> w >> h >> id_item)
+		while (inFile >> grid_x >> grid_y >> type >> trend >> x >> y >> w >> h >> id_item)
 		{
-			Insert(type, trend, x, y, w, h, id_item);
+			Insert(grid_x, grid_y, type, trend, x, y, w, h, id_item);
 		}
 		inFile.close();
 	}
 }
-void CGrid::Insert(int type, int trend, float x, float y, float w, float h, int id_item)
+void CGrid::Insert(int grid_x, int grid_y, int type, int trend, float x, float y, float w, float h, int id_item)
 {
-
-	int top = (int)(y) / GRID_CELL_HEIGHT;
-	int bottom = (int)(y + h) / GRID_CELL_HEIGHT;
-	int left = (int)(x) / GRID_CELL_WIDTH;
-	int right = (int)(x + w) / GRID_CELL_WIDTH;
-
 	CGameObject* obj = GetNewObject(type, trend, x, y, w, h, id_item);
 	if (obj == NULL)
 		return;
@@ -115,10 +109,7 @@ void CGrid::Insert(int type, int trend, float x, float y, float w, float h, int 
 	obj->SetTrend(trend);
 	if (obj->GetType() == eType::BRICK_2)
 		listBrick.push_back(obj);
-	for (int i = top; i <= bottom; i++)
-		for (int j = left; j <= right; j++)
-			cells[i][j].push_back(obj);
-	obj = NULL;
+	cells[grid_x][grid_y].push_back(obj);
 
 }
 CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item)
