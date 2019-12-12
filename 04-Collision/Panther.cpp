@@ -98,7 +98,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					list.push_back(coObjects->at(i));
 				}
-				else if (coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_PANTHER_JUMP)
+				else if (coObjects->at(i)->GetState() == eType::OBJECT_HIDDEN_PANTHER_JUMP)
 				{
 					list.push_back(coObjects->at(i));
 				}

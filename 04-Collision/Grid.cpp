@@ -31,18 +31,20 @@ CGrid* CGrid::GetInstance()
 void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_y)
 {
 	ListObj.clear();
-	CScene* scene = CScene::GetInstance();
+	//CScene* scene = CScene::GetInstance();
+	unordered_map<int, LPGAMEOBJECT> mapObject;
+
 
 	int top = (int)(cam_y) / GRID_CELL_HEIGHT;
 	int bottom = (int)(cam_y + SCREEN_HEIGHT) / GRID_CELL_HEIGHT;
 	
 
 	int left = (int)(cam_x) / GRID_CELL_WIDTH;
-	if (left > 0 && scene->GetScene() > 0 && scene->GetScene() < 5)
-		left--;
+	/*if (left > 0 && scene->GetScene() > 0 && scene->GetScene() < 5)
+		left--;*/
 	int right = (int)(cam_x + SCREEN_HEIGHT) / GRID_CELL_WIDTH;
-	if (right < GRID_COLUMN_MAX && scene->GetScene() > 0 && scene->GetScene() < 5)
-		right++;
+	/*if (right < GRID_COLUMN_MAX && scene->GetScene() > 0 && scene->GetScene() < 5)
+		right++;*/
 
 	for (int i = top; i <= bottom; i++)
 	{
@@ -50,102 +52,77 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 		{
 			for (UINT k = 0; k < cells[i][j].size(); k++)
 			{
-				ListObj.push_back(cells[i][j].at(k));
+				if (cells[i][j].at(k)->GetState() != TORCH_STATE_ITEM_NOT_EXSIST || dynamic_cast<CEnemy*>(cells[i][j].at(k))) // còn tồn tại
+				{
+					if (mapObject.find(cells[i][j].at(k)->GetID()) == mapObject.end()) // chưa có trong map
+						mapObject[cells[i][j].at(k)->GetID()] = cells[i][j].at(k);
+				}
 			}
 		}
 	}
-	for each (LPGAMEOBJECT var in listBrick)
+	for (auto& x : mapObject)
 	{
-		ListObj.push_back(var);
+		ListObj.push_back(x.second);
 	}
-	CSimon* simon = CSimon::GetInstance();
-	ListObj.push_back(simon);
-	CDagger* dagger = CDagger::GetInstance();
-	ListObj.push_back(dagger);
-	CAxe* axe = CAxe::GetInstance();
-	ListObj.push_back(axe);
-	CHollyWatter *holly = CHollyWatter::GetInstance();
-	ListObj.push_back(holly);
-	CBoss* boss = CBoss::GetInstance();
-	ListObj.push_back(boss);
-	CBoongmerang *boongmerang = CBoongmerang::GetInstance();
-	ListObj.push_back(boongmerang);
-	simon = NULL;
-	dagger = NULL;
-	axe = NULL;
-	scene = NULL;
+	ListObj.push_back(CBoss::GetInstance());
+	//scene = NULL;
 }
 void CGrid::LoadObject(char* filename)
 {
-	//objects.clear();
-
 	for (int i = 0; i < GRID_ROW_MAX; i++)
 		for (int j = 0; j < GRID_COLUMN_MAX; j++)
 		{
 			cells[i][j].clear();
 		}
 
-	listBrick.clear();
+	//listBrick.clear();
 	ifstream inFile(filename);
 
-	int grid_x, grid_y, type, trend, id_item, nx, ny;
+	int id, grid_x, grid_y, type, trend, id_item, nx, ny, object;
 	float x, y, w, h;
 
 	if (inFile)
 	{
-		while (inFile >> grid_x >> grid_y >> type >> trend >> x >> y >> w >> h >> id_item)
+		while (inFile >> id >> grid_x >> grid_y >> type >> trend >> x >> y >> w >> h >> id_item >> object)
 		{
-			Insert(grid_x, grid_y, type, trend, x, y, w, h, id_item);
+			Insert(id ,grid_x, grid_y, type, trend, x, y, w, h, id_item, object);
 		}
 		inFile.close();
 	}
 }
-void CGrid::Insert(int grid_x, int grid_y, int type, int trend, float x, float y, float w, float h, int id_item)
+void CGrid::Insert(int id, int grid_x, int grid_y, int type, int trend, float x, float y, float w, float h, int id_item, int object)
 {
-	CGameObject* obj = GetNewObject(type, trend, x, y, w, h, id_item);
+	CGameObject* obj = GetNewObject(type, trend, x, y, w, h, id_item, object);
 	if (obj == NULL)
 		return;
 
 	obj->SetTrend(trend);
-	if (obj->GetType() == eType::BRICK_2)
-		listBrick.push_back(obj);
+	obj->SetID(id);
+	/*if (obj->GetType() == eType::BRICK_2)
+		listBrick.push_back(obj);*/
 	cells[grid_x][grid_y].push_back(obj);
 
 }
-CGameObject* CGrid::GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item)
+CGameObject* CGrid::GetNewObject( int type, int trend, int x, int y, int w, int h, int id_item, int object)
 {
-	switch (type)
+	switch (object)
 	{
-	case eType::BRICK_1: return new CBrick(x, y, 0, eType::BRICK_1);
-	case eType::BRICK_2: return new CBrick(x, y, 0, eType::BRICK_2, w, h);
-	case eType::BRICK_3: return new CBrick(x, y, id_item, eType::BRICK_3);
-	case eType::BRICK_4: return new CBrick(x, y, id_item, eType::BRICK_4);
-	case eType::BRICK_5: return new CBrick(x, y, id_item, eType::BRICK_5);
-	case eType::TORCH: return new CTorch(x, y, id_item, eType::TORCH);
-	case eType::CANDLE: return new CTorch(x, y, id_item, eType::CANDLE);
-	case eType::OBJECT_HIDDEN_DOOR: return new CHidenObject(x, y);
-	case eType::STAIR_DOWN: return new CHidenObject(x, y, HIDENOBJECT_TYPE_DOWNSTAIR, trend, -1);
-	case eType::STAIR_UP: return new CHidenObject(x, y, HIDENOBJECT_TYPE_UPSTAIR, trend, 1);
-	case eType::OBJECT_HIDDEN_FISHMAN: return new CHidenObject(x, y, HIDENOBJECT_TYPE_FISHMAN);
-	case eType::OBJECT_HIDDEN_GHOST_1: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_1);
-	case eType::OBJECT_HIDDEN_GHOST_STOP_1: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_STOP_1);
-	case eType::OBJECT_HIDDEN_GHOST_2: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_2, w, h);
-	case eType::OBJECT_HIDDEN_GHOST_UP: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_UP, w, h);
-	case eType::OBJECT_HIDDEN_GHOST_DOWN: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GHOST_DOWN, w, h);
-	case eType::OBJECT_HIDDEN_PANTHER_JUMP: return new CHidenObject(x, y, HIDENOBJECT_TYPE_PANTHER_JUMP, w, h);
-	case eType::OBJECT_HIDDEN_BRICK: return new CHidenObject(x, y, HIDENOBJECT_TYPE_BRICK, w, h);
-	case eType::OBJECT_HIDDEN_GATE_OPEN: return new CHidenObject(x, y, HIDENOBJECT_TYPE_GATE_OPEN, w, h);
+	case eType::ID_BRICK:
+		return new CBrick(x, y, id_item, type, w, h);
+	case eType::ID_TORCH:
+		return new CTorch(x, y, id_item, type);
+	case eType::ID_HIDDEN:
+		return new CHidenObject(x, y, type);
+	case eType::STAIR_DOWN: return new CHidenObject(x, y, type, trend, -1);
+	case eType::STAIR_UP: return new CHidenObject(x, y, type, trend, 1);
 	case eType::GATE: return new CGate(x, y);
-	case eType::PANTHER: return new CPanther(x, y);
-	case eType::FISHMEN: return new CFishman(x, y);
+	case eType::PANTHER: return new CPanther(x, y, id_item);
+	case eType::FISHMEN: return new CFishman(x, y, id_item);
 	case eType::GHOST: return new CGhost(x, y, id_item);
-	case eType::BAT: return new CBat(x, y);
+	case eType::BAT: return new CBat(x, y, id_item);
 	default:
-		break;
+		return NULL;
 	}
-	
-
-	return NULL;
 }
 
 

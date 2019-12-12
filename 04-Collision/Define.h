@@ -159,6 +159,14 @@ enum eType
 	FISHMEN = 144,
 
 	//BOSS
-	BOSS = 150
+	BOSS = 150,
+
+	// id load
+	ID_BRICK = 200,
+	ID_TORCH = 201,
+	ID_HIDDEN = 202,
+	ID_GATE = 203,
+	ID_ENEMY = 204
+
 };
 

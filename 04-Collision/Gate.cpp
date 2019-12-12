@@ -22,10 +22,6 @@ void CGate::Render()
 	}
 
 }
-void CGate::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
-{
-	
-}
 
 void CGate::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {

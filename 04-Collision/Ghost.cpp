@@ -93,7 +93,7 @@ void CGhost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else if (dynamic_cast<CHidenObject*>(coObjects->at(i)))
 				{
-					if(coObjects->at(i)->GetState() == HIDENOBJECT_TYPE_GHOST_2 )
+					if(coObjects->at(i)->GetState() == eType::OBJECT_HIDDEN_GHOST_2 )
 					list.push_back(coObjects->at(i));
 				}
 			}
@@ -277,7 +277,7 @@ void CGhost::CollisionWithHiden(DWORD dt, LPGAMEOBJECT& obj, float min_tx0, floa
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	CHidenObject* ohiden = dynamic_cast<CHidenObject*>(obj);
-	if (ohiden->GetState() == HIDENOBJECT_TYPE_GHOST_2)
+	if (ohiden->GetState() == eType::OBJECT_HIDDEN_GHOST_2)
 	{
 		vx = 0;
 		vy = GHOST_SPEED * 2;

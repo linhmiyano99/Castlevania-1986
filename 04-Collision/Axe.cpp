@@ -110,8 +110,8 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 						if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
 						{
 							vx = vy = 0;
-							state = AXE_STATE_HIDE;
 							isRender = false;
+							state = AXE_STATE_HIDE;
 							break;
 						}
 						torch->Hurt();
@@ -141,7 +141,8 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 								}
 							}
 						}
-						sound->Play(eSound::soundHurting);
+						state = AXE_STATE_HIDE;
+						//sound->Play(eSound::soundHurting);
 						isRender = false;
 						break;
 					}

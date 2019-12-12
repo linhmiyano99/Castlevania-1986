@@ -133,7 +133,7 @@ void CHollyWatter::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 							vx = vy = 0;
 							state = HOLLY_WATTER_STATE_FIRE;
 							y -= 1;
-							sound->Play(eSound::soundHolyWater);
+							//sound->Play(eSound::soundHolyWater);
 							continue;
 						}
 						torch->Hurt();

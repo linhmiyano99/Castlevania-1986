@@ -14,22 +14,9 @@ CMap* CMap::GetInstance()
 
 CMap::CMap(int i)
 {
-	_scene = i;
-	switch (i)
-	{
-	case 0:
-		_column = 24;
-		_row = 6;
-		break;
-	case 1:
-		_column = 88;
-		_row = 12;
-		break;
-	default:
-		break;
-	}
-	LoadMap();
+	SetMap(i);
 }
+
 void CMap::SetMap(int i)
 {
 	_scene = i;
@@ -84,31 +71,28 @@ int CMap::getTile(int x, int y)
 void CMap::DrawMap()
 {
 
-	CGame* game = CGame::GetInstance();
-	CSprites* sprites = CSprites::GetInstance();
 	float cam_x, cam_y;
-	game->GetCamPos(cam_x, cam_y);
+	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
 	if (cam_y == 0)
 	{
-		for (int i = (int)cam_y / 64; i < (int)(cam_y + SCREEN_HEIGHT) / 64 + 3; i++)
+		for (int i = (int)cam_y / TILE_SIZE; i < (int)(cam_y + SCREEN_HEIGHT) / TILE_SIZE + 2; i++)
 		{
-			for (int j = (int)cam_x / 64; j < (int)(cam_x + SCREEN_WIDTH) / 64 + 3; j++)
+			for (int j = (int)cam_x / TILE_SIZE; j < (int)(cam_x + SCREEN_WIDTH) / TILE_SIZE + 3; j++)
 			{
 				if (!(i < 0 || j >= _column))
-					sprites->Get(getTile(i, j))->Draw(64 * j, 64 * i + 40);
+					CSprites::GetInstance()->Get(getTile(i, j))->Draw(TILE_SIZE * j, TILE_SIZE * i + 40);
 			}
 		}
 	}
 	else
 	{
-		for (int i = (int)cam_y / 64 ; i < 12; i++)
+		for (int i = (int)cam_y / TILE_SIZE; i < 12; i++)
 		{
-			for (int j = (int)cam_x / 64; j < (int)(cam_x + SCREEN_WIDTH) / 64 + 3; j++)
+			for (int j = (int)cam_x / 64; j < (int)(cam_x + SCREEN_WIDTH) / TILE_SIZE + 3; j++)
 			{
 				if (!(i < 0 || j >= _column))
 				{
-					sprites->Get(getTile(i, j))->Draw(64 * j, 64 * i + 80);
-
+					CSprites::GetInstance()->Get(getTile(i, j))->Draw(TILE_SIZE * j, TILE_SIZE * i + 80);
 				}
 
 			}
@@ -116,8 +100,8 @@ void CMap::DrawMap()
 	}
 	if (_scene == 0)
 	{
-		for (int i = (int)cam_x / 64; i <= (int)(cam_x + SCREEN_WIDTH) /32 ; i++)
-			sprites->Get(9999)->Draw(i * 32, 360);
+		for (int i = (int)cam_x / TILE_SIZE; i <= (int)(cam_x + SCREEN_WIDTH) / BRICK_SIZE; i++)
+			CSprites::GetInstance()->Get(9999)->Draw(i * BRICK_SIZE, 360);
 	}
 }
 

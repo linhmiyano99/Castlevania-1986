@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <vector>
 #include "GameObject.h"
 #include "Game.h"
@@ -14,13 +14,13 @@ using namespace std;
 class CGrid
 {
 	static CGrid* __instance;
-	vector<LPGAMEOBJECT> listBrick;
+	//vector<LPGAMEOBJECT> listBrick;
 	vector<LPGAMEOBJECT> cells[GRID_ROW_MAX][GRID_COLUMN_MAX];
 public:
 	static CGrid* GetInstance();
 	void LoadObject(char* filename);
-	void Insert(int grid_x, int grid_y, int type, int trend, float x, float y, float w, float h, int id_item);
-	CGameObject* GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item);
+	void Insert(int id, int grid_x, int grid_y, int type, int trend, float x, float y, float w, float h, int id_item, int object);
+	CGameObject* GetNewObject(int type, int trend, int x, int y, int w, int h, int id_item, int object);
 	void GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_y);
 
 };

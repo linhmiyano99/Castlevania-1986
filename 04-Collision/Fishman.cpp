@@ -21,7 +21,7 @@ CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FIS
 	nx = -1;
 	vx = vy = 0;
 	start_attack = GetTickCount();
-	sound = new Sound();
+	//sound = new Sound();
 	for (int i = 0; i < 3; i++)
 	{
 		CWaterEffection* water = new CWaterEffection();
@@ -155,7 +155,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					isFall = true;
 					ResetWater(1);
-					sound->Play(eSound::soundFallingDownWaterSurface);
+					/*sound->Play(eSound::soundFallingDownWaterSurface);*/
 				}
 				if (x < cam_x - 40 || x > cam_x + SCREEN_WIDTH || y > cam_y + SCREEN_HEIGHT || y < cam_y)
 				{

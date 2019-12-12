@@ -8,6 +8,9 @@
 #include "Textures.h"
 #include "Sprites.h"
 
+#define TILE_SIZE 64
+#define BRICK_SIZE 32
+
 using namespace std;
 
 class CMap

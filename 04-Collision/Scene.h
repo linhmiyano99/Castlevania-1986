@@ -35,7 +35,7 @@
 #include "Axe.h"
 #include "HolyWater.h"
 #include "Boongmerang.h"
-#include "Sound.h"
+//#include "Sound.h"
 
 #define TIME_KILL_ALL_ENEMY 100
 
@@ -53,7 +53,8 @@ class CScene
 	CHidenObject* hiden;
 	CBoard* board;
 	CGrid* grid;
-	Sound* sound;
+	//Sound* sound;
+	CSprites* sprites;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> smallballs;
 	int id;

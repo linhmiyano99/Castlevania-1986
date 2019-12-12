@@ -1,4 +1,4 @@
-
+﻿
 #include "Scene.h"
 #include "Enemy.h"
 
@@ -21,7 +21,7 @@ CScene::CScene(int id)
 	isAutoTran = false;
 	auto_tran = 0;
 	_stage = 1;
-
+	/*Sound::GetInstance()->Play(eSound::musicStage1);*/
 }
 
 
@@ -30,38 +30,17 @@ void CScene::LoadResoure()
 	CManagementTexture* manage = new CManagementTexture();
 	SAFE_DELETE(manage);
 
-	objects.clear();
-
-	dagger = CDagger::GetInstance();
-	objects.push_back(dagger);
-	axe = CAxe::GetInstance();
-	objects.push_back(axe);
-	holly = CHollyWatter::GetInstance();
-	objects.push_back(holly);
-	boongmerang = CBoongmerang::GetInstance();
-	objects.push_back(boongmerang);
-	sound = Sound::GetInstance();
-	sound->Play(eSound::musicStage1);
 	if (id == 0) {
 		map->SetMap(0);
 		
 		grid->LoadObject("texture/objects_1.txt");
 		simon = CSimon::GetInstance();
-		//simon->SetPosition(SIMON_POSITION_0);
 		objects.push_back(simon);
 	}
 	else
 	{
 		map->SetMap(1);
-		
 		grid->LoadObject("texture/objects_2.txt");
-		dagger = CDagger::GetInstance();
-		objects.push_back(dagger);
-		simon = CSimon::GetInstance();
-		objects.push_back(simon);
-		boss = CBoss::GetInstance();
-		boss->SetPosition(BOSS_POSITION);
-		objects.push_back(boss);
 
 	}
 }
@@ -95,7 +74,7 @@ void CScene::Update(DWORD dt)
 	if (board->IsStop())
 	{
 
-		sound->Stop(eSound::music_Boss);
+		//sound->Stop(eSound::music_Boss);
 		if (simon->GetEnergy() < SIMON_MAX_ENERGY)
 		{
 			simon->UpEnergy();
@@ -103,13 +82,13 @@ void CScene::Update(DWORD dt)
 		}
 		else if (board->GetTime() > 0)
 		{
-			sound->Play(eSound::soundGetScoreTimer);
-			board->TimeDown();
+			//sound->Play(eSound::soundGetScoreTimer);
+			//board->TimeDown();
 			return;
 		}
 		else if (simon->GetHeart() > 0)
 		{
-			sound->Play(eSound::soundGetScoreHeart);
+			//sound->Play(eSound::soundGetScoreHeart);
 			simon->HeartDown();
 			return;
 		}
@@ -137,13 +116,13 @@ void CScene::Update(DWORD dt)
 		if (c_x < auto_tran)
 		{
 			if (c_x < auto_tran - SCREEN_WIDTH / 2)
-				game->SetCamPos(c_x + 2.0f, c_y);
+				game->SetCamPos(c_x + 2.0f, c_y);// vận tốc chuyển màn 2.0f pixcel / milisecond 
 			else
 			{
 				if (simon->IsAutoGo())
 					simon->Update(dt);
 				else
-					game->SetCamPos(c_x + 2.0f, c_y);
+					game->SetCamPos(c_x + 2.0f, c_y);// vận tốc chuyển màn 2.0f pixcel / milisecond 
 			}
 
 		}
@@ -172,12 +151,12 @@ void CScene::Update(DWORD dt)
 	{
 		if (id == 5)
 		{
-			sound->Stop(eSound::musicStage1);
-			sound->Play(eSound::music_Boss);
+			//sound->Stop(eSound::musicStage1);
+			//sound->Play(eSound::music_Boss);
 		}
 		float cx, cy, cam_x, cam_y;
 		simon->GetPosition(cx, cy);
-		CGame::GetInstance()->GetCamPos(cam_x, cam_y);
+		game->GetCamPos(cam_x, cam_y);
 		grid->GetListObject(objects, cam_x, cam_y);
 
 
@@ -209,7 +188,7 @@ void CScene::Update(DWORD dt)
 		else if (id == 4 && cx > POSITION_START_BOSS)
 		{
 			id = 5;
-			boss->SetState(BOSS_STATE_FLY);
+			CBoss::GetInstance()->SetState(BOSS_STATE_FLY);
 		}
 		else
 		{
@@ -231,7 +210,7 @@ void CScene::Update(DWORD dt)
 		{
 			objects[i]->Update(dt, &coObjects);
 		}
-
+		simon->Update(dt, &coObjects);
 
 
 		if (cx < GetLeft())
@@ -241,9 +220,24 @@ void CScene::Update(DWORD dt)
 			if (cx > GetRight() - SCREEN_WIDTH)
 				cx = GetRight() - SCREEN_WIDTH;
 		}
-
-
 		game->SetCamPos(cx, cy);
+		switch (CBoard::GetInstance()->GetWeapon())
+		{
+		case  eType::DAGGER:
+			CDagger::GetInstance()->Update(dt, &coObjects);
+			break;
+		case eType::ITEMAXE:
+			CAxe::GetInstance()->Update(dt, &coObjects);
+			break;
+		case eType::ITEMHOLLYWATTER:
+			CHollyWatter::GetInstance()->Update(dt, &coObjects);
+			break;
+		case eType::ITEMBOONGMERANG:
+			CBoongmerang::GetInstance()->Update(dt, &coObjects);
+			break;
+		default:
+			break;
+		}
 		coObjects.clear();
 
 	}
@@ -252,6 +246,7 @@ void CScene::Update(DWORD dt)
 void CScene::Render() 
 {
 	map->DrawMap();
+	simon->Render();
 
 	for each (LPGAMEOBJECT var in smallballs)
 	{
@@ -262,16 +257,31 @@ void CScene::Render()
 	{
 		objects[i]->Render();
 	}
+	switch (CBoard::GetInstance()->GetWeapon())
+	{
+	case  eType::DAGGER:
+		CDagger::GetInstance()->Render();
+		break;
+	case eType::ITEMAXE:
+		CAxe::GetInstance()->Render();
+		break;
+	case eType::ITEMHOLLYWATTER:
+		CHollyWatter::GetInstance()->Render();
+		break;
+	case eType::ITEMBOONGMERANG:
+		CBoongmerang::GetInstance()->Render();
+		break;
+	default:
+		break;
+	}
 	float cx, cy;
-	CGame::GetInstance()->GetCamPos(cx, cy);
-	CSprites* sprites = CSprites::GetInstance();
+	game->GetCamPos(cx, cy);
 	board->Render();
 	float s_x, s_y;
 	simon->GetPosition(s_x, s_y);
 	if (simon->IsOnStair() && (s_y > START_DOWN&& s_y < DONE_DOWN) && simon->GetState() != SIMON_STATE_DIE)
 	{
-		CSprites* sprites = CSprites::GetInstance();
-		sprites->Get(70001)->Draw(cx, cy);
+		CSprites::GetInstance()->Get(70001)->Draw(cx, cy);
 	}
 }
 void CScene::SetMap(int id)
@@ -384,11 +394,9 @@ void CScene::ResetScene()
 	else if (id == 5 || id == 4)
 	{
 		id = 4;
-		CBoss* boss = CBoss::GetInstance();
-		boss->ResetBoss();
-		boss = NULL;
-		sound->Play(eSound::musicStage1);
-		sound->Stop(eSound::music_Boss);
+		CBoss::GetInstance()->ResetBoss();
+		//sound->Play(eSound::musicStage1);
+		//sound->Stop(eSound::music_Boss);
 	}
 }
 void CScene::TestStage(int stage)
