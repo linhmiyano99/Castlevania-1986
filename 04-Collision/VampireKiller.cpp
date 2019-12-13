@@ -158,7 +158,7 @@ void CVampireKiller::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj
 							}
 						}
 					}
-					//sound->Play(eSound::soundHurting);
+					Sound::GetInstance()->Play(eSound::soundHurting);
 
 				}
 			}

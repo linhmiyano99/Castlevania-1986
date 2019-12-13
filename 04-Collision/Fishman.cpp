@@ -155,7 +155,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					isFall = true;
 					ResetWater(1);
-					/*sound->Play(eSound::soundFallingDownWaterSurface);*/
+					Sound::GetInstance()->Play(eSound::soundFallingDownWaterSurface);
 				}
 				if (x < cam_x - 40 || x > cam_x + SCREEN_WIDTH || y > cam_y + SCREEN_HEIGHT || y < cam_y)
 				{

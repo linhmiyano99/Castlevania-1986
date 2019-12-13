@@ -21,15 +21,14 @@ CScene::CScene(int id)
 	isAutoTran = false;
 	auto_tran = 0;
 	_stage = 1;
-	/*Sound::GetInstance()->Play(eSound::musicStage1);*/
+	Sound::GetInstance()->Play(eSound::musicStage1);
+	CManagementTexture* manage = new CManagementTexture();
+	SAFE_DELETE(manage);
 }
 
 
 void CScene::LoadResoure()
 {
-	CManagementTexture* manage = new CManagementTexture();
-	SAFE_DELETE(manage);
-
 	if (id == 0) {
 		map->SetMap(0);
 		
@@ -74,7 +73,7 @@ void CScene::Update(DWORD dt)
 	if (board->IsStop())
 	{
 
-		//sound->Stop(eSound::music_Boss);
+		Sound::GetInstance()->Stop(eSound::music_Boss);
 		if (simon->GetEnergy() < SIMON_MAX_ENERGY)
 		{
 			simon->UpEnergy();
@@ -82,13 +81,13 @@ void CScene::Update(DWORD dt)
 		}
 		else if (board->GetTime() > 0)
 		{
-			//sound->Play(eSound::soundGetScoreTimer);
-			//board->TimeDown();
+			Sound::GetInstance()->Play(eSound::soundGetScoreTimer);
+			board->TimeDown();
 			return;
 		}
 		else if (simon->GetHeart() > 0)
 		{
-			//sound->Play(eSound::soundGetScoreHeart);
+			Sound::GetInstance()->Play(eSound::soundGetScoreHeart);
 			simon->HeartDown();
 			return;
 		}
@@ -131,14 +130,14 @@ void CScene::Update(DWORD dt)
 			if (id == 1)
 			{
 				id = 2;
-				simon->SetStart(SCENCE_2_LEFT, SIMON_START_HIGH);
+				simon->SetStart(GetLeft(), SIMON_START_HIGH);
 				CBat::Start();
 			}
 			else
 			{
 				id = 4;
 				CGate::Stop();
-				simon->SetStart(SCENCE_4_LEFT, SIMON_START_HIGH);
+				simon->SetStart(GetLeft(), SIMON_START_HIGH);
 				CBat::Stop();
 			}
 			isAutoTran = false;
@@ -151,8 +150,8 @@ void CScene::Update(DWORD dt)
 	{
 		if (id == 5)
 		{
-			//sound->Stop(eSound::musicStage1);
-			//sound->Play(eSound::music_Boss);
+			Sound::GetInstance()->Stop(eSound::musicStage1);
+			Sound::GetInstance()->Play(eSound::music_Boss);
 		}
 		float cx, cy, cam_x, cam_y;
 		simon->GetPosition(cx, cy);
@@ -246,7 +245,6 @@ void CScene::Update(DWORD dt)
 void CScene::Render() 
 {
 	map->DrawMap();
-	simon->Render();
 
 	for each (LPGAMEOBJECT var in smallballs)
 	{
@@ -257,6 +255,8 @@ void CScene::Render()
 	{
 		objects[i]->Render();
 	}
+	simon->Render();
+
 	switch (CBoard::GetInstance()->GetWeapon())
 	{
 	case  eType::DAGGER:
@@ -395,8 +395,8 @@ void CScene::ResetScene()
 	{
 		id = 4;
 		CBoss::GetInstance()->ResetBoss();
-		//sound->Play(eSound::musicStage1);
-		//sound->Stop(eSound::music_Boss);
+		Sound::GetInstance()->Play(eSound::musicStage1);
+		Sound::GetInstance()->Stop(eSound::music_Boss);
 	}
 }
 void CScene::TestStage(int stage)
@@ -406,23 +406,23 @@ void CScene::TestStage(int stage)
 	{
 		id = 1;
 		LoadResoure();
-		simon->SetPosition(SCENCE_1_LEFT , SIMON_START_LOW);
-		simon->SetStart(SCENCE_1_LEFT, SIMON_START_LOW);
+		simon->SetPosition(GetLeft() , SIMON_START_LOW);
+		simon->SetStart(GetLeft(), SIMON_START_LOW);
 	}
 	else if (stage == 2)
 	{
 		id = 2;
 		LoadResoure();
-		simon->SetPosition(SCENCE_2_LEFT , SIMON_START_HIGH);
-		simon->SetStart(SCENCE_2_LEFT, SIMON_START_HIGH);
+		simon->SetPosition(GetLeft(), SIMON_START_HIGH);
+		simon->SetStart(GetLeft(), SIMON_START_HIGH);
 		CBat::Start();
 	}
 	else if (stage == 3)
 	{
 		id = 4;
 		LoadResoure();
-		simon->SetPosition(SCENCE_4_LEFT , SIMON_START_HIGH);
-		simon->SetStart(SCENCE_4_LEFT, SIMON_START_HIGH);
+		simon->SetPosition(GetLeft(), SIMON_START_HIGH);
+		simon->SetStart(GetLeft(), SIMON_START_HIGH);
 	}
 	CGate::Stop();
 }

@@ -2,7 +2,7 @@
 #include"GameObject.h"
 #include"Torch.h"
 #include "Brick.h"
-//#include "Sound.h"
+#include "Sound.h"
 
 #define ENEMY_WALKING_SPEED 0.05f;
 

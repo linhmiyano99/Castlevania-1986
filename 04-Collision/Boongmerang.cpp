@@ -116,6 +116,8 @@ void CBoongmerang::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 					rect1.bottom = (int)b1;
 					if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 					{
+						Sound::GetInstance()->Play(eSound::soundHurting);
+
 						if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
 						{
 							continue;
@@ -147,7 +149,6 @@ void CBoongmerang::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 								}
 							}
 						}
-						//sound->Play(eSound::soundHurting);
 						isRender = false;
 						break;
 					}

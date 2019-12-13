@@ -9,7 +9,7 @@
 #include "Dagger.h"
 #include "WaterEffection.h"
 #include "HolyWater.h"
-//#include "Sound.h"
+#include "Sound.h"
 
 
 #define SIMON_WALKING_SPEED		0.12f

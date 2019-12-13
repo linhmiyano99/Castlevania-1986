@@ -224,6 +224,15 @@
     <ClInclude Include="XML\tinyxml.h">
       <Filter>framework\ManagementTexture\XML</Filter>
     </ClInclude>
+    <ClInclude Include="DSutil.h">
+      <Filter>framework\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="dxutil.h">
+      <Filter>framework\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>framework\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp">
@@ -387,6 +396,15 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="DSutil.cpp">
+      <Filter>framework\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="dxutil.cpp">
+      <Filter>framework\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>framework\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

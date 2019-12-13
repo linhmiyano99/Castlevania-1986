@@ -136,7 +136,7 @@ void CDagger::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 							}
 						}
 						isRender = false;
-						//sound->Play(eSound::soundHurting);
+						Sound::GetInstance()->Play(eSound::soundHurting);
 						break;
 					}
 				}

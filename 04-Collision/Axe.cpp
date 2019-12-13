@@ -99,7 +99,7 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 				if (torch->GetState() == TORCH_STATE_EXSIST ||
 					((torch->GetState() == BOSS_STATE_ATTACK || torch->GetState() == BOSS_STATE_FLY) && torch->GetType() == eType::BOSS))
 				{
-					
+					Sound::GetInstance()->Play(eSound::soundHurting);
 					torch->GetBoundingBox(l1, t1, r1, b1);
 					rect1.left = (int)l1;
 					rect1.top = (int)t1;
@@ -142,7 +142,6 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 							}
 						}
 						state = AXE_STATE_HIDE;
-						//sound->Play(eSound::soundHurting);
 						isRender = false;
 						break;
 					}

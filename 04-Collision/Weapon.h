@@ -5,7 +5,7 @@
 
 #include "GameObject.h"
 #include "Textures.h"
-//#include "Sound.h"
+#include "Sound.h"
 
 #define WEAPON_HEIGHT 64
 #define WEAPON_WIDTH 160

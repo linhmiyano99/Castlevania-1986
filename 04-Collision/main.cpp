@@ -78,6 +78,8 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_DOWN:
 		break;
 	case DIK_UP:
+		if (simon->GetState() == SIMON_STATE_SIT)
+			return;
 		simon->SetState(SIMON_STATE_GO_UP);
 		break;
 	case DIK_Q://test stage 1

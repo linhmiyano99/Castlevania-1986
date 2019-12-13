@@ -128,12 +128,12 @@ void CHollyWatter::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 					rect1.bottom = (int)b1;
 					if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 					{
+						Sound::GetInstance()->Play(eSound::soundHolyWater);
 						if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
 						{
 							vx = vy = 0;
 							state = HOLLY_WATTER_STATE_FIRE;
 							y -= 1;
-							//sound->Play(eSound::soundHolyWater);
 							continue;
 						}
 						torch->Hurt();
