@@ -28,6 +28,7 @@ CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FIS
 		list.push_back(water);
 		water = NULL;
 	}
+	state = TORCH_STATE_EXSIST;
 	Go();
 	ResetWater(0);
 	isCanAttack = false;
@@ -276,7 +277,7 @@ void CFishman::GetBoundingBox(float& left, float& top, float& right, float& bott
 }
 void CFishman::Render()
 {
-	if (!CFishman::IsStart())
+	if (!CFishman::IsStart() || state == ITEM_STATE_NOT_EXSIST)
 		return;
 	if (vx == 0 && vy == 0 && isJumping)
 		return;
@@ -330,6 +331,7 @@ void CFishman::Go() {
 	if (isJumping) {
 		vx = nx * FISHMAN_RUNNING_SPEED_X;
 		vy = ny * FISHMAN_RUNNING_SPEED_Y;
+		state = TORCH_STATE_EXSIST;
 	}
 }
 void  CFishman::ResetWater(int type)

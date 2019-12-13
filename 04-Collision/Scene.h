@@ -76,7 +76,8 @@ public:
 	int GetTop();
 	int GetRight();
 	int GetBottom();
-
+	float GetSimonStartHeight();
+	int GetStartScene();
 	void TranScene();
 	bool IsTranScene() { return isAutoTran; }
 	void AddSmallBall(LPGAMEOBJECT smallball);

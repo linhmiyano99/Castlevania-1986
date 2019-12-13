@@ -1125,6 +1125,7 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 			Obj->SetState(BOSS_STATE_ITEM_NOT_EXSIST);
 			CBoard::GetInstance()->Stop();
 			CGate::Start();
+			Sound::GetInstance()->Stop(eSound::musicStage1);
 		}
 		else
 			Obj->SetState(ITEM_STATE_NOT_EXSIST);
@@ -1170,11 +1171,13 @@ void CSimon::CollisionWithBrick(DWORD dt, LPGAMEOBJECT &Obj, float min_tx0, floa
 			if (start_jump > 0)
 			{
 				start_jump = 0;
-				
+
 			}
 			if (min_ty <= min_ty0)
 				y += min_ty * dy + ny * 0.4f;
 		}
+		else
+			y += dy;
 		if (state == SIMON_STATE_DIE)
 		{
 			vy = 0;

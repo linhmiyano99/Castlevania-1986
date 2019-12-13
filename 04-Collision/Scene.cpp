@@ -81,13 +81,14 @@ void CScene::Update(DWORD dt)
 		}
 		else if (board->GetTime() > 0)
 		{
-			Sound::GetInstance()->Play(eSound::soundGetScoreTimer);
+			Sound::GetInstance()->Play(eSound::soundGetScoreHeart);
 			board->TimeDown();
 			return;
 		}
 		else if (simon->GetHeart() > 0)
 		{
-			Sound::GetInstance()->Play(eSound::soundGetScoreHeart);
+			Sound::GetInstance()->Play(eSound::soundGetScoreTimer);
+
 			simon->HeartDown();
 			return;
 		}
@@ -127,21 +128,11 @@ void CScene::Update(DWORD dt)
 		}
 		else
 		{
-			if (id == 1)
-			{
-				id = 2;
-				simon->SetStart(GetLeft(), SIMON_START_HIGH);
-				CBat::Start();
-			}
-			else
-			{
-				id = 4;
-				CGate::Stop();
-				simon->SetStart(GetLeft(), SIMON_START_HIGH);
-				CBat::Stop();
-			}
-			isAutoTran = false;
 			_stage++;
+			id = GetStartScene();
+			simon->SetStart(GetLeft(), GetSimonStartHeight());
+			isAutoTran = false;
+			
 			simon->SetTrend(1);
 			CGate::Stop();
 		}
@@ -402,28 +393,25 @@ void CScene::ResetScene()
 void CScene::TestStage(int stage)
 {
 	_stage = stage;
-	if (stage == 1)
+	switch (_stage)
 	{
+	case 1:
 		id = 1;
-		LoadResoure();
-		simon->SetPosition(GetLeft() , SIMON_START_LOW);
-		simon->SetStart(GetLeft(), SIMON_START_LOW);
-	}
-	else if (stage == 2)
-	{
+		break;
+	case 2:
 		id = 2;
-		LoadResoure();
-		simon->SetPosition(GetLeft(), SIMON_START_HIGH);
-		simon->SetStart(GetLeft(), SIMON_START_HIGH);
 		CBat::Start();
-	}
-	else if (stage == 3)
-	{
+		break;
+	case 3:
 		id = 4;
-		LoadResoure();
-		simon->SetPosition(GetLeft(), SIMON_START_HIGH);
-		simon->SetStart(GetLeft(), SIMON_START_HIGH);
+		break;
+	default:
+		id = 1;
+		break;
 	}
+	LoadResoure();
+	simon->SetPosition(GetLeft(), GetSimonStartHeight());
+	simon->SetStart(GetLeft(), GetSimonStartHeight());
 	CGate::Stop();
 }
 bool CScene::IsKillAllEnemy()
@@ -431,4 +419,33 @@ bool CScene::IsKillAllEnemy()
 	if (start_killAllEnemy > 0)
 		return true;
 	return false;
+}
+float CScene::GetSimonStartHeight()
+{
+	switch (_stage)
+	{
+		case 1:
+			return SIMON_START_LOW;
+		case 2:
+		case 3:
+			return SIMON_START_HIGH;
+	default:
+		return SIMON_START_HIGH;
+		break;
+	}
+}
+int CScene::GetStartScene()
+{
+	switch (_stage)
+	{
+	case 1:
+		return 1;
+	case 2:
+		return 2;
+	case 3:
+		return 4;
+	default:
+		return 0;
+		break;
+	}
 }
