@@ -43,7 +43,7 @@ public:
 	int GetWeapon() { return _weapon; }
 	int GetTime() { return _time; }
 	void TimeDown() {
-		if (GetTickCount() - _count >= 50 && _time > 0)
+		if (GetTickCount() - _count >= 1 && _time > 0)
 		{
 			_time--;
 			_count = GetTickCount();

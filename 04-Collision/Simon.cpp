@@ -79,6 +79,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (_lives > 0)
 			{
+				Sound::GetInstance()->Play(eSound::musicStage1);
 				_lives--;
 				_energy = SIMON_MAX_ENERGY;
 			
@@ -124,6 +125,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (die_start == 0 &&(_energy <= 0 || (y > WATTER_Y + 80)))
 	{
+		Sound::GetInstance()->Play(eSound::musicLifeLost);
+		Sound::GetInstance()->Stop(eSound::musicStage1);
 		die_start = GetTickCount();
 		attack_start = 0;
 		trans_start = 0;
@@ -630,6 +633,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 										}
 									}
 								}
+								break;
 							}
 							else {
 								CollisionWithTorch(dt, e->obj, min_tx, min_ty, nx, ny);
@@ -1105,15 +1109,15 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 			_score += 1000;
 			break;
 		case eType::ITEMII:
-			//sound->Play(eSound::soundCollectItem);
+			Sound::GetInstance()->Play(eSound::soundCollectItem);
 			CBoard::GetInstance()->SetNumberOfWeapon(2);
 			break;
 		case eType::ITEMIII:
-			//sound->Play(eSound::soundCollectItem);
+			Sound::GetInstance()->Play(eSound::soundCollectItem);
 			CBoard::GetInstance()->SetNumberOfWeapon(3);
 			break;
 		case eType::CHICKEN:
-			//sound->Play(eSound::soundCollectItem);
+			Sound::GetInstance()->Play(eSound::soundCollectItem);
 			_energy = SIMON_MAX_ENERGY;
 			break;
 		default:
@@ -1173,11 +1177,10 @@ void CSimon::CollisionWithBrick(DWORD dt, LPGAMEOBJECT &Obj, float min_tx0, floa
 				start_jump = 0;
 
 			}
-			if (min_ty <= min_ty0)
-				y += min_ty * dy + ny * 0.4f;
+			
 		}
-		else
-			y += dy;
+		if (min_ty <= min_ty0)
+			y += min_ty * dy + ny * 0.4f;
 		if (state == SIMON_STATE_DIE)
 		{
 			vy = 0;
@@ -1419,6 +1422,8 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 	}
 	if (_energy <= 0)
 	{
+		Sound::GetInstance()->Play(eSound::musicLifeLost);
+		Sound::GetInstance()->Stop(eSound::musicStage1);
 		_energy = 0;
 		die_start = GetTickCount();
 		vx = vy = 0;
@@ -1577,6 +1582,8 @@ void CSimon::StartHurt(float _x, float _y)
 	}
 	if (_energy <= 0)
 	{
+		Sound::GetInstance()->Play(eSound::musicLifeLost);
+		Sound::GetInstance()->Stop(eSound::musicStage1);
 		_energy = 0;
 		die_start = GetTickCount();
 		vx = vy = 0;

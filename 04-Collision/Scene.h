@@ -62,6 +62,8 @@ class CScene
 	bool isAutoTran;
 	float auto_tran;
 	DWORD start_killAllEnemy;
+	float cam_x;
+	float cam_y;
 public:
 	static CScene* GetInstance();
 	CScene(int id = 0);

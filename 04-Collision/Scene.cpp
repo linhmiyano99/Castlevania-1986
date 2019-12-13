@@ -31,10 +31,8 @@ void CScene::LoadResoure()
 {
 	if (id == 0) {
 		map->SetMap(0);
-		
 		grid->LoadObject("texture/objects_1.txt");
 		simon = CSimon::GetInstance();
-		objects.push_back(simon);
 	}
 	else
 	{
@@ -47,7 +45,6 @@ void CScene::LoadResoure()
 void CScene::LoadSimon()
 {
 	float simon_x, simon_y;
-	simon = CSimon::GetInstance();
 	simon->GetPosition(simon_x, simon_y);
 	smallballs.clear();
 	if (id == 1)
@@ -70,6 +67,7 @@ void CScene::LoadSimon()
 
 void CScene::Update(DWORD dt)
 {
+	game->GetCamPos(cam_x, cam_y);
 	if (board->IsStop())
 	{
 
@@ -81,14 +79,13 @@ void CScene::Update(DWORD dt)
 		}
 		else if (board->GetTime() > 0)
 		{
-			Sound::GetInstance()->Play(eSound::soundGetScoreHeart);
+			Sound::GetInstance()->Play(eSound::soundGetScoreTimer);
 			board->TimeDown();
 			return;
 		}
 		else if (simon->GetHeart() > 0)
 		{
-			Sound::GetInstance()->Play(eSound::soundGetScoreTimer);
-
+			Sound::GetInstance()->Play(eSound::soundGetScoreHeart);
 			simon->HeartDown();
 			return;
 		}
@@ -106,23 +103,22 @@ void CScene::Update(DWORD dt)
 	{
 		var->Update(dt);
 	}
-	float c_x, c_y;
 
-	game->GetCamPos(c_x, c_y);
+	game->GetCamPos(cam_x, cam_y);
 
 	if (isAutoTran)
 	{
 
-		if (c_x < auto_tran)
+		if (cam_x < auto_tran)
 		{
-			if (c_x < auto_tran - SCREEN_WIDTH / 2)
-				game->SetCamPos(c_x + 2.0f, c_y);// vận tốc chuyển màn 2.0f pixcel / milisecond 
+			if (cam_x < auto_tran - SCREEN_WIDTH / 2)
+				game->SetCamPos(cam_x + 2.0f, cam_y);// vận tốc chuyển màn 2.0f pixcel / milisecond 
 			else
 			{
 				if (simon->IsAutoGo())
 					simon->Update(dt);
 				else
-					game->SetCamPos(c_x + 2.0f, c_y);// vận tốc chuyển màn 2.0f pixcel / milisecond 
+					game->SetCamPos(cam_x + 2.0f, cam_y);// vận tốc chuyển màn 2.0f pixcel / milisecond 
 			}
 
 		}
@@ -144,7 +140,7 @@ void CScene::Update(DWORD dt)
 			Sound::GetInstance()->Stop(eSound::musicStage1);
 			Sound::GetInstance()->Play(eSound::music_Boss);
 		}
-		float cx, cy, cam_x, cam_y;
+		float cx, cy;
 		simon->GetPosition(cx, cy);
 		game->GetCamPos(cam_x, cam_y);
 		grid->GetListObject(objects, cam_x, cam_y);
@@ -265,14 +261,13 @@ void CScene::Render()
 	default:
 		break;
 	}
-	float cx, cy;
-	game->GetCamPos(cx, cy);
+
 	board->Render();
 	float s_x, s_y;
 	simon->GetPosition(s_x, s_y);
 	if (simon->IsOnStair() && (s_y > START_DOWN&& s_y < DONE_DOWN) && simon->GetState() != SIMON_STATE_DIE)
 	{
-		CSprites::GetInstance()->Get(70001)->Draw(cx, cy);
+		CSprites::GetInstance()->Get(70001)->Draw(cam_x, cam_y);
 	}
 }
 void CScene::SetMap(int id)
@@ -284,9 +279,7 @@ int CScene::GetLeft()
 {
 	if (isAutoTran)
 	{
-		float c_x, c_y;
-		game->GetCamPos(c_x, c_y);
-		return c_x;
+		return cam_x;
 	}
 	switch (id)
 	{
@@ -326,9 +319,7 @@ int CScene::GetRight()
 {
 	if (isAutoTran)
 	{
-		float c_x, c_y;
-		game->GetCamPos(c_x, c_y);
-		return c_x + SCREEN_WIDTH;
+		return cam_x + SCREEN_WIDTH;
 	}
 	switch (id)
 	{

@@ -225,6 +225,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else // đẫ chết
 	{
+		Sound::GetInstance()->Stop(eSound::music_Boss);
 		if (item) {//co item
 			if (GetTickCount() - dt_die > TIME_BOSS_DIE) // cho 150 mili second
 			{

@@ -40,11 +40,9 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 	
 
 	int left = (int)(cam_x) / GRID_CELL_WIDTH;
-	/*if (left > 0 && scene->GetScene() > 0 && scene->GetScene() < 5)
-		left--;*/
+		if(left > 0)left--;
 	int right = (int)(cam_x + SCREEN_HEIGHT) / GRID_CELL_WIDTH;
-	/*if (right < GRID_COLUMN_MAX && scene->GetScene() > 0 && scene->GetScene() < 5)
-		right++;*/
+		right++;
 
 	for (int i = top; i <= bottom; i++)
 	{
@@ -52,7 +50,7 @@ void CGrid::GetListObject(vector<LPGAMEOBJECT>& ListObj, float cam_x, float cam_
 		{
 			for (UINT k = 0; k < cells[i][j].size(); k++)
 			{
-				if (cells[i][j].at(k)->GetState() != TORCH_STATE_ITEM_NOT_EXSIST || dynamic_cast<CEnemy*>(cells[i][j].at(k))) // còn tồn tại
+				if (cells[i][j].at(k)->GetState() != TORCH_STATE_ITEM_NOT_EXSIST || dynamic_cast<CEnemy*>(cells[i][j].at(k))) // còn tồn tại || enemy
 				{
 					if (mapObject.find(cells[i][j].at(k)->GetID()) == mapObject.end()) // chưa có trong map
 						mapObject[cells[i][j].at(k)->GetID()] = cells[i][j].at(k);
