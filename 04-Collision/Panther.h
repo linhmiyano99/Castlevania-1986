@@ -15,7 +15,8 @@
 #define PANTHER_STATE_RUN 200
 #define PANTHER_STATE_DIE 300
 
-#define DISTANCE_TO_START 40
+#define DISTANCE_TO_START1 40
+#define DISTANCE_TO_START2 150
 
 class CPanther : public CEnemy
 {

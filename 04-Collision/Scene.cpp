@@ -71,7 +71,6 @@ void CScene::Update(DWORD dt)
 	if (board->IsStop())
 	{
 
-		Sound::GetInstance()->Stop(eSound::music_Boss);
 		if (simon->GetEnergy() < SIMON_MAX_ENERGY)
 		{
 			simon->UpEnergy();
@@ -89,6 +88,9 @@ void CScene::Update(DWORD dt)
 			simon->HeartDown();
 			return;
 		}
+		Sound::GetInstance()->Stop(eSound::music_Boss);
+		return;
+
 	}	
 	if (start_killAllEnemy > 0)
 	{

@@ -22,6 +22,7 @@
 
 #define FISHMAN_MAX_HEIGHT 448
 #define FISHMAN_MAX_DISTANCE_WITH_SIMON 200
+#define FISHMAN_SPEED 0.15f
 class CFishman : public CEnemy
 {
 	bool isAttacking;

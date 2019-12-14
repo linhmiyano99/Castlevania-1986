@@ -113,6 +113,9 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_K: // kill all enemies
 		scene->KillAllEnemy();
 		break;
+	case DIK_F: // move right 500
+		simon->GoFast();
+		break;
 	}
 }
 

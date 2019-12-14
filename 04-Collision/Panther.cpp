@@ -74,9 +74,9 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			CSimon::GetInstance()->GetPosition(s_x, s_y);
 			if (!isStart)
 			{
-				if (abs(x - s_x) < DISTANCE_TO_START)
+				if ((abs(x - s_x) < DISTANCE_TO_START1) || (abs(x - s_x) < DISTANCE_TO_START2 && s_y + PANTHER_BBOX_HEIGHT > y))
 				{
-					SetSpeed(-0.1f, -0.1f);
+					SetSpeed(0,0);
 					isStart = true;
 				}
 				return;

@@ -76,7 +76,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (y <= FISHMAN_MAX_HEIGHT)
 			{
 				vy = SIMON_GRAVITY * dt;
-				vx = nx * 0.15f;
+				vx = nx * FISHMAN_SPEED;
 				isJumping = false;
 			}
 			for each (CWaterEffection* var in list)
@@ -338,15 +338,15 @@ void  CFishman::ResetWater(int type)
 {
 	if (type == 0)
 	{
-		list[0]->SetPosition(x, y + 60);
-		list[1]->SetPosition(x + 10, y + 20);
-		list[2]->SetPosition(x + 20, y + 60);
+		list[0]->SetPosition(x, y + FISHMAN_BBOX_HEIGHT);
+		list[1]->SetPosition(x + WATTER_WIDTH, y + FISHMAN_BBOX_HEIGHT/3);
+		list[2]->SetPosition(x + WATTER_WIDTH * 2, y + FISHMAN_BBOX_HEIGHT);
 	}
 	else
 	{
-		list[0]->SetPosition(x, y + 20);
-		list[1]->SetPosition(x + 10, y + 60);
-		list[2]->SetPosition(x + 20, y + 20);
+		list[0]->SetPosition(x, y + FISHMAN_BBOX_HEIGHT/3);
+		list[1]->SetPosition(x + WATTER_WIDTH, y + FISHMAN_BBOX_HEIGHT);
+		list[2]->SetPosition(x + WATTER_WIDTH * 2, y + FISHMAN_BBOX_HEIGHT/3);
 	}
 }
 void CFishman::GetLimit()

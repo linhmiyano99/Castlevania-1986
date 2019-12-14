@@ -82,16 +82,17 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				CSmallBall* smallball = new CSmallBall(x + BOSS_BBOX_WIDTH / 2, y + BOSS_BBOX_HEIGHT / 2, nx);
 				if (s_x == x)
 				{
-					smallball->SetSpeed(0, -0.3f * nx);
+					smallball->SetSpeed(0, -SMALLBALL_SPEED * nx);
 				}
 				else if (s_y == y)
 				{
-					smallball->SetSpeed(-0.3f * nx, 0);
+					smallball->SetSpeed(-SMALLBALL_SPEED * nx, 0);
 
 				}
 				else
 				{
-					smallball->SetSpeed(0.25f * nx, 1.0 * (s_y - y - BOSS_BBOX_WIDTH / 2) / (s_x - x - BOSS_BBOX_HEIGHT / 2) * nx * 0.25f);
+					smallball->SetSpeed(SMALLBALL_SPEED * nx,
+						1.0 * (s_y - y - BOSS_BBOX_WIDTH / 2) / (s_x - x - BOSS_BBOX_HEIGHT / 2) * nx * SMALLBALL_SPEED);
 				}
 				CScene::GetInstance()->AddSmallBall(smallball);
 				return;
@@ -102,9 +103,9 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					state = BOSS_STATE_FLY;
 					if (vx == 0)
-						vx = 0.15f;
+						vx = BOSS_SPEED_AUTO_FLY_X / 2;
 					if (vy == 0)
-						vy = 0.1f;
+						vy = BOSS_SPEED_AUTO_FLY_Y / 2;
 				}
 			}
 			if (state == BOSS_STATE_FLY)
@@ -212,7 +213,8 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							step = 0;
 							start_fly = GetTickCount();
 						}
-						if ((x <= CScene::GetInstance()->GetLeft() && vx < 0) || (vx > 0 && x >= CScene::GetInstance()->GetRight() - BOSS_BBOX_WIDTH))
+						if ((x <= CScene::GetInstance()->GetLeft() && vx < 0)
+							|| (vx > 0 && x >= CScene::GetInstance()->GetRight() - BOSS_BBOX_WIDTH))
 							vx = -vx;
 						if ((y <= BOSS_BBOX_WIDTH && vy < 0) || (y >= SCREEN_HEIGHT - BOSS_BBOX_WIDTH && vy > 0))
 							vy = -vy;
@@ -225,7 +227,6 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else // đẫ chết
 	{
-		Sound::GetInstance()->Stop(eSound::music_Boss);
 		if (item) {//co item
 			if (GetTickCount() - dt_die > TIME_BOSS_DIE) // cho 150 mili second
 			{
@@ -315,10 +316,10 @@ void CBoss::AutoFly(float next_x, float next_y)
 	CSimon::GetInstance()->GetPosition(x1, y1);
 	y1 += SIMON_HEIGHT_STAND / 2;
 	if (x < next_x)
-		vx = 0.3f;
+		vx = BOSS_SPEED_AUTO_FLY_X;
 	else
-		vx = -0.3f;
-	vy = 0.4f;
+		vx = -BOSS_SPEED_AUTO_FLY_X;
+	vy = BOSS_SPEED_AUTO_FLY_Y;
 
 }
 void CBoss::AutoAttack(float next_x, float next_y)
@@ -339,7 +340,7 @@ void CBoss::FlyStraight(float next_x, float next_y)
 		nx = -1;
 	}
 	if (next_x != x && next_y != y)
-		SetSpeed(0.3f * nx, 1.0 * (next_y - y) / (next_x - x) * nx * 0.3f);
+		SetSpeed(SMALLBALL_SPEED * nx, 1.0 * (next_y - y) / (next_x - x) * nx * SMALLBALL_SPEED);
 
 }
 void CBoss::FlyCurve(float next_x, float next_y)

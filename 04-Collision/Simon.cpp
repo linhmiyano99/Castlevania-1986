@@ -273,7 +273,9 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vector<LPGAMEOBJECT> listHideObject;
 		for (int i = 0; i < coObjects->size(); i++)
 		{
-			if (dynamic_cast<CHidenObject*>(coObjects->at(i)) && (coObjects->at(i)->GetState() == eType::STAIR_DOWN || coObjects->at(i)->GetState() == eType::STAIR_UP))
+			if (dynamic_cast<CHidenObject*>(coObjects->at(i)) 
+				&& (coObjects->at(i)->GetState() == eType::STAIR_DOWN 
+					|| coObjects->at(i)->GetState() == eType::STAIR_UP))
 			{
 				listHideObject.push_back(coObjects->at(i));
 			}
@@ -536,7 +538,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							CollisionWithGate(dt, e->obj, min_tx, min_ty, nx, ny);
 						}
 					}
-					else if(!untouchable || !start_disappear)
+					else if(!untouchable_start || !start_disappear)
 					{ 
 						if (dynamic_cast<CTorch*>(e->obj))
 						{
@@ -778,7 +780,9 @@ void CSimon::Render()
 		id = SIMON_ANI_TRANS;
 	}
 	int alpha = 255;
-	if ( untouchable &&( isOnStair || GetTickCount() - untouchable_start > SIMON_HURT_TIME) &&(die_start == 0)) alpha = 128;
+	if ( untouchable 
+		&&( isOnStair || GetTickCount() - untouchable_start > SIMON_HURT_TIME) 
+		&&(die_start == 0)) alpha = 128;
 	if (start_disappear)
 		alpha = 0;
 	animations[id]->Render(x, y, nx, alpha);
@@ -1047,7 +1051,8 @@ void CSimon::GetBoundingBox(float& left, float& top, float& right, float& bottom
 void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 {
 
-	if ((Obj->GetState() == ITEM_STATE_EXSIST && Obj->GetType() != eType::BOSS) || (Obj->GetState() == BOSS_STATE_ITEM && Obj->GetType() == eType::BOSS))
+	if ((Obj->GetState() == ITEM_STATE_EXSIST && Obj->GetType() != eType::BOSS) 
+		|| (Obj->GetState() == BOSS_STATE_ITEM && Obj->GetType() == eType::BOSS))
 	{
 		switch (Obj->GetType())
 		{
@@ -1130,6 +1135,7 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 			CBoard::GetInstance()->Stop();
 			CGate::Start();
 			Sound::GetInstance()->Stop(eSound::musicStage1);
+			Sound::GetInstance()->Stop(eSound::music_Boss);
 		}
 		else
 			Obj->SetState(ITEM_STATE_NOT_EXSIST);
@@ -1410,8 +1416,8 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 		else
 			nx = 1;
 		//// block 
-		vx = nx * SIMON_WALKING_SPEED * 1.7f;
-		vy = -SIMON_JUMP_SPEED_Y * 2.0f;
+		vx = nx * SIMON_WALKING_SPEED;
+		vy = -SIMON_JUMP_SPEED_Y;
 		_energy -= ONE_HIT;
 		start_jump = 0;
 		
@@ -1561,9 +1567,9 @@ void CSimon::UpEnergy()
 }
 void CSimon::ResetWater()
 {
-	list[0]->SetPosition(x, y + 20);
-	list[1]->SetPosition(x + 10, y + 60);
-	list[2]->SetPosition(x + 20, y + 20);
+	list[0]->SetPosition(x, y + SIMON_HEIGHT_STAND / 3);
+	list[1]->SetPosition(x + WATTER_WIDTH, y + SIMON_HEIGHT_STAND);
+	list[2]->SetPosition(x + WATTER_WIDTH * 2, y + SIMON_HEIGHT_STAND / 3);
 }
 void CSimon::StartHurt(float _x, float _y)
 {
@@ -1576,8 +1582,8 @@ void CSimon::StartHurt(float _x, float _y)
 			nx = -1;
 		else
 			nx = 1;
-		vx = nx * SIMON_WALKING_SPEED * 1.7f;
-		vy = -SIMON_JUMP_SPEED_Y * 2.0f;
+		vx = nx * SIMON_WALKING_SPEED;
+		vy = -SIMON_JUMP_SPEED_Y;
 		state = SIMON_STATE_HURT;
 	}
 	if (_energy <= 0)
@@ -1598,4 +1604,9 @@ void CSimon::SetDownEnerGy()
 	if (_energy == SIMON_MAX_ENERGY)
 		_energy = 2; 
 	else _energy = SIMON_MAX_ENERGY;
+}
+void CSimon::GoFast()
+{
+	if(x < CScene::GetInstance()->GetRight() - 500) // dịch chuyển simon sang phải 500 đơn vị
+		x += 500;
 }

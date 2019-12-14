@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 #define BRICK_GRAVITY			0.002f
+#define WATTER_WIDTH 10 
 
 class CWaterEffection : public CGameObject
 {
