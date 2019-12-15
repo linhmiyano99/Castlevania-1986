@@ -123,7 +123,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			return;
 		}
 	}
-	if (die_start == 0 &&(_energy <= 0 || (y > WATTER_Y + 80)))
+	if (die_start == 0 &&(_energy <= 0 || (y > WATTER_Y + 85)))
 	{
 		Sound::GetInstance()->Play(eSound::musicLifeLost);
 		Sound::GetInstance()->Stop(eSound::musicStage1);
@@ -537,6 +537,12 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						{
 							CollisionWithGate(dt, e->obj, min_tx, min_ty, nx, ny);
 						}
+					}
+					else if (dynamic_cast<CItem*>(e->obj))
+					{
+	
+						CollisionWithItem(dt, e->obj);
+						
 					}
 					else if(!untouchable_start || !start_disappear)
 					{ 
@@ -1359,6 +1365,10 @@ void CSimon::CollisionWithHidenObject(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0
 			else if (ohiden->GetState() == eType::OBJECT_HIDDEN_GHOST_2)
 			{
 				//CGhost::Start();
+			}
+			else if (ohiden->GetState() == eType::OBJECT_HIDDEN_MONEY)
+			{
+				CItemMoney::Start();
 			}
 
 			if (ohiden->getNx() * ohiden->getNy() > 0)

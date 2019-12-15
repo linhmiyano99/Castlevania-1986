@@ -60,7 +60,7 @@ void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CAxe::Render()
 {
-	if (state == AXE_STATE_ATTACK) {
+	if (state == AXE_STATE_ATTACK && start_attack) {
 		animations[0]->Render(x, y, nx, 255);
 		//RenderBoundingBox();
 	}
@@ -68,7 +68,7 @@ void CAxe::Render()
 
 void CAxe::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == AXE_STATE_ATTACK)
+	if (state == AXE_STATE_ATTACK && start_attack)
 	{
 		left = x;
 		right = x + 40;
@@ -79,7 +79,7 @@ void CAxe::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 }
 void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 {
-	if (state == AXE_STATE_ATTACK)
+	if (state == AXE_STATE_ATTACK && start_attack)
 	{
 		RECT rect, rect1;
 		float l, t, r, b;

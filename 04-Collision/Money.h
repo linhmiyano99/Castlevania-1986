@@ -16,9 +16,14 @@
 class CItemMoney : public CItem
 {
 	DWORD start_effection;
+	float destination_x;
+	float destination_y;
+	static bool isStartShowHiden;
 public:
 	CItemMoney(float _x, float _y, int type) : CItem(_x, _y)
 	{
+		destination_x = x;
+		destination_y = y - 33;
 		switch (type)
 		{
 		case eType::MONEY_1:
@@ -35,6 +40,10 @@ public:
 			break;
 		case eType::MONEY_4:
 			AddAnimation(708);
+			AddAnimation(813);
+			break;
+		case eType::MONEY_5:
+			AddAnimation(720);
 			AddAnimation(813);
 			break;
 		default:
@@ -57,6 +66,8 @@ public:
 			start_effection = GetTickCount();
 		}
 	}
-
+	static void Start() { isStartShowHiden = true; }
+	static void Stop() { isStartShowHiden = false; }
+	static bool IsStart() { return isStartShowHiden; }
 };
 #endif // !__DAGGER_H_

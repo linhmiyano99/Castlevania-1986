@@ -237,6 +237,14 @@
     <Animation animationID ="719" frameTime ="100">
       <sprite id="13020"/>
     </Animation>
+    
+    <!--HIDENMONEY_ITEM-->
+    <Animation animationID ="720" frameTime ="100">
+      <sprite id="13005"/>
+      <sprite id="13006"/>
+      <sprite id="13007"/>
+      <sprite id="13008"/>
+    </Animation>
 
     <!--FIRE after torch not exist-->
     <Animation animationID ="800" frameTime ="100">

@@ -118,6 +118,7 @@ CGameObject* CGrid::GetNewObject( int type, int trend, int x, int y, int w, int 
 	case eType::FISHMEN: return new CFishman(x, y, id_item);
 	case eType::GHOST: return new CGhost(x, y, id_item);
 	case eType::BAT: return new CBat(x, y, id_item);
+	case eType::MONEY_5: return new CItemMoney(x, y, MONEY_5);
 	default:
 		return NULL;
 	}
