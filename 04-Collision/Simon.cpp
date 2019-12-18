@@ -1119,6 +1119,10 @@ void CSimon::CollisionWithItem(DWORD dt, LPGAMEOBJECT& Obj)
 			Sound::GetInstance()->Play(eSound::soundCollectItem);
 			_score += 1000;
 			break;
+		case eType::MONEY_5:
+			Sound::GetInstance()->Play(eSound::soundCollectItem);
+			_score += 1000;
+			break;
 		case eType::ITEMII:
 			Sound::GetInstance()->Play(eSound::soundCollectItem);
 			CBoard::GetInstance()->SetNumberOfWeapon(2);

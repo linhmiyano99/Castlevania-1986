@@ -10,7 +10,7 @@
 #include "Item.h"
 
 #define ITEMMONEY_WIDTH 32
-#define ITEMMONEY_HEIGHT 32
+#define ITEMMONEY_HEIGHT 27
 
 
 class CItemMoney : public CItem

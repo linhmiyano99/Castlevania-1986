@@ -122,7 +122,7 @@ void CItemMoney::Render()
 		{
 			if (start_effection > 0)
 			{
-				animations[1]->Render(x - 20, y - 20);
+				//animations[1]->Render(x - 20, y - 20);
 				return;
 			}
 			if (state == ITEM_STATE_EXSIST)
