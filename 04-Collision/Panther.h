@@ -23,6 +23,7 @@ class CPanther : public CEnemy
 	float LeftLimit;
 	bool isJump;
 	bool isStart;
+	static bool isReset;
 public:
 	CPanther(float _x = 1419, float _y = 230, int id = 0);
 	virtual void Render();
@@ -32,4 +33,8 @@ public:
 	virtual void SetState(int state);
 	void CollisionWithBrick(DWORD dt, LPGAMEOBJECT &listBrick, float min_tx0, float min_ty0, int nx0, int ny0);
 	void CollisionWithHiden(DWORD dt, LPGAMEOBJECT &listBrick, float min_tx0, float min_ty0, int nx0, int ny0);
+	void Reset();
+	static void StopReset() { isReset = false; }
+	static void StartReset() { isReset = true; }
+	static bool IsResetting() { return isReset; }
 };

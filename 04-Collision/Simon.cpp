@@ -1374,6 +1374,14 @@ void CSimon::CollisionWithHidenObject(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0
 			{
 				CItemMoney::Start();
 			}
+			else if (ohiden->GetState() == eType::OBJECT_HIDDEN_RESET_PANTHER)
+			{
+				CPanther::StartReset();
+			}
+			else if (ohiden->GetState() == eType::OBJECT_HIDDEN_STOP_RESET_PANTHER)
+			{
+				CPanther::StopReset();
+			}
 
 			if (ohiden->getNx() * ohiden->getNy() > 0)
 			{

@@ -1,6 +1,8 @@
 #include "Panther.h"
 #include "Scene.h"
 #include "HidenObject.h"
+
+bool CPanther::isReset = false;
 CPanther::CPanther(float _x, float _y, int id) :CEnemy(_x, _y, id, eType::PANTHER)
 {
 	animations.clear();
@@ -24,7 +26,11 @@ CPanther::CPanther(float _x, float _y, int id) :CEnemy(_x, _y, id, eType::PANTHE
 }
 void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
+	if (CPanther::IsResetting())
+	{
+		Reset();
+		return;
+	}
 	float cam_x, cam_y;
 	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
 	if (CScene::GetInstance()->IsKillAllEnemy() && x > cam_x&& x < cam_x + SCREEN_WIDTH)
@@ -276,4 +282,12 @@ void CPanther::SetState(int state)
 	{
 		dt_appear = GetTickCount();
 	}
+}
+void CPanther::Reset()
+{
+	state = TORCH_STATE_EXSIST;
+	x = start_x;
+	y = start_y;
+	nx = -1;
+	vx = vy = 0;
 }
