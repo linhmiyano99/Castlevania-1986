@@ -22,7 +22,7 @@
 
 #define GRAVITY 0.002f
 
-#define AXE_TIME_ATTACK 2000
+#define AXE_TIME_ATTACK 1000
 
 
 class CAxe : public CWeapon
@@ -39,6 +39,7 @@ public:
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj);
 	void SetState(int _state);
+	bool IsCanAttack() { if (start_attack == 0) return true; return false;}
 
 };
 #endif // !__VAMPIREILLER_H__

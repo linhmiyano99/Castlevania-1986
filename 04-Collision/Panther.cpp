@@ -290,4 +290,6 @@ void CPanther::Reset()
 	y = start_y;
 	nx = -1;
 	vx = vy = 0;
+	isStart = false;
+	isJump = false;
 }

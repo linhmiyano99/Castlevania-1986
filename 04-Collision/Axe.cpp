@@ -47,6 +47,7 @@ void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			start_attack = GetTickCount();
 			isRender = true;
+			CSimon::GetInstance()->ThrowWeapon();
 		}
 
 		x += dt * vx;
@@ -60,7 +61,7 @@ void CAxe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CAxe::Render()
 {
-	if (state == AXE_STATE_ATTACK && start_attack) {
+	if (isRender) {
 		animations[0]->Render(x, y, nx, 255);
 		//RenderBoundingBox();
 	}
@@ -68,7 +69,7 @@ void CAxe::Render()
 
 void CAxe::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == AXE_STATE_ATTACK && start_attack)
+	if (isRender)
 	{
 		left = x;
 		right = x + 40;
@@ -99,7 +100,6 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 				if (torch->GetState() == TORCH_STATE_EXSIST ||
 					((torch->GetState() == BOSS_STATE_ATTACK || torch->GetState() == BOSS_STATE_FLY) && torch->GetType() == eType::BOSS))
 				{
-					Sound::GetInstance()->Play(eSound::soundHurting);
 					torch->GetBoundingBox(l1, t1, r1, b1);
 					rect1.left = (int)l1;
 					rect1.top = (int)t1;
@@ -107,11 +107,12 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 					rect1.bottom = (int)b1;
 					if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
 					{
+						Sound::GetInstance()->Play(eSound::soundHurting);
+						isRender = false;
+						state = AXE_STATE_HIDE;
 						if (torch->GetType() == eType::BRICK_1 || torch->GetType() == eType::BRICK_2)
 						{
 							vx = vy = 0;
-							isRender = false;
-							state = AXE_STATE_HIDE;
 							break;
 						}
 						torch->Hurt();
@@ -141,8 +142,6 @@ void CAxe::CollisionWithObject(DWORD dt, vector<LPGAMEOBJECT>& listObj)
 								}
 							}
 						}
-						state = AXE_STATE_HIDE;
-						isRender = false;
 						break;
 					}
 				}

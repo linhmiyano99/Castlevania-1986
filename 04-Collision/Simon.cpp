@@ -395,12 +395,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				break;
 			case eType::ITEMAXE:
-				if (weapons[eType::AXE]->GetState() == DAGGER_STATE_HIDE)
+				if (weapons[eType::AXE]->GetState() == DAGGER_STATE_HIDE && dynamic_cast<CAxe*>(weapons[eType::AXE])->IsCanAttack())
 				{
 					weapons[eType::AXE]->SetPosition(x, y);
 					weapons[eType::AXE]->SetTrend(nx);
 					weapons[eType::AXE]->SetState(DAGGER_STATE_ATTACK);
-					_heart--;
 				}
 				break;
 			case eType::ITEMHOLLYWATTER:
@@ -489,7 +488,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (state == SIMON_STATE_JUMP)
 				{
-					x += dx * 1.1;
+					x += dx * 1.1f;
 				}
 				else
 				{
@@ -901,7 +900,7 @@ void CSimon::SetState(int state)
 					}
 					break;	
 				case eType::ITEMAXE:
-					if (CAxe::GetInstance()->GetState() == DAGGER_STATE_ATTACK)
+					if (CAxe::GetInstance()->GetState() == DAGGER_STATE_ATTACK || !CAxe::GetInstance()->IsCanAttack())
 					{
 						this->state = SIMON_STATE_IDLE;
 					}
@@ -1351,6 +1350,7 @@ void CSimon::CollisionWithHidenObject(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0
 			else if (ohiden->GetState() == eType::OBJECT_HIDDEN_GATE_OPEN)
 			{
 				CGate::Start();
+				CBat::Stop();
 			}
 			else if (ohiden->GetState() == eType::OBJECT_HIDDEN_FISHMAN)
 			{

@@ -147,5 +147,6 @@ public:
 	void UpHeart() { _heart += 10; }
 	void Disappear() { start_disappear = GetTickCount(); }
 	void GoFast();
+	void ThrowWeapon() { _heart--; }
 };
 #endif
