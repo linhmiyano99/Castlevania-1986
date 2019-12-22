@@ -1,4 +1,4 @@
-﻿
+﻿#include "Game.h"
 #include "Scene.h"
 #include "Enemy.h"
 
@@ -21,6 +21,7 @@ CScene::CScene(int id)
 	isAutoTran = false;
 	auto_tran = 0;
 	_stage = 1;
+	isOutSide = true;
 	Sound::GetInstance()->Play(eSound::musicStage1);
 	CManagementTexture* manage = new CManagementTexture();
 	SAFE_DELETE(manage);
@@ -37,6 +38,7 @@ void CScene::LoadResoure()
 	else
 	{
 		map->SetMap(1);
+		isOutSide = false;
 		grid->LoadObject("texture/objects_2.txt");
 
 	}
@@ -208,7 +210,8 @@ void CScene::Update(DWORD dt)
 			if (cx > GetRight() - SCREEN_WIDTH)
 				cx = GetRight() - SCREEN_WIDTH;
 		}
-		game->SetCamPos(cx, cy);
+		if(!(IsOutSide() && cx > GetRight() - SCREEN_WIDTH))
+			game->SetCamPos(cx, cy);
 		switch (CBoard::GetInstance()->GetWeapon())
 		{
 		case  eType::DAGGER:
@@ -441,4 +444,11 @@ int CScene::GetStartScene()
 		return 0;
 		break;
 	}
+}
+float CScene::GetMapRight()
+{
+	if (id == 0)
+		return SCENCE_0_RIGHT;
+	else
+		return SCENCE_5_RIGHT;
 }

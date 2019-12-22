@@ -179,7 +179,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	if (isAutoGo && !CScene::GetInstance()->IsTranScene())
+	if (isAutoGo && !CScene::GetInstance()->IsTranScene() && !CScene::GetInstance()->IsOutSide())
 	{
 		AutoGo();
 		if (abs(auto_x - x) > 0.5f)
@@ -188,7 +188,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
-			
+
 			isAutoGo = false;
 			if (isCanOnStair == 1)
 			{
@@ -211,8 +211,25 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			animations[SIMON_ANI_GO_UP]->ResetFrame();
 			animations[SIMON_ANI_GO_DOWN]->ResetFrame();
 		}
-		//return;
 	}
+	else if (isAutoGo && !CScene::GetInstance()->IsTranScene() && CScene::GetInstance()->IsOutSide() && !isOnStair)
+	{
+		AutoGo();
+		if (abs(auto_x - x) > 0.5f)
+		{
+			x += 0.5 * nx;
+		}
+		else
+		{
+			isAutoGo = false;
+			CScene::GetInstance()->GoInside();
+			CScene::GetInstance()->SetMap(1);
+			CScene::GetInstance()->LoadResoure();
+			CScene::GetInstance()->LoadSimon();
+		}
+	}
+		//return;
+	
 	else if (isAutoGo && CScene::GetInstance()->IsTranScene())
 	{
 		AutoGo();
@@ -527,8 +544,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 					else if (dynamic_cast<CHidenObject*>(e->obj))
 					{
-
-						CollisionWithHidenObject(dt, e->obj, min_tx, min_ty, nx, ny);
+						if( dynamic_cast<CHidenObject*>(e->obj)->GetState() == eType::OBJECT_HIDDEN_PANTHER_JUMP)
+						{
+							x += dx;
+							y += dy;
+						}
+						else
+							CollisionWithHidenObject(dt, e->obj, min_tx, min_ty, nx, ny);
 					}
 					else if (dynamic_cast<CGate*>(e->obj))
 					{
@@ -1341,10 +1363,8 @@ void CSimon::CollisionWithHidenObject(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0
 			if (ohiden->GetState() == eType::OBJECT_HIDDEN_DOOR)
 			{
 
-				CScene* scene = CScene::GetInstance();
-				scene->SetMap(1);
-				scene->LoadResoure();
-				scene->LoadSimon();
+				auto_x = x + 30;
+				isAutoGo = true;
 				
 			}
 			else if (ohiden->GetState() == eType::OBJECT_HIDDEN_GATE_OPEN)

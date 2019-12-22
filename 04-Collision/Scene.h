@@ -9,7 +9,6 @@
 #include "fstream"
 
 #include "debug.h"
-#include "Game.h"
 #include "GameObject.h"
 #include "Textures.h"
 #include "MagagementTexture.h"
@@ -64,6 +63,7 @@ class CScene
 	DWORD start_killAllEnemy;
 	float cam_x;
 	float cam_y;
+	bool isOutSide;
 public:
 	static CScene* GetInstance();
 	CScene(int id = 0);
@@ -90,5 +90,8 @@ public:
 	void TestStage(int stage);
 	bool IsKillAllEnemy();
 	void KillAllEnemy() { start_killAllEnemy = GetTickCount(); }
+	bool IsOutSide() { return isOutSide; }
+	void GoInside() { isOutSide = false; }
+	float GetMapRight();
 };
 #endif // !__SMALLBALL_H__

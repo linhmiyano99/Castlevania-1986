@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "debug.h"
+#include "Scene.h"
 
 CGame* CGame::__instance = NULL;
 
@@ -338,4 +339,12 @@ CGame* CGame::GetInstance()
 bool CGame::isCollision(RECT r1, RECT r2)
 {
 	return !(r1.right < r2.left || r1.left > r2.right || r1.top > r2.bottom || r1.bottom < r2.top);
+}
+void CGame::SetCamPos(float x, float y)
+{
+	if (x < CScene::GetInstance()->GetMapRight() - SCREEN_WIDTH)
+	{
+		cam_x= x;
+	}
+	cam_y = y;
 }
