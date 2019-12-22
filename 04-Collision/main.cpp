@@ -144,11 +144,11 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 void CSampleKeyHander::KeyState(BYTE* states)
 {
 
-	if (game->IsKeyDown(DIK_Z) && game->IsKeyDown(DIK_DOWN))
+	if (game->IsKeyDown(DIK_Z) && game->IsKeyDown(DIK_DOWN) && !simon->IsAttacking())
 	{
 		simon->SetState(SIMON_STATE_SIT_ATTACK);
 	}
-	else if (game->IsKeyDown(DIK_Z) && game->IsKeyDown(DIK_UP))
+	else if (game->IsKeyDown(DIK_Z) && game->IsKeyDown(DIK_UP) && !simon->IsAttacking())
 	{
 		simon->SetState(SIMON_STATE_ATTACK_DAGGER);
 
@@ -161,14 +161,14 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	{
 		if (simon->GetState() == SIMON_STATE_SIT || simon->GetState() == SIMON_STATE_SIT_ATTACK)
 			simon->SetState(SIMON_STATE_UP);
-		else if (simon->GetState() == SIMON_STATE_IDLE || simon->GetState() == SIMON_STATE_WALKING_LEFT || simon->GetState() == SIMON_STATE_WALKING_RIGHT)
+		else if ((simon->GetState() == SIMON_STATE_IDLE || simon->GetState() == SIMON_STATE_WALKING_LEFT || simon->GetState() == SIMON_STATE_WALKING_RIGHT) && !simon->IsAttacking())
 			simon->SetState(SIMON_STATE_STAND_ATTACK);
 	}
 	else if (game->IsKeyDown(DIK_X))
 	{
 		simon->SetState(SIMON_STATE_JUMP);
 	}
-	else if (game->IsKeyDown(DIK_DOWN) && game->IsKeyDown(DIK_Z))
+	else if (game->IsKeyDown(DIK_DOWN) && game->IsKeyDown(DIK_Z) && !simon->IsAttacking())
 	{
 		simon->SetState(SIMON_STATE_SIT_ATTACK);
 

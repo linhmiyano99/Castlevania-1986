@@ -547,7 +547,11 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						if( dynamic_cast<CHidenObject*>(e->obj)->GetState() == eType::OBJECT_HIDDEN_PANTHER_JUMP)
 						{
 							x += dx;
-							y += dy;
+
+							if (isOnStair)
+							{
+								y += dy;
+							}
 						}
 						else
 							CollisionWithHidenObject(dt, e->obj, min_tx, min_ty, nx, ny);
@@ -565,11 +569,10 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						CollisionWithItem(dt, e->obj);
 						
 					}
-					else if(!untouchable_start || !start_disappear)
+					else if (dynamic_cast<CTorch*>(e->obj))
 					{ 
-						if (dynamic_cast<CTorch*>(e->obj))
+						if (!(untouchable_start || start_disappear))
 						{
-
 							CTorch* torch = dynamic_cast<CTorch*>(e->obj);
 
 							if (dynamic_cast<CEnemy*>(torch))
@@ -670,11 +673,19 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							torch = NULL;
 
 						}
+						else
+						{
+							float o_x, o_y;
+							e->obj->GetPosition(o_x, o_y);
+							x += dx;
+							if (y + SIMON_HEIGHT_STAND <= o_y)
+								y += dy;
+							break;
+						}
 					}
 					else 
 					{
-						x += dx;
-						y += dy;
+						break;
 					}
 					
 
