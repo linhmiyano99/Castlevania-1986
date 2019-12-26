@@ -49,7 +49,7 @@ public:
 			_autoX = x + 40;
 			break;
 		case eType::OBJECT_HIDDEN_PANTHER_JUMP:
-			_height = 50;
+			_height = 150;
 			_width = 15;
 			break;
 

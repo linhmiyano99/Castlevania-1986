@@ -112,7 +112,8 @@ void CScene::Update(DWORD dt)
 
 	if (isAutoTran)
 	{
-
+		if (simon->IsFall(dt))
+			return;
 		if (cam_x < auto_tran)
 		{
 			if (cam_x < auto_tran - SCREEN_WIDTH / 2)

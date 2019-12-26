@@ -181,6 +181,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (isAutoGo && !CScene::GetInstance()->IsTranScene() && !CScene::GetInstance()->IsOutSide())
 	{
+		if (IsFall(dt))
+			return;
 		AutoGo();
 		if (abs(auto_x - x) > 0.5f)
 		{
@@ -214,6 +216,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else if (isAutoGo && !CScene::GetInstance()->IsTranScene() && CScene::GetInstance()->IsOutSide() && !isOnStair)
 	{
+		if (IsFall(dt))
+			return;
 		AutoGo();
 		if (abs(auto_x - x) > 0.5f)
 		{
@@ -232,6 +236,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	
 	else if (isAutoGo && CScene::GetInstance()->IsTranScene())
 	{
+		if (IsFall(dt))
+			return;
 		AutoGo();
 		state = SIMON_STATE_WALKING_RIGHT;
 		if (abs(auto_x - x) > 0.5f)
@@ -1363,7 +1369,7 @@ void CSimon::CollisionWithHidenObject(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0
 					y += min_ty * dy + ny * 0.4f;
 				if (nx != 0) vx = 0;
 				if (ny != 0) vy = 0;
-			
+				state = SIMON_STATE_IDLE;
 				y -= 5;
 			}
 			IsCanOnStair(listObj);
@@ -1576,7 +1582,7 @@ int CSimon::IsCanOnStair(vector<LPGAMEOBJECT>& listObj)
 					isCanOnStair = 1;
 					return 1;
 				}
-
+				ohiden = NULL;
 
 			}
 		}
@@ -1664,4 +1670,16 @@ void CSimon::GoFast()
 {
 	if (x < CScene::GetInstance()->GetRight() - 500) // dịch chuyển simon sang phải 500 đơn vị
 		x += 500;
+}
+bool CSimon::IsFall(DWORD dt)
+{
+	if (y < _ground)
+	{
+		vy += GRAVITY * dt;
+		y += vy * dt;
+		return true;
+	}
+	y = _ground;
+	vy = 0;
+	return false;
 }

@@ -150,5 +150,6 @@ public:
 	void Disappear() { start_disappear = GetTickCount(); }
 	void GoFast();
 	void ThrowWeapon() { _heart--; }
+	bool IsFall(DWORD dt);
 };
 #endif
