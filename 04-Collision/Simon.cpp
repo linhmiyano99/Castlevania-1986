@@ -250,12 +250,15 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else if (trans_start > 0)
 	{
-		vx = 0;
-		if (GetTickCount() - trans_start > SIMON_STRANS_TIME)
+		if (!IsFall(dt))
 		{
-			trans_start = 0;
+			vx = 0;
+			if (GetTickCount() - trans_start > SIMON_STRANS_TIME)
+			{
+				trans_start = 0;
+			}
+			return;
 		}
-		return;
 	}
 	else {
 		if (y > WATTER_Y && !isFall)
