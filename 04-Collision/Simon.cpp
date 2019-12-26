@@ -227,8 +227,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			CScene::GetInstance()->LoadResoure();
 			CScene::GetInstance()->LoadSimon();
 		}
+		return;
 	}
-		//return;
 	
 	else if (isAutoGo && CScene::GetInstance()->IsTranScene())
 	{
@@ -249,6 +249,7 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			trans_start = 0;
 		}
+		return;
 	}
 	else {
 		if (y > WATTER_Y && !isFall)
@@ -459,44 +460,45 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 			// reset untouchable timer if untouchable time has passed
-			if(untouchable_start)
-			{if (GetTickCount() - untouchable_start > SIMON_UNTOUCHABLE_TIME)
+			if (untouchable_start)
 			{
-				untouchable_start = 0;
-				untouchable = 0;
-			}
-			else if (GetTickCount() - untouchable_start < SIMON_HURT_TIME && untouchable == 1)
-			{
-				if (!isOnStair)
+				if (GetTickCount() - untouchable_start > SIMON_UNTOUCHABLE_TIME)
 				{
-					if (attack_start > 0)
+					untouchable_start = 0;
+					untouchable = 0;
+				}
+				else if (GetTickCount() - untouchable_start < SIMON_HURT_TIME && untouchable == 1)
+				{
+					if (!isOnStair)
 					{
-						animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
-						animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
-						attack_start = 0;
-					}
+						/*if (attack_start > 0)
+						{
+							animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
+							animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
+							attack_start = 0;
+						}*/
 
-					state = SIMON_STATE_HURT;
-				}
-			}
-			else
-			{
-				if (!isOnStair)
-				{
-					if (attack_start > 0)
-					{
-						animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
-						animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
-						attack_start = 0;
+						state = SIMON_STATE_HURT;
 					}
-					vy += SIMON_GRAVITY * dt;
 				}
-				if (_energy <= 0)
+				else
 				{
-					state = SIMON_STATE_DIE;
-					isOnStair = false;
+					if (!isOnStair)
+					{
+						/*if (attack_start > 0)
+						{
+							animations[SIMON_ANI_STANDING_ATTACKING]->ResetFrame();
+							animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
+							attack_start = 0;
+						}*/
+						vy += SIMON_GRAVITY * dt;
+					}
+					if (_energy <= 0)
+					{
+						state = SIMON_STATE_DIE;
+						isOnStair = false;
+					}
 				}
-			}
 			}
 			listHideObject.clear();
 
@@ -1476,6 +1478,7 @@ void CSimon::CollisionWithEnemy(DWORD dt, LPGAMEOBJECT& Obj, float min_tx0, floa
 		
 
 		state = SIMON_STATE_HURT;
+		attack_start = 0;
 		// clean up collision events
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
@@ -1595,11 +1598,9 @@ void CSimon::AutoGo()
 }
 void CSimon::TransScene()
 {
-	CScene* scene = CScene::GetInstance();
-	scene->TranScene();
+	CScene::GetInstance()->TranScene();
 	isAutoGo = true;
 	auto_x = x + 100;
-	scene = NULL;
 }
 void CSimon::HeartDown()
 {
@@ -1638,6 +1639,7 @@ void CSimon::StartHurt(float _x, float _y)
 		vx = nx * SIMON_WALKING_SPEED;
 		vy = -SIMON_JUMP_SPEED_Y;
 		state = SIMON_STATE_HURT;
+		attack_start = 0;
 	}
 	if (_energy <= 0)
 	{
@@ -1655,11 +1657,11 @@ void CSimon::StartHurt(float _x, float _y)
 void CSimon::SetDownEnerGy()
 {
 	if (_energy == SIMON_MAX_ENERGY)
-		_energy = 2; 
+		_energy = ONE_HIT; 
 	else _energy = SIMON_MAX_ENERGY;
 }
 void CSimon::GoFast()
 {
-	if(x < CScene::GetInstance()->GetRight() - 500) // dịch chuyển simon sang phải 500 đơn vị
+	if (x < CScene::GetInstance()->GetRight() - 500) // dịch chuyển simon sang phải 500 đơn vị
 		x += 500;
 }
