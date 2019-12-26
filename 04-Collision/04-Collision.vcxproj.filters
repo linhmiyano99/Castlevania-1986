@@ -406,6 +406,9 @@
     <ClCompile Include="Sound.cpp">
       <Filter>framework\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="Define.cpp">
+      <Filter>framework\Define</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Sprites.xml">

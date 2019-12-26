@@ -830,9 +830,11 @@ void CSimon::Render()
 		&&( isOnStair || GetTickCount() - untouchable_start > SIMON_HURT_TIME) 
 		&&(die_start == 0)) alpha = 128;
 	if (start_disappear)
-		alpha = 0;
+	{
+		alpha = (GetTickCount() - start_disappear) / 1000 * 50;
+	}
 	animations[id]->Render(x, y, nx, alpha);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 	if (isFall)
 	{
 		for each (CWaterEffection * var in list)

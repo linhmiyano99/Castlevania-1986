@@ -99,6 +99,21 @@ void CScene::Update(DWORD dt)
 		if (GetTickCount() - start_killAllEnemy > TIME_KILL_ALL_ENEMY)
 		{
 			start_killAllEnemy = 0;
+			BACKGROUND_COLOR = BACKGROUND_COLOR_DEFAULT;
+		}
+		else
+		{
+			if ((GetTickCount() - start_killAllEnemy) % 10 == 0)
+			{
+				if (BACKGROUND_COLOR == BACKGROUND_COLOR_DEFAULT)
+				{
+					BACKGROUND_COLOR = BACKGROUND_COLOR_CROSS;
+				}
+				else
+				{
+					BACKGROUND_COLOR = BACKGROUND_COLOR_DEFAULT;
+				}
+			}
 		}
 	}
 

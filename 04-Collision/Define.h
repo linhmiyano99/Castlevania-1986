@@ -1,10 +1,22 @@
-﻿#pragma once
+﻿#ifndef _DEFINE_H__
+#define _DEFINE_H__
 
+#include <windows.h>
+#include <d3d9.h>
+#include <d3dx9.h>
+#include "fstream"
+
+#include "debug.h"
+#include "Game.h"
+#include "GameObject.h"
+#include "Textures.h"
+#include "MagagementTexture.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"Castlevania 1986"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
+#define BACKGROUND_COLOR_DEFAULT D3DCOLOR_XRGB(0, 0, 0)
+#define BACKGROUND_COLOR_CROSS D3DCOLOR_XRGB(188, 188, 188)
 #define SCREEN_WIDTH 520
 #define SCREEN_HEIGHT 460
 
@@ -82,6 +94,8 @@ if(ptr) \
 } \
 
 #endif
+
+extern D3DCOLOR BACKGROUND_COLOR;
 
 
 // ID của Sprite, object
@@ -177,3 +191,4 @@ enum eType
 
 };
 
+#endif

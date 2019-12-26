@@ -9,16 +9,7 @@
 		2/ Control object state with keyboard events
 ================================================================ */
 
-#include <windows.h>
-#include <d3d9.h>
-#include <d3dx9.h>
-#include "fstream"
 
-#include "debug.h"
-#include "Game.h"
-#include "GameObject.h"
-#include "Textures.h"
-#include "MagagementTexture.h"
 #include "Define.h"
 
 #include "Camera.h"

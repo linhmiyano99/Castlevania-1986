@@ -36,7 +36,7 @@
 #include "Boongmerang.h"
 //#include "Sound.h"
 
-#define TIME_KILL_ALL_ENEMY 100
+#define TIME_KILL_ALL_ENEMY 1000
 
 class CScene
 {

@@ -9,8 +9,8 @@
 #include "Textures.h"
 #include "Item.h"
 
-#define ITEM_AXE_WATTER_WIDTH 32
-#define ITEM_AXE_WATTER_HEIGHT 32
+#define ITEM_AXE_WIDTH 32
+#define ITEM_AXE_HEIGHT 32
 
 
 class CItemAxe : public CItem

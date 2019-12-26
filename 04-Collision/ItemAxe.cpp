@@ -6,8 +6,8 @@ void CItemAxe::GetBoundingBox(float& left, float& top, float& right, float& bott
 	if (state == ITEM_STATE_EXSIST)
 	{
 		left = x;
-		right = x + ITEM_AXE_WATTER_WIDTH;
+		right = x + ITEM_AXE_WIDTH;
 		top = y;
-		bottom = y + ITEM_AXE_WATTER_HEIGHT;
+		bottom = y + ITEM_AXE_HEIGHT;
 	}
 }

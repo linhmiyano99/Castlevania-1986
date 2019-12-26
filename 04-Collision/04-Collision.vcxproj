@@ -189,6 +189,7 @@
     <ClCompile Include="BrickBreak.cpp" />
     <ClCompile Include="Dagger.cpp" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="Define.cpp" />
     <ClCompile Include="DSutil.cpp" />
     <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="Enemy.cpp" />

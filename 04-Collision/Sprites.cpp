@@ -32,13 +32,13 @@ CSprites* CSprites::GetInstance()
 
 void CSprite::Draw(float x, float y, int alpha)
 {
-	CGame* game = CGame::GetInstance();
-	game->Draw(x, y, texture, left, top, right, bottom, alpha);
+	//CGame* game = CGame::GetInstance();
+	CGame::GetInstance()->Draw(x, y, texture, left, top, right, bottom, alpha);
 }
 void CSprite::DrawCam(float x, float y, int alpha)
 {
-	CGame* game = CGame::GetInstance();
-	game->DrawFlipX(x, y, texture, left, top, right, bottom, alpha);
+	//CGame* game = CGame::GetInstance();
+	CGame::GetInstance()->DrawFlipX(x, y, texture, left, top, right, bottom, alpha);
 }
 //void CSprite::DrawStatic(float x, float y)
 //{
