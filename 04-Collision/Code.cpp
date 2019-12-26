@@ -3,17 +3,16 @@
 
 void CCode::DrawNumber(int max, float x, float y, int s)
 {
-	CSprites* sprites = CSprites::GetInstance();
 	string str = to_string(s);
 
 	for (int i = 0; i < max - str.size(); i++)
 	{
-		sprites->Get(60000)->Draw(x, y);
+		CSprites::GetInstance()->Get(60000)->Draw(x, y);
 		x += 15;
 	}
 	for (int i = 0; i < str.size(); i++)
 	{
-		sprites->Get(60000 + convert(str[i]))->Draw(x, y);
+		CSprites::GetInstance()->Get(60000 + convert(str[i]))->Draw(x, y);
 		x += 15;
 	}
 }
@@ -36,6 +35,9 @@ void CCode::DrawEnergyBar(float x, float y, int type, int s)
 		sprite1->Draw(x, y);
 		x += 11;
 	}
+	sprites = NULL;
+	sprite1 = NULL;
+	sprite2 = NULL;
 }
 
 int CCode::convert(char c)

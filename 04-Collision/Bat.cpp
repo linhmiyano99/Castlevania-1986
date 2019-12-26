@@ -25,7 +25,6 @@ void CBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGame::GetInstance()->GetCamPos(c_x, c_y);
 	if (CScene::GetInstance()->IsKillAllEnemy() && x > c_x && x < c_x + SCREEN_WIDTH)
 		Dead();
-	CScene* scene = CScene::GetInstance();
 
 	if (dt_die == 0)
 	{

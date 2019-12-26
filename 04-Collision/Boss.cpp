@@ -127,14 +127,14 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 						if (x > start_x)
 						{
-							if (abs(x - BOSS_RANDOM_X1) > 2 && abs(y - BOSS_RANDOM_Y1) > 2) // cho phép sai số 2 pixel
+							if (abs(x - BOSS_RANDOM_X1) > NUMBER_ERROR && abs(y - BOSS_RANDOM_Y1) > NUMBER_ERROR) // cho phép sai số 2 pixel
 								FlyStraight(BOSS_RANDOM_X1, BOSS_RANDOM_Y1);
 							else
 								vx = vy = 0;
 						}
 						else
 						{
-							if (abs(x - BOSS_RANDOM_X2) > 2 && abs(y - BOSS_RANDOM_Y2) > 2) // cho phép sai số 2 pixel
+							if (abs(x - BOSS_RANDOM_X2) > NUMBER_ERROR&& abs(y - BOSS_RANDOM_Y2) > NUMBER_ERROR) // cho phép sai số 2 pixel
 								FlyStraight(BOSS_RANDOM_X2, BOSS_RANDOM_Y2);
 							else
 								vx = vy = 0;
@@ -163,7 +163,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								yb = getPt(y1, y2, t * 0.0005f);
 
 								// The Black Dot
-								x = 30 + getPt(xa, xb, t * 0.0005f);
+								x = SIMON_HEIGHT_STAND / 2 + getPt(xa, xb, t * 0.0005f);
 								y = getPt(ya, yb, t * 0.0005f);
 								if (vy > 0)
 								{
@@ -185,7 +185,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 						if (step == 0)
 						{
-							if (abs(x - x1) > 2 && abs(y - y1) > 2) // cho phép sai số 2 pixel
+							if (abs(x - x1) > NUMBER_ERROR&& abs(y - y1) > NUMBER_ERROR) // cho phép sai số 2 pixel
 							{
 								FlyStraight(x1, y1);
 							}
@@ -197,7 +197,7 @@ void CBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 						else if (step == 1)
 						{
-							if (abs(x - x2) > 2 && abs(y - y2) > 2) // cho phép sai số 2 pixel
+							if (abs(x - x2) > NUMBER_ERROR&& abs(y - y2) > NUMBER_ERROR) // cho phép sai số 2 pixel
 							{
 
 								FlyStraight(x2, y2);

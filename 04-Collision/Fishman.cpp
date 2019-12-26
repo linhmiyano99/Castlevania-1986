@@ -52,7 +52,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			state = TORCH_STATE_EXSIST;
 			srand((unsigned)time(0));
-			int _d = (rand() % 5) * 20 - 100;
+			int _d = (rand() % 3) * 40 - 100;
 			x = cam_x + start_x - CScene::GetInstance()->GetLeft() + _d;
 			y = start_y;
 			ny = -1;
@@ -165,13 +165,13 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					return;
 				}
 			
-				float s_x, s_y;
+				/*float s_x, s_y;
 				CSimon::GetInstance()->GetPosition(s_x, s_y);
 				if (x < s_x - FISHMAN_MAX_DISTANCE_WITH_SIMON)
 				{
 					nx = 1;
 					vx = abs(vx);
-				}
+				}*/
 
 				CGameObject::Update(dt);
 
@@ -221,13 +221,14 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				// clean up collision events
 				for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+				listBrick.clear();
 			}
 			
 
 
 		}
 
-		if (x <= _leftLimit || x >= _rightLimit)
+		if ((x <= _leftLimit && vx < 0) || (x >= _rightLimit && vx > 0))
 		{
 			vx = -vx;
 			nx = -nx;
@@ -354,16 +355,21 @@ void CFishman::GetLimit()
 	if (x < 3505)
 	{
 		_leftLimit = 3076;
-		_rightLimit = 3464;
+		_rightLimit = 3474;
 	}
 	else if (x < 3631)
 	{
-		_leftLimit = 3592;
-		_rightLimit = 3624;
+		_leftLimit = CScene::GetInstance()->GetLeft();
+		_rightLimit = CScene::GetInstance()->GetRight();
+	}
+	else if (x < 4050)
+	{
+		_leftLimit = 3720;
+		_rightLimit = 4000;
 	}
 	else
 	{
-		_leftLimit = 3720;
-		_rightLimit = 3969;
+		_leftLimit = CScene::GetInstance()->GetLeft();
+		_rightLimit = 4065;
 	}
 }

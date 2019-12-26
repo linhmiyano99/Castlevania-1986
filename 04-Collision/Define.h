@@ -69,6 +69,8 @@
 
 #define SMALLBALL_SPEED 0.3f
 
+#define NUMBER_ERROR 2.0f
+
 
 
 #ifndef SAFE_DELETE
