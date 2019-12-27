@@ -72,7 +72,8 @@ void CScene::Update(DWORD dt)
 	game->GetCamPos(cam_x, cam_y);
 	if (board->IsStop())
 	{
-
+		if (simon->IsFall(dt))
+			return;
 		if (simon->GetEnergy() < SIMON_MAX_ENERGY)
 		{
 			simon->UpEnergy();

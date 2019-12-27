@@ -84,8 +84,8 @@ void CSprite::load(std::ifstream& inFile)
 
 void CSprites::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
-	LPSPRITE s = new CSprite(id, left, top, right, bottom, tex);
-	sprites[id] = s;
+	//LPSPRITE s = new CSprite(id, left, top, right, bottom, tex);
+	sprites[id] = new CSprite(id, left, top, right, bottom, tex);
 }
 
 void CSprites::Add(LPSPRITE lpsprite)
@@ -105,8 +105,8 @@ void CAnimation::Add(int spriteId, DWORD time)
 	int t = time;
 	if (time == 0) t = this->defaultTime;
 
-	LPSPRITE sprite = CSprites::GetInstance()->Get(spriteId);
-	LPANIMATION_FRAME frame = new CAnimationFrame(sprite, t);
+	//LPSPRITE sprite = CSprites::GetInstance()->Get(spriteId);
+	LPANIMATION_FRAME frame = new CAnimationFrame(CSprites::GetInstance()->Get(spriteId), t);
 	frames.push_back(frame);
 }
 

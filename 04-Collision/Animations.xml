@@ -32,16 +32,16 @@
     </Animation>
 
     <!--SIMON_STAND_ATTACK-->
-    <Animation animationID ="404" frameTime ="80">
+    <Animation animationID ="404" frameTime ="100">
       <sprite id="10011"/>
       <sprite id="10012"/>
       <sprite id="10013"/>
     </Animation>
     <!--SIMON_SIT_ATTACK-->
-    <Animation animationID ="405" frameTime ="80">
+    <Animation animationID ="405" frameTime ="100">
+      <sprite id="10015"/>
       <sprite id="10016"/>
       <sprite id="10014"/>
-      <sprite id="10015"/>
     </Animation>
 
     <!--SIMON_GO_UP-->
@@ -103,19 +103,19 @@
     </Animation>
 
     <!--VAMPIREKILLER-->
-    <Animation animationID ="600" frameTime ="80" >
+    <Animation animationID ="600" frameTime ="100" >
       <sprite id="12000"/>
       <sprite id="12001"/>
       <sprite id="12002"/>
     </Animation>
 
-    <Animation animationID ="601" frameTime ="80" >
+    <Animation animationID ="601" frameTime ="100" >
       <sprite id="12010"/>
       <sprite id="12011"/>
       <sprite id="12012"/>
     </Animation>
 
-    <Animation animationID ="602" frameTime ="80" >
+    <Animation animationID ="602" frameTime ="90" >
       <sprite id="12020"/>
       <sprite id="12021"/>
       <sprite id="12022"/>

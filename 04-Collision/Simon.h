@@ -13,8 +13,8 @@
 
 
 #define SIMON_WALKING_SPEED		0.12f
-#define SIMON_JUMP_SPEED_Y		0.3f
-//#define SIMON_GRAVITY			0.005f
+#define SIMON_JUMP_SPEED_Y		0.36f
+#define SIMON_GRAVITY			0.005f
 
 #define SIMON_STATE_IDLE			0
 #define SIMON_STATE_WALKING_RIGHT	100
@@ -59,7 +59,7 @@
 #define ID_WEAPON_DAGGER			1
 
 #define ATTACK_TIME			300
-#define ATTACK_TIME_WAIT	500
+#define ATTACK_TIME_WAIT	700
 #define JUMP_TIME			0
 #define DIE_TIME			2000
 #define TIME_FOR_PER_STEP  200

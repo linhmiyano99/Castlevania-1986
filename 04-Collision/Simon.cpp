@@ -389,9 +389,13 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else {
 			CGameObject::Update(dt);
-			if (state == SIMON_STATE_JUMP && start_jump > 0)
+			if (start_jump > 0 && attack_start == 0)
 			{
-				vy += 0.3 * SIMON_GRAVITY * dt;
+				vy += 0.2 * SIMON_GRAVITY * dt;
+			}
+			else if(attack_start > 0 && GetTickCount() - attack_start < ATTACK_TIME)
+			{
+
 			}
 			else
 			{
@@ -500,7 +504,8 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
 							attack_start = 0;
 						}*/
-						vy += SIMON_GRAVITY * dt;
+						if (attack_start > 0 && GetTickCount() - attack_start < ATTACK_TIME)
+							vy += SIMON_GRAVITY * dt;
 					}
 					if (_energy <= 0)
 					{
@@ -523,7 +528,57 @@ void CSimon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					x += dx;
 				}
 				y += dy;
+				RECT rect, rect1;
+				float l, t, r, b;
+				float l1, t1, r1, b1;
 
+				GetBoundingBox(l, t, r, b);
+				rect.left = (int)l;
+				rect.top = (int)t;
+				rect.right = (int)r;
+				rect.bottom = (int)b;
+				for (int i = 0; i < coObjects->size(); i++)
+				{
+
+					if (dynamic_cast<CTorch*>(coObjects->at(i)) && coObjects->at(i)->GetState() == TORCH_STATE_ITEM)
+					{
+
+						CTorch *torch = dynamic_cast<CTorch*>(coObjects->at(i));
+						torch->GetBoundingBox(l1, t1, r1, b1);
+						rect1.left = (int)l1;
+						rect1.top = (int)t1;
+						rect1.right = (int)r1;
+						rect1.bottom = (int)b1;
+						if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
+						{
+							if (dynamic_cast<CItem*>(torch->GetItem()))
+							{
+								LPGAMEOBJECT item = torch->GetItem();
+								CollisionWithItem(dt, item);
+								item = NULL;
+							}
+						}
+						torch = NULL;
+					}
+					else if (dynamic_cast<CBoss*>(coObjects->at(i)) && coObjects->at(i)->GetState() == BOSS_STATE_ITEM)
+					{
+						CBoss* torch = dynamic_cast<CBoss*>(coObjects->at(i)); torch->GetBoundingBox(l1, t1, r1, b1);
+						rect1.left = (int)l1;
+						rect1.top = (int)t1;
+						rect1.right = (int)r1;
+						rect1.bottom = (int)b1;
+						if (CGame::GetInstance()->isCollision(rect, rect1)) // đụng độ
+						{
+							if (dynamic_cast<CItem*>(torch->GetItem()))
+							{
+								LPGAMEOBJECT item = torch->GetItem();
+								CollisionWithItem(dt, item);
+								item = NULL;
+							}
+						}
+						torch = NULL;
+					}
+				}
 			}
 			else
 			{
@@ -915,6 +970,7 @@ void CSimon::SetState(int state)
 			attack_start = GetTickCount();
 			Sound::GetInstance()->Play(eSound::soundWhip);
 			animations[SIMON_ANI_SITTING_ATTACKING]->ResetFrame();
+			weapons[eType::VAMPIREKILLER]->GetAnimation()->ResetFrame();
 			vx = 0;
 			break;
 		case SIMON_STATE_SIT:
