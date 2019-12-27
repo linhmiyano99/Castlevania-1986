@@ -18,6 +18,8 @@
 #define DISTANCE_TO_START1 40
 #define DISTANCE_TO_START2 150
 
+#define PANTHER_GRAVITY 0.002f
+
 class CPanther : public CEnemy
 {
 	float LeftLimit;

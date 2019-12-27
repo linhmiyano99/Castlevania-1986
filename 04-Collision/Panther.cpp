@@ -110,7 +110,7 @@ void CPanther::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 			// Simple fall down
-			vy += SIMON_GRAVITY * dt;
+			vy += PANTHER_GRAVITY * dt;
 
 			vector<LPCOLLISIONEVENT> coEvents;
 			vector<LPCOLLISIONEVENT> coEventsResult;

@@ -34,6 +34,7 @@ class CFishman : public CEnemy
 	bool isCanAttack;
 	float _leftLimit;
 	float _rightLimit;
+	float _ground;
 	//Sound* sound;
 
 

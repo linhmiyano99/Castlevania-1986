@@ -20,6 +20,7 @@ CFishman::CFishman(float _x , float _y , int id ) :CEnemy(_x, _y, id, eType::FIS
 	ny = -1;
 	nx = -1;
 	vx = vy = 0;
+	_ground = 0;
 	start_attack = GetTickCount();
 	//sound = new Sound();
 	for (int i = 0; i < 3; i++)
@@ -55,6 +56,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			int _d = (rand() % 3) * 40 - 100;
 			x = cam_x + start_x - CScene::GetInstance()->GetLeft() + _d;
 			y = start_y;
+			_ground = 0;
 			ny = -1;
 			isJumping = true;
 			Go();
@@ -97,10 +99,9 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 		float s_x, s_y;
-		CSimon* simon = CSimon::GetInstance();
-		simon->GetPosition(s_x, s_y);
+		CSimon::GetInstance()->GetPosition(s_x, s_y);
 
-		if (GetTickCount() - start_attack > TIME_START_ATTACK && isCanAttack)
+		if (GetTickCount() - start_attack > TIME_START_ATTACK && isCanAttack && x == _ground)
 		{
 			start_attack = GetTickCount();
 			if (x < s_x)
@@ -218,6 +219,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 					if (ny != 0) vy = 0;
 					isCanAttack = true;
+					_ground = x;
 				}
 				// clean up collision events
 				for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
