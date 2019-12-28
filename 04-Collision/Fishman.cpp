@@ -101,7 +101,7 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		float s_x, s_y;
 		CSimon::GetInstance()->GetPosition(s_x, s_y);
 
-		if (GetTickCount() - start_attack > TIME_START_ATTACK && isCanAttack && x == _ground)
+		if (GetTickCount() - start_attack > TIME_START_ATTACK && isCanAttack && y == _ground)
 		{
 			start_attack = GetTickCount();
 			if (x < s_x)
@@ -217,9 +217,13 @@ void CFishman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					x += dx;
 					y += min_ty * dy + ny * 0.4f;
 
-					if (ny != 0) vy = 0;
+					if (ny != 0)
+					{
+						vy = 0;
+						_ground = y;
+					}
 					isCanAttack = true;
-					_ground = x;
+					
 				}
 				// clean up collision events
 				for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -367,7 +371,7 @@ void CFishman::GetLimit()
 	else if (x < 4050)
 	{
 		_leftLimit = 3720;
-		_rightLimit = 4000;
+		_rightLimit = 3968;
 	}
 	else
 	{
